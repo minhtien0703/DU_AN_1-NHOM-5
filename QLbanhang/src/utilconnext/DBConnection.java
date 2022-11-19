@@ -18,7 +18,7 @@ public class DBConnection {//Lớp này giải quyết kết nối xử lý truy
     private static final String PASSWORD = "123456";
     private static final String SERVER = "localhost";
     private static final String PORT = "1433";
-    private static final String DATABASE_NAME = "FINALASS_FPOLYSHOP_FA22_SOF205__SOF2041";
+    private static final String DATABASE_NAME = "DuAn1";
     private static final boolean USING_SSL = true;
 
     private static String CONNECT_STRING;
@@ -43,13 +43,6 @@ public class DBConnection {//Lớp này giải quyết kết nối xử lý truy
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        Connection conn = openDbConnection();
-        DatabaseMetaData dbmt = conn.getMetaData();
-        System.out.println(dbmt.getDriverName());
-        System.out.println(dbmt.getDatabaseProductName());
-        System.out.println(dbmt.getDatabaseProductVersion());
-    }
     private static Connection conn;
 
     //1. Mở kết nối

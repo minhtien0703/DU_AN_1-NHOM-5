@@ -1,40 +1,49 @@
 ﻿Create Database DuAn1
+go
 Use DuAn1
+go
 --Màu Sắc
 Create Table MauSac(
 Id INT Identity(1,1) primary key,
 Ten nvarchar(50) not  null
 )
+go
 --Kích cỡ
 Create Table KichCo(
 Id INT Identity(1,1) primary key,
 Ten nvarchar(50) not  null
 )
+go
 --Chất liệu
 Create Table ChatLieu(
 Id INT Identity(1,1) primary key,
 Ten nvarchar(50) not  null
 )
+go
 --Danh Mục sản phẩm
 Create Table DanhMucSP(
 Id INT Identity(1,1) primary key,
 Ten nvarchar(50) not null
 )
+go
 --Thương hiệu
 Create Table ThuongHieu(
 Id INT Identity(1,1) primary key,
 Ten nvarchar(50) not null
 )
+go
 --Nhà sản xuất
 Create Table NSX(
 Id INT Identity(1,1) primary key,
 Ten nvarchar(50) not null
 )
+go
 --Chức vụ
 Create Table ChucVu(
 Id INT Identity(1,1) primary key,
 Ten nvarchar(50) not null
 )
+go
 --Khuyến mãi
 Create Table KhuyenMai(
 Id INT Identity(1,1) primary key,
@@ -44,7 +53,7 @@ Ngayketthuc date not null,
 HinhthucKM nvarchar(50) not null,
 Giatrigiam decimal DEFAULT 0
 )
-
+go
 --Chi tiết sản phẩm
 Create Table ChitietSP(
 Id INT Identity(1,1) PRIMARY KEY ,
@@ -63,6 +72,7 @@ GiaNhap DECIMAL(20,0) DEFAULT 0,
 GiaBan DECIMAL(20,0) DEFAULT 0,
 Hinhanh varchar(max) null
 )
+go
 --Nhân viên
 Create Table Users(
 Id INT Identity(1,1) PRIMARY KEY ,
@@ -78,6 +88,7 @@ MatKhau VARCHAR(MAX) DEFAULT NULL,
 Email varchar(max) not null,
 TrangThai bit DEFAULT 0
 )
+go
 --Khách hàng
 Create Table KhachHang(
 Id INT Identity(1,1) PRIMARY KEY ,
@@ -90,6 +101,7 @@ Email varchar(max) not null,
 Sdt VARCHAR(30) DEFAULT NULL,
 Diemthuong int DEFAULT NULL
 )
+go
 --Hóa đơn
 Create Table HoaDon(
 Id INT Identity(1,1) primary key ,
@@ -100,6 +112,7 @@ NgayTao DATE DEFAULT NULL,
 NgayThanhToan DATE DEFAULT NULL,
 TinhTrang bit DEFAULT 0
 )
+go
 --Hóa đơn chi tiết
 Create Table HoaDonChiTiet(
 IdHD int foreign key references HoaDon(Id) not null,
