@@ -187,6 +187,8 @@ public class Khuyenmai extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.setGridColor(new java.awt.Color(255, 255, 255));
+        jTable1.setRowHeight(20);
         jScrollPane1.setViewportView(jTable1);
 
         panelGradiente1.add(jScrollPane1);

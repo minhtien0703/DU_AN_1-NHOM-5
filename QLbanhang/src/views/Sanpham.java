@@ -32,11 +32,8 @@ public class Sanpham extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         myTextField2 = new swing.MyTextField();
         jLabel2 = new javax.swing.JLabel();
-        myTextField3 = new swing.MyTextField();
         jLabel3 = new javax.swing.JLabel();
-        myTextField4 = new swing.MyTextField();
         jLabel4 = new javax.swing.JLabel();
-        myTextField5 = new swing.MyTextField();
         jLabel5 = new javax.swing.JLabel();
         myTextField6 = new swing.MyTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -44,9 +41,30 @@ public class Sanpham extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         myTextField8 = new swing.MyTextField();
         jLabel8 = new javax.swing.JLabel();
+        myTextField9 = new swing.MyTextField();
+        jLabel9 = new javax.swing.JLabel();
+        myTextField10 = new swing.MyTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        jComboBox3 = new javax.swing.JComboBox<>();
+        jComboBox4 = new javax.swing.JComboBox<>();
+        jComboBox5 = new javax.swing.JComboBox<>();
+        jLabel13 = new javax.swing.JLabel();
+        jComboBox6 = new javax.swing.JComboBox<>();
+        myButton1 = new swing.MyButton();
+        myButton2 = new swing.MyButton();
+        myButton3 = new swing.MyButton();
+        myButton4 = new swing.MyButton();
         panelBorder2 = new swing.PanelBorder();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        panelBorder3 = new swing.PanelBorder();
+        searchText1 = new swing.SearchText();
+        jLabel14 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1010, 640));
@@ -58,51 +76,136 @@ public class Sanpham extends javax.swing.JPanel {
         panelBorder1.add(myTextField1);
         myTextField1.setBounds(40, 30, 210, 40);
 
-        jLabel1.setText("Mã");
+        jLabel1.setText("Mã sản phẩm");
         panelBorder1.add(jLabel1);
         jLabel1.setBounds(40, 10, 210, 20);
         panelBorder1.add(myTextField2);
         myTextField2.setBounds(40, 100, 210, 40);
 
-        jLabel2.setText("Mã");
+        jLabel2.setText("Tên sản phẩm");
         panelBorder1.add(jLabel2);
         jLabel2.setBounds(40, 80, 210, 20);
-        panelBorder1.add(myTextField3);
-        myTextField3.setBounds(40, 170, 210, 40);
 
-        jLabel3.setText("Mã");
+        jLabel3.setText("Nhà sản xuất");
         panelBorder1.add(jLabel3);
         jLabel3.setBounds(40, 150, 210, 20);
-        panelBorder1.add(myTextField4);
-        myTextField4.setBounds(40, 240, 210, 40);
 
-        jLabel4.setText("Mã");
+        jLabel4.setText("Danh mục");
         panelBorder1.add(jLabel4);
         jLabel4.setBounds(40, 220, 210, 20);
-        panelBorder1.add(myTextField5);
-        myTextField5.setBounds(290, 30, 210, 40);
 
-        jLabel5.setText("Mã");
+        jLabel5.setText("Kích cỡ");
         panelBorder1.add(jLabel5);
-        jLabel5.setBounds(290, 10, 210, 20);
+        jLabel5.setBounds(280, 10, 210, 20);
         panelBorder1.add(myTextField6);
-        myTextField6.setBounds(290, 100, 210, 40);
+        myTextField6.setBounds(280, 100, 210, 40);
 
-        jLabel6.setText("Mã");
+        jLabel6.setText("Số lượng");
         panelBorder1.add(jLabel6);
-        jLabel6.setBounds(290, 80, 210, 20);
+        jLabel6.setBounds(280, 80, 210, 20);
         panelBorder1.add(myTextField7);
-        myTextField7.setBounds(290, 170, 210, 40);
+        myTextField7.setBounds(280, 170, 210, 40);
 
-        jLabel7.setText("Mã");
+        jLabel7.setText("Giá nhập");
         panelBorder1.add(jLabel7);
-        jLabel7.setBounds(290, 150, 210, 20);
+        jLabel7.setBounds(280, 150, 210, 20);
         panelBorder1.add(myTextField8);
-        myTextField8.setBounds(290, 240, 210, 40);
+        myTextField8.setBounds(280, 240, 210, 40);
 
-        jLabel8.setText("Mã");
+        jLabel8.setText("Giá bán");
         panelBorder1.add(jLabel8);
-        jLabel8.setBounds(290, 220, 210, 20);
+        jLabel8.setBounds(280, 220, 210, 20);
+        panelBorder1.add(myTextField9);
+        myTextField9.setBounds(520, 30, 210, 40);
+
+        jLabel9.setText("thương hiệu");
+        panelBorder1.add(jLabel9);
+        jLabel9.setBounds(520, 10, 210, 20);
+        panelBorder1.add(myTextField10);
+        myTextField10.setBounds(520, 100, 210, 40);
+
+        jLabel10.setText("Khuyễn mãi");
+        panelBorder1.add(jLabel10);
+        jLabel10.setBounds(520, 80, 210, 20);
+
+        jLabel11.setText("Chất liệu");
+        panelBorder1.add(jLabel11);
+        jLabel11.setBounds(520, 150, 210, 20);
+
+        jLabel12.setText("Mô tả");
+        panelBorder1.add(jLabel12);
+        jLabel12.setBounds(760, 170, 200, 20);
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(3);
+        jTextArea1.setTabSize(0);
+        jTextArea1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204)));
+        jScrollPane4.setViewportView(jTextArea1);
+
+        panelBorder1.add(jScrollPane4);
+        jScrollPane4.setBounds(760, 190, 200, 90);
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
+        panelBorder1.add(jComboBox2);
+        jComboBox2.setBounds(520, 170, 210, 40);
+
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
+        panelBorder1.add(jComboBox3);
+        jComboBox3.setBounds(40, 170, 210, 40);
+
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
+        panelBorder1.add(jComboBox4);
+        jComboBox4.setBounds(40, 240, 210, 40);
+
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
+        panelBorder1.add(jComboBox5);
+        jComboBox5.setBounds(280, 30, 210, 40);
+
+        jLabel13.setText("Màu sắc");
+        panelBorder1.add(jLabel13);
+        jLabel13.setBounds(520, 220, 210, 20);
+
+        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
+        panelBorder1.add(jComboBox6);
+        jComboBox6.setBounds(520, 240, 210, 40);
+
+        myButton1.setBackground(new java.awt.Color(125, 224, 237));
+        myButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/refresh.png"))); // NOI18N
+        myButton1.setText("Hiển thị");
+        myButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        panelBorder1.add(myButton1);
+        myButton1.setBounds(750, 110, 109, 33);
+
+        myButton2.setBackground(new java.awt.Color(125, 224, 237));
+        myButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add.png"))); // NOI18N
+        myButton2.setText("Thêm");
+        myButton2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        myButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myButton2ActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(myButton2);
+        myButton2.setBounds(750, 30, 110, 33);
+
+        myButton3.setBackground(new java.awt.Color(125, 224, 237));
+        myButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/floppy-disk.png"))); // NOI18N
+        myButton3.setText("Cập nhật");
+        myButton3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        panelBorder1.add(myButton3);
+        myButton3.setBounds(870, 30, 120, 33);
+
+        myButton4.setBackground(new java.awt.Color(125, 224, 237));
+        myButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tay.png"))); // NOI18N
+        myButton4.setText("Xóa");
+        myButton4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        panelBorder1.add(myButton4);
+        myButton4.setBounds(870, 110, 120, 33);
 
         panelGradiente1.add(panelBorder1);
         panelBorder1.setBounds(8, 0, 990, 300);
@@ -125,10 +228,21 @@ public class Sanpham extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable1);
 
         panelBorder2.add(jScrollPane1);
-        jScrollPane1.setBounds(0, 30, 990, 240);
+        jScrollPane1.setBounds(0, 60, 990, 260);
+
+        panelBorder3.setBackground(new java.awt.Color(255, 255, 255));
+        panelBorder3.add(searchText1);
+        searchText1.setBounds(10, 0, 230, 40);
+
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search_24px.png"))); // NOI18N
+        panelBorder3.add(jLabel14);
+        jLabel14.setBounds(250, 0, 40, 40);
+
+        panelBorder2.add(panelBorder3);
+        panelBorder3.setBounds(650, 10, 290, 40);
 
         panelGradiente1.add(panelBorder2);
-        panelBorder2.setBounds(10, 309, 990, 270);
+        panelBorder2.setBounds(10, 309, 990, 320);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -142,9 +256,23 @@ public class Sanpham extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void myButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_myButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> jComboBox4;
+    private javax.swing.JComboBox<String> jComboBox5;
+    private javax.swing.JComboBox<String> jComboBox6;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -152,18 +280,26 @@ public class Sanpham extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextArea jTextArea1;
+    private swing.MyButton myButton1;
+    private swing.MyButton myButton2;
+    private swing.MyButton myButton3;
+    private swing.MyButton myButton4;
     private swing.MyTextField myTextField1;
+    private swing.MyTextField myTextField10;
     private swing.MyTextField myTextField2;
-    private swing.MyTextField myTextField3;
-    private swing.MyTextField myTextField4;
-    private swing.MyTextField myTextField5;
     private swing.MyTextField myTextField6;
     private swing.MyTextField myTextField7;
     private swing.MyTextField myTextField8;
+    private swing.MyTextField myTextField9;
     private swing.PanelBorder panelBorder1;
     private swing.PanelBorder panelBorder2;
+    private swing.PanelBorder panelBorder3;
     private swing.PanelGradiente panelGradiente1;
+    private swing.SearchText searchText1;
     // End of variables declaration//GEN-END:variables
 }
