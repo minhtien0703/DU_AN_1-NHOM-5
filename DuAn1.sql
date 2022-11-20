@@ -70,10 +70,10 @@ MoTa NVARCHAR(50) DEFAULT NULL,
 SoLuongTon INT,
 GiaNhap DECIMAL(20,0) DEFAULT 0,
 GiaBan DECIMAL(20,0) DEFAULT 0,
-Hinhanh varchar(max) null
+QrCode nvarchar(max) DEFAULT null
 )
 go
---Nhân viên
+--User
 Create Table Users(
 Id INT Identity(1,1) PRIMARY KEY ,
 Ten NVARCHAR(30) not null,
@@ -119,5 +119,6 @@ IdHD int foreign key references HoaDon(Id) not null,
 IdCTSP int foreign key references ChitietSP(Id) not null,
 Soluong int not  null,
 Dongia decimal not  null,
-primary key(IdHD,IdCTSP)
+primary key(IdHD,IdCTSP),
+Dongiakhigiam decimal not  null
 )
