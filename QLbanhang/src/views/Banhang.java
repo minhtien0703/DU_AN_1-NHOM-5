@@ -88,11 +88,12 @@ public class Banhang extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable2.setGridColor(new java.awt.Color(255, 255, 255));
         jTable2.setRowHeight(20);
         jScrollPane2.setViewportView(jTable2);
 
         panelGradiente1.add(jScrollPane2);
-        jScrollPane2.setBounds(10, 60, 560, 170);
+        jScrollPane2.setBounds(10, 60, 560, 190);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 102));
@@ -145,6 +146,7 @@ public class Banhang extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable3.setGridColor(new java.awt.Color(255, 255, 255));
         jTable3.setRowHeight(20);
         jScrollPane3.setViewportView(jTable3);
 
@@ -165,6 +167,7 @@ public class Banhang extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.setGridColor(new java.awt.Color(255, 255, 255));
         jTable1.setRowHeight(20);
         jScrollPane1.setViewportView(jTable1);
 
@@ -215,6 +218,7 @@ public class Banhang extends javax.swing.JPanel {
         panelGradiente4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 250, 20));
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
         panelGradiente4.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 250, 30));
 
         jLabel11.setText("Tổng tiền");
@@ -234,7 +238,7 @@ public class Banhang extends javax.swing.JPanel {
         jTextArea1.setColumns(20);
         jTextArea1.setRows(3);
         jTextArea1.setTabSize(0);
-        jTextArea1.setBorder(null);
+        jTextArea1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 153)));
         jScrollPane4.setViewportView(jTextArea1);
         jTextArea1.getAccessibleContext().setAccessibleDescription("");
 
@@ -253,25 +257,25 @@ public class Banhang extends javax.swing.JPanel {
 
         myButton7.setBackground(new java.awt.Color(125, 224, 237));
         myButton7.setText("Xác nhận");
-        panelGradiente4.add(myButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, 80, 30));
+        panelGradiente4.add(myButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, 90, 30));
 
         myButton8.setBackground(new java.awt.Color(125, 224, 237));
         myButton8.setText("Sử dụng");
-        panelGradiente4.add(myButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 170, 80, 30));
+        panelGradiente4.add(myButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 170, 90, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelGradiente3, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelGradiente2, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelGradiente1, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelGradiente4, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(5, 5, 5)
+                .addComponent(panelGradiente4, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
+                .addGap(5, 5, 5))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -279,12 +283,12 @@ public class Banhang extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(panelGradiente3, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(panelGradiente2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(panelGradiente1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(panelGradiente4, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(panelGradiente1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelGradiente4, javax.swing.GroupLayout.DEFAULT_SIZE, 635, Short.MAX_VALUE))
+                .addGap(5, 5, 5))
         );
     }// </editor-fold>//GEN-END:initComponents
 

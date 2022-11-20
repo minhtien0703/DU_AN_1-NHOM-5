@@ -51,13 +51,14 @@ public class Nhanvien extends javax.swing.JPanel {
         jRadioButton2 = new javax.swing.JRadioButton();
         jLabel10 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
-        searchText1 = new swing.SearchText();
-        jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         myButton1 = new swing.MyButton();
         myButton2 = new swing.MyButton();
         myButton3 = new swing.MyButton();
         myButton4 = new swing.MyButton();
+        panelBorder2 = new swing.PanelBorder();
+        searchText2 = new swing.SearchText();
+        jLabel13 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1010, 640));
@@ -117,6 +118,8 @@ public class Nhanvien extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.setGridColor(new java.awt.Color(255, 255, 255));
+        jTable1.setRowHeight(20);
         jScrollPane1.setViewportView(jTable1);
 
         panelGradiente1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 990, 280));
@@ -142,10 +145,6 @@ public class Nhanvien extends javax.swing.JPanel {
         jCheckBox1.setBackground(new java.awt.Color(230, 230, 250));
         jCheckBox1.setText("Làm việc");
         panelGradiente1.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 290, 90, -1));
-        panelGradiente1.add(searchText1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 290, 220, 30));
-
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search_24px.png"))); // NOI18N
-        panelGradiente1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 290, 40, 30));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 0, 0));
@@ -181,6 +180,16 @@ public class Nhanvien extends javax.swing.JPanel {
         myButton4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         panelGradiente1.add(myButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 170, 120, 40));
 
+        panelBorder2.setBackground(new java.awt.Color(255, 255, 255));
+        panelBorder2.add(searchText2);
+        searchText2.setBounds(10, 0, 240, 40);
+
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search_24px.png"))); // NOI18N
+        panelBorder2.add(jLabel13);
+        jLabel13.setBounds(260, 0, 40, 40);
+
+        panelGradiente1.add(panelBorder2, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 290, 300, 40));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -203,8 +212,8 @@ public class Nhanvien extends javax.swing.JPanel {
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -229,7 +238,8 @@ public class Nhanvien extends javax.swing.JPanel {
     private swing.MyTextField myTextField6;
     private swing.MyTextField myTextField7;
     private swing.MyTextField myTextField8;
+    private swing.PanelBorder panelBorder2;
     private swing.PanelGradiente panelGradiente1;
-    private swing.SearchText searchText1;
+    private swing.SearchText searchText2;
     // End of variables declaration//GEN-END:variables
 }
