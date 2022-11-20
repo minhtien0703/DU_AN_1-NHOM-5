@@ -8,6 +8,6 @@ package models;
  *
  * @author hungh
  */
-public class dsds {
+public class MauSac {
     
 }
