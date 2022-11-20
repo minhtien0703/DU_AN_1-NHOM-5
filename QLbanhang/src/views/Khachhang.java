@@ -26,30 +26,24 @@ public class Khachhang extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelGradiente1 = new swing.PanelGradiente();
-
-        setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(new java.awt.Color(255, 102, 102));
         setMaximumSize(new java.awt.Dimension(1010, 640));
         setMinimumSize(new java.awt.Dimension(1010, 640));
         setPreferredSize(new java.awt.Dimension(1010, 640));
-
-        panelGradiente1.setColorPrimario(new java.awt.Color(204, 255, 255));
-        panelGradiente1.setColorSecundario(new java.awt.Color(255, 204, 255));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelGradiente1, javax.swing.GroupLayout.DEFAULT_SIZE, 1010, Short.MAX_VALUE)
+            .addGap(0, 1010, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelGradiente1, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+            .addGap(0, 640, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private swing.PanelGradiente panelGradiente1;
     // End of variables declaration//GEN-END:variables
 }
