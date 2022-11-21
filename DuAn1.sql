@@ -70,7 +70,7 @@ MoTa NVARCHAR(50) DEFAULT NULL,
 SoLuongTon INT,
 GiaNhap DECIMAL(20,0) DEFAULT 0,
 GiaBan DECIMAL(20,0) DEFAULT 0,
-QrCode nvarchar(max) DEFAULT null
+ QrCode nvarchar(max)  default null
 )
 go
 --User
@@ -122,3 +122,5 @@ Dongia decimal not  null,
 primary key(IdHD,IdCTSP),
 Dongiakhigiam decimal not  null
 )
+ALTER TABLE HoaDon
+ADD Ghichu varchar(255);
