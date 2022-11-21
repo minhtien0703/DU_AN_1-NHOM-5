@@ -4,6 +4,11 @@
  */
 package views;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import services.IKhuyenmaiService;
 import services.imp.KhuyenmaiService;
@@ -23,7 +28,7 @@ public class FrmKhuyenmai extends javax.swing.JPanel {
         initComponents();
         defaultTableModel = (DefaultTableModel) tb_khuyenmai.getModel();
         khuyenmaiService = new KhuyenmaiService();
-        LoadData();
+//        LoadData();
     }
     void LoadData(){
         defaultTableModel.setRowCount(0);
@@ -53,7 +58,6 @@ public class FrmKhuyenmai extends javax.swing.JPanel {
         buttonGroup1 = new javax.swing.ButtonGroup();
         panelGradiente1 = new swing.PanelGradiente();
         panelBorder1 = new swing.PanelBorder();
-        txt_makm = new swing.MyTextField();
         jLabel2 = new javax.swing.JLabel();
         txt_tenkm = new swing.MyTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -61,7 +65,6 @@ public class FrmKhuyenmai extends javax.swing.JPanel {
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         date_batdau = new com.toedter.calendar.JDateChooser();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         date_ketthuc = new com.toedter.calendar.JDateChooser();
         txt_giatrigiam = new swing.MyTextField();
@@ -88,49 +91,42 @@ public class FrmKhuyenmai extends javax.swing.JPanel {
         panelGradiente1.setColorSecundario(new java.awt.Color(255, 204, 255));
 
         panelBorder1.setBackground(new java.awt.Color(204, 204, 255));
-        panelBorder1.add(txt_makm);
-        txt_makm.setBounds(60, 30, 260, 40);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Ngày bắt đầu");
         panelBorder1.add(jLabel2);
         jLabel2.setBounds(390, 10, 260, 20);
         panelBorder1.add(txt_tenkm);
-        txt_tenkm.setBounds(60, 100, 260, 40);
+        txt_tenkm.setBounds(60, 30, 260, 40);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Tên khuyễn mãi");
         panelBorder1.add(jLabel3);
-        jLabel3.setBounds(60, 80, 260, 20);
+        jLabel3.setBounds(60, 10, 260, 20);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Hình thức giảm giá");
         panelBorder1.add(jLabel4);
-        jLabel4.setBounds(60, 160, 130, 30);
+        jLabel4.setBounds(60, 170, 130, 30);
 
         jRadioButton1.setBackground(new java.awt.Color(204, 204, 255));
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jRadioButton1.setText("VND");
         panelBorder1.add(jRadioButton1);
-        jRadioButton1.setBounds(200, 160, 50, 30);
+        jRadioButton1.setBounds(200, 170, 50, 30);
 
         jRadioButton2.setBackground(new java.awt.Color(204, 204, 255));
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jRadioButton2.setText("%");
         panelBorder1.add(jRadioButton2);
-        jRadioButton2.setBounds(270, 160, 50, 30);
+        jRadioButton2.setBounds(270, 170, 50, 30);
 
         date_batdau.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
         date_batdau.setDateFormatString("dd/MM/yyyy");
         panelBorder1.add(date_batdau);
         date_batdau.setBounds(390, 30, 260, 40);
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel5.setText("Mã khuyễn mãi");
-        panelBorder1.add(jLabel5);
-        jLabel5.setBounds(60, 10, 260, 20);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setText("Ngày kết thúc");
@@ -142,7 +138,7 @@ public class FrmKhuyenmai extends javax.swing.JPanel {
         panelBorder1.add(date_ketthuc);
         date_ketthuc.setBounds(390, 100, 260, 40);
         panelBorder1.add(txt_giatrigiam);
-        txt_giatrigiam.setBounds(390, 170, 260, 40);
+        txt_giatrigiam.setBounds(60, 100, 260, 40);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setText("Danh mục");
@@ -161,7 +157,7 @@ public class FrmKhuyenmai extends javax.swing.JPanel {
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setText("Số tiền giảm");
         panelBorder1.add(jLabel8);
-        jLabel8.setBounds(390, 150, 260, 20);
+        jLabel8.setBounds(60, 80, 260, 20);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setText("Sản phẩm");
@@ -172,6 +168,11 @@ public class FrmKhuyenmai extends javax.swing.JPanel {
         btn_them.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add.png"))); // NOI18N
         btn_them.setText("Thêm");
         btn_them.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_them.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_themActionPerformed(evt);
+            }
+        });
         panelBorder1.add(btn_them);
         btn_them.setBounds(690, 90, 130, 40);
 
@@ -179,6 +180,11 @@ public class FrmKhuyenmai extends javax.swing.JPanel {
         btn_update.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/floppy-disk.png"))); // NOI18N
         btn_update.setText("Cập nhật");
         btn_update.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_updateActionPerformed(evt);
+            }
+        });
         panelBorder1.add(btn_update);
         btn_update.setBounds(840, 90, 120, 40);
 
@@ -186,6 +192,11 @@ public class FrmKhuyenmai extends javax.swing.JPanel {
         btn_clear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/refresh.png"))); // NOI18N
         btn_clear.setText("Làm mới");
         btn_clear.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_clear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_clearActionPerformed(evt);
+            }
+        });
         panelBorder1.add(btn_clear);
         btn_clear.setBounds(690, 160, 130, 40);
 
@@ -193,6 +204,11 @@ public class FrmKhuyenmai extends javax.swing.JPanel {
         btn_delete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tay.png"))); // NOI18N
         btn_delete.setText("Xóa");
         btn_delete.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_deleteActionPerformed(evt);
+            }
+        });
         panelBorder1.add(btn_delete);
         btn_delete.setBounds(840, 160, 120, 40);
 
@@ -207,6 +223,11 @@ public class FrmKhuyenmai extends javax.swing.JPanel {
                 "STT", "Tên khuyến mãi", "Hình thức giảm", "Ngày bắt đầu", "Ngày kết thúc", "Tên sản phẩm", "Giá trị giảm"
             }
         ));
+        tb_khuyenmai.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tb_khuyenmaiMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tb_khuyenmai);
 
         panelGradiente1.add(jScrollPane1);
@@ -236,6 +257,49 @@ public class FrmKhuyenmai extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
+        // TODO add your handling code here:
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date1 =sdf.format(date_batdau.getDate());
+        String date2 =sdf.format(date_ketthuc.getDate());
+        
+    }//GEN-LAST:event_btn_themActionPerformed
+
+    private void btn_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_updateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_updateActionPerformed
+
+    private void btn_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clearActionPerformed
+        // TODO add your handling code here:
+        txt_tenkm.setText("");
+        txt_giatrigiam.setText("");
+        cb_sanpham.setSelectedIndex(0);
+        date_batdau.setCalendar(null);
+        date_ketthuc.setCalendar(null);
+        buttonGroup1.clearSelection();
+    }//GEN-LAST:event_btn_clearActionPerformed
+
+    private void btn_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_deleteActionPerformed
+
+    private void tb_khuyenmaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_khuyenmaiMouseClicked
+        try {
+            // TODO add your handling code here:
+            int r = tb_khuyenmai.getSelectedRow();
+            txt_tenkm.setText((String) tb_khuyenmai.getValueAt(r, 1));
+            txt_giatrigiam.setText((String) tb_khuyenmai.getValueAt(r, 6));
+            cb_sanpham.setSelectedItem(tb_khuyenmai.getValueAt(r, 5));
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date date1 = sdf.parse((String) tb_khuyenmai.getValueAt(r, 3));
+            Date date2 = sdf.parse((String) tb_khuyenmai.getValueAt(r, 4));
+            date_batdau.setDate(date1);
+            date_ketthuc.setDate(date2);
+        } catch (ParseException ex) {
+            Logger.getLogger(FrmKhuyenmai.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_tb_khuyenmaiMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.MyButton btn_clear;
@@ -251,7 +315,6 @@ public class FrmKhuyenmai extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -264,7 +327,6 @@ public class FrmKhuyenmai extends javax.swing.JPanel {
     private swing.PanelGradiente panelGradiente1;
     private javax.swing.JTable tb_khuyenmai;
     private swing.MyTextField txt_giatrigiam;
-    private swing.MyTextField txt_makm;
     private swing.SearchText txt_search;
     private swing.MyTextField txt_tenkm;
     // End of variables declaration//GEN-END:variables
