@@ -10,11 +10,11 @@ import java.awt.event.ActionListener;
  *
  * @author hungh
  */
-public class Quenmatkhau extends javax.swing.JPanel {
+public class FrmQuenmatkhau extends javax.swing.JPanel {
     boolean hish = false;
     boolean hish1 = false;
     
-    public Quenmatkhau() {
+    public FrmQuenmatkhau() {
         initComponents();
     }
 

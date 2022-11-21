@@ -8,12 +8,12 @@ package views;
  *
  * @author hungh
  */
-public class Hoadon extends javax.swing.JPanel {
+public class FrmHoadon extends javax.swing.JPanel {
 
     /**
      * Creates new form hoadon
      */
-    public Hoadon() {
+    public FrmHoadon() {
         initComponents();
     }
 

@@ -21,7 +21,7 @@ public class Dashboard extends javax.swing.JFrame {
         setColor(btnbanhang);
         crep1.setOpaque(true);
         resetColor(new JPanel[]{btnsanpham, btnkhuyenmai, btnkhachhang, btnnhanvien, btnthongke, btnhoadon, btndangxuat}, new JPanel[]{crep2, crep3, crep4, crep5, crepp1, crepp2, crepp3});
-        setpanal(new Banhang());
+        setpanal(new FrmBanhang());
     }
 
     private void setColor(JPanel pane) {
@@ -575,7 +575,7 @@ public class Dashboard extends javax.swing.JFrame {
         setColor(btnbanhang);
         crep1.setOpaque(true);
         resetColor(new JPanel[]{btnsanpham, btnkhuyenmai, btnkhachhang, btnnhanvien, btnthongke, btnhoadon, btndangxuat}, new JPanel[]{crep2, crep3, crep4, crep5, crepp1, crepp2, crepp3});
-        setpanal(new Banhang());
+        setpanal(new FrmBanhang());
         lbltieude.setText("Bán hàng");
     }//GEN-LAST:event_btnbanhangMousePressed
 
@@ -583,7 +583,7 @@ public class Dashboard extends javax.swing.JFrame {
         setColor(btnsanpham);
         crep2.setOpaque(true);
         resetColor(new JPanel[]{btnbanhang, btnkhuyenmai, btnkhachhang, btnnhanvien, btnthongke, btnhoadon, btndangxuat}, new JPanel[]{crep1, crep3, crep4, crep5, crepp1, crepp2, crepp3});
-        setpanal(new Sanpham());
+        setpanal(new FrmSanpham());
         lbltieude.setText("Sản phẩm");
     }//GEN-LAST:event_btnsanphamMousePressed
 
@@ -591,7 +591,7 @@ public class Dashboard extends javax.swing.JFrame {
         setColor(btnkhuyenmai);
         crep3.setOpaque(true);
         resetColor(new JPanel[]{btnbanhang, btnsanpham, btnkhachhang, btnnhanvien, btnthongke, btnhoadon, btndangxuat}, new JPanel[]{crep1, crep2, crep4, crep5, crepp1, crepp2, crepp3});
-        setpanal(new Khuyenmai());
+        setpanal(new FrmKhuyenmai());
         lbltieude.setText("Khuyễn mãi");
     }//GEN-LAST:event_btnkhuyenmaiMousePressed
 
@@ -599,7 +599,7 @@ public class Dashboard extends javax.swing.JFrame {
         setColor(btnkhachhang);
         crep4.setOpaque(true);
         resetColor(new JPanel[]{btnbanhang, btnsanpham, btnkhuyenmai, btnnhanvien, btnthongke, btnhoadon, btndangxuat}, new JPanel[]{crep1, crep2, crep3, crep5, crepp1, crepp2, crepp3});
-        setpanal(new Khachhang());
+        setpanal(new FrmKhachhang());
         lbltieude.setText("Khách hàng");
     }//GEN-LAST:event_btnkhachhangMousePressed
 
@@ -607,7 +607,7 @@ public class Dashboard extends javax.swing.JFrame {
         setColor(btnnhanvien);
         crep5.setOpaque(true);
         resetColor(new JPanel[]{btnbanhang, btnsanpham, btnkhuyenmai, btnkhachhang, btnthongke, btnhoadon, btndangxuat}, new JPanel[]{crep1, crep2, crep3, crep4, crepp1, crepp2, crepp3});
-        setpanal(new Nhanvien());
+        setpanal(new FrmNhanvien());
         lbltieude.setText("Nhân viên");
     }//GEN-LAST:event_btnnhanvienMousePressed
 
@@ -615,7 +615,7 @@ public class Dashboard extends javax.swing.JFrame {
         setColor(btnhoadon);
         crepp2.setOpaque(true);
         resetColor(new JPanel[]{btnbanhang, btnsanpham, btnkhuyenmai, btnkhachhang, btnnhanvien, btnthongke, btndangxuat}, new JPanel[]{crep1, crep2, crep3, crep4, crep5, crepp1, crepp3});
-        setpanal(new Hoadon());
+        setpanal(new FrmHoadon());
         lbltieude.setText("Hóa đơn");
     }//GEN-LAST:event_btnhoadonMousePressed
 
@@ -623,7 +623,7 @@ public class Dashboard extends javax.swing.JFrame {
         setColor(btnthongke);
         crepp1.setOpaque(true);
         resetColor(new JPanel[]{btnbanhang, btnsanpham, btnkhuyenmai, btnkhachhang, btnnhanvien, btnhoadon, btndangxuat}, new JPanel[]{crep1, crep2, crep3, crep4, crep5, crepp2, crepp3});
-        setpanal(new Thongke());
+        setpanal(new FrmThongke());
         lbltieude.setText("Thống kê");
     }//GEN-LAST:event_btnthongkeMousePressed
 
@@ -631,7 +631,7 @@ public class Dashboard extends javax.swing.JFrame {
         setColor(btndangxuat);
         crepp3.setOpaque(true);
         resetColor(new JPanel[]{btnbanhang, btnsanpham, btnkhuyenmai, btnkhachhang, btnnhanvien, btnthongke, btnhoadon}, new JPanel[]{crep1, crep2, crep3, crep4, crep5, crepp1, crepp2});
-        new Login().setVisible(true);
+        new FrmLogin().setVisible(true);
         this.dispose();
         
     }//GEN-LAST:event_btndangxuatMousePressed

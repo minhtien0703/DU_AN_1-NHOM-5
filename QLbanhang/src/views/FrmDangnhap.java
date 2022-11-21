@@ -11,11 +11,11 @@ import javax.swing.JFrame;
  *
  * @author hungh
  */
-public class Dangnhap extends javax.swing.JPanel {
+public class FrmDangnhap extends javax.swing.JPanel {
 
     boolean hish = false;
 
-    public Dangnhap() {
+    public FrmDangnhap() {
         initComponents();
     }
 

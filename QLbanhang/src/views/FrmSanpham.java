@@ -8,12 +8,12 @@ package views;
  *
  * @author hungh
  */
-public class Sanpham extends javax.swing.JPanel {
+public class FrmSanpham extends javax.swing.JPanel {
 
     /**
      * Creates new form sanpham
      */
-    public Sanpham() {
+    public FrmSanpham() {
         initComponents();
     }
 

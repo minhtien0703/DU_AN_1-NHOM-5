@@ -4,19 +4,43 @@
  */
 package views;
 
+import javax.swing.table.DefaultTableModel;
+import services.IKhuyenmaiService;
+import services.imp.KhuyenmaiService;
+import viewmodels.KhuyenmaiViewmodel;
+
 /**
  *
  * @author hungh
  */
-public class Khuyenmai extends javax.swing.JPanel {
-
+public class FrmKhuyenmai extends javax.swing.JPanel {
+    DefaultTableModel defaultTableModel;
+    private IKhuyenmaiService khuyenmaiService;
     /**
      * Creates new form khuyenmai
      */
-    public Khuyenmai() {
+    public FrmKhuyenmai() {
         initComponents();
+        defaultTableModel = (DefaultTableModel) tb_khuyenmai.getModel();
+        khuyenmaiService = new KhuyenmaiService();
+        LoadData();
     }
-
+    void LoadData(){
+        defaultTableModel.setRowCount(0);
+        int stt =1;
+        for (KhuyenmaiViewmodel x : khuyenmaiService.GetALL()) {
+            defaultTableModel.addRow(new Object[]{
+                stt,
+                x.getTenKm(),
+                x.getHinhthucKM(),
+                x.getNgaybatdau(),
+                x.getNgayketthuc(),
+                x.getSanpham(),
+                x.getGiatrigiam()
+            });
+            stt++;
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,32 +53,32 @@ public class Khuyenmai extends javax.swing.JPanel {
         buttonGroup1 = new javax.swing.ButtonGroup();
         panelGradiente1 = new swing.PanelGradiente();
         panelBorder1 = new swing.PanelBorder();
-        myTextField1 = new swing.MyTextField();
+        txt_makm = new swing.MyTextField();
         jLabel2 = new javax.swing.JLabel();
-        myTextField2 = new swing.MyTextField();
+        txt_tenkm = new swing.MyTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        date_batdau = new com.toedter.calendar.JDateChooser();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
-        myTextField3 = new swing.MyTextField();
+        date_ketthuc = new com.toedter.calendar.JDateChooser();
+        txt_giatrigiam = new swing.MyTextField();
         jLabel7 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cb_danhmuc = new javax.swing.JComboBox<>();
+        cb_sanpham = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        myButton1 = new swing.MyButton();
-        myButton2 = new swing.MyButton();
-        myButton3 = new swing.MyButton();
-        myButton4 = new swing.MyButton();
+        btn_them = new swing.MyButton();
+        btn_update = new swing.MyButton();
+        btn_clear = new swing.MyButton();
+        btn_delete = new swing.MyButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tb_khuyenmai = new javax.swing.JTable();
         panelBorder2 = new swing.PanelBorder();
-        searchText2 = new swing.SearchText();
-        jLabel10 = new javax.swing.JLabel();
+        txt_search = new swing.SearchText();
+        btn_search = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1010, 640));
@@ -64,15 +88,15 @@ public class Khuyenmai extends javax.swing.JPanel {
         panelGradiente1.setColorSecundario(new java.awt.Color(255, 204, 255));
 
         panelBorder1.setBackground(new java.awt.Color(204, 204, 255));
-        panelBorder1.add(myTextField1);
-        myTextField1.setBounds(60, 30, 260, 40);
+        panelBorder1.add(txt_makm);
+        txt_makm.setBounds(60, 30, 260, 40);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Ngày bắt đầu");
         panelBorder1.add(jLabel2);
         jLabel2.setBounds(390, 10, 260, 20);
-        panelBorder1.add(myTextField2);
-        myTextField2.setBounds(60, 100, 260, 40);
+        panelBorder1.add(txt_tenkm);
+        txt_tenkm.setBounds(60, 100, 260, 40);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Tên khuyễn mãi");
@@ -98,10 +122,10 @@ public class Khuyenmai extends javax.swing.JPanel {
         panelBorder1.add(jRadioButton2);
         jRadioButton2.setBounds(270, 160, 50, 30);
 
-        jDateChooser1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
-        jDateChooser1.setDateFormatString("dd/MM/yyyy");
-        panelBorder1.add(jDateChooser1);
-        jDateChooser1.setBounds(390, 30, 260, 40);
+        date_batdau.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
+        date_batdau.setDateFormatString("dd/MM/yyyy");
+        panelBorder1.add(date_batdau);
+        date_batdau.setBounds(390, 30, 260, 40);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("Mã khuyễn mãi");
@@ -113,27 +137,26 @@ public class Khuyenmai extends javax.swing.JPanel {
         panelBorder1.add(jLabel6);
         jLabel6.setBounds(390, 80, 260, 20);
 
-        jDateChooser2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
-        jDateChooser2.setDateFormatString("dd/MM/yyyy");
-        panelBorder1.add(jDateChooser2);
-        jDateChooser2.setBounds(390, 100, 260, 40);
-        panelBorder1.add(myTextField3);
-        myTextField3.setBounds(390, 170, 260, 40);
+        date_ketthuc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
+        date_ketthuc.setDateFormatString("dd/MM/yyyy");
+        panelBorder1.add(date_ketthuc);
+        date_ketthuc.setBounds(390, 100, 260, 40);
+        panelBorder1.add(txt_giatrigiam);
+        txt_giatrigiam.setBounds(390, 170, 260, 40);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setText("Danh mục");
         panelBorder1.add(jLabel7);
         jLabel7.setBounds(60, 220, 260, 20);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
-        panelBorder1.add(jComboBox1);
-        jComboBox1.setBounds(60, 240, 260, 40);
+        cb_danhmuc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
+        panelBorder1.add(cb_danhmuc);
+        cb_danhmuc.setBounds(60, 240, 260, 40);
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
-        panelBorder1.add(jComboBox2);
-        jComboBox2.setBounds(390, 240, 260, 40);
+        cb_sanpham.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        cb_sanpham.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
+        panelBorder1.add(cb_sanpham);
+        cb_sanpham.setBounds(390, 240, 260, 40);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setText("Số tiền giảm");
@@ -145,60 +168,58 @@ public class Khuyenmai extends javax.swing.JPanel {
         panelBorder1.add(jLabel9);
         jLabel9.setBounds(390, 220, 260, 20);
 
-        myButton1.setBackground(new java.awt.Color(125, 224, 237));
-        myButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add.png"))); // NOI18N
-        myButton1.setText("Thêm");
-        myButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        panelBorder1.add(myButton1);
-        myButton1.setBounds(690, 90, 130, 40);
+        btn_them.setBackground(new java.awt.Color(125, 224, 237));
+        btn_them.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add.png"))); // NOI18N
+        btn_them.setText("Thêm");
+        btn_them.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        panelBorder1.add(btn_them);
+        btn_them.setBounds(690, 90, 130, 40);
 
-        myButton2.setBackground(new java.awt.Color(125, 224, 237));
-        myButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/floppy-disk.png"))); // NOI18N
-        myButton2.setText("Cập nhật");
-        myButton2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        panelBorder1.add(myButton2);
-        myButton2.setBounds(840, 90, 120, 40);
+        btn_update.setBackground(new java.awt.Color(125, 224, 237));
+        btn_update.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/floppy-disk.png"))); // NOI18N
+        btn_update.setText("Cập nhật");
+        btn_update.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        panelBorder1.add(btn_update);
+        btn_update.setBounds(840, 90, 120, 40);
 
-        myButton3.setBackground(new java.awt.Color(125, 224, 237));
-        myButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/refresh.png"))); // NOI18N
-        myButton3.setText("Làm mới");
-        myButton3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        panelBorder1.add(myButton3);
-        myButton3.setBounds(690, 160, 130, 40);
+        btn_clear.setBackground(new java.awt.Color(125, 224, 237));
+        btn_clear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/refresh.png"))); // NOI18N
+        btn_clear.setText("Làm mới");
+        btn_clear.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        panelBorder1.add(btn_clear);
+        btn_clear.setBounds(690, 160, 130, 40);
 
-        myButton4.setBackground(new java.awt.Color(125, 224, 237));
-        myButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tay.png"))); // NOI18N
-        myButton4.setText("Xóa");
-        myButton4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        panelBorder1.add(myButton4);
-        myButton4.setBounds(840, 160, 120, 40);
+        btn_delete.setBackground(new java.awt.Color(125, 224, 237));
+        btn_delete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tay.png"))); // NOI18N
+        btn_delete.setText("Xóa");
+        btn_delete.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        panelBorder1.add(btn_delete);
+        btn_delete.setBounds(840, 160, 120, 40);
 
         panelGradiente1.add(panelBorder1);
         panelBorder1.setBounds(10, 0, 990, 300);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tb_khuyenmai.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "STT", "Tên khuyến mãi", "Hình thức giảm", "Ngày bắt đầu", "Ngày kết thúc", "Tên sản phẩm", "Giá trị giảm"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tb_khuyenmai);
 
         panelGradiente1.add(jScrollPane1);
         jScrollPane1.setBounds(10, 370, 990, 260);
 
         panelBorder2.setBackground(new java.awt.Color(255, 255, 255));
-        panelBorder2.add(searchText2);
-        searchText2.setBounds(10, 0, 240, 40);
+        panelBorder2.add(txt_search);
+        txt_search.setBounds(10, 0, 240, 40);
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search_24px.png"))); // NOI18N
-        panelBorder2.add(jLabel10);
-        jLabel10.setBounds(250, 0, 40, 40);
+        btn_search.setBackground(new java.awt.Color(125, 224, 237));
+        btn_search.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search_24px.png"))); // NOI18N
+        panelBorder2.add(btn_search);
+        btn_search.setBounds(250, 0, 40, 40);
 
         panelGradiente1.add(panelBorder2);
         panelBorder2.setBounds(660, 310, 290, 40);
@@ -217,12 +238,16 @@ public class Khuyenmai extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private swing.MyButton btn_clear;
+    private swing.MyButton btn_delete;
+    private javax.swing.JButton btn_search;
+    private swing.MyButton btn_them;
+    private swing.MyButton btn_update;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
-    private javax.swing.JLabel jLabel10;
+    private javax.swing.JComboBox<String> cb_danhmuc;
+    private javax.swing.JComboBox<String> cb_sanpham;
+    private com.toedter.calendar.JDateChooser date_batdau;
+    private com.toedter.calendar.JDateChooser date_ketthuc;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -234,17 +259,13 @@ public class Khuyenmai extends javax.swing.JPanel {
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private swing.MyButton myButton1;
-    private swing.MyButton myButton2;
-    private swing.MyButton myButton3;
-    private swing.MyButton myButton4;
-    private swing.MyTextField myTextField1;
-    private swing.MyTextField myTextField2;
-    private swing.MyTextField myTextField3;
     private swing.PanelBorder panelBorder1;
     private swing.PanelBorder panelBorder2;
     private swing.PanelGradiente panelGradiente1;
-    private swing.SearchText searchText2;
+    private javax.swing.JTable tb_khuyenmai;
+    private swing.MyTextField txt_giatrigiam;
+    private swing.MyTextField txt_makm;
+    private swing.SearchText txt_search;
+    private swing.MyTextField txt_tenkm;
     // End of variables declaration//GEN-END:variables
 }
