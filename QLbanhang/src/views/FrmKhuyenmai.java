@@ -4,12 +4,18 @@
  */
 package views;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import models.KhuyenMai;
+import repositorys.IKhuyenmaiRepository;
+import repositorys.imp.KhuyenmaiReponsitory;
 import services.IKhuyenmaiService;
 import services.imp.KhuyenmaiService;
 import viewmodels.KhuyenmaiViewmodel;
@@ -37,11 +43,9 @@ public class FrmKhuyenmai extends javax.swing.JPanel {
             defaultTableModel.addRow(new Object[]{
                 stt,
                 x.getTenKm(),
-                x.getHinhthucKM(),
                 x.getNgaybatdau(),
                 x.getNgayketthuc(),
-                x.getSanpham(),
-                x.getGiatrigiam()
+                x.getGiatrigiam() +""+x.getHinhthucKM()
             });
             stt++;
         }
@@ -62,17 +66,13 @@ public class FrmKhuyenmai extends javax.swing.JPanel {
         txt_tenkm = new swing.MyTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        rd_vnd = new javax.swing.JRadioButton();
+        rd_phantram = new javax.swing.JRadioButton();
         date_batdau = new com.toedter.calendar.JDateChooser();
         jLabel6 = new javax.swing.JLabel();
         date_ketthuc = new com.toedter.calendar.JDateChooser();
         txt_giatrigiam = new swing.MyTextField();
-        jLabel7 = new javax.swing.JLabel();
-        cb_danhmuc = new javax.swing.JComboBox<>();
-        cb_sanpham = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         btn_them = new swing.MyButton();
         btn_update = new swing.MyButton();
         btn_clear = new swing.MyButton();
@@ -109,19 +109,19 @@ public class FrmKhuyenmai extends javax.swing.JPanel {
         panelBorder1.add(jLabel4);
         jLabel4.setBounds(60, 170, 130, 30);
 
-        jRadioButton1.setBackground(new java.awt.Color(204, 204, 255));
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jRadioButton1.setText("VND");
-        panelBorder1.add(jRadioButton1);
-        jRadioButton1.setBounds(200, 170, 50, 30);
+        rd_vnd.setBackground(new java.awt.Color(204, 204, 255));
+        buttonGroup1.add(rd_vnd);
+        rd_vnd.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        rd_vnd.setText("VND");
+        panelBorder1.add(rd_vnd);
+        rd_vnd.setBounds(200, 170, 50, 30);
 
-        jRadioButton2.setBackground(new java.awt.Color(204, 204, 255));
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jRadioButton2.setText("%");
-        panelBorder1.add(jRadioButton2);
-        jRadioButton2.setBounds(270, 170, 50, 30);
+        rd_phantram.setBackground(new java.awt.Color(204, 204, 255));
+        buttonGroup1.add(rd_phantram);
+        rd_phantram.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rd_phantram.setText("%");
+        panelBorder1.add(rd_phantram);
+        rd_phantram.setBounds(270, 170, 50, 30);
 
         date_batdau.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
         date_batdau.setDateFormatString("dd/MM/yyyy");
@@ -140,29 +140,10 @@ public class FrmKhuyenmai extends javax.swing.JPanel {
         panelBorder1.add(txt_giatrigiam);
         txt_giatrigiam.setBounds(60, 100, 260, 40);
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel7.setText("Danh mục");
-        panelBorder1.add(jLabel7);
-        jLabel7.setBounds(60, 220, 260, 20);
-
-        cb_danhmuc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
-        panelBorder1.add(cb_danhmuc);
-        cb_danhmuc.setBounds(60, 240, 260, 40);
-
-        cb_sanpham.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
-        cb_sanpham.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
-        panelBorder1.add(cb_sanpham);
-        cb_sanpham.setBounds(390, 240, 260, 40);
-
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setText("Số tiền giảm");
         panelBorder1.add(jLabel8);
         jLabel8.setBounds(60, 80, 260, 20);
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel9.setText("Sản phẩm");
-        panelBorder1.add(jLabel9);
-        jLabel9.setBounds(390, 220, 260, 20);
 
         btn_them.setBackground(new java.awt.Color(125, 224, 237));
         btn_them.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add.png"))); // NOI18N
@@ -220,7 +201,7 @@ public class FrmKhuyenmai extends javax.swing.JPanel {
 
             },
             new String [] {
-                "STT", "Tên khuyến mãi", "Hình thức giảm", "Ngày bắt đầu", "Ngày kết thúc", "Tên sản phẩm", "Giá trị giảm"
+                "STT", "Tên khuyến mãi", "Ngày bắt đầu", "Ngày kết thúc", "Giá trị giảm"
             }
         ));
         tb_khuyenmai.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -259,21 +240,73 @@ public class FrmKhuyenmai extends javax.swing.JPanel {
 
     private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
         // TODO add your handling code here:
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String date1 =sdf.format(date_batdau.getDate());
-        String date2 =sdf.format(date_ketthuc.getDate());
+        if (txt_giatrigiam.getText().equals("")||txt_tenkm.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập đầy đủ");
+            return;
+        }
+        if (khuyenmaiService.checktrung(txt_tenkm.getText())!= null) {
+            JOptionPane.showMessageDialog(this, "Tên khuyến mãi đã tồn tại");
+            return;
+        }
+        if (JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm không?")==JOptionPane.YES_OPTION) {
+            KhuyenmaiViewmodel km = new KhuyenmaiViewmodel();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String date1 = sdf.format(date_batdau.getDate());
+            String date2 = sdf.format(date_ketthuc.getDate());
+            km.setNgaybatdau(date1);
+            km.setNgayketthuc(date2);
+            km.setTenKm(txt_tenkm.getText());
+            if (rd_vnd.isSelected()) {
+                km.setHinhthucKM("VND");
+            }else if (rd_phantram.isSelected()) {
+                km.setHinhthucKM("%");
+            }
+            km.setGiatrigiam(BigDecimal.valueOf(Double.parseDouble(txt_giatrigiam.getText())));
+            khuyenmaiService.Add(km);
+            LoadData();
+            JOptionPane.showMessageDialog(this, "Thêm thành công");
+        }
+
         
     }//GEN-LAST:event_btn_themActionPerformed
 
     private void btn_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_updateActionPerformed
         // TODO add your handling code here:
+        int r = tb_khuyenmai.getSelectedRow();
+        IKhuyenmaiRepository repository= new KhuyenmaiReponsitory();
+        List<KhuyenMai> lst = repository.GetAll();
+        if (r<0) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa chọn dòng nào");
+            return;
+        }
+        if (JOptionPane.showConfirmDialog(this, "Bạn có muốn sửa không?")==JOptionPane.YES_OPTION) {
+            KhuyenmaiViewmodel km = new KhuyenmaiViewmodel();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String date1 = sdf.format(date_batdau.getDate());
+            String date2 = sdf.format(date_ketthuc.getDate());
+            km.setNgaybatdau(date1);
+            km.setNgayketthuc(date2);
+            km.setTenKm(txt_tenkm.getText());
+            if (rd_vnd.isSelected()) {
+                km.setHinhthucKM("VND");
+            }else if (rd_phantram.isSelected()) {
+                km.setHinhthucKM("%");
+            }
+            km.setGiatrigiam(BigDecimal.valueOf(Double.parseDouble(txt_giatrigiam.getText())));
+            if (khuyenmaiService.checktrung(txt_tenkm.getText()) != null) {
+                JOptionPane.showMessageDialog(this, "Tên khuyến mãi đã tồn tại");
+                return;
+            }
+            khuyenmaiService.Update(km,lst.get(r).getId());
+            LoadData();
+            JOptionPane.showMessageDialog(this, "Sửa thành công");
+        }
     }//GEN-LAST:event_btn_updateActionPerformed
 
     private void btn_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clearActionPerformed
         // TODO add your handling code here:
         txt_tenkm.setText("");
         txt_giatrigiam.setText("");
-        cb_sanpham.setSelectedIndex(0);
         date_batdau.setCalendar(null);
         date_ketthuc.setCalendar(null);
         buttonGroup1.clearSelection();
@@ -281,6 +314,18 @@ public class FrmKhuyenmai extends javax.swing.JPanel {
 
     private void btn_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteActionPerformed
         // TODO add your handling code here:
+          int r = tb_khuyenmai.getSelectedRow();
+        IKhuyenmaiRepository repository= new KhuyenmaiReponsitory();
+        List<KhuyenMai> lst = repository.GetAll();
+        if (r<0) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa chọn dòng nào");
+            return;
+        }
+        if (JOptionPane.showConfirmDialog(this, "Bạn có muốn xóa không?")==JOptionPane.YES_OPTION) {
+            khuyenmaiService.Delete(lst.get(r).getId());
+            LoadData();
+            JOptionPane.showMessageDialog(this, "Xóa thành công");
+        }
     }//GEN-LAST:event_btn_deleteActionPerformed
 
     private void tb_khuyenmaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_khuyenmaiMouseClicked
@@ -288,11 +333,10 @@ public class FrmKhuyenmai extends javax.swing.JPanel {
             // TODO add your handling code here:
             int r = tb_khuyenmai.getSelectedRow();
             txt_tenkm.setText((String) tb_khuyenmai.getValueAt(r, 1));
-            txt_giatrigiam.setText((String) tb_khuyenmai.getValueAt(r, 6));
-            cb_sanpham.setSelectedItem(tb_khuyenmai.getValueAt(r, 5));
+            txt_giatrigiam.setText((String) tb_khuyenmai.getValueAt(r, 4));
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Date date1 = sdf.parse((String) tb_khuyenmai.getValueAt(r, 3));
-            Date date2 = sdf.parse((String) tb_khuyenmai.getValueAt(r, 4));
+            Date date1 = sdf.parse((String) tb_khuyenmai.getValueAt(r, 2));
+            Date date2 = sdf.parse((String) tb_khuyenmai.getValueAt(r, 3));
             date_batdau.setDate(date1);
             date_ketthuc.setDate(date2);
         } catch (ParseException ex) {
@@ -308,23 +352,19 @@ public class FrmKhuyenmai extends javax.swing.JPanel {
     private swing.MyButton btn_them;
     private swing.MyButton btn_update;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox<String> cb_danhmuc;
-    private javax.swing.JComboBox<String> cb_sanpham;
     private com.toedter.calendar.JDateChooser date_batdau;
     private com.toedter.calendar.JDateChooser date_ketthuc;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private swing.PanelBorder panelBorder1;
     private swing.PanelBorder panelBorder2;
     private swing.PanelGradiente panelGradiente1;
+    private javax.swing.JRadioButton rd_phantram;
+    private javax.swing.JRadioButton rd_vnd;
     private javax.swing.JTable tb_khuyenmai;
     private swing.MyTextField txt_giatrigiam;
     private swing.SearchText txt_search;

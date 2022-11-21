@@ -29,20 +29,20 @@ public class KhuyenmaiService implements IKhuyenmaiService{
         List<KhuyenMai>lst = repository.GetAll();
         lstKM = new ArrayList<>();
         for (KhuyenMai x : lst) {
-            lstKM.add(new KhuyenmaiViewmodel(x.getTenKm(), x.getHinhthucKM(), x.getNgaybatdau(), x.getNgayketthuc(), x.getGiatrigiam(), x.getSanPham()));
+            lstKM.add(new KhuyenmaiViewmodel(x.getTenKm(), x.getHinhthucKM(), x.getNgaybatdau(), x.getNgayketthuc(), x.getGiatrigiam()));
         }
         return lstKM;
     }
 
     @Override
     public boolean Add(KhuyenmaiViewmodel km) {
-        boolean isAdd = repository.Add(new KhuyenMai( km.getTenKm(), km.getHinhthucKM(), km.getNgaybatdau(), km.getNgayketthuc(), km.getGiatrigiam(), km.getSanpham()));
+        boolean isAdd = repository.Add(new KhuyenMai( km.getTenKm(), km.getHinhthucKM(), km.getNgaybatdau(), km.getNgayketthuc(), km.getGiatrigiam()));
         return isAdd;
     }
 
     @Override
     public boolean Update(KhuyenmaiViewmodel km, String id) {
-        boolean isUpdate = repository.Update(new KhuyenMai(km.getTenKm(), km.getHinhthucKM(), km.getNgaybatdau(), km.getNgayketthuc(), km.getGiatrigiam(), km.getSanpham()), id);
+        boolean isUpdate = repository.Update(new KhuyenMai(km.getTenKm(), km.getHinhthucKM(), km.getNgaybatdau(), km.getNgayketthuc(), km.getGiatrigiam()), id);
         return isUpdate;
     }
 
@@ -50,5 +50,10 @@ public class KhuyenmaiService implements IKhuyenmaiService{
     public boolean Delete(String id) {
         boolean isDelete = repository.Delete( id);
         return isDelete;    }
+
+    @Override
+    public String checktrung(String ten) {
+        return repository.checktrung(ten);
+    }
     
 }

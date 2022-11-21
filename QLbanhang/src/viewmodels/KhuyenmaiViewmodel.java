@@ -6,8 +6,6 @@
 package viewmodels;
 
 import java.math.BigDecimal;
-import java.sql.Date;
-import models.SanPham;
 
 /**
  *
@@ -17,18 +15,16 @@ public class KhuyenmaiViewmodel {
     private String TenKm,HinhthucKM;
     private String Ngaybatdau,Ngayketthuc;
     private BigDecimal Giatrigiam;
-    private SanPham sanpham;
 
     public KhuyenmaiViewmodel() {
     }
 
-    public KhuyenmaiViewmodel(String TenKm, String HinhthucKM, String Ngaybatdau, String Ngayketthuc, BigDecimal Giatrigiam, SanPham sanpham) {
+    public KhuyenmaiViewmodel(String TenKm, String HinhthucKM, String Ngaybatdau, String Ngayketthuc, BigDecimal Giatrigiam) {
         this.TenKm = TenKm;
         this.HinhthucKM = HinhthucKM;
         this.Ngaybatdau = Ngaybatdau;
         this.Ngayketthuc = Ngayketthuc;
         this.Giatrigiam = Giatrigiam;
-        this.sanpham = sanpham;
     }
 
     public String getTenKm() {
@@ -71,12 +67,5 @@ public class KhuyenmaiViewmodel {
         this.Giatrigiam = Giatrigiam;
     }
 
-    public SanPham getSanpham() {
-        return sanpham;
-    }
-
-    public void setSanpham(SanPham sanpham) {
-        this.sanpham = sanpham;
-    }
     
 }

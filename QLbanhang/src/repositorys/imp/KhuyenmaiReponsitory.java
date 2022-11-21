@@ -39,7 +39,7 @@ public class KhuyenmaiReponsitory implements IKhuyenmaiRepository{
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
-                lstKm.add(new KhuyenMai(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getBigDecimal(6), (SanPham) rs.getObject(7)));
+                lstKm.add(new KhuyenMai(rs.getString(1), rs.getString(2), rs.getString(5), rs.getString(3), rs.getString(4), rs.getBigDecimal(6)));
                         }
         } catch (SQLException ex) {
             Logger.getLogger(KhuyenmaiReponsitory.class.getName()).log(Level.SEVERE, null, ex);
@@ -49,11 +49,15 @@ public class KhuyenmaiReponsitory implements IKhuyenmaiRepository{
 
     @Override
     public boolean Add(KhuyenMai km) {
-        String sql = "INSERT INTO KHUYENMAI VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO KHUYENMAI(TEN,HINHTHUCKM,NGAYBATDAU,NGAYKETHUC,GIATRIGIAM) VALUES(?,?,?,?,?)";
         try {
             Connection conn = DBConnection.openDbConnection();
             PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setString(1, km.getTenKm());
+            pstm.setString(2, km.getHinhthucKM());
+            pstm.setString(3, km.getNgaybatdau());
+            pstm.setString(4, km.getNgayketthuc());
+            pstm.setBigDecimal(5, km.getGiatrigiam());
             pstm.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -63,12 +67,16 @@ public class KhuyenmaiReponsitory implements IKhuyenmaiRepository{
 
     @Override
     public boolean Update(KhuyenMai km, String id) {
-String sql = "UPDATE KHUYENMAI SET TEN=? WHERE ID = ?";
+String sql = "UPDATE KHUYENMAI SET TEN=?,NGAYBATDAU=?,NGAYKETTHUC = ?,HINHTHUCKM=?,GIATRIGIAM =? WHERE ID = ?";
         try {
             Connection conn = DBConnection.openDbConnection();
             PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setString(1, km.getTenKm());
-            pstm.setString(2, id);
+            pstm.setString(2, km.getNgaybatdau());
+            pstm.setString(3, km.getNgayketthuc());
+            pstm.setString(4, km.getHinhthucKM());
+            pstm.setBigDecimal(5, km.getGiatrigiam());
+            pstm.setString(6, id);
             pstm.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -87,6 +95,23 @@ String sql = "UPDATE KHUYENMAI SET TEN=? WHERE ID = ?";
         } catch (Exception e) {
             return false;
         }
+    }
+
+    @Override
+    public String checktrung(String ten) {
+        String sql = " SELECT TEN FROM KHUYENMAI";
+        String box = null;
+        try {
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {                
+                box = rs.getString(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return box;
     }
 
     

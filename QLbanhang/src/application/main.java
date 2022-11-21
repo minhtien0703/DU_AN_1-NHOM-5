@@ -4,7 +4,7 @@
  */
 package application;
 
-import views.Login;
+import views.FrmLogin;
 
 /** 
  *
@@ -12,6 +12,6 @@ import views.Login;
  */
 public class main {
     public static void main(String[] args) {
-        new Login().setVisible(true);
+        new FrmLogin().setVisible(true);
     }
 }

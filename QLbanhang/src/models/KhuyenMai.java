@@ -16,36 +16,25 @@ public class KhuyenMai {
     private String Id,TenKm,HinhthucKM;
     private String Ngaybatdau,Ngayketthuc;
     private BigDecimal Giatrigiam;
-    private SanPham sanPham;
 
     public KhuyenMai() {
     }
 
-    public KhuyenMai(String Id, String TenKm, String HinhthucKM, String Ngaybatdau, String Ngayketthuc, BigDecimal Giatrigiam, SanPham sanPham) {
+    public KhuyenMai(String Id, String TenKm, String HinhthucKM, String Ngaybatdau, String Ngayketthuc, BigDecimal Giatrigiam) {
         this.Id = Id;
         this.TenKm = TenKm;
         this.HinhthucKM = HinhthucKM;
         this.Ngaybatdau = Ngaybatdau;
         this.Ngayketthuc = Ngayketthuc;
         this.Giatrigiam = Giatrigiam;
-        this.sanPham = sanPham;
     }
 
-    public KhuyenMai(String TenKm, String HinhthucKM, String Ngaybatdau, String Ngayketthuc, BigDecimal Giatrigiam, SanPham sanPham) {
+    public KhuyenMai(String TenKm, String HinhthucKM, String Ngaybatdau, String Ngayketthuc, BigDecimal Giatrigiam) {
         this.TenKm = TenKm;
         this.HinhthucKM = HinhthucKM;
         this.Ngaybatdau = Ngaybatdau;
         this.Ngayketthuc = Ngayketthuc;
         this.Giatrigiam = Giatrigiam;
-        this.sanPham = sanPham;
-    }
-
-    public SanPham getSanPham() {
-        return sanPham;
-    }
-
-    public void setSanPham(SanPham sanPham) {
-        this.sanPham = sanPham;
     }
 
     public String getId() {

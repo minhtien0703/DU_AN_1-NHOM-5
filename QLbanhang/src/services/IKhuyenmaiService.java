@@ -20,4 +20,6 @@ public interface IKhuyenmaiService {
     public boolean Update(KhuyenmaiViewmodel km, String id);
 
     public boolean Delete(String id);
+
+    public String checktrung(String ten);
 }
