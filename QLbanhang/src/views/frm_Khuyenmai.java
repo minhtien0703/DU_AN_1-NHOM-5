@@ -8,8 +8,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.KhuyenMai;
@@ -47,6 +45,7 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
             });
             stt++;
         }
+        System.out.println(khuyenmaiService.GetALL());
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -240,11 +239,11 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
         if (txt_giatrgiam.getText().equals("")||txt_tenkm.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập đầy đủ");
             return;
-        }
+        }else
         if (khuyenmaiService.checktrung(txt_tenkm.getText())!= null) {
             JOptionPane.showMessageDialog(this, "Tên khuyến mãi đã tồn tại");
             return;
-        }
+        }else
         if (JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm không?")==JOptionPane.YES_OPTION) {
             KhuyenmaiViewmodel km = new KhuyenmaiViewmodel();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -288,10 +287,10 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
                 km.setHinhThucKM("%");
             }
             km.setGiaTriGiam(BigDecimal.valueOf(Double.parseDouble(txt_giatrgiam.getText())));
-            if (khuyenmaiService.checktrung(txt_tenkm.getText()) != null) {
-                JOptionPane.showMessageDialog(this, "Tên khuyến mãi đã tồn tại");
-                return;
-            }
+//            if (khuyenmaiService.checktrung(txt_tenkm.getText()) != null) {
+//                JOptionPane.showMessageDialog(this, "Tên khuyến mãi đã tồn tại");
+//                return;
+//            }
             khuyenmaiService.Update(km,lst.get(r).getID());
             LoadData();
             JOptionPane.showMessageDialog(this, "Sửa thành công");
