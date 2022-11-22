@@ -5,7 +5,6 @@
  */
 package repositorys.imp;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,6 +32,7 @@ public class KhuyenmaiReponsitory implements IKhuyenmaiRepository{
     @Override
     public List<KhuyenMai> GetAll() {
         try {
+            lstKm.removeAll(lstKm);
             String sql = "Select * from khuyenmai";
             Connection conn = DBConnection.openDbConnection();
             Statement st = conn.createStatement();
@@ -48,7 +48,7 @@ public class KhuyenmaiReponsitory implements IKhuyenmaiRepository{
 
     @Override
     public boolean Add(KhuyenMai km) {
-        String sql = "INSERT INTO KHUYENMAI(TEN,HINHTHUCKM,NGAYBATDAU,NGAYKETHUC,GIATRIGIAM) VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO KHUYENMAI(TEN,HINHTHUCKM,NGAYBATDAU,NGAYKETTHUC,GIATRIGIAM) VALUES(?,?,?,?,?)";
         try {
             Connection conn = DBConnection.openDbConnection();
             PreparedStatement pstm = conn.prepareStatement(sql);

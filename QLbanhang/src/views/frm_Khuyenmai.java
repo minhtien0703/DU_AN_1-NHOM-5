@@ -45,7 +45,6 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
             });
             stt++;
         }
-        System.out.println(khuyenmaiService.GetALL());
     }
     /**
      * This method is called from within the constructor to initialize the form.
