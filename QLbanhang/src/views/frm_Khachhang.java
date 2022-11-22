@@ -82,6 +82,10 @@ public class frm_Khachhang extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập Họ!");
             return false;
         }
+        if (date_ngaysinh.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập ngày sinh!");
+            return false;
+        }
         if (txt_sdt.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập SĐT!");
             return false;
