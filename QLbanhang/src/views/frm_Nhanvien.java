@@ -8,12 +8,12 @@ package views;
  *
  * @author hungh
  */
-public class Nhanvien extends javax.swing.JPanel {
+public class frm_Nhanvien extends javax.swing.JPanel {
 
     /**
      * Creates new form nhanvien
      */
-    public Nhanvien() {
+    public frm_Nhanvien() {
         initComponents();
     }
 

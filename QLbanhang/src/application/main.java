@@ -4,14 +4,15 @@
  */
 package application;
 
-import views.Login;
+import views.frm_Login;
 
-/** 
+/**
  *
  * @author hungh
  */
 public class main {
+
     public static void main(String[] args) {
-        new Login().setVisible(true);
+        new frm_Login().setVisible(true);
     }
 }

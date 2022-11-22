@@ -8,12 +8,12 @@ package views;
  *
  * @author hungh
  */
-public class Khuyenmai extends javax.swing.JPanel {
+public class frm_Khuyenmai extends javax.swing.JPanel {
 
     /**
      * Creates new form khuyenmai
      */
-    public Khuyenmai() {
+    public frm_Khuyenmai() {
         initComponents();
     }
 

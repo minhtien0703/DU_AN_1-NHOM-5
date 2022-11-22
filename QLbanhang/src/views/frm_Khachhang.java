@@ -8,12 +8,12 @@ package views;
  *
  * @author hungh
  */
-public class Khachhang extends javax.swing.JPanel {
+public class frm_Khachhang extends javax.swing.JPanel {
 
     /**
      * Creates new form khachhang
      */
-    public Khachhang() {
+    public frm_Khachhang() {
         initComponents();
     }
 

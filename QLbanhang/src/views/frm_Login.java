@@ -11,15 +11,15 @@ import java.awt.event.ActionListener;
  *
  * @author hungh
  */
-public class Login extends javax.swing.JFrame {
+public class frm_Login extends javax.swing.JFrame {
 
     /**
      * Creates new form login
      */
-    private Dangnhap dangnhap = new Dangnhap();
-    private Quenmatkhau quenmatkhau = new Quenmatkhau();
+    private frm_Dangnhap dangnhap = new frm_Dangnhap();
+    private frm_Quenmatkhau quenmatkhau = new frm_Quenmatkhau();
     
-    public Login() {
+    public frm_Login() {
         initComponents();
         setLocationRelativeTo(null);
         animation();
@@ -45,7 +45,7 @@ public class Login extends javax.swing.JFrame {
         dangnhap.btndangnhapEven(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Dashboard().setVisible(true);
+                new frm_Dashboard().setVisible(true);
                 dispose();
             }
         });

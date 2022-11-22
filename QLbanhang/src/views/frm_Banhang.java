@@ -8,12 +8,12 @@ package views;
  *
  * @author hungh
  */
-public class Banhang extends javax.swing.JPanel {
+public class frm_Banhang extends javax.swing.JPanel {
 
     /**
      * Creates new form banhang
      */
-    public Banhang() {
+    public frm_Banhang() {
         initComponents();
     }
 
