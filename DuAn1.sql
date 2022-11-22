@@ -122,3 +122,6 @@ Dongia decimal not  null,
 primary key(IdHD,IdCTSP),
 Dongiakhigiam decimal not  null
 )
+ALTER TABLE Hoadon
+
+ADD Ghichu varchar(255)
