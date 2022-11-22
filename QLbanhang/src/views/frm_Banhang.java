@@ -4,17 +4,64 @@
  */
 package views;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import services.ISamPhamServiecs;
+import services.imp.SanPhamServiec;
+import viewmodels.GioHangViewModel;
+import viewmodels.SanPhamViewModel;
+
 /**
  *
  * @author hungh
  */
 public class frm_Banhang extends javax.swing.JPanel {
 
-    /**
-     * Creates new form banhang
-     */
+    private DefaultTableModel model;
+    private ISamPhamServiecs sanISamPhamServiecs;
+    private List<GioHangViewModel> listGioHang;
+    private DecimalFormat format = new DecimalFormat("#.###");
+
     public frm_Banhang() {
         initComponents();
+        model = new DefaultTableModel();
+        sanISamPhamServiecs = new SanPhamServiec();
+        listGioHang = new ArrayList<>();
+        getListSP();
+    }
+
+    private void getListSP() {
+        model = (DefaultTableModel) tb_sanPham.getModel();
+        model.setRowCount(0);
+        List<SanPhamViewModel> getList = sanISamPhamServiecs.getListSanPham();
+        for (SanPhamViewModel x : getList) {
+            model.addRow(new Object[]{
+                x.getMa(),
+                x.getTen(),
+                x.getMauSac().getTen(),
+                format.format(x.getKhuyenMai().getGiaTriGiam()),
+                x.getKhuyenMai().getHinhThucKM(),
+                x.getChatLieu().getTen(),
+                x.getKichCo().getTen(),
+                format.format(x.getGiaBan()),
+                x.getSoLuongTon(),});
+        }
+    }
+
+    private void getListGioHang() {
+        model = (DefaultTableModel) tb_gioHang.getModel();
+        model.setRowCount(0);
+        for (GioHangViewModel x : listGioHang) {
+            model.addRow(new Object[]{
+                x.getMaSP(),
+                x.getTenSP(),
+                x.getSoLuong(),
+                format.format(x.getDonGia()),
+                format.format(x.getThanhTien()),});
+        }
     }
 
     /**
@@ -28,7 +75,7 @@ public class frm_Banhang extends javax.swing.JPanel {
 
         panelGradiente1 = new swing.PanelGradiente();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tb_sanPham = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         myButton3 = new swing.MyButton();
@@ -40,10 +87,10 @@ public class frm_Banhang extends javax.swing.JPanel {
         myButton2 = new swing.MyButton();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tb_gioHang = new javax.swing.JTable();
         panelGradiente3 = new swing.PanelGradiente();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tb_hoaDon = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         myButton4 = new swing.MyButton();
         myButton5 = new swing.MyButton();
@@ -55,13 +102,11 @@ public class frm_Banhang extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         myTextField3 = new swing.MyTextField();
         jLabel9 = new javax.swing.JLabel();
-        myTextField4 = new swing.MyTextField();
         jLabel10 = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         myTextField5 = new swing.MyTextField();
         jLabel12 = new javax.swing.JLabel();
-        myTextField6 = new swing.MyTextField();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -70,6 +115,12 @@ public class frm_Banhang extends javax.swing.JPanel {
         myButton6 = new swing.MyButton();
         myButton7 = new swing.MyButton();
         myButton8 = new swing.MyButton();
+        lbl_thanhTien = new javax.swing.JLabel();
+        lbl_tienThua = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        lbl_tongTien1 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        lbl_giamGia1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(204, 255, 255));
         setMinimumSize(new java.awt.Dimension(1010, 640));
@@ -79,20 +130,25 @@ public class frm_Banhang extends javax.swing.JPanel {
         panelGradiente1.setColorPrimario(new java.awt.Color(204, 255, 255));
         panelGradiente1.setColorSecundario(new java.awt.Color(255, 204, 255));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tb_sanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Mã SP", "Tên SP", "Mằu Sắc", "Giảm Giá", "Hình Thức Giảm", "Chất Liệu", "Kích Cỡ", "Giá Bán", "Số Lượng"
             }
         ));
-        jTable2.setGridColor(new java.awt.Color(255, 255, 255));
-        jTable2.setRowHeight(20);
-        jScrollPane2.setViewportView(jTable2);
+        tb_sanPham.setGridColor(new java.awt.Color(255, 255, 255));
+        tb_sanPham.setRowHeight(20);
+        tb_sanPham.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tb_sanPhamMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tb_sanPham);
 
         panelGradiente1.add(jScrollPane2);
         jScrollPane2.setBounds(10, 60, 560, 190);
@@ -125,7 +181,7 @@ public class frm_Banhang extends javax.swing.JPanel {
         panelBorder1.setBounds(10, 20, 230, 30);
 
         add(panelGradiente1);
-        panelGradiente1.setBounds(4, 375, 583, 260);
+        panelGradiente1.setBounds(4, 375, 583, 420);
 
         panelGradiente2.setColorPrimario(new java.awt.Color(204, 255, 255));
         panelGradiente2.setColorSecundario(new java.awt.Color(255, 204, 255));
@@ -146,20 +202,20 @@ public class frm_Banhang extends javax.swing.JPanel {
         panelGradiente2.add(jLabel2);
         jLabel2.setBounds(0, 0, 55, 15);
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tb_gioHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Mã SP", "Tên SP", "Số Lượng", "Đơn Giá", "Thành Tiền"
             }
         ));
-        jTable3.setGridColor(new java.awt.Color(255, 255, 255));
-        jTable3.setRowHeight(20);
-        jScrollPane3.setViewportView(jTable3);
+        tb_gioHang.setGridColor(new java.awt.Color(255, 255, 255));
+        tb_gioHang.setRowHeight(20);
+        jScrollPane3.setViewportView(tb_gioHang);
 
         panelGradiente2.add(jScrollPane3);
         jScrollPane3.setBounds(10, 20, 470, 150);
@@ -170,7 +226,7 @@ public class frm_Banhang extends javax.swing.JPanel {
         panelGradiente3.setColorPrimario(new java.awt.Color(204, 255, 255));
         panelGradiente3.setColorSecundario(new java.awt.Color(255, 204, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tb_hoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -181,9 +237,9 @@ public class frm_Banhang extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTable1.setGridColor(new java.awt.Color(255, 255, 255));
-        jTable1.setRowHeight(20);
-        jScrollPane1.setViewportView(jTable1);
+        tb_hoaDon.setGridColor(new java.awt.Color(255, 255, 255));
+        tb_hoaDon.setRowHeight(20);
+        jScrollPane1.setViewportView(tb_hoaDon);
 
         panelGradiente3.add(jScrollPane1);
         jScrollPane1.setBounds(10, 20, 460, 150);
@@ -198,7 +254,7 @@ public class frm_Banhang extends javax.swing.JPanel {
         myButton4.setBackground(new java.awt.Color(125, 224, 237));
         myButton4.setText("Tạo hóa đơn");
         panelGradiente3.add(myButton4);
-        myButton4.setBounds(482, 50, 93, 30);
+        myButton4.setBounds(482, 50, 99, 30);
 
         myButton5.setBackground(new java.awt.Color(125, 224, 237));
         myButton5.setText("Hủy");
@@ -229,28 +285,26 @@ public class frm_Banhang extends javax.swing.JPanel {
 
         jLabel9.setText("Điểm thưởng");
         panelGradiente4.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 250, 20));
-        panelGradiente4.add(myTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 250, 30));
 
         jLabel10.setText("Hình thức thanh toán");
-        panelGradiente4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 250, 20));
+        panelGradiente4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, 250, 20));
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
-        panelGradiente4.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 250, 30));
+        panelGradiente4.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 420, 250, 30));
 
-        jLabel11.setText("Tổng tiền");
-        panelGradiente4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 250, 20));
-        panelGradiente4.add(myTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 250, 30));
+        jLabel11.setText("Thành Tiền");
+        panelGradiente4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, 250, 20));
+        panelGradiente4.add(myTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 490, 250, 30));
 
         jLabel12.setText("Tiền khách đưa");
-        panelGradiente4.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 250, 20));
-        panelGradiente4.add(myTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 410, 250, 30));
+        panelGradiente4.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 460, 250, 20));
 
         jLabel13.setText("Ghi chú");
-        panelGradiente4.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 450, 250, 20));
+        panelGradiente4.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 610, 250, 20));
 
         jLabel14.setText("Tiền thừa");
-        panelGradiente4.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, 250, 20));
+        panelGradiente4.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 540, 250, 20));
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(3);
@@ -259,18 +313,23 @@ public class frm_Banhang extends javax.swing.JPanel {
         jScrollPane4.setViewportView(jTextArea1);
         jTextArea1.getAccessibleContext().setAccessibleDescription("");
 
-        panelGradiente4.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 470, 250, 60));
+        panelGradiente4.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 640, 250, 60));
 
         jCheckBox1.setBackground(new java.awt.Color(255, 204, 255));
         jCheckBox1.setText("In hóa đơn");
-        panelGradiente4.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 540, 100, -1));
+        panelGradiente4.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 710, 100, -1));
 
         myButton6.setBackground(new java.awt.Color(125, 224, 237));
         myButton6.setForeground(new java.awt.Color(0, 51, 102));
         myButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/credit-card.png"))); // NOI18N
         myButton6.setText("Thanh toán");
         myButton6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        panelGradiente4.add(myButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 580, 250, 40));
+        myButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myButton6ActionPerformed(evt);
+            }
+        });
+        panelGradiente4.add(myButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 740, 250, 40));
 
         myButton7.setBackground(new java.awt.Color(125, 224, 237));
         myButton7.setText("Xác nhận");
@@ -280,9 +339,89 @@ public class frm_Banhang extends javax.swing.JPanel {
         myButton8.setText("Sử dụng");
         panelGradiente4.add(myButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 170, 90, 30));
 
+        lbl_thanhTien.setForeground(new java.awt.Color(255, 51, 51));
+        panelGradiente4.add(lbl_thanhTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, 250, -1));
+
+        lbl_tienThua.setText("jLabel6");
+        panelGradiente4.add(lbl_tienThua, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 570, 240, -1));
+
+        jLabel15.setText("Tổng tiền");
+        panelGradiente4.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 250, 20));
+
+        lbl_tongTien1.setForeground(new java.awt.Color(255, 51, 51));
+        panelGradiente4.add(lbl_tongTien1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 250, -1));
+
+        jLabel16.setText("Giảm Giá");
+        panelGradiente4.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 250, 20));
+
+        lbl_giamGia1.setForeground(new java.awt.Color(255, 51, 51));
+        lbl_giamGia1.setText("0.0");
+        panelGradiente4.add(lbl_giamGia1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, 250, -1));
+
         add(panelGradiente4);
-        panelGradiente4.setBounds(593, 0, 412, 635);
+        panelGradiente4.setBounds(593, 0, 412, 800);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tb_sanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_sanPhamMouseClicked
+       int row = tb_sanPham.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+        int NhapSoLuong = Integer.parseInt(JOptionPane.showInputDialog(this, "nhap so luong"));
+        String MaSP = tb_sanPham.getValueAt(row, 0).toString();
+        String TenSP = tb_sanPham.getValueAt(row, 1).toString();
+        int SoLuong = Integer.parseInt(tb_sanPham.getValueAt(row, 8).toString());
+        Double DonGia = Double.parseDouble(tb_sanPham.getValueAt(row, 7).toString());
+        Double GiamGia = Double.parseDouble(tb_sanPham.getValueAt(row, 3).toString());
+        String hinhThucGiamGia = tb_sanPham.getValueAt(row, 4).toString();
+        if (SoLuong >= NhapSoLuong) {
+            for (GioHangViewModel x : listGioHang) {
+                if (MaSP.equals(x.getMaSP())) {
+                    JOptionPane.showMessageDialog(this, "Sản Phẩm Đã có Trên Giỏ Hàng ");
+                    return;
+                }
+            }
+
+            listGioHang.add(new GioHangViewModel(MaSP, TenSP, NhapSoLuong, DonGia, GiamGia, hinhThucGiamGia));
+            getListGioHang();
+            int kq = SoLuong - NhapSoLuong;
+            sanISamPhamServiecs.updateSoLuongSP(MaSP, kq);
+            List<SanPhamViewModel> list = sanISamPhamServiecs.getListSanPham();
+            list.clear();
+            getListSP();
+
+            Double tongPT = 0.0;
+            Double tongVN = 0.0;
+            Double tongTien = 0.0;
+            Double giam = Double.parseDouble(lbl_giamGia1.getText());
+            int count = 0;
+            for (GioHangViewModel x : listGioHang) {
+                tongTien = tongTien + x.getThanhTien();
+                lbl_tongTien1.setText(String.valueOf(tongTien));
+                if (tb_gioHang.getValueAt(count, 0).equals(MaSP) && x.getHinhThucGiamGia().equals("%")) {
+                    tongPT = x.getThanhTien() * x.getGiamGia() / 100;
+                    lbl_giamGia1.setText(String.valueOf(giam += tongPT));
+                    lbl_giamGia1.setText(String.valueOf(giam));
+                } else {
+                    tongVN = x.getGiamGia();
+                    lbl_giamGia1.setText(String.valueOf(giam + tongVN));
+                }
+                count++;
+
+            }
+            Double ThanhTien = Double.parseDouble(lbl_tongTien1.getText()) - Double.parseDouble(lbl_giamGia1.getText());
+           lbl_thanhTien.setText(String.valueOf(format.format(ThanhTien)));
+        } else if (SoLuong < NhapSoLuong) {
+            JOptionPane.showMessageDialog(this, "san pham không đủ ");
+            return;
+
+        }
+
+    }//GEN-LAST:event_tb_sanPhamMouseClicked
+
+    private void myButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_myButton6ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -295,6 +434,8 @@ public class frm_Banhang extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -306,10 +447,11 @@ public class frm_Banhang extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel lbl_giamGia1;
+    private javax.swing.JLabel lbl_thanhTien;
+    private javax.swing.JLabel lbl_tienThua;
+    private javax.swing.JLabel lbl_tongTien1;
     private swing.MyButton myButton1;
     private swing.MyButton myButton2;
     private swing.MyButton myButton3;
@@ -321,14 +463,15 @@ public class frm_Banhang extends javax.swing.JPanel {
     private swing.MyTextField myTextField1;
     private swing.MyTextField myTextField2;
     private swing.MyTextField myTextField3;
-    private swing.MyTextField myTextField4;
     private swing.MyTextField myTextField5;
-    private swing.MyTextField myTextField6;
     private swing.PanelBorder panelBorder1;
     private swing.PanelGradiente panelGradiente1;
     private swing.PanelGradiente panelGradiente2;
     private swing.PanelGradiente panelGradiente3;
     private swing.PanelGradiente panelGradiente4;
     private swing.SearchText searchText1;
+    private javax.swing.JTable tb_gioHang;
+    private javax.swing.JTable tb_hoaDon;
+    private javax.swing.JTable tb_sanPham;
     // End of variables declaration//GEN-END:variables
 }
