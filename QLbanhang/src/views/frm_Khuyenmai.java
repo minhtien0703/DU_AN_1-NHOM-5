@@ -41,7 +41,7 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
                 x.getTenKM(),
                 x.getNgayBatDau(),
                 x.getNgayKetThuc(),
-                x.getGiaTriGiam() + "" + x.getHinhThucKM()
+                x.getGiaTriGiam() + " " + x.getHinhThucKM()
             });
             stt++;
         }
@@ -197,7 +197,7 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
 
             },
             new String [] {
-                "STT", "Tên khuyến mãi", "Ngày bắt đầu", "Ngày kết thúc", "Hình thức giảm"
+                "STT", "Tên khuyến mãi", "Ngày bắt đầu", "Ngày kết thúc", "Giá trị giảm"
             }
         ));
         tb_khuyenmai.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -235,12 +235,16 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
 
     private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
         // TODO add your handling code here:
-        if (txt_giatrgiam.getText().equals("")||txt_tenkm.getText().equals("")) {
+        if (txt_giatrgiam.getText().equals("")||txt_tenkm.getText().equals("")||date_BD.getDate().toString().isEmpty()||date_KT.getDate().toString().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập đầy đủ");
             return;
         }else
         if (khuyenmaiService.checktrung(txt_tenkm.getText())!= null) {
             JOptionPane.showMessageDialog(this, "Tên khuyến mãi đã tồn tại");
+            return;
+        }else
+        if (date_KT.getDate().before(date_BD.getDate())) {
+            JOptionPane.showMessageDialog(this, "Ngày kết thúc phải lớn hơn ngày bắt đầu");
             return;
         }else
         if (JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm không?")==JOptionPane.YES_OPTION) {
@@ -290,6 +294,10 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
 //                JOptionPane.showMessageDialog(this, "Tên khuyến mãi đã tồn tại");
 //                return;
 //            }
+            if (date_KT.getDate().before(date_BD.getDate())) {
+                JOptionPane.showMessageDialog(this, "Ngày kết thúc phải lớn hơn ngày bắt đầu");
+                return;
+            }
             khuyenmaiService.Update(km,lst.get(r).getID());
             LoadData();
             JOptionPane.showMessageDialog(this, "Sửa thành công");
@@ -333,6 +341,12 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
             Date date2 = sdf.parse((String) tb_khuyenmai.getValueAt(r, 3));
             date_BD.setDate(date1);
             date_KT.setDate(date2);
+            String hinhthuc=tb_khuyenmai.getValueAt(r, 4).toString();
+            if (hinhthuc.contains("%")) {
+                rd_phantram.setSelected(true);
+            }else if (hinhthuc.contains("VND")) {
+                rd_VND.setSelected(true);
+            }
         } catch (ParseException ex) {
 //            Logger.getLogger(FrmKhuyenmai.class.getName()).log(Level.SEVERE, null, ex);
         }
