@@ -336,7 +336,7 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
             date_BD.setDate(date1);
             date_KT.setDate(date2);
         } catch (ParseException ex) {
-            Logger.getLogger(FrmKhuyenmai.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(FrmKhuyenmai.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_tb_khuyenmaiMouseClicked
 

@@ -33,7 +33,7 @@ public class KhuyenmaiReponsitory implements IKhuyenmaiRepository{
     @Override
     public List<KhuyenMai> GetAll() {
         try {
-            String sql = "Select * from khuyenmai a join Sanpham b on a.id = b.idkm";
+            String sql = "Select * from khuyenmai";
             Connection conn = DBConnection.openDbConnection();
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -98,11 +98,12 @@ String sql = "UPDATE KHUYENMAI SET TEN=?,NGAYBATDAU=?,NGAYKETTHUC = ?,HINHTHUCKM
 
     @Override
     public String checktrung(String ten) {
-        String sql = " SELECT TEN FROM KHUYENMAI";
+        String sql = " SELECT TEN FROM KHUYENMAI WHERE TEN = ?";
         String box = null;
         try {
             Connection conn = DBConnection.openDbConnection();
             PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setString(1, ten);
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {                
                 box = rs.getString(1);
