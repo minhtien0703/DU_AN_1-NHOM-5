@@ -8,13 +8,13 @@ package models;
  *
  * @author Admin
  */
-public class MauSac {
+public class DanhMuc {
     private String Ten;
 
-    public MauSac() {
+    public DanhMuc() {
     }
 
-    public MauSac(String Ten) {
+    public DanhMuc(String Ten) {
         this.Ten = Ten;
     }
 

@@ -8,13 +8,13 @@ package models;
  *
  * @author Admin
  */
-public class MauSac {
+public class ChatLieu {
     private String Ten;
 
-    public MauSac() {
+    public ChatLieu() {
     }
 
-    public MauSac(String Ten) {
+    public ChatLieu(String Ten) {
         this.Ten = Ten;
     }
 
@@ -25,5 +25,6 @@ public class MauSac {
     public void setTen(String Ten) {
         this.Ten = Ten;
     }
+    
     
 }

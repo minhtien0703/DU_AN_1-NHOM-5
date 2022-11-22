@@ -8,13 +8,13 @@ package models;
  *
  * @author Admin
  */
-public class MauSac {
+public class KichCo {
     private String Ten;
 
-    public MauSac() {
+    public KichCo() {
     }
 
-    public MauSac(String Ten) {
+    public KichCo(String Ten) {
         this.Ten = Ten;
     }
 
@@ -25,5 +25,6 @@ public class MauSac {
     public void setTen(String Ten) {
         this.Ten = Ten;
     }
+    
     
 }
