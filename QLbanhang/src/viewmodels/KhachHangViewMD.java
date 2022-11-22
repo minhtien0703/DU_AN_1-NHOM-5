@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package models;
+package viewmodels;
 
 /**
  *
  * @author PC
  */
-public class KhachHang {
+public class KhachHangViewMD {
       private int id;
     private String ten;
     private String tendem;
@@ -19,10 +19,10 @@ public class KhachHang {
     private String sdt;
     private int diemthuong;
 
-    public KhachHang() {
+    public KhachHangViewMD() {
     }
 
-    public KhachHang(int id, String ten, String tendem, String ho, int gioitinh, String ngaysinh, String email, String sdt, int diemthuong) {
+    public KhachHangViewMD(int id, String ten, String tendem, String ho, int gioitinh, String ngaysinh, String email, String sdt, int diemthuong) {
         this.id = id;
         this.ten = ten;
         this.tendem = tendem;
@@ -33,6 +33,8 @@ public class KhachHang {
         this.sdt = sdt;
         this.diemthuong = diemthuong;
     }
+
+    
 
     public int getId() {
         return id;
@@ -106,6 +108,9 @@ public class KhachHang {
         this.diemthuong = diemthuong;
     }
 
-   
+    public Object[] toDataRow() {
+        return new Object[]{id, ten, tendem, ho, gioitinh == 0 ? "Nam":"Nữ", ngaysinh, email, sdt, diemthuong};
+
+    }
     
 }

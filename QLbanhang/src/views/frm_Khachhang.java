@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import models.KhachHang;
 import services.KhachHangSV;
 import services.imp.khahangsvImpl;
+import viewmodels.KhachHangViewMD;
 
 /**
  *
@@ -23,7 +24,7 @@ import services.imp.khahangsvImpl;
 public class frm_Khachhang extends javax.swing.JPanel {
 
     DefaultTableModel defaultTableModel = new DefaultTableModel();
-    List<KhachHang> listKhachHang;
+    List<KhachHangViewMD> listKhachHang;
     KhachHangSV KH = new khahangsvImpl();
 
     public frm_Khachhang() {
@@ -32,10 +33,10 @@ public class frm_Khachhang extends javax.swing.JPanel {
         showTable(listKhachHang);
     }
 
-    public void showTable(List<KhachHang> list) {
+    public void showTable(List<KhachHangViewMD> list) {
         defaultTableModel = (DefaultTableModel) TB_bang.getModel();
         defaultTableModel.setRowCount(0);
-        for (KhachHang khachHang01 : list) {
+        for (KhachHangViewMD khachHang01 : list) {
             defaultTableModel.addRow(khachHang01.toDataRow());
         }
     }
@@ -375,7 +376,7 @@ public class frm_Khachhang extends javax.swing.JPanel {
     private void TB_bangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_bangMouseClicked
         try {
             int row = TB_bang.getSelectedRow();
-            KhachHang kh = listKhachHang.get(row);
+            KhachHangViewMD kh = listKhachHang.get(row);
             txt_Ten.setText(kh.getTen());
             txt_tenDem.setText(kh.getTendem());
             txt_Ho.setText(kh.getHo());

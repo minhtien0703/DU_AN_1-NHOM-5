@@ -6,13 +6,14 @@ package services;
 
 import java.util.List;
 import models.KhachHang;
+import viewmodels.KhachHangViewMD;
 
 /**
  *
  * @author PC
  */
 public interface KhachHangSV {
-      List<KhachHang > getall();
+      List<KhachHangViewMD > getall();
 
     String add(KhachHang khachHang);
 

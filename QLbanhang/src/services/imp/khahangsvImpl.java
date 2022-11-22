@@ -4,11 +4,13 @@
  */
 package services.imp;
 
+import java.util.ArrayList;
 import java.util.List;
 import models.KhachHang;
 import repositorys.KhachHangRP;
 import repositorys.imp.KhachHangRPImpl;
 import services.KhachHangSV;
+import viewmodels.KhachHangViewMD;
 
 /**
  *
@@ -19,8 +21,15 @@ public class khahangsvImpl implements KhachHangSV {
     private KhachHangRP khachHang01 = new KhachHangRPImpl();
 
     @Override
-    public List<KhachHang> getall() {
-        return khachHang01.getall();
+    public List<KhachHangViewMD> getall() {
+        List<KhachHangViewMD> list01 = new ArrayList<>();
+
+        List<KhachHang> list = khachHang01.getall();
+        for (KhachHang x : list) {
+            list01.add(new KhachHangViewMD(x.getId(), x.getTen(), x.getTendem(), x.getHo(), x.getGioitinh(), x.getNgaysinh(), x.getSdt(), x.getEmail(), x.getDiemthuong()));
+        }
+        return list01;
+
     }
 
     @Override
