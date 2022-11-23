@@ -287,6 +287,13 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
         } catch (Exception e) {
         }
         try {
+            if (!rd_VND.isSelected()&&!rd_phantram.isSelected()) {
+                JOptionPane.showMessageDialog(this, "Bạn chưa chọn hình thức giảm giá");
+                return;
+            }
+        } catch (Exception e) {
+        }
+        try {
             if (txt_giatrgiam.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Bạn chưa nhập giá trị giảm");
                 return;
