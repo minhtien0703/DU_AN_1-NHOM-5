@@ -38,7 +38,7 @@ public class KhuyenmaiReponsitory implements IKhuyenmaiRepository{
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
-                lstKm.add(new KhuyenMai(rs.getString(1), rs.getString(2), rs.getString(5), rs.getString(3), rs.getString(4), rs.getBigDecimal(6)));
+                lstKm.add(new KhuyenMai(rs.getString(1), rs.getString(2), rs.getString(5), rs.getString(3), rs.getString(4), rs.getDouble(6)));
                         }
         } catch (SQLException ex) {
             Logger.getLogger(KhuyenmaiReponsitory.class.getName()).log(Level.SEVERE, null, ex);
@@ -56,7 +56,7 @@ public class KhuyenmaiReponsitory implements IKhuyenmaiRepository{
             pstm.setString(2, km.getHinhThucKM());
             pstm.setString(3, km.getNgayBatDau());
             pstm.setString(4, km.getNgayKetThuc());
-            pstm.setBigDecimal(5, km.getGiaTriGiam());
+            pstm.setDouble(5, km.getGiaTriGiam());
             pstm.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -74,7 +74,7 @@ String sql = "UPDATE KHUYENMAI SET TEN=?,NGAYBATDAU=?,NGAYKETTHUC = ?,HINHTHUCKM
             pstm.setString(2, km.getNgayBatDau());
             pstm.setString(3, km.getNgayKetThuc());
             pstm.setString(4, km.getHinhThucKM());
-            pstm.setBigDecimal(5, km.getGiaTriGiam());
+            pstm.setDouble(5, km.getGiaTriGiam());
             pstm.setString(6, id);
             pstm.executeUpdate();
             return true;
@@ -114,5 +114,62 @@ String sql = "UPDATE KHUYENMAI SET TEN=?,NGAYBATDAU=?,NGAYKETTHUC = ?,HINHTHUCKM
         return box;
     }
 
+    @Override
+    public List<KhuyenMai> GetOnebyBD(String date) {
+        try {
+            lstKm.removeAll(lstKm);
+            String sql = "Select Ten, Ngaybatdau, Ngayketthuc, HinhthucKM, Giatrigiam from KhuyenMai \n" +
+                    "Where Ngaybatdau =?";
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setString(1, date);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                lstKm.add(new KhuyenMai( rs.getString(1), rs.getString(4), rs.getString(2), rs.getString(3), rs.getDouble(5)));
+                        }
+        } catch (SQLException ex) {
+            Logger.getLogger(KhuyenmaiReponsitory.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                    return lstKm;
+    }
+
+    @Override
+    public List<KhuyenMai> GetOnebyKT(String date) {
+           try {
+            lstKm.removeAll(lstKm);
+            String sql = "Select Ten, Ngaybatdau, Ngayketthuc, HinhthucKM, Giatrigiam from KhuyenMai \n" +
+                    "Where NGAYKETTHUC =?";
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setString(1, date);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                lstKm.add(new KhuyenMai( rs.getString(1), rs.getString(4), rs.getString(2), rs.getString(3), rs.getDouble(5)));
+                        }
+        } catch (SQLException ex) {
+            Logger.getLogger(KhuyenmaiReponsitory.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                    return lstKm;
+    }
+
+    @Override
+    public List<KhuyenMai> GetOnebyALL(String datedb, String datekt) {
+         try {
+            lstKm.removeAll(lstKm);
+            String sql = "Select Ten, Ngaybatdau, Ngayketthuc, HinhthucKM, Giatrigiam from KhuyenMai \n" +
+                    "Where Ngaybatdau =? and NGAYKETTHUC =?";
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setString(1, datedb);
+            pstm.setString(2, datekt);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                lstKm.add(new KhuyenMai( rs.getString(1), rs.getString(4), rs.getString(2), rs.getString(3), rs.getDouble(5)));
+                        }
+        } catch (SQLException ex) {
+            Logger.getLogger(KhuyenmaiReponsitory.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                    return lstKm;
+    }
     
 }

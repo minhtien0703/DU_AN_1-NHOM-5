@@ -13,12 +13,12 @@ import java.math.BigDecimal;
  */
 public class KhuyenmaiViewmodel {
     private String TenKM,HinhThucKM,NgayBatDau,NgayKetThuc;
-    private BigDecimal GiaTriGiam;
+    private Double GiaTriGiam;
 
     public KhuyenmaiViewmodel() {
     }
 
-    public KhuyenmaiViewmodel(String TenKM, String HinhThucKM, String NgayBatDau, String NgayKetThuc, BigDecimal GiaTriGiam) {
+    public KhuyenmaiViewmodel(String TenKM, String HinhThucKM, String NgayBatDau, String NgayKetThuc, Double GiaTriGiam) {
         this.TenKM = TenKM;
         this.HinhThucKM = HinhThucKM;
         this.NgayBatDau = NgayBatDau;
@@ -58,11 +58,11 @@ public class KhuyenmaiViewmodel {
         this.NgayKetThuc = NgayKetThuc;
     }
 
-    public BigDecimal getGiaTriGiam() {
+    public Double getGiaTriGiam() {
         return GiaTriGiam;
     }
 
-    public void setGiaTriGiam(BigDecimal GiaTriGiam) {
+    public void setGiaTriGiam(Double GiaTriGiam) {
         this.GiaTriGiam = GiaTriGiam;
     }
     

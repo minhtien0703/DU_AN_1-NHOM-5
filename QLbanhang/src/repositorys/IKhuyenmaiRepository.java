@@ -22,4 +22,10 @@ public interface IKhuyenmaiRepository {
     public boolean Delete(String id);
 
     public String checktrung(String ten);
+
+    public List<KhuyenMai> GetOnebyBD(String date);
+
+    public List<KhuyenMai> GetOnebyKT(String date);
+
+    public List<KhuyenMai> GetOnebyALL(String datedb,String datekt);
 }

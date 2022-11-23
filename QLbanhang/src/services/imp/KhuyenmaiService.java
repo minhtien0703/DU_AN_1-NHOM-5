@@ -55,5 +55,35 @@ public class KhuyenmaiService implements IKhuyenmaiService{
     public String checktrung(String ten) {
         return repository.checktrung(ten);
     }
-    
+
+    @Override
+    public List<KhuyenmaiViewmodel> GetOnebyBD(String date) {
+        List<KhuyenMai> lst = repository.GetOnebyBD(date);
+        lstKM = new ArrayList<>();
+        for (KhuyenMai x : lst) {
+            lstKM.add(new KhuyenmaiViewmodel(x.getTenKM(), x.getHinhThucKM(), x.getNgayBatDau(), x.getNgayKetThuc(), x.getGiaTriGiam()));
+        }
+        return lstKM;
+    }
+
+    @Override
+    public List<KhuyenmaiViewmodel> GetOnebyKT(String date) {
+        List<KhuyenMai> lst = repository.GetOnebyKT(date);
+        lstKM = new ArrayList<>();
+        for (KhuyenMai x : lst) {
+            lstKM.add(new KhuyenmaiViewmodel(x.getTenKM(), x.getHinhThucKM(), x.getNgayBatDau(), x.getNgayKetThuc(), x.getGiaTriGiam()));
+        }
+        return lstKM;
+    }
+
+    @Override
+    public List<KhuyenmaiViewmodel> GetOnebyALL(String datedb, String datekt) {
+        List<KhuyenMai> lst = repository.GetOnebyALL(datedb, datekt);
+        lstKM = new ArrayList<>();
+        for (KhuyenMai x : lst) {
+            lstKM.add(new KhuyenmaiViewmodel(x.getTenKM(), x.getHinhThucKM(), x.getNgayBatDau(), x.getNgayKetThuc(), x.getGiaTriGiam()));
+        }
+        return lstKM;
+    }
+
 }

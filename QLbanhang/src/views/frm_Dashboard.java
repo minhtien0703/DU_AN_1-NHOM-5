@@ -22,6 +22,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
         crep1.setOpaque(true);
         resetColor(new JPanel[]{btnsanpham, btnkhuyenmai, btnkhachhang, btnnhanvien, btnthongke, btnhoadon, btndangxuat}, new JPanel[]{crep2, crep3, crep4, crep5, crepp1, crepp2, crepp3});
         setpanal(new frm_Banhang());
+        setLocationRelativeTo(null);
     }
 
     private void setColor(JPanel pane) {
