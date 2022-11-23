@@ -2,12 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package services;
+package repositorys;
+
+import java.util.List;
+import models.Chucvu;
 
 /**
  *
  * @author hungh
  */
-public class NewClass1 {
-    
+public interface IChucvuRepo {
+
+    public List<Chucvu> getall();
 }

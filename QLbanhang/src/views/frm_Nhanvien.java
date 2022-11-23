@@ -4,17 +4,98 @@
  */
 package views;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import models.Chucvu;
+import models.Nhanvien;
+import services.IChucvuService;
+import services.INhanvienService;
+import services.imp.ChucVuService;
+import services.imp.NhanVienService;
+import viewmodels.NhanVienview;
+
 /**
  *
  * @author hungh
  */
 public class frm_Nhanvien extends javax.swing.JPanel {
 
-    /**
-     * Creates new form nhanvien
-     */
+    INhanvienService NVService;
+    IChucvuService CVService;
+
     public frm_Nhanvien() {
         initComponents();
+        NVService = new NhanVienService();
+        CVService = new ChucVuService();
+        inittable();
+        List<Chucvu> lstcv = CVService.getall();
+        cbochucvu.setModel(new DefaultComboBoxModel((lstcv.toArray())));
+        System.out.println(lstcv.toString());
+
+    }
+
+    private void inittable() {
+        DefaultTableModel model = (DefaultTableModel) tblnhanvien.getModel();
+        model.setColumnCount(0);
+        model.addColumn("ID");
+        model.addColumn("Họ");
+        model.addColumn("Tên đệm");
+        model.addColumn("Tên");
+        model.addColumn("Ngày sinh");
+        model.addColumn("Giới tính");
+        model.addColumn("SĐT");
+        model.addColumn("Email");
+        model.addColumn("Chức vụ");
+        model.addColumn("Tài khoản");
+        model.addColumn("Mật khẩu");
+        model.addColumn("Trạng thái");
+    }
+
+    private Nhanvien getfromdata() {
+
+        String Ten = txtten.getText();
+        String ho = txtho.getText();
+        String Tendem = txttendem.getText();
+        String sdt = txtsdt.getText();
+        String user = txtTaikhoan.getText();
+        String pass = txtMatkhau.getText();
+        String email = txtemail.getText();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = sdf.format(datengaysinh.getDate());
+        Date ngaysinh = null;
+        try {
+            ngaysinh = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+        } catch (ParseException ex) {
+            Logger.getLogger(frm_Nhanvien.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Chucvu cv = (Chucvu) cbochucvu.getSelectedItem();
+        boolean gioitinh = jRadioButton1.isSelected();
+        int gt = gioitinh == false ? 1 : gioitinh == true ? 0 : -1;
+        int tt = jCheckBox1.isSelected() == true ? 1 : 0;
+        if (Ten.isEmpty() || ho.isEmpty() || Tendem.isEmpty() || sdt.isEmpty() || user.isEmpty() || pass.isEmpty() || email.isEmpty() || date.isEmpty() || gt == -1) {
+            JOptionPane.showMessageDialog(this, "không để trống và chọn đầy đủ");
+        }
+        Nhanvien x = new Nhanvien("", Ten, Tendem, ho, (Date) ngaysinh, gt, sdt, cv.getId(), user, pass, email, tt);
+        System.out.println(x.toString());
+        return x;
+    }
+
+    private void loaddata() {
+        DefaultTableModel model = (DefaultTableModel) tblnhanvien.getModel();
+        model.setRowCount(0);
+        System.out.println(NVService.getAll().toString());
+        List<NhanVienview> lstnvv = NVService.getAll();
+        for (NhanVienview x : lstnvv) {
+            model.addRow(new Object[]{x.getId(), x.getHo(), x.getTendem(), x.getTen(), x.getNgaysinh(), x.getgt(x.getGioitinh()), x.getSdt(), x.getGmail(), x.getChucvu(), x.getUser(), x.getPass(), x.gettt(x.getTrangthai())});
+        }
+        lblTongnv.setText("Tổng nhân viên : " + lstnvv.size());
     }
 
     /**
@@ -29,36 +110,38 @@ public class frm_Nhanvien extends javax.swing.JPanel {
         buttonGroup1 = new javax.swing.ButtonGroup();
         panelGradiente1 = new swing.PanelGradiente();
         jLabel1 = new javax.swing.JLabel();
-        myTextField1 = new swing.MyTextField();
+        txtten = new swing.MyTextField();
         jLabel2 = new javax.swing.JLabel();
-        myTextField2 = new swing.MyTextField();
+        txttendem = new swing.MyTextField();
         jLabel3 = new javax.swing.JLabel();
-        myTextField3 = new swing.MyTextField();
+        txtho = new swing.MyTextField();
         jLabel4 = new javax.swing.JLabel();
-        myTextField4 = new swing.MyTextField();
         jLabel5 = new javax.swing.JLabel();
-        myTextField5 = new swing.MyTextField();
+        txtsdt = new swing.MyTextField();
         jLabel6 = new javax.swing.JLabel();
-        myTextField6 = new swing.MyTextField();
+        txtTaikhoan = new swing.MyTextField();
         jLabel7 = new javax.swing.JLabel();
-        myTextField7 = new swing.MyTextField();
+        txtMatkhau = new swing.MyTextField();
         jLabel8 = new javax.swing.JLabel();
-        myTextField8 = new swing.MyTextField();
+        txtemail = new swing.MyTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblnhanvien = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jLabel10 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
-        jLabel12 = new javax.swing.JLabel();
-        myButton1 = new swing.MyButton();
-        myButton2 = new swing.MyButton();
-        myButton3 = new swing.MyButton();
-        myButton4 = new swing.MyButton();
+        lblTongnv = new javax.swing.JLabel();
+        btnhienthi = new swing.MyButton();
+        btnthem = new swing.MyButton();
+        btncapnhat = new swing.MyButton();
+        btnxoa = new swing.MyButton();
         panelBorder2 = new swing.PanelBorder();
-        searchText2 = new swing.SearchText();
+        searchtxt = new swing.SearchText();
         jLabel13 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        cbochucvu = new javax.swing.JComboBox<>();
+        datengaysinh = new com.toedter.calendar.JDateChooser();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1010, 640));
@@ -70,44 +153,43 @@ public class frm_Nhanvien extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setText("Tên");
         panelGradiente1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 220, 20));
-        panelGradiente1.add(myTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 220, 40));
+        panelGradiente1.add(txtten, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 220, 40));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel2.setText("Tên đệm");
         panelGradiente1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 220, 20));
-        panelGradiente1.add(myTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, 220, 40));
+        panelGradiente1.add(txttendem, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, 220, 40));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setText("Họ");
         panelGradiente1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 220, 20));
-        panelGradiente1.add(myTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 220, 40));
+        panelGradiente1.add(txtho, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 220, 40));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setText("Ngày sinh");
         panelGradiente1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 220, 20));
-        panelGradiente1.add(myTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, 220, 40));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setText("SĐT");
         panelGradiente1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 0, 220, 20));
-        panelGradiente1.add(myTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, 220, 40));
+        panelGradiente1.add(txtsdt, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, 220, 40));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setText("Tài Khoản");
         panelGradiente1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 220, 20));
-        panelGradiente1.add(myTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, 220, 40));
+        panelGradiente1.add(txtTaikhoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, 220, 40));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel7.setText("Mật khẩu");
         panelGradiente1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 140, 220, 20));
-        panelGradiente1.add(myTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 220, 40));
+        panelGradiente1.add(txtMatkhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 220, 40));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel8.setText("Giới tính");
-        panelGradiente1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, 60, 20));
-        panelGradiente1.add(myTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 230, 220, 40));
+        panelGradiente1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, 60, 20));
+        panelGradiente1.add(txtemail, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 230, 220, 40));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblnhanvien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -118,25 +200,30 @@ public class frm_Nhanvien extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTable1.setGridColor(new java.awt.Color(255, 255, 255));
-        jTable1.setRowHeight(20);
-        jScrollPane1.setViewportView(jTable1);
+        tblnhanvien.setGridColor(new java.awt.Color(255, 255, 255));
+        tblnhanvien.setRowHeight(20);
+        tblnhanvien.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblnhanvienMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblnhanvien);
 
-        panelGradiente1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 990, 280));
+        panelGradiente1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 990, 250));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel9.setText("Trạng thái");
-        panelGradiente1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 290, 60, 20));
+        panelGradiente1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 320, 60, 20));
 
         jRadioButton1.setBackground(new java.awt.Color(230, 230, 250));
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setText("Nữ");
-        panelGradiente1.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 290, -1, -1));
+        panelGradiente1.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 280, -1, -1));
 
         jRadioButton2.setBackground(new java.awt.Color(230, 230, 250));
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("Nam");
-        panelGradiente1.add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 290, -1, -1));
+        panelGradiente1.add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel10.setText("Email");
@@ -144,51 +231,73 @@ public class frm_Nhanvien extends javax.swing.JPanel {
 
         jCheckBox1.setBackground(new java.awt.Color(230, 230, 250));
         jCheckBox1.setText("Làm việc");
-        panelGradiente1.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 290, 90, -1));
+        panelGradiente1.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 320, 90, -1));
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel12.setText("Tổng nhân viên :");
-        panelGradiente1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 110, -1));
+        lblTongnv.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblTongnv.setForeground(new java.awt.Color(255, 0, 0));
+        lblTongnv.setText("Tổng nhân viên :");
+        panelGradiente1.add(lblTongnv, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 200, -1));
 
-        myButton1.setBackground(new java.awt.Color(125, 224, 237));
-        myButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/refresh.png"))); // NOI18N
-        myButton1.setText("Hiển thị");
-        myButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        panelGradiente1.add(myButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 70, 120, 40));
-
-        myButton2.setBackground(new java.awt.Color(125, 224, 237));
-        myButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add.png"))); // NOI18N
-        myButton2.setText("Thêm");
-        myButton2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        myButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnhienthi.setBackground(new java.awt.Color(125, 224, 237));
+        btnhienthi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/refresh.png"))); // NOI18N
+        btnhienthi.setText("Hiển thị");
+        btnhienthi.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnhienthi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                myButton2ActionPerformed(evt);
+                btnhienthiActionPerformed(evt);
             }
         });
-        panelGradiente1.add(myButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 70, 120, 40));
+        panelGradiente1.add(btnhienthi, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 70, 120, 40));
 
-        myButton3.setBackground(new java.awt.Color(125, 224, 237));
-        myButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/floppy-disk.png"))); // NOI18N
-        myButton3.setText("Cập nhật");
-        myButton3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        panelGradiente1.add(myButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 170, 120, 40));
+        btnthem.setBackground(new java.awt.Color(125, 224, 237));
+        btnthem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add.png"))); // NOI18N
+        btnthem.setText("Thêm");
+        btnthem.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnthem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnthemActionPerformed(evt);
+            }
+        });
+        panelGradiente1.add(btnthem, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 70, 120, 40));
 
-        myButton4.setBackground(new java.awt.Color(125, 224, 237));
-        myButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tay.png"))); // NOI18N
-        myButton4.setText("Xóa");
-        myButton4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        panelGradiente1.add(myButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 170, 120, 40));
+        btncapnhat.setBackground(new java.awt.Color(125, 224, 237));
+        btncapnhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/floppy-disk.png"))); // NOI18N
+        btncapnhat.setText("Cập nhật");
+        btncapnhat.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        panelGradiente1.add(btncapnhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 170, 120, 40));
+
+        btnxoa.setBackground(new java.awt.Color(125, 224, 237));
+        btnxoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tay.png"))); // NOI18N
+        btnxoa.setText("Xóa");
+        btnxoa.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnxoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnxoaActionPerformed(evt);
+            }
+        });
+        panelGradiente1.add(btnxoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 170, 120, 40));
 
         panelBorder2.setBackground(new java.awt.Color(255, 255, 255));
-        panelBorder2.add(searchText2);
-        searchText2.setBounds(10, 0, 240, 40);
+        panelBorder2.add(searchtxt);
+        searchtxt.setBounds(10, 0, 240, 40);
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search_24px.png"))); // NOI18N
         panelBorder2.add(jLabel13);
         jLabel13.setBounds(260, 0, 40, 40);
 
-        panelGradiente1.add(panelBorder2, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 290, 300, 40));
+        panelGradiente1.add(panelBorder2, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 320, 300, 40));
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel11.setText("Chức vụ");
+        panelGradiente1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 280, 220, 20));
+
+        cbochucvu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbochucvu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
+        panelGradiente1.add(cbochucvu, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 300, 220, 40));
+
+        datengaysinh.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
+        datengaysinh.setDateFormatString("yyyy-MM-dd");
+        panelGradiente1.add(datengaysinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, 220, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -202,17 +311,64 @@ public class frm_Nhanvien extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void myButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_myButton2ActionPerformed
+    private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
+        Nhanvien x = getfromdata();
+        NVService.add(x);
+    }//GEN-LAST:event_btnthemActionPerformed
+
+    private void btnhienthiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhienthiActionPerformed
+        loaddata();
+    }//GEN-LAST:event_btnhienthiActionPerformed
+
+    private void btnxoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxoaActionPerformed
+        int row = tblnhanvien.getSelectedRow();
+        String gt = (String) tblnhanvien.getValueAt(row, 8);
+        int index = Integer.parseInt(gt);
+        System.out.println(index);
+
+    }//GEN-LAST:event_btnxoaActionPerformed
+
+    private void tblnhanvienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblnhanvienMouseClicked
+
+        int index = tblnhanvien.getSelectedRow();
+        String gt = (String) tblnhanvien.getValueAt(index, 5);
+        String cv = (String) tblnhanvien.getValueAt(index, 8);
+        String tt = (String) tblnhanvien.getValueAt(index, 11);
+        int trangthai = tt.equals("Làm việc") ? 1 : 0;
+        int gioiitinh = gt.equals("Nam") ? 1 : 0;
+        txtho.setText(tblnhanvien.getValueAt(index, 1) + "");
+        txtten.setText(tblnhanvien.getValueAt(index, 3) + "");
+        txttendem.setText(tblnhanvien.getValueAt(index, 2) + "");
+        txtsdt.setText(tblnhanvien.getValueAt(index, 6) + "");
+        txtemail.setText(tblnhanvien.getValueAt(index, 7) + "");
+        txtTaikhoan.setText(tblnhanvien.getValueAt(index, 9) + "");
+        txtMatkhau.setText(tblnhanvien.getValueAt(index, 10) + "");
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//            Date date1 = sdf.parse((String) tblnhanvien.getValueAt(index, 4));
+//            datengaysinh.setDate(date1);
+//        datengaysinh.setDate(new SimpleDateFormat("yyyy-MM-dd").parse((tblnhanvien.getValueAt(index, 4))));
+        jCheckBox1.setSelected(trangthai == 1 ? true : false);
+        if (gioiitinh == 1) {
+            jRadioButton2.setSelected(true);
+        } else {
+            jRadioButton1.setSelected(true);
+        }
+
+    }//GEN-LAST:event_tblnhanvienMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private swing.MyButton btncapnhat;
+    private swing.MyButton btnhienthi;
+    private swing.MyButton btnthem;
+    private swing.MyButton btnxoa;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox<String> cbochucvu;
+    private com.toedter.calendar.JDateChooser datengaysinh;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -225,21 +381,17 @@ public class frm_Nhanvien extends javax.swing.JPanel {
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private swing.MyButton myButton1;
-    private swing.MyButton myButton2;
-    private swing.MyButton myButton3;
-    private swing.MyButton myButton4;
-    private swing.MyTextField myTextField1;
-    private swing.MyTextField myTextField2;
-    private swing.MyTextField myTextField3;
-    private swing.MyTextField myTextField4;
-    private swing.MyTextField myTextField5;
-    private swing.MyTextField myTextField6;
-    private swing.MyTextField myTextField7;
-    private swing.MyTextField myTextField8;
+    private javax.swing.JLabel lblTongnv;
     private swing.PanelBorder panelBorder2;
     private swing.PanelGradiente panelGradiente1;
-    private swing.SearchText searchText2;
+    private swing.SearchText searchtxt;
+    private javax.swing.JTable tblnhanvien;
+    private swing.MyTextField txtMatkhau;
+    private swing.MyTextField txtTaikhoan;
+    private swing.MyTextField txtemail;
+    private swing.MyTextField txtho;
+    private swing.MyTextField txtsdt;
+    private swing.MyTextField txtten;
+    private swing.MyTextField txttendem;
     // End of variables declaration//GEN-END:variables
 }

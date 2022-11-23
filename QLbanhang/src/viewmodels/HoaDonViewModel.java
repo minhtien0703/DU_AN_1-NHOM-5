@@ -15,5 +15,5 @@ public class HoaDonViewModel {
     private Date NgayTao;
     private Date NgayThanhToan;
     private int TrangThai;
-    private 
+//    private 
 }
