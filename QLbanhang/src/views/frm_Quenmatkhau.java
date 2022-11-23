@@ -5,6 +5,7 @@
 package views;
 
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 /**
  *
@@ -19,7 +20,7 @@ public class frm_Quenmatkhau extends javax.swing.JPanel {
     }
 
     public void quenmatkhau() {
-        txtUser.grabFocus();
+        txt_email.grabFocus();
     }
 
     public void addEventBackLogin(ActionListener event) {
@@ -35,7 +36,7 @@ public class frm_Quenmatkhau extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtUser = new swing.MyTextField();
+        txt_email = new swing.MyTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtPass = new swing.MyPassword();
@@ -44,9 +45,9 @@ public class frm_Quenmatkhau extends javax.swing.JPanel {
         cmdBackLogin = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         txtPass1 = new swing.MyPassword();
-        txtUser1 = new swing.MyTextField();
+        txt_code = new swing.MyTextField();
         jLabel5 = new javax.swing.JLabel();
-        myButton2 = new swing.MyButton();
+        btn_doimk = new swing.MyButton();
         jLabel6 = new javax.swing.JLabel();
         hideshow1 = new javax.swing.JLabel();
         hideshow = new javax.swing.JLabel();
@@ -59,10 +60,9 @@ public class frm_Quenmatkhau extends javax.swing.JPanel {
         setVerifyInputWhenFocusTarget(false);
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 280, 40));
+        txt_email.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        add(txt_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 280, 40));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel1.setText("E-mail");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, -1, 24));
 
@@ -75,7 +75,6 @@ public class frm_Quenmatkhau extends javax.swing.JPanel {
         txtPass.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 280, 40));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel3.setText("Password");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, -1, 24));
 
@@ -90,7 +89,6 @@ public class frm_Quenmatkhau extends javax.swing.JPanel {
         });
         add(myButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 340, 120, 40));
 
-        cmdBackLogin.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         cmdBackLogin.setForeground(new java.awt.Color(30, 122, 236));
         cmdBackLogin.setText("Đăng nhập ?");
         cmdBackLogin.setBorder(null);
@@ -98,27 +96,35 @@ public class frm_Quenmatkhau extends javax.swing.JPanel {
         cmdBackLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         add(cmdBackLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 410, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel4.setText("Confirm Password");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, -1, 24));
 
         txtPass1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         add(txtPass1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 280, 40));
 
-        txtUser1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        add(txtUser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, 280, 40));
+        txt_code.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        add(txt_code, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, 280, 40));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel5.setText("Mã bảo mật");
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, -1, 24));
 
-        myButton2.setBackground(new java.awt.Color(125, 229, 251));
-        myButton2.setForeground(new java.awt.Color(0, 51, 102));
-        myButton2.setText("Đổi mật khẩu");
-        myButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        add(myButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, 120, 40));
+        btn_doimk.setBackground(new java.awt.Color(125, 229, 251));
+        btn_doimk.setForeground(new java.awt.Color(0, 51, 102));
+        btn_doimk.setText("Đổi mật khẩu");
+        btn_doimk.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_doimk.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_doimkMouseClicked(evt);
+            }
+        });
+        add(btn_doimk, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, 120, 40));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/email.png"))); // NOI18N
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 280, 30, 20));
 
         hideshow1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/show.png"))); // NOI18N
@@ -168,8 +174,36 @@ public class frm_Quenmatkhau extends javax.swing.JPanel {
 
     }//GEN-LAST:event_hideshow1MouseClicked
 
+    private void btn_doimkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_doimkMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btn_doimkMouseClicked
+
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        // TODO add your handling code here:
+        Random random = new Random();
+        int ran = random.nextInt(99999);
+        String sub = "Verification code";
+        String messsage = "<!DOCTYPE html>\n"
+                + "<html lang=\"en\">\n"
+                + "<head>\n"
+                + "    <meta charset=\"UTF-8\">\n"
+                + "    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n"
+                + "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
+                + "    <title>Document</title>\n"
+                + "</head>\n"
+                + "<body>\n"
+                + "    <h3 style=\"color: blue;\">Verification code</h3>\n"
+                + "    <div>Your verification code is : " + ran + "</div>\n"
+                + "    <h3 style=\"color: blue;\">Thank you very much</h3>\n"
+                + "</body>\n"
+                + "</html>";
+        utilconnext.SendMail.send(txt_email.getText(), sub, messsage, "beeclothes03@gmail.com", "zjauangyynxcspbl");
+    }//GEN-LAST:event_jLabel6MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private swing.MyButton btn_doimk;
     private javax.swing.JButton cmdBackLogin;
     private javax.swing.JLabel hideshow;
     private javax.swing.JLabel hideshow1;
@@ -180,10 +214,9 @@ public class frm_Quenmatkhau extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private swing.MyButton myButton1;
-    private swing.MyButton myButton2;
     private swing.MyPassword txtPass;
     private swing.MyPassword txtPass1;
-    private swing.MyTextField txtUser;
-    private swing.MyTextField txtUser1;
+    private swing.MyTextField txt_code;
+    private swing.MyTextField txt_email;
     // End of variables declaration//GEN-END:variables
 }

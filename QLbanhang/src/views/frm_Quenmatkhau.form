@@ -34,7 +34,7 @@
     <Property name="useNullLayout" type="boolean" value="false"/>
   </Layout>
   <SubComponents>
-    <Component class="swing.MyTextField" name="txtUser">
+    <Component class="swing.MyTextField" name="txt_email">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
@@ -48,9 +48,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="12" style="0"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="E-mail"/>
       </Properties>
       <Constraints>
@@ -90,9 +87,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="12" style="0"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Password"/>
       </Properties>
       <Constraints>
@@ -125,9 +119,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="cmdBackLogin">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="12" style="0"/>
-        </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ec" green="7a" red="1e" type="rgb"/>
         </Property>
@@ -148,9 +139,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="12" style="0"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Confirm Password"/>
       </Properties>
       <Constraints>
@@ -171,7 +159,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="swing.MyTextField" name="txtUser1">
+    <Component class="swing.MyTextField" name="txt_code">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
@@ -185,9 +173,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="12" style="0"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="M&#xe3; b&#x1ea3;o m&#x1ead;t"/>
       </Properties>
       <Constraints>
@@ -196,7 +181,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="swing.MyButton" name="myButton2">
+    <Component class="swing.MyButton" name="btn_doimk">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="fb" green="e5" red="7d" type="rgb"/>
@@ -209,6 +194,9 @@
           <Font name="Segoe UI" size="12" style="1"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_doimkMouseClicked"/>
+      </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="50" y="340" width="120" height="40"/>
@@ -221,6 +209,9 @@
           <Image iconType="3" name="/images/email.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel6MouseClicked"/>
+      </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="350" y="280" width="30" height="20"/>
