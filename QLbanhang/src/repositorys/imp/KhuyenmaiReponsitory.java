@@ -171,5 +171,23 @@ String sql = "UPDATE KHUYENMAI SET TEN=?,NGAYBATDAU=?,NGAYKETTHUC = ?,HINHTHUCKM
         }
                     return lstKm;
     }
+
+    @Override
+    public List<KhuyenMai> GetOnebyten(String ten) {
+try {
+            lstKm.removeAll(lstKm);
+            String sql = "SELECT Ten,Ngaybatdau,Ngayketthuc,HinhthucKM,Giatrigiam from KhuyenMai\n" +
+                        "where  Ten like ? ";
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setString(1, ten);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                lstKm.add(new KhuyenMai( rs.getString(1), rs.getString(4), rs.getString(2), rs.getString(3), rs.getDouble(5)));
+                        }
+        } catch (SQLException ex) {
+            Logger.getLogger(KhuyenmaiReponsitory.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                    return lstKm;    }
     
 }

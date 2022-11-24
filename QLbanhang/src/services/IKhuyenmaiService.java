@@ -27,5 +27,7 @@ public interface IKhuyenmaiService {
 
     public List<KhuyenmaiViewmodel> GetOnebyKT(String date);
 
-    public List<KhuyenmaiViewmodel> GetOnebyALL(String datedb,String datekt);
+    public List<KhuyenmaiViewmodel> GetOnebyALL(String datedb, String datekt);
+
+    public List<KhuyenmaiViewmodel> GetOnebyten(String ten);
 }
