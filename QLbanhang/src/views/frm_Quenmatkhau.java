@@ -6,6 +6,7 @@ package views;
 
 import java.awt.event.ActionListener;
 import java.util.Random;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -48,9 +49,9 @@ public class frm_Quenmatkhau extends javax.swing.JPanel {
         txt_code = new swing.MyTextField();
         jLabel5 = new javax.swing.JLabel();
         btn_doimk = new swing.MyButton();
-        jLabel6 = new javax.swing.JLabel();
         hideshow1 = new javax.swing.JLabel();
         hideshow = new javax.swing.JLabel();
+        btn_send = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(410, 450));
@@ -119,14 +120,6 @@ public class frm_Quenmatkhau extends javax.swing.JPanel {
         });
         add(btn_doimk, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, 120, 40));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/email.png"))); // NOI18N
-        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel6MouseClicked(evt);
-            }
-        });
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 280, 30, 20));
-
         hideshow1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/show.png"))); // NOI18N
         hideshow1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -142,6 +135,15 @@ public class frm_Quenmatkhau extends javax.swing.JPanel {
             }
         });
         add(hideshow, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 160, 30, 30));
+
+        btn_send.setBackground(new java.awt.Color(125, 229, 251));
+        btn_send.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/email.png"))); // NOI18N
+        btn_send.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_sendMouseClicked(evt);
+            }
+        });
+        add(btn_send, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 270, 40, 40));
     }// </editor-fold>//GEN-END:initComponents
 
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
@@ -176,11 +178,31 @@ public class frm_Quenmatkhau extends javax.swing.JPanel {
 
     private void btn_doimkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_doimkMouseClicked
         // TODO add your handling code here:
-        
+        if (txtPass.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập mật khẩu");
+            return;
+        }
+        if (txtPass1.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập mật khảu xác nhận");
+            return;
+        }
+        if (txtPass.getText().length()<8) {
+            JOptionPane.showMessageDialog(this, "Độ dài mật khẩu yêu cầu 8 kí tự trở lên");
+            return;
+        }
+        if (!txtPass.getText().equals(txtPass1.getText())) {
+            JOptionPane.showMessageDialog(this, "Mật khẩu mới và mật khẩu xác nhận chưa giống nhau");
+            return;
+        }
+        JOptionPane.showMessageDialog(this, "Thay đổi mật khẩu thành công");
     }//GEN-LAST:event_btn_doimkMouseClicked
 
-    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+    private void btn_sendMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_sendMouseClicked
         // TODO add your handling code here:
+         if (txt_email.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập e-mail");
+            return;
+        }
         Random random = new Random();
         int ran = random.nextInt(99999);
         String sub = "Verification code";
@@ -199,11 +221,12 @@ public class frm_Quenmatkhau extends javax.swing.JPanel {
                 + "</body>\n"
                 + "</html>";
         utilconnext.SendMail.send(txt_email.getText(), sub, messsage, "beeclothes03@gmail.com", "zjauangyynxcspbl");
-    }//GEN-LAST:event_jLabel6MouseClicked
+    }//GEN-LAST:event_btn_sendMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.MyButton btn_doimk;
+    private javax.swing.JButton btn_send;
     private javax.swing.JButton cmdBackLogin;
     private javax.swing.JLabel hideshow;
     private javax.swing.JLabel hideshow1;
@@ -212,7 +235,6 @@ public class frm_Quenmatkhau extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private swing.MyButton myButton1;
     private swing.MyPassword txtPass;
     private swing.MyPassword txtPass1;
