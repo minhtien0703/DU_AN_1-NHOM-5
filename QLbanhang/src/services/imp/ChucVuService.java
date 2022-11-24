@@ -9,6 +9,7 @@ import models.Chucvu;
 import repositorys.IChucvuRepo;
 import repositorys.imp.Chucvurepo;
 import services.IChucvuService;
+import viewmodels.ChucVuView;
 
 /**
  *
@@ -16,13 +17,12 @@ import services.IChucvuService;
  */
 public class ChucVuService implements IChucvuService {
 
-    IChucvuRepo CVrepo = new Chucvurepo();
-
+    private final Chucvurepo chucvurepo = new Chucvurepo();
     @Override
-    public List<Chucvu> getall() {
-        List<Chucvu> lst = CVrepo.getall();
-        return lst;
-
+    public List<ChucVuView> getAllChucVu() {
+        return chucvurepo.getAllChucVu();
     }
+
+    
 
 }

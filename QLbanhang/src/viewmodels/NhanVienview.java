@@ -12,68 +12,41 @@ import java.util.Date;
  */
 public class NhanVienview {
 
-    String id, ho, tendem, ten;
-    Date ngaysinh;
-    int gioitinh, trangthai;
-    String chucvu;
-    String user, pass, sdt, gmail;
+    private Integer id;
+    private String ten, tendem, ho;
+    private String ngaysinh;
+    private Integer gioitinh;
+    private String sdt;
+    private String tk;
+    private String mk;
+    private String email;
+    private ChucVuView chucVuView;
+    private Integer TT;
 
     public NhanVienview() {
     }
 
-    public NhanVienview(String id, String ho, String tendem, String ten, Date ngaysinh, int gioitinh, int trangthai, String chucvu, String user, String pass, String sdt, String gmail) {
+    public NhanVienview(Integer id, String ten, String tendem, String ho, String ngaysinh, Integer gioitinh, String sdt, String tk, String mk, String email, ChucVuView chucVuView, Integer TT) {
         this.id = id;
-        this.ho = ho;
-        this.tendem = tendem;
         this.ten = ten;
+        this.tendem = tendem;
+        this.ho = ho;
         this.ngaysinh = ngaysinh;
         this.gioitinh = gioitinh;
-        this.trangthai = trangthai;
-        this.chucvu = chucvu;
-        this.user = user;
-        this.pass = pass;
         this.sdt = sdt;
-        this.gmail = gmail;
+        this.tk = tk;
+        this.mk = mk;
+        this.email = email;
+        this.chucVuView = chucVuView;
+        this.TT = TT;
     }
 
-    public String getGmail() {
-        return gmail;
-    }
-
-    public void setGmail(String gmail) {
-        this.gmail = gmail;
-    }
-
-    public String getSdt() {
-        return sdt;
-    }
-
-    public void setSdt(String sdt) {
-        this.sdt = sdt;
-    }
-
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getHo() {
-        return ho;
-    }
-
-    public void setHo(String ho) {
-        this.ho = ho;
-    }
-
-    public String getTendem() {
-        return tendem;
-    }
-
-    public void setTendem(String tendem) {
-        this.tendem = tendem;
     }
 
     public String getTen() {
@@ -84,65 +57,92 @@ public class NhanVienview {
         this.ten = ten;
     }
 
-    public Date getNgaysinh() {
+    public String getTendem() {
+        return tendem;
+    }
+
+    public void setTendem(String tendem) {
+        this.tendem = tendem;
+    }
+
+    public String getHo() {
+        return ho;
+    }
+
+    public void setHo(String ho) {
+        this.ho = ho;
+    }
+
+    public String getNgaysinh() {
         return ngaysinh;
     }
 
-    public void setNgaysinh(Date ngaysinh) {
+    public void setNgaysinh(String ngaysinh) {
         this.ngaysinh = ngaysinh;
     }
 
-    public int getGioitinh() {
+    public Integer getGioitinh() {
         return gioitinh;
     }
 
-    public void setGioitinh(int gioitinh) {
+    public void setGioitinh(Integer gioitinh) {
         this.gioitinh = gioitinh;
     }
 
-    public int getTrangthai() {
-        return trangthai;
+    public String getSdt() {
+        return sdt;
     }
 
-    public void setTrangthai(int trangthai) {
-        this.trangthai = trangthai;
+    public void setSdt(String sdt) {
+        this.sdt = sdt;
     }
 
-    public String getChucvu() {
-        return chucvu;
+    public String getTk() {
+        return tk;
     }
 
-    public void setChucvu(String chucvu) {
-        this.chucvu = chucvu;
+    public void setTk(String tk) {
+        this.tk = tk;
     }
 
-    public String getUser() {
-        return user;
+    public String getMk() {
+        return mk;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setMk(String mk) {
+        this.mk = mk;
     }
 
-    public String getPass() {
-        return pass;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPass(String pass) {
-        this.pass = pass;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public ChucVuView getChucVuView() {
+        return chucVuView;
+    }
+
+    public void setChucVuView(ChucVuView chucVuView) {
+        this.chucVuView = chucVuView;
+    }
+
+    public Integer getTT() {
+        return TT;
+    }
+
+    public void setTT(Integer TT) {
+        this.TT = TT;
     }
 
     public String getgt(int gt) {
         return gt == 1 ? "Nam" : "Nữ";
     }
 
-    public String gettt(int tt) {
-        return tt == 1 ? "Làm việc" : "Nghỉ làm";
-    }
-
     @Override
     public String toString() {
-        return "NhanVienview{" + "id=" + id + ", ho=" + ho + ", tendem=" + tendem + ", ten=" + ten + ", ngaysinh=" + ngaysinh + ", gioitinh=" + gioitinh + ", trangthai=" + trangthai + ", chucvu=" + chucvu + ", user=" + user + ", pass=" + pass + '}';
+        return "NhanVienview{" + "id=" + id + ", ten=" + ten + ", tendem=" + tendem + ", ho=" + ho + ", ngaysinh=" + ngaysinh + ", gioitinh=" + gioitinh + ", sdt=" + sdt + ", tk=" + tk + ", mk=" + mk + ", email=" + email + ", chucVuView=" + chucVuView + ", TT=" + TT + '}';
     }
-
 }

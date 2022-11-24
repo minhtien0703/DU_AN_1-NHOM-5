@@ -7,9 +7,12 @@ package repositorys.imp;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.Chucvu;
 import repositorys.IChucvuRepo;
 import utilconnext.DBConnection;
+import viewmodels.ChucVuView;
 
 /**
  *
@@ -17,40 +20,21 @@ import utilconnext.DBConnection;
  */
 public class Chucvurepo implements IChucvuRepo {
 
-    final String SELECT_ALL_SQL = "SELECT Id,Ten FROM ChucVu";
-    final String SELECT_BY_SQL = "SELECT Id,Ten FROM dbo.ChucVu WHERE Id = ?";
-
     @Override
-    public List<Chucvu> getall() {
-        //return getSelectSQL(SELECT_ALL_SQL);
-        return getselectSQL(SELECT_ALL_SQL);
-    }
+    public List<ChucVuView> getAllChucVu() {
 
-//    private List<Chucvu> getSelectSQL(String SQL, Object... arvg) {
-//        List<Chucvu> lst = new ArrayList<>();
-//        try {
-//            ResultSet rl = DBConnection.getDataFromQuery(SQL, arvg);
-//            while (rl.next()) {
-//                String id = (String) rl.getObject(1);
-//                String ten = (String) rl.getObject(2);
-//                lst.add(new Chucvu(id, ten));
-//                System.out.println(lst.toString());
-//            }
-//        } catch (Exception e) {
-//        }
-//        return lst;
-//    }
-    private List<Chucvu> getselectSQL(String SQL, Object... args) {
-        List<Chucvu> lst = new ArrayList<>();
+        List<ChucVuView> cvv = new ArrayList<>();
+        String sql = "select * from ChucVu";
+        ResultSet rs = null;
         try {
-            ResultSet rl = DBConnection.getDataFromQuery(SQL, args);
-            while (rl.next()) {
-                lst.add(new Chucvu(rl.getString(1),rl.getString(2)));
+            rs = DBConnection.getDataFromQuery(sql);
+            while (rs.next()) {
+                cvv.add(new ChucVuView(rs.getString(1), rs.getString(2)));
             }
-        } catch (Exception e) {
+        } catch (SQLException ex) {
+            Logger.getLogger(Chucvurepo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return lst;
-
+        return cvv;
     }
 
 }

@@ -9,7 +9,10 @@ import java.util.List;
 import models.Nhanvien;
 import repositorys.INhanvienReposytory;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import utilconnext.DBConnection;
+import viewmodels.ChucVuView;
 import viewmodels.NhanVienview;
 
 /**
@@ -18,63 +21,107 @@ import viewmodels.NhanVienview;
  */
 public class NhanvienReposytory implements INhanvienReposytory {
 
-    final String INSERT_SQL = "INSERT INTO dbo.Users(Ten,TenDem,Ho,NgaySinh,Gioitinh,Sdt,IdCV,TaiKhoan,MatKhau,Email,TrangThai)VALUES(?,?,?,?,?,?,?,?,?,?,? )";
-    final String UPDATE_SQL = "";
-    final String SELECT_ALL_SQL = "SELECT Id,Ten,TenDem,Ho,NgaySinh,Gioitinh,Sdt,IdCV,TaiKhoan,MatKhau,Email,TrangThai FROM dbo.Users";
-    final String SELECT_BY_SQL = "";
-    final String DELETE_BY_SQL = "";
+     @Override
+    public List<NhanVienview> getAllNhanVien() {
+        List<NhanVienview> nvv = new ArrayList<>();
+        String sql = "SELECT  Users.Id,Users.Ten,TenDem,Ho,NgaySinh,Gioitinh,Sdt,IdCV,TaiKhoan,MatKhau,Email,ChucVu.Ten,TrangThai FROM Users join ChucVu \n"
+                + "on ChucVu.Id = Users.IdCV";
 
-    @Override
-    public List<Nhanvien> getAll() {
-        return getselectSQL(SELECT_ALL_SQL);
+        ResultSet rs = null;
+        try {
+            rs = DBConnection.getDataFromQuery(sql);
+            while (rs.next()) {
+                ChucVuView cvv = new ChucVuView(rs.getString(8), rs.getString(12));
+                Integer Id = rs.getInt(1);
+                String ten = rs.getString(2);
+                String tendem = rs.getString(3);
+                String ho = rs.getString(4);
+                String ngaysinh = rs.getString(5);
+                Integer gioitinh = rs.getInt(6);
+                String sdt = rs.getString(7);
+                String tk = rs.getString(9);
+                String mk = rs.getString(10);
+                String email = rs.getString(11);
+                Integer tt = rs.getInt(13);
+
+                nvv.add(new NhanVienview(Id, ten, tendem, ho, ngaysinh, gioitinh, sdt, tk, mk, email, cvv, tt));
+//              nvv.add(new NhanVienview(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7), rs.getString(9), rs.getString(10), rs.getString(11), cvv, rs.getInt(12)));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(NhanvienReposytory.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return nvv;
     }
 
     @Override
-    public int add(Nhanvien x) {
+    public Integer add(Nhanvien nv) {
+        String sql = "INSERT INTO dbo.Users(Ten,TenDem,Ho,NgaySinh,Gioitinh,Sdt,IdCV,TaiKhoan,MatKhau,Email,TrangThai)VALUES(?,?,?,?,?,?,?,?,?,?,? )";
 
-        return DBConnection.ExcuteQuery(INSERT_SQL, x.getTen(), x.getTendem(), x.getHo(), x.getNgaysinh(), x.getGioitinh(), x.getSdt(), x.getChucvu(), x.getTaikhoan(), x.getMatkhau(), x.getEmail(), x.getTrangthai());
-
+        Integer row = DBConnection.ExcuteQuery(sql,
+                nv.getTen(),
+                nv.getTendem(),
+                nv.getHo(),
+                nv.getNgaysinh(),
+                nv.getGioitinh(),
+                nv.getSdt(),
+                nv.getChucVu(),
+                nv.getTk(),
+                nv.getMk(),
+                nv.getEmail(),
+                nv.getTT()
+        );
+        return row;
     }
 
     @Override
-    public int update(Nhanvien x, String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Integer update(Nhanvien id) {
+        String sql = "UPDATE Users\n"
+                + "set Ten = ? ,\n"
+                + "TenDem = ?,\n"
+                + "Ho = ?,\n"
+                + "NgaySinh = ?,\n"
+                + "Gioitinh = ?,\n"
+                + "Sdt = ?,\n"
+                + "IdCV = ?,\n"
+                + "TaiKhoan = ?,\n"
+                + "MatKhau = ?,\n"
+                + "Email = ?,\n"
+                + "TrangThai = ?\n"
+                + "where Id = ?";
+
+        Integer row = DBConnection.ExcuteQuery(sql,
+                id.getTen(),
+                id.getTendem(),
+                id.getHo(),
+                id.getNgaysinh(),
+                id.getGioitinh(),
+                id.getSdt(),
+                id.getChucVu(),
+                id.getTk(),
+                id.getMk(),
+                id.getEmail(),
+                id.getTT(),
+                id.getId()
+        );
+        return row;
     }
 
     @Override
-    public int delete(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<NhanVienview> SearchNVV(String Ten) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public Nhanvien getbyid(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private List<Nhanvien> getselectSQL(String SQL, Object... arvg) {
-        List<Nhanvien> lstNhanVien = new ArrayList<>();
-        try {
-            ResultSet rl = DBConnection.getDataFromQuery(SQL, arvg);
-            while (rl.next()) {
-                Nhanvien x = new Nhanvien(rl.getString(1),
-                        rl.getString(2),
-                        rl.getString(3),
-                        rl.getString(4),
-                        rl.getDate(5),
-                        rl.getInt(6),
-                        rl.getString(7),
-                        rl.getString(8),
-                        rl.getString(9),
-                        rl.getString(10),
-                        rl.getString(11),
-                        rl.getInt(12));
-                lstNhanVien.add(x);
-               // System.out.println(x.toString());
-            }
-        } catch (Exception e) {
-        }
-        
-        return lstNhanVien;
-
+    @Override
+    public Integer delete(Integer id) {
+        String sql = "delete from Users where Id = ?";
+        Integer row = DBConnection.ExcuteQuery(sql, id);
+        return row;
     }
+
 }
+

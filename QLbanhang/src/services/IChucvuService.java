@@ -6,11 +6,12 @@ package services;
 
 import java.util.List;
 import models.Chucvu;
+import viewmodels.ChucVuView;
 
 /**
  *
  * @author hungh
  */
 public interface IChucvuService {
-     public List<Chucvu> getall();
+    public List<ChucVuView> getAllChucVu();
 }

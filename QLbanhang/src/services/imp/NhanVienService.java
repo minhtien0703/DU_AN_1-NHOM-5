@@ -18,37 +18,36 @@ import viewmodels.NhanVienview;
  */
 public class NhanVienService implements INhanvienService {
 
-    private INhanvienReposytory NhanvienRepo = new NhanvienReposytory();
+    private final NhanvienReposytory nhanvienReposytory = new NhanvienReposytory();
 
     @Override
-    public List<NhanVienview> getAll() {
-        var nhanvien = NhanvienRepo.getAll();
-        List<NhanVienview> lstNhanvien = new ArrayList<>();
-        for (Nhanvien x : nhanvien) {
-            NhanVienview xx = new NhanVienview(x.getId(), x.getHo(), x.getTendem(), x.getTen(), x.getNgaysinh(), x.getGioitinh(), x.getTrangthai(), x.getChucvu() + "", x.getTaikhoan(), x.getMatkhau(), x.getSdt(), x.getEmail());
-            lstNhanvien.add(xx);
-        }
-        return lstNhanvien;
+    public List<NhanVienview> getAllNhanVien() {
+        return nhanvienReposytory.getAllNhanVien();
     }
 
     @Override
-    public int add(Nhanvien x) {
-        return NhanvienRepo.add(x);
+    public Integer add(Nhanvien nv) {
+        return nhanvienReposytory.add(nv);
     }
 
     @Override
-    public int update(Nhanvien x, String id) {
-        return NhanvienRepo.update(x, id);
+    public Integer update(Nhanvien id) {
+        return nhanvienReposytory.update(id);
     }
 
     @Override
-    public int delete(String id) {
-        return NhanvienRepo.delete(id);
+    public Integer delete(Integer id) {
+        return nhanvienReposytory.delete(id);
+    }
+
+    @Override
+    public List<NhanVienview> SearchNVV(String Ten) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public Nhanvien getbyid(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -14,13 +14,15 @@ import viewmodels.NhanVienview;
  */
 public interface INhanvienService {
 
-    public List<NhanVienview> getAll();
+    public List<NhanVienview> getAllNhanVien();
 
-    public int add(Nhanvien x);
+    Integer add(Nhanvien nv);
 
-    public int update(Nhanvien x, String id);
+    Integer update(Nhanvien id);
 
-    public int delete(String id);
+    Integer delete(Integer id);
+
+    List<NhanVienview> SearchNVV(String Ten);
 
     public Nhanvien getbyid(String id);
 }

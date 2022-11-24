@@ -11,18 +11,22 @@ import java.util.Date;
  * @author hungh
  */
 public class Nhanvien {
-    String id,ten,tendem,ho;
-    Date ngaysinh;
-    int gioitinh;
-    String sdt;
-    String chucvu;
-    String taikhoan,matkhau,email;
-    int trangthai;
+
+    private Integer id;
+    private String ten, tendem, ho;
+    private String ngaysinh;
+    private Integer gioitinh;
+    private String sdt;
+    private String tk;
+    private String mk;
+    private String email;
+    private String ChucVu;
+    private Integer TT;
 
     public Nhanvien() {
     }
 
-    public Nhanvien(String id, String ten, String tendem, String ho, Date ngaysinh, int gioitinh, String sdt, String chucvu, String taikhoan, String matkhau, String email, int trangthai) {
+    public Nhanvien(Integer id, String ten, String tendem, String ho, String ngaysinh, Integer gioitinh, String sdt, String tk, String mk, String email, String ChucVu, Integer TT) {
         this.id = id;
         this.ten = ten;
         this.tendem = tendem;
@@ -30,18 +34,18 @@ public class Nhanvien {
         this.ngaysinh = ngaysinh;
         this.gioitinh = gioitinh;
         this.sdt = sdt;
-        this.chucvu = chucvu;
-        this.taikhoan = taikhoan;
-        this.matkhau = matkhau;
+        this.tk = tk;
+        this.mk = mk;
         this.email = email;
-        this.trangthai = trangthai;
+        this.ChucVu = ChucVu;
+        this.TT = TT;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -69,19 +73,19 @@ public class Nhanvien {
         this.ho = ho;
     }
 
-    public Date getNgaysinh() {
+    public String getNgaysinh() {
         return ngaysinh;
     }
 
-    public void setNgaysinh(Date ngaysinh) {
+    public void setNgaysinh(String ngaysinh) {
         this.ngaysinh = ngaysinh;
     }
 
-    public int getGioitinh() {
+    public Integer getGioitinh() {
         return gioitinh;
     }
 
-    public void setGioitinh(int gioitinh) {
+    public void setGioitinh(Integer gioitinh) {
         this.gioitinh = gioitinh;
     }
 
@@ -93,28 +97,20 @@ public class Nhanvien {
         this.sdt = sdt;
     }
 
-    public String getChucvu() {
-        return chucvu;
+    public String getTk() {
+        return tk;
     }
 
-    public void setChucvu(String chucvu) {
-        this.chucvu = chucvu;
+    public void setTk(String tk) {
+        this.tk = tk;
     }
 
-    public String getTaikhoan() {
-        return taikhoan;
+    public String getMk() {
+        return mk;
     }
 
-    public void setTaikhoan(String taikhoan) {
-        this.taikhoan = taikhoan;
-    }
-
-    public String getMatkhau() {
-        return matkhau;
-    }
-
-    public void setMatkhau(String matkhau) {
-        this.matkhau = matkhau;
+    public void setMk(String mk) {
+        this.mk = mk;
     }
 
     public String getEmail() {
@@ -125,17 +121,25 @@ public class Nhanvien {
         this.email = email;
     }
 
-    public int getTrangthai() {
-        return trangthai;
+    public String getChucVu() {
+        return ChucVu;
     }
 
-    public void setTrangthai(int trangthai) {
-        this.trangthai = trangthai;
+    public void setChucVu(String ChucVu) {
+        this.ChucVu = ChucVu;
+    }
+
+    public Integer getTT() {
+        return TT;
+    }
+
+    public void setTT(Integer TT) {
+        this.TT = TT;
     }
 
     @Override
     public String toString() {
-        return "Nhanvien{" + "id=" + id + ", ten=" + ten + ", tendem=" + tendem + ", ho=" + ho + ", ngaysinh=" + ngaysinh + ", gioitinh=" + gioitinh + ", sdt=" + sdt + ", chucvu=" + chucvu + ", taikhoan=" + taikhoan + ", matkhau=" + matkhau + ", email=" + email + ", trangthai=" + trangthai + '}';
+        return "Nhanvien{" + "id=" + id + ", ten=" + ten + ", tendem=" + tendem + ", ho=" + ho + ", ngaysinh=" + ngaysinh + ", gioitinh=" + gioitinh + ", sdt=" + sdt + ", tk=" + tk + ", mk=" + mk + ", email=" + email + ", ChucVu=" + ChucVu + ", TT=" + TT + '}';
     }
-    
+
 }

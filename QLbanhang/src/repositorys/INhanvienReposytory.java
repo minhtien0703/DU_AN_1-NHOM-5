@@ -13,9 +13,16 @@ import viewmodels.NhanVienview;
  * @author hungh
  */
 public interface INhanvienReposytory {
-    public List<Nhanvien> getAll();
-    public int add(Nhanvien x);
-    public int update(Nhanvien x,String id);
-    public int delete(String id);
+
+    public List<NhanVienview> getAllNhanVien();
+
+    Integer add(Nhanvien nv);
+
+    Integer update(Nhanvien id);
+
+    Integer delete(Integer id);
+
+    List<NhanVienview> SearchNVV(String Ten);
+
     public Nhanvien getbyid(String id);
 }
