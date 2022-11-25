@@ -4,18 +4,6 @@
  */
 package views;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import models.KhachHang;
-import services.KhachHangSV;
-import services.imp.khahangsvImpl;
-import viewmodels.KhachHangViewMD;
 
 /**
  *
@@ -23,86 +11,13 @@ import viewmodels.KhachHangViewMD;
  */
 public class frm_Khachhang extends javax.swing.JPanel {
 
-    DefaultTableModel defaultTableModel = new DefaultTableModel();
-    List<KhachHangViewMD> listKhachHang;
-    KhachHangSV KH = new khahangsvImpl();
-
+   
     public frm_Khachhang() {
         initComponents();
-        listKhachHang = KH.getall();
-        showTable(listKhachHang);
+      
     }
 
-    public void showTable(List<KhachHangViewMD> list) {
-        defaultTableModel = (DefaultTableModel) TB_bang.getModel();
-        defaultTableModel.setRowCount(0);
-        for (KhachHangViewMD khachHang01 : list) {
-            defaultTableModel.addRow(khachHang01.toDataRow());
-        }
-    }
-
-    private KhachHang getData() {
-        KhachHang cv = new KhachHang();
-        cv.setTen(txt_Ten.getText());
-        cv.setTendem(txt_tenDem.getText());
-        cv.setHo(txt_Ho.getText());
-        int gt;
-        if (rd_Nam.isSelected()) {
-            gt = 0;
-        } else {
-            gt = 1;
-        }
-        cv.setGioitinh(gt);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        cv.setNgaysinh(sdf.format(date_ngaysinh.getDate()));
-        cv.setSdt(txt_sdt.getText());
-        cv.setEmail(txt_email.getText());
-        cv.setDiemthuong(Integer.parseInt(txt_diemthuong.getText()));
-
-        return cv;
-    }
-
-    public int layid() {
-        Integer row = TB_bang.getSelectedRow();
-        int id = (int) TB_bang.getValueAt(row, 0);
-        return id;
-
-    }
-
-    public boolean check() {
-        if (txt_Ten.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa nhập tên!");
-            return false;
-        }
-        if (txt_tenDem.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa nhập tên Đệm!");
-            return false;
-        }
-        if (txt_Ho.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa nhập Họ!");
-            return false;
-        }
-        if (date_ngaysinh.getDate() == null) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa nhập ngày sinh!");
-            return false;
-        }
-        if (txt_sdt.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa nhập SĐT!");
-            return false;
-        }
-        if (txt_email.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa nhập Email!");
-            return false;
-        }
-        if (txt_diemthuong.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa nhập điểm thưởng!");
-            return false;
-        }
-
-        return true;
-
-    }
-
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -327,79 +242,25 @@ public class frm_Khachhang extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
-        if (check()) {
-            JOptionPane.showMessageDialog(this, KH.add(getData()));
-            listKhachHang = KH.getall();
-            showTable(listKhachHang);
-        }
+       
 
     }//GEN-LAST:event_btn_themActionPerformed
 
     private void btn_LamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LamMoiActionPerformed
-        txt_Ten.setText("");
-        txt_tenDem.setText("");
-        txt_Ho.setText("");
-        date_ngaysinh.setCalendar(null);
-        txt_sdt.setText("");
-        txt_email.setText("");
-        txt_diemthuong.setText("");
+       
 
     }//GEN-LAST:event_btn_LamMoiActionPerformed
 
     private void Btn_capNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_capNhatActionPerformed
-        int row = TB_bang.getSelectedRow();
-        if (row < 0) {
-            JOptionPane.showMessageDialog(this, "cần chọn khách hàng để cập nhật");
-            return;
-        }
-        if (JOptionPane.showConfirmDialog(this, "Bạn có muốn cập nhật không?") == JOptionPane.YES_OPTION) {
-            int id = layid();
-
-            JOptionPane.showMessageDialog(this, KH.update(id, getData()));
-            listKhachHang = KH.getall();
-            showTable(listKhachHang);
-        }
+       
     }//GEN-LAST:event_Btn_capNhatActionPerformed
 
     private void btn_xoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xoaActionPerformed
-        int row = TB_bang.getSelectedRow();
-        if (row < 0) {
-            JOptionPane.showMessageDialog(this, "cần chọn khách hàng để xoá");
-
-            return;
-        }
-        if (JOptionPane.showConfirmDialog(this, "Bạn có muốn xóa không?") == JOptionPane.YES_OPTION) {
-            int id = layid();
-
-            JOptionPane.showMessageDialog(this, KH.delete(id));
-            listKhachHang = KH.getall();
-            showTable(listKhachHang);
-        }
+       
     }//GEN-LAST:event_btn_xoaActionPerformed
 
     private void TB_bangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_bangMouseClicked
-        try {
-            int row = TB_bang.getSelectedRow();
-            KhachHangViewMD kh = listKhachHang.get(row);
-            txt_Ten.setText(kh.getTen());
-            txt_tenDem.setText(kh.getTendem());
-            txt_Ho.setText(kh.getHo());
-            String gt = (TB_bang.getValueAt(row, 4).toString());;
-            if (gt == "Nam") {
-                rd_Nam.setSelected(true);
-            } else {
-                rd_nu.setSelected(true);
-            }
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-            date_ngaysinh.setDate(sdf.parse(kh.getNgaysinh()));
-            txt_sdt.setText(kh.getSdt());
-            txt_email.setText(kh.getEmail());
-            txt_diemthuong.setText(String.valueOf(kh.getDiemthuong()));
-
-        } catch (ParseException ex) {
-            Logger.getLogger(frm_Khachhang.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }//GEN-LAST:event_TB_bangMouseClicked
 
 

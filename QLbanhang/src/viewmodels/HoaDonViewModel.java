@@ -5,6 +5,7 @@
 package viewmodels;
 
 import java.sql.Date;
+import models.User;
 
 /**
  *
@@ -15,5 +16,61 @@ public class HoaDonViewModel {
     private Date NgayTao;
     private Date NgayThanhToan;
     private int TrangThai;
-//    private 
+    private User user;
+
+    public HoaDonViewModel() {
+    }
+
+    public HoaDonViewModel(String Ma, Date NgayTao, Date NgayThanhToan, int TrangThai) {
+        this.Ma = Ma;
+        this.NgayTao = NgayTao;
+        this.NgayThanhToan = NgayThanhToan;
+        this.TrangThai = TrangThai;
+
+    }
+
+
+    public String getMa() {
+        return Ma;
+    }
+
+    public void setMa(String Ma) {
+        this.Ma = Ma;
+    }
+
+    public Date getNgayTao() {
+        return NgayTao;
+    }
+
+    public void setNgayTao(Date NgayTao) {
+        this.NgayTao = NgayTao;
+    }
+
+    public Date getNgayThanhToan() {
+        return NgayThanhToan;
+    }
+
+    public void setNgayThanhToan(Date NgayThanhToan) {
+        this.NgayThanhToan = NgayThanhToan;
+    }
+
+    public int getTrangThai() {
+        return TrangThai;
+    }
+
+    public void setTrangThai(int TrangThai) {
+        this.TrangThai = TrangThai;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
+    
+    
 }

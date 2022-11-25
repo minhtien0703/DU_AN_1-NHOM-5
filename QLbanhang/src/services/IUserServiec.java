@@ -5,14 +5,12 @@
 package services;
 
 import java.util.List;
-import viewmodels.SanPhamViewModel;
+import models.User;
 
 /**
  *
  * @author Admin
  */
-public interface ISamPhamServiecs {
-      List<SanPhamViewModel> getListSanPham();
-      boolean updateSoLuongSP(String Masp, int SoLuong ) ;
-      Integer getIdSanPham(String MaSP);
+public interface IUserServiec {
+   String getUser( String TaiKhoan ,String MatKhau);
 }

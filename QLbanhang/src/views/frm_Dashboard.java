@@ -15,13 +15,15 @@ public class frm_Dashboard extends javax.swing.JFrame {
 
     private JPanel panelchid;
     int xx, xy;
-
-    public frm_Dashboard() {
+   int id;
+    public frm_Dashboard(String TenNhanVien , int idNV) {
         initComponents();
+         id = idNV;
+        lbl_tenNhanVien.setText(TenNhanVien);
         setColor(btnbanhang);
         crep1.setOpaque(true);
         resetColor(new JPanel[]{btnsanpham, btnkhuyenmai, btnkhachhang, btnnhanvien, btnthongke, btnhoadon, btndangxuat}, new JPanel[]{crep2, crep3, crep4, crep5, crepp1, crepp2, crepp3});
-        setpanal(new frm_Banhang());
+        setpanal(new frm_Banhang(id));
         setLocationRelativeTo(null);
     }
 
@@ -55,7 +57,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
         lbltieude = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lbl_tenNhanVien = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnbanhang = new javax.swing.JPanel();
         crep1 = new javax.swing.JPanel();
@@ -138,10 +140,10 @@ public class frm_Dashboard extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(0, 0, 128));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("TÊN NHÂN VIÊN");
-        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 140, 40));
+        lbl_tenNhanVien.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_tenNhanVien.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_tenNhanVien.setText("TÊN NHÂN VIÊN");
+        jPanel4.add(lbl_tenNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 140, 40));
 
         jLabel2.setForeground(new java.awt.Color(204, 255, 255));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user64px.png"))); // NOI18N
@@ -576,7 +578,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
         setColor(btnbanhang);
         crep1.setOpaque(true);
         resetColor(new JPanel[]{btnsanpham, btnkhuyenmai, btnkhachhang, btnnhanvien, btnthongke, btnhoadon, btndangxuat}, new JPanel[]{crep2, crep3, crep4, crep5, crepp1, crepp2, crepp3});
-        setpanal(new frm_Banhang());
+        setpanal(new frm_Banhang(id));
         lbltieude.setText("Bán hàng");
     }//GEN-LAST:event_btnbanhangMousePressed
 
@@ -689,7 +691,6 @@ public class frm_Dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel crepp1;
     private javax.swing.JPanel crepp2;
     private javax.swing.JPanel crepp3;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
@@ -704,6 +705,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JLabel lbl_tenNhanVien;
     private javax.swing.JLabel lbltieude;
     private javax.swing.JPanel pnmain;
     // End of variables declaration//GEN-END:variables

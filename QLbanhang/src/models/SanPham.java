@@ -9,7 +9,7 @@ package models;
  * @author Admin
  */
 public class SanPham {
-
+   private int id;
     private String Ma;
     private String Ten;
     private int SoLuongTon;
@@ -23,7 +23,7 @@ public class SanPham {
     public SanPham() {
     }
 
-    public SanPham(String Ma, String Ten, int SoLuongTon, Double GiaNhap, Double GiaBan, MauSac mauSac, ChatLieu chatLieu, KichCo kichCo, KhuyenMai khuenMai) {
+    public SanPham( int id,String Ma, String Ten, int SoLuongTon, Double GiaNhap, Double GiaBan, MauSac mauSac, ChatLieu chatLieu, KichCo kichCo, KhuyenMai khuenMai) {
         this.Ma = Ma;
         this.Ten = Ten;
         this.SoLuongTon = SoLuongTon;
@@ -33,6 +33,14 @@ public class SanPham {
         this.chatLieu = chatLieu;
         this.kichCo = kichCo;
         this.khuenMai = khuenMai;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
   

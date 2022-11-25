@@ -6,6 +6,9 @@ package views;
 
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import services.IUserServiec;
+import services.imp.UserServiec;
 
 /**
  *
@@ -14,9 +17,11 @@ import javax.swing.JFrame;
 public class frm_Dangnhap extends javax.swing.JPanel {
 
     boolean hish = false;
+    private IUserServiec userServiec;
 
     public frm_Dangnhap() {
         initComponents();
+        userServiec = new UserServiec();
     }
 
     public void dangnhap() {
@@ -26,9 +31,11 @@ public class frm_Dangnhap extends javax.swing.JPanel {
     public void addEventquenmatkhau(ActionListener event) {
         quenmatkhau.addActionListener(event);
     }
-    public void btndangnhapEven(ActionListener event){
+
+    public void btndangnhapEven(ActionListener event) {
         myButton2.addActionListener(event);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -81,7 +88,6 @@ public class frm_Dangnhap extends javax.swing.JPanel {
         });
         add(myButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 350, 120, 48));
 
-        quenmatkhau.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         quenmatkhau.setForeground(new java.awt.Color(255, 51, 51));
         quenmatkhau.setText("Quên mật khẩu ?");
         quenmatkhau.setBorder(null);
@@ -103,6 +109,11 @@ public class frm_Dangnhap extends javax.swing.JPanel {
         myButton2.setForeground(new java.awt.Color(0, 51, 102));
         myButton2.setText("Đăng nhập");
         myButton2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        myButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myButton2ActionPerformed(evt);
+            }
+        });
         add(myButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, 120, 48));
 
         hideshow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/hide.png"))); // NOI18N
@@ -115,7 +126,7 @@ public class frm_Dangnhap extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
-       System.exit(0);
+        System.exit(0);
     }//GEN-LAST:event_myButton1ActionPerformed
 
     private void hideshowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hideshowMouseClicked
@@ -130,6 +141,13 @@ public class frm_Dangnhap extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_hideshowMouseClicked
+
+    private void myButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton2ActionPerformed
+        String TaiKhaon = txtUser.getText().trim();
+        String MatKhau = txtPass.getText().trim();
+        String dangNhap = userServiec.getUser(TaiKhaon, MatKhau);
+        JOptionPane.showMessageDialog(this, dangNhap);
+    }//GEN-LAST:event_myButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
