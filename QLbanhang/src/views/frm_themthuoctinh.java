@@ -16,6 +16,7 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
     public frm_themthuoctinh(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -40,6 +41,10 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
         jRadioButton9 = new javax.swing.JRadioButton();
         panelBorder4 = new swing.PanelBorder();
         jTextField1 = new javax.swing.JTextField();
+        btn_them = new swing.MyButton();
+        btn_xoa = new swing.MyButton();
+        btn_LamMoi = new swing.MyButton();
+        Btn_capNhat = new swing.MyButton();
         panelBorder2 = new swing.PanelBorder();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -116,8 +121,56 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
         panelBorder1.add(panelBorder4);
         panelBorder4.setBounds(60, 90, 250, 50);
 
+        btn_them.setBackground(new java.awt.Color(125, 224, 237));
+        btn_them.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add.png"))); // NOI18N
+        btn_them.setText("Thêm");
+        btn_them.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_them.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_themActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(btn_them);
+        btn_them.setBounds(1010, 50, 120, 33);
+
+        btn_xoa.setBackground(new java.awt.Color(125, 224, 237));
+        btn_xoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tay.png"))); // NOI18N
+        btn_xoa.setText("Xóa");
+        btn_xoa.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_xoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_xoaActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(btn_xoa);
+        btn_xoa.setBounds(1010, 130, 120, 33);
+
+        btn_LamMoi.setBackground(new java.awt.Color(125, 224, 237));
+        btn_LamMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/refresh.png"))); // NOI18N
+        btn_LamMoi.setText("Làm Mới");
+        btn_LamMoi.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_LamMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_LamMoiActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(btn_LamMoi);
+        btn_LamMoi.setBounds(860, 50, 120, 33);
+
+        Btn_capNhat.setBackground(new java.awt.Color(125, 224, 237));
+        Btn_capNhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/floppy-disk.png"))); // NOI18N
+        Btn_capNhat.setText("Cập nhật");
+        Btn_capNhat.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        Btn_capNhat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_capNhatActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(Btn_capNhat);
+        Btn_capNhat.setBounds(860, 130, 120, 33);
+
         panelGradiente1.add(panelBorder1);
-        panelBorder1.setBounds(10, 0, 860, 230);
+        panelBorder1.setBounds(10, 0, 1160, 230);
 
         panelBorder2.setBackground(new java.awt.Color(204, 204, 255));
 
@@ -139,9 +192,11 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
         jScrollPane1.setViewportView(jTable1);
 
         panelBorder2.add(jScrollPane1);
-        jScrollPane1.setBounds(0, 70, 860, 260);
+        jScrollPane1.setBounds(0, 70, 1160, 260);
 
         panelBorder5.setBackground(new java.awt.Color(255, 255, 255));
+
+        searchText1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         panelBorder5.add(searchText1);
         searchText1.setBounds(10, 0, 240, 50);
 
@@ -150,16 +205,16 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
         jLabel2.setBounds(264, 0, 40, 50);
 
         panelBorder2.add(panelBorder5);
-        panelBorder5.setBounds(530, 10, 300, 50);
+        panelBorder5.setBounds(790, 10, 300, 50);
 
         panelGradiente1.add(panelBorder2);
-        panelBorder2.setBounds(10, 250, 860, 330);
+        panelBorder2.setBounds(10, 260, 1160, 330);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelGradiente1, javax.swing.GroupLayout.DEFAULT_SIZE, 880, Short.MAX_VALUE)
+            .addComponent(panelGradiente1, javax.swing.GroupLayout.DEFAULT_SIZE, 1178, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,6 +223,22 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_LamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LamMoiActionPerformed
+
+    }//GEN-LAST:event_btn_LamMoiActionPerformed
+
+    private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
+
+    }//GEN-LAST:event_btn_themActionPerformed
+
+    private void Btn_capNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_capNhatActionPerformed
+
+    }//GEN-LAST:event_Btn_capNhatActionPerformed
+
+    private void btn_xoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xoaActionPerformed
+
+    }//GEN-LAST:event_btn_xoaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -212,6 +283,10 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private swing.MyButton Btn_capNhat;
+    private swing.MyButton btn_LamMoi;
+    private swing.MyButton btn_them;
+    private swing.MyButton btn_xoa;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
