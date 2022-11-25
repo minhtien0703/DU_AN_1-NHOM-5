@@ -7,18 +7,18 @@ package services.imp;
 import java.util.ArrayList;
 import java.util.List;
 import models.KhachHang;
-import repositorys.KhachHangRP;
 import repositorys.imp.KhachHangRPImpl;
-import services.KhachHangSV;
 import viewmodels.KhachHangViewMD;
+import repositorys.IKhachHangReposytory;
+import services.IKhachHangService;
 
 /**
  *
  * @author PC
  */
-public class khahangsvImpl implements KhachHangSV {
+public class khahangsvImpl implements IKhachHangService {
 
-    private KhachHangRP khachHang01 = new KhachHangRPImpl();
+    private IKhachHangReposytory khachHang01 = new KhachHangRPImpl();
 
     @Override
     public List<KhachHangViewMD> getall() {
@@ -26,7 +26,7 @@ public class khahangsvImpl implements KhachHangSV {
 
         List<KhachHang> list = khachHang01.getall();
         for (KhachHang x : list) {
-            list01.add(new KhachHangViewMD(x.getId(), x.getTen(), x.getTendem(), x.getHo(), x.getGioitinh(), x.getNgaysinh(), x.getSdt(), x.getEmail(), x.getDiemthuong()));
+            list01.add(new KhachHangViewMD(x.getId(), x.getTen(), x.getTendem(), x.getHo(), x.getGioitinh(), x.getNgaysinh(), x.getEmail(), x.getSdt(), x.getDiemthuong()));
         }
         return list01;
 
@@ -58,5 +58,7 @@ public class khahangsvImpl implements KhachHangSV {
         }
         return "Xóa thất bại";
     }
+
+   
 
 }

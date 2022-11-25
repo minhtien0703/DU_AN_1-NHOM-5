@@ -10,15 +10,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import repositorys.KhachHangRP;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.KhachHang;
+import models.KhuyenMai;
 import utilconnext.DBConnection;
+import repositorys.IKhachHangReposytory;
+import viewmodels.KhachHangViewMD;
 
 /**
  *
  * @author PC
  */
-public class KhachHangRPImpl implements KhachHangRP {
+public class KhachHangRPImpl implements IKhachHangReposytory {
 
     @Override
     public List<KhachHang> getall() {
@@ -66,10 +70,9 @@ public class KhachHangRPImpl implements KhachHangRP {
                 + "           ,[Gioitinh]\n"
                 + "           ,[NgaySinh]\n"
                 + "           ,[Email]\n"
-                + "           ,[Sdt]\n"
-                + "           ,[Diemthuong])\n"
+                + "           ,[Sdt]\n)"
                 + "     VALUES\n"
-                + "           (?,?,?,?,?,?,?,?)";
+                + "           (?,?,?,?,?,?,?)";
         try ( Connection con = DBConnection.openDbConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setObject(1, khachhang.getTen());
             ps.setObject(2, khachhang.getTendem());
@@ -78,7 +81,6 @@ public class KhachHangRPImpl implements KhachHangRP {
             ps.setObject(5, khachhang.getNgaysinh());
             ps.setObject(6, khachhang.getEmail());
             ps.setObject(7, khachhang.getSdt());
-            ps.setObject(8, khachhang.getDiemthuong());
 
             check = ps.executeUpdate();
         } catch (Exception e) {
@@ -132,5 +134,7 @@ public class KhachHangRPImpl implements KhachHangRP {
         }
         return check > 0;
     }
+
+    
 
 }
