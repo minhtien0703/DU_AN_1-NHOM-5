@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 import models.Chucvu;
 import repositorys.IChucvuRepo;
 import utilconnext.DBConnection;
-import viewmodels.ChucVuView;
 
 /**
  *
@@ -21,15 +20,15 @@ import viewmodels.ChucVuView;
 public class Chucvurepo implements IChucvuRepo {
 
     @Override
-    public List<ChucVuView> getAllChucVu() {
+    public List<Chucvu> getAllChucVu() {
 
-        List<ChucVuView> cvv = new ArrayList<>();
+        List<Chucvu> cvv = new ArrayList<>();
         String sql = "select * from ChucVu";
         ResultSet rs = null;
         try {
             rs = DBConnection.getDataFromQuery(sql);
             while (rs.next()) {
-                cvv.add(new ChucVuView(rs.getString(1), rs.getString(2)));
+                cvv.add(new Chucvu(rs.getString(1), rs.getString(2)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(Chucvurepo.class.getName()).log(Level.SEVERE, null, ex);

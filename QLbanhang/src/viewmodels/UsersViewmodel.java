@@ -2,17 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package models;
+package viewmodels;
 
 import java.util.Date;
+import models.Chucvu;
 
 /**
  *
  * @author hungh
  */
-public class Nhanvien {
+public class UsersViewmodel {
 
-    private Integer id;
     private String ten, tendem, ho;
     private String ngaysinh;
     private Integer gioitinh;
@@ -20,14 +20,13 @@ public class Nhanvien {
     private String tk;
     private String mk;
     private String email;
-    private String ChucVu;
+    private Chucvu chucvu;
     private Integer TT;
 
-    public Nhanvien() {
+    public UsersViewmodel() {
     }
 
-    public Nhanvien(Integer id, String ten, String tendem, String ho, String ngaysinh, Integer gioitinh, String sdt, String tk, String mk, String email, String ChucVu, Integer TT) {
-        this.id = id;
+    public UsersViewmodel( String ten, String tendem, String ho, String ngaysinh, Integer gioitinh, String sdt, String tk, String mk, String email, Chucvu chucvu, Integer TT) {
         this.ten = ten;
         this.tendem = tendem;
         this.ho = ho;
@@ -37,16 +36,8 @@ public class Nhanvien {
         this.tk = tk;
         this.mk = mk;
         this.email = email;
-        this.ChucVu = ChucVu;
+        this.chucvu = chucvu;
         this.TT = TT;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getTen() {
@@ -121,12 +112,12 @@ public class Nhanvien {
         this.email = email;
     }
 
-    public String getChucVu() {
-        return ChucVu;
+    public Chucvu getChucVu() {
+        return chucvu;
     }
 
-    public void setChucVu(String ChucVu) {
-        this.ChucVu = ChucVu;
+    public void setChucVu(Chucvu chucvu) {
+        this.chucvu = chucvu;
     }
 
     public Integer getTT() {
@@ -137,9 +128,8 @@ public class Nhanvien {
         this.TT = TT;
     }
 
-    @Override
-    public String toString() {
-        return "Nhanvien{" + "id=" + id + ", ten=" + ten + ", tendem=" + tendem + ", ho=" + ho + ", ngaysinh=" + ngaysinh + ", gioitinh=" + gioitinh + ", sdt=" + sdt + ", tk=" + tk + ", mk=" + mk + ", email=" + email + ", ChucVu=" + ChucVu + ", TT=" + TT + '}';
+    public String getgt(int gt) {
+        return gt == 1 ? "Nam" : "Nữ";
     }
 
 }

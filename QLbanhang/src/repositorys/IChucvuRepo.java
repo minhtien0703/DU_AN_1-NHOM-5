@@ -6,7 +6,7 @@ package repositorys;
 
 import java.util.List;
 import models.Chucvu;
-import viewmodels.ChucVuView;
+
 
 /**
  *
@@ -14,5 +14,5 @@ import viewmodels.ChucVuView;
  */
 public interface IChucvuRepo {
 
-   public List<ChucVuView> getAllChucVu();
+   public List<Chucvu> getAllChucVu();
 }

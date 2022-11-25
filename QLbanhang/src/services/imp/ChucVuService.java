@@ -4,23 +4,31 @@
  */
 package services.imp;
 
+import java.util.ArrayList;
 import java.util.List;
 import models.Chucvu;
 import repositorys.IChucvuRepo;
 import repositorys.imp.Chucvurepo;
 import services.IChucvuService;
-import viewmodels.ChucVuView;
 
 /**
  *
  * @author hungh
  */
 public class ChucVuService implements IChucvuService {
-
-    private final Chucvurepo chucvurepo = new Chucvurepo();
+    IChucvuRepo chucvuRepo;
+    List<Chucvu> lstcv ;
+    public ChucVuService() {
+        lstcv = new ArrayList<>();
+        chucvuRepo =  new Chucvurepo();
+    }
     @Override
-    public List<ChucVuView> getAllChucVu() {
-        return chucvurepo.getAllChucVu();
+    public List<Chucvu> getAllChucVu() {
+        lstcv = new ArrayList<>();
+        for (Chucvu cv : chucvuRepo.getAllChucVu()) {
+            lstcv.add(new Chucvu(cv.getId(),cv.getTen()));
+        }
+        return lstcv;
     }
 
     

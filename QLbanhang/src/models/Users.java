@@ -2,17 +2,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package viewmodels;
+package models;
 
 import java.util.Date;
+
+import models.Chucvu;
+
+import models.Chucvu;
+
+import models.Chucvu;
+
+
 
 /**
  *
  * @author hungh
  */
-public class NhanVienview {
+public class Users {
 
-    private Integer id;
+    private String id;
     private String ten, tendem, ho;
     private String ngaysinh;
     private Integer gioitinh;
@@ -20,13 +28,13 @@ public class NhanVienview {
     private String tk;
     private String mk;
     private String email;
-    private ChucVuView chucVuView;
+    private Chucvu ChucVu;
     private Integer TT;
 
-    public NhanVienview() {
+    public Users() {
     }
 
-    public NhanVienview(Integer id, String ten, String tendem, String ho, String ngaysinh, Integer gioitinh, String sdt, String tk, String mk, String email, ChucVuView chucVuView, Integer TT) {
+    public Users(String id, String ten, String tendem, String ho, String ngaysinh, Integer gioitinh, String sdt, String tk, String mk, String email, Chucvu ChucVu, Integer TT) {
         this.id = id;
         this.ten = ten;
         this.tendem = tendem;
@@ -37,15 +45,29 @@ public class NhanVienview {
         this.tk = tk;
         this.mk = mk;
         this.email = email;
-        this.chucVuView = chucVuView;
+        this.ChucVu = ChucVu;
         this.TT = TT;
     }
 
-    public Integer getId() {
+    public Users(String ten, String tendem, String ho, String ngaysinh, Integer gioitinh, String sdt, String tk, String mk, String email, Chucvu ChucVu, Integer TT) {
+        this.ten = ten;
+        this.tendem = tendem;
+        this.ho = ho;
+        this.ngaysinh = ngaysinh;
+        this.gioitinh = gioitinh;
+        this.sdt = sdt;
+        this.tk = tk;
+        this.mk = mk;
+        this.email = email;
+        this.ChucVu = ChucVu;
+        this.TT = TT;
+    }
+    
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -121,12 +143,12 @@ public class NhanVienview {
         this.email = email;
     }
 
-    public ChucVuView getChucVuView() {
-        return chucVuView;
+    public Chucvu getChucVu() {
+        return ChucVu;
     }
 
-    public void setChucVuView(ChucVuView chucVuView) {
-        this.chucVuView = chucVuView;
+    public void setChucVu(Chucvu ChucVu) {
+        this.ChucVu = ChucVu;
     }
 
     public Integer getTT() {
@@ -137,12 +159,9 @@ public class NhanVienview {
         this.TT = TT;
     }
 
-    public String getgt(int gt) {
-        return gt == 1 ? "Nam" : "Nữ";
-    }
-
     @Override
     public String toString() {
-        return "NhanVienview{" + "id=" + id + ", ten=" + ten + ", tendem=" + tendem + ", ho=" + ho + ", ngaysinh=" + ngaysinh + ", gioitinh=" + gioitinh + ", sdt=" + sdt + ", tk=" + tk + ", mk=" + mk + ", email=" + email + ", chucVuView=" + chucVuView + ", TT=" + TT + '}';
+        return "Nhanvien{" + "id=" + id + ", ten=" + ten + ", tendem=" + tendem + ", ho=" + ho + ", ngaysinh=" + ngaysinh + ", gioitinh=" + gioitinh + ", sdt=" + sdt + ", tk=" + tk + ", mk=" + mk + ", email=" + email + ", ChucVu=" + ChucVu + ", TT=" + TT + '}';
     }
+
 }
