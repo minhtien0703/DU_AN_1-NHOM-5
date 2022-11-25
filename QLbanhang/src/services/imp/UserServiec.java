@@ -30,7 +30,7 @@ public class UserServiec implements IUserServiec {
     public String getUser(String TaiKhoan, String MatKhau) {
         List<User> list = userRepostory.getUser(TaiKhoan, MatKhau);
         if (TaiKhoan.isEmpty()) {
-        
+        new frm_Login().setVisible(true);
             return "tên đăng nhập không được để trống";
       
            
@@ -50,7 +50,7 @@ public class UserServiec implements IUserServiec {
                     return "đăng nhập thành công";
                     
                 }else{
-                   new frm_Login().setVisible(true);
+                new frm_Login().setVisible(true);
             return "chưa có form nhân viên";
         }
 
