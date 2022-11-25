@@ -41,15 +41,18 @@ public class UserServiec implements IUserServiec {
         }
                            
         if (list != null) {
-            for (User user : list) {
-                if (user.getChucVu().getTen().equalsIgnoreCase("quản lý")) {
+            for (User x : list) {
+                if (x.getChucVu().getTen().equalsIgnoreCase("quản lý")) {
                     JOptionPane.showMessageDialog(new frm_Login(), "Đăng nhập thành công !");
-                    new frm_Dashboard(user.getTen(), user.getId()).setVisible(true);
+                    String tenNV = x.getHo()+" "+x.getTenDem()+" "+x.getTen();
+                    new frm_Dashboard(tenNV, x.getId(),x.getChucVu().getTen()).setVisible(true);
                     return true;
 
                 } else {
-                    JOptionPane.showMessageDialog(new frm_Login(), "chờ update");
-                    return false;
+                    JOptionPane.showMessageDialog(new frm_Login(), "Đăng nhập thành công !");
+                    String tenNV = x.getHo()+" "+x.getTenDem()+" "+x.getTen();
+                    new frm_Dashboard(tenNV, x.getId(),x.getChucVu().getTen()).setVisible(true);
+                    return true;
                 }
 
             }
