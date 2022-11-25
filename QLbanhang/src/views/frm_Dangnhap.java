@@ -36,6 +36,13 @@ public class frm_Dangnhap extends javax.swing.JPanel {
         myButton2.addActionListener(event);
     }
 
+    public boolean isdangnhap() {
+        String TaiKhaon = txtUser.getText().trim();
+        String MatKhau = txtPass.getText().trim();
+        boolean dangNhap = userServiec.getUser(TaiKhaon, MatKhau);
+        return dangNhap;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -143,10 +150,7 @@ public class frm_Dangnhap extends javax.swing.JPanel {
     }//GEN-LAST:event_hideshowMouseClicked
 
     private void myButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton2ActionPerformed
-        String TaiKhaon = txtUser.getText().trim();
-        String MatKhau = txtPass.getText().trim();
-        String dangNhap = userServiec.getUser(TaiKhaon, MatKhau);
-        JOptionPane.showMessageDialog(this, dangNhap);
+     
     }//GEN-LAST:event_myButton2ActionPerformed
 
 

@@ -5,6 +5,7 @@
 package services.imp;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 import models.User;
 import repositorys.IUserRepostory;
 import repositorys.imp.UserRepostory;
@@ -27,39 +28,35 @@ public class UserServiec implements IUserServiec {
     }
 
     @Override
-    public String getUser(String TaiKhoan, String MatKhau) {
+    public boolean getUser(String TaiKhoan, String MatKhau) {
         List<User> list = userRepostory.getUser(TaiKhoan, MatKhau);
         if (TaiKhoan.isEmpty()) {
-        new frm_Login().setVisible(true);
-            return "tên đăng nhập không được để trống";
-      
-           
+            JOptionPane.showMessageDialog(new frm_Login(), "Nhập tài khoản");
+            return false;
+
         }
         if (MatKhau.isEmpty()) {
-             new frm_Login().setVisible(true);
-            return "mật khẩu không được để trống";
-        }if (TaiKhoan.isEmpty() && MatKhau.isEmpty()) {
-             new frm_Login().setVisible(true);
-            return "tên đăng nhập và mật khẩu không được để trống";
+            JOptionPane.showMessageDialog(new frm_Login(), "Nhập mật khẩu");
+
         }
+                           
         if (list != null) {
             for (User user : list) {
                 if (user.getChucVu().getTen().equalsIgnoreCase("quản lý")) {
-                 new frm_Dashboard(user.getTen() , user.getId()).setVisible(true);  
-               
-                    return "đăng nhập thành công";
-                    
-                }else{
-                new frm_Login().setVisible(true);
-            return "chưa có form nhân viên";
-        }
+                    JOptionPane.showMessageDialog(new frm_Login(), "Đăng nhập thành công !");
+                    new frm_Dashboard(user.getTen(), user.getId()).setVisible(true);
+                    return true;
+
+                } else {
+                    JOptionPane.showMessageDialog(new frm_Login(), "chờ update");
+                    return false;
+                }
 
             }
-            
 
         }
-        new frm_Login().setVisible(true);
-        return "tên đăng nhập hoặc tài khoản không đúng";
+        JOptionPane.showMessageDialog(new frm_Login(), "Sai tài khoản và mật khẩu"); 
+        return false;
     }
 
 }
