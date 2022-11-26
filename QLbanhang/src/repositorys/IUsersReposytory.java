@@ -24,5 +24,7 @@ public interface IUsersReposytory {
 
     List<Users> SearchNVV(String Ten);
 
+    boolean updateMK(Users us, String mail);
 
+    String kiemtra(String mail);
 }

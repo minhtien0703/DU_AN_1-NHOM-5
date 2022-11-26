@@ -5,7 +5,7 @@
 package services;
 
 import java.util.List;
-import models.Users;
+
 import viewmodels.UsersViewmodel;
 
 /**
@@ -23,5 +23,9 @@ public interface IUsersService {
     boolean delete(String id);
 
     List<UsersViewmodel> SearchNVV(String Ten);
+
+    boolean updateMK(UsersViewmodel us, String mail);
+
+    String kiemtra(String mail);
 
 }

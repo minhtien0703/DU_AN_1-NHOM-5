@@ -151,5 +151,41 @@ try {
         }       
     }
 
+    @Override
+    public boolean updateMK(Users us, String mail) {
+        String sql = "UPDATE NHANVIEN SET MATKHAU = ? WHERE EMAIL = ?";
+        try {
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setString(1, us.getMk());
+            pstm.setString(2, mail);
+            pstm.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    @Override
+    public String kiemtra(String mail) {
+        String sql = "SELECT EMAIL FROM NHANVIEN WHERE EMAIL = ?";
+        String box = null;
+        try {
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setString(1, mail);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                box = rs.getString(1);
+            }
+            return box;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }
 

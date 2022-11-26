@@ -5,8 +5,12 @@
 package views;
 
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.JOptionPane;
+import services.IUsersService;
+import services.imp.UsersService;
+import viewmodels.UsersViewmodel;
 
 /**
  *
@@ -15,9 +19,12 @@ import javax.swing.JOptionPane;
 public class frm_Quenmatkhau extends javax.swing.JPanel {
     boolean hish = false;
     boolean hish1 = false;
-    
+    IUsersService ius ;
+    ArrayList lstma;
     public frm_Quenmatkhau() {
         initComponents();
+        ius = new UsersService();
+        lstma = new ArrayList();
     }
 
     public void quenmatkhau() {
@@ -160,7 +167,6 @@ public class frm_Quenmatkhau extends javax.swing.JPanel {
             hideshow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/show.png")));
             txtPass.setEchoChar('\u25cf');
         }
-
     }//GEN-LAST:event_hideshowMouseClicked
 
     private void hideshow1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hideshow1MouseClicked
@@ -178,6 +184,14 @@ public class frm_Quenmatkhau extends javax.swing.JPanel {
 
     private void btn_doimkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_doimkMouseClicked
         // TODO add your handling code here:
+        if (txt_email.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập e-mail");
+            return;
+        }
+        if (txt_code.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập mã bảo mật");
+            return;
+        }
         if (txtPass.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập mật khẩu");
             return;
@@ -194,17 +208,31 @@ public class frm_Quenmatkhau extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Mật khẩu mới và mật khẩu xác nhận chưa giống nhau");
             return;
         }
+        if (ius.kiemtra(txt_email.getText())==null) {
+            JOptionPane.showMessageDialog(this, "Email không tồn tại");
+            return;
+        }
+        for (int i = 0; i <= lstma.size()-1; i++) {
+            if (!txt_code.getText().equals(lstma.get(i))) {
+                JOptionPane.showMessageDialog(this, "Sai mã bảo mật");
+                break;
+            }
+        }
+        UsersViewmodel us = new UsersViewmodel();
+        us.setMk(txtPass.getText());
+        ius.updateMK(us, txt_email.getText());
         JOptionPane.showMessageDialog(this, "Thay đổi mật khẩu thành công");
     }//GEN-LAST:event_btn_doimkMouseClicked
 
     private void btn_sendMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_sendMouseClicked
         // TODO add your handling code here:
-         if (txt_email.getText().isEmpty()) {
+        if (txt_email.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập e-mail");
             return;
         }
         Random random = new Random();
         int ran = random.nextInt(99999);
+        lstma.add(ran);
         String sub = "Verification code";
         String messsage = "<!DOCTYPE html>\n"
                 + "<html lang=\"en\">\n"
@@ -220,7 +248,7 @@ public class frm_Quenmatkhau extends javax.swing.JPanel {
                 + "    <h3 style=\"color: blue;\">Thank you very much</h3>\n"
                 + "</body>\n"
                 + "</html>";
-        utilconnext.SendMail.send(txt_email.getText(), sub, messsage, "beeclothes03@gmail.com", "zjauangyynxcspbl");
+        utilconnext.SendMail.send(txt_email.getText(), sub, messsage, "beeclothes03@gmail.com", "vdkxdnnmvnrjykqn");
     }//GEN-LAST:event_btn_sendMouseClicked
 
 

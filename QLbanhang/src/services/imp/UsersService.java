@@ -59,4 +59,14 @@ public class UsersService implements IUsersService {
         }
         return lstuser;  
     }
+
+    @Override
+    public boolean updateMK(UsersViewmodel us, String mail) {
+        return usersReposytory.updateMK(new Users(us.getMk()), mail);
+    }
+
+    @Override
+    public String kiemtra(String mail) {
+        return usersReposytory.kiemtra(mail);
+    }
 }

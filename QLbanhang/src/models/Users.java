@@ -62,6 +62,10 @@ public class Users {
         this.ChucVu = ChucVu;
         this.TT = TT;
     }
+
+    public Users(String mk) {
+        this.mk = mk;
+    }
     
     public String getId() {
         return id;

@@ -411,6 +411,8 @@ public class frm_Nhanvien extends javax.swing.JPanel {
 
     private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
         UsersViewmodel nv = getInputForm();
+        String sdt = "(0\\d{9})";
+        String mail ="^[a-zA-Z][a-zA-Z0-9]+@[a-zA-Z]+(\\\\.[a-zA-Z]+){1,3}$";
         if (getInputForm().getTen().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập tên!");
             return;
@@ -441,6 +443,14 @@ public class frm_Nhanvien extends javax.swing.JPanel {
         }
         if (getInputForm().getChucVu()==null) {
             JOptionPane.showMessageDialog(this, "Bạn chưa chọn chức vụ!");
+            return;
+        }
+        if (!getInputForm().getSdt().matches(sdt)) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại của bạn chưa đúng định dạng");
+            return;
+        }
+        if (!getInputForm().getEmail().matches(mail)) {
+            JOptionPane.showMessageDialog(this, "Email của bạn chưa đúng định dạng");
             return;
         }
         if (JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thêm ?")==JOptionPane.YES_OPTION)
@@ -551,7 +561,7 @@ public class frm_Nhanvien extends javax.swing.JPanel {
 
     private void lbl_searchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_searchMouseClicked
         // TODO add your handling code here:
-        if (searchtxt.getText().isEmpty()) {
+        if (searchtxt.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "bạn chưa nhập tên cần tìm");
             return;
         }
@@ -582,9 +592,11 @@ public class frm_Nhanvien extends javax.swing.JPanel {
     }//GEN-LAST:event_lbl_searchMouseClicked
 
     private void txtTaikhoanCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtTaikhoanCaretUpdate
+        if (txtho.getText().isEmpty() && txttendem.getText().isEmpty() && txtten.getText().isEmpty()) {
+            return;
+        }
         String tk =utilconnext.ZenTK.Zenma(txtho.getText()+" "+txttendem.getText()+" "+txtten.getText());
         txtTaikhoan.setText(tk);
-
     }//GEN-LAST:event_txtTaikhoanCaretUpdate
 
 
