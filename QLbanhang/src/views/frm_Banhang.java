@@ -155,7 +155,6 @@ public class frm_Banhang extends javax.swing.JPanel {
 
         jPopupMenu1 = new javax.swing.JPopupMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
         panelGradiente1 = new swing.PanelGradiente();
         jScrollPane2 = new javax.swing.JScrollPane();
         tb_sanPham = new javax.swing.JTable();
@@ -213,9 +212,6 @@ public class frm_Banhang extends javax.swing.JPanel {
         });
         jPopupMenu1.add(jMenuItem1);
 
-        jMenuItem2.setText("Giảm");
-        jPopupMenu1.add(jMenuItem2);
-
         setBackground(new java.awt.Color(204, 255, 255));
         setMinimumSize(new java.awt.Dimension(1010, 640));
         setName(""); // NOI18N
@@ -269,6 +265,12 @@ public class frm_Banhang extends javax.swing.JPanel {
         myButton3.setBounds(490, 20, 70, 30);
 
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
+
+        searchText1.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                searchText1CaretUpdate(evt);
+            }
+        });
         panelBorder1.add(searchText1);
         searchText1.setBounds(10, 0, 180, 30);
 
@@ -493,6 +495,10 @@ public class frm_Banhang extends javax.swing.JPanel {
         if (row < 0) {
             return;
         }
+        if (rowHD < 0) {
+            JOptionPane.showMessageDialog(this, "chọn vào sản phẩm bạn muốn mua");
+            return;
+        }
         try {
 
             int NhapSoLuong = Integer.parseInt(JOptionPane.showInputDialog(this, "nhap so luong"));
@@ -642,6 +648,10 @@ public class frm_Banhang extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "chọn 1 sản phẩm trong giỏ hàng để xoá");
             return;
         }
+        if (rowHD < 0) {
+            JOptionPane.showMessageDialog(this, "chọn Hoá đơn bạn muốn xoá sản phẩm đấy");
+            return;
+        }
 
         String MaSP = tb_gioHang.getValueAt(rowSP, 0).toString();
         String MaHD = tb_hoaDon.getValueAt(rowHD, 0).toString();
@@ -656,10 +666,11 @@ public class frm_Banhang extends javax.swing.JPanel {
                 list.clear();
                 getListSP();
                 getListGioHangHDCT(MaHD);
+                break;
 
-                return;
             }
         }
+         listGioHang.clear();
 
 
     }//GEN-LAST:event_myButton1ActionPerformed
@@ -699,6 +710,7 @@ public class frm_Banhang extends javax.swing.JPanel {
         }
         list.clear();
         getListSP();
+        listGioHang.clear();
         lbl_tongTien1.setText(String.valueOf(0));
         lbl_giamGia1.setText(String.valueOf(0));
         lbl_thanhTien.setText(String.valueOf(0));
@@ -720,25 +732,61 @@ public class frm_Banhang extends javax.swing.JPanel {
         }
         String MaSP = tb_gioHang.getValueAt(rowSP, 0).toString();
         String MaHD = tb_hoaDon.getValueAt(rowHD, 0).toString();
-     
+
         List<SanPhamViewModel> list = sanISamPhamServiecs.getListSanPham();
 //        List<HoaDonCHiTietViewModel> getList = hoaDonServiec.getListHoaDonChiTiet(MaHD);
         try {
             int NhapSoLuong = Integer.parseInt(JOptionPane.showInputDialog(this, "nhap so luong"));
             for (SanPhamViewModel x : list) {
-              // if (NhapSoLuong >= x.getSoLuongTon()) { 
-                int updateSoLuong = Integer.parseInt(tb_gioHang.getValueAt(rowSP, 2).toString()) + NhapSoLuong;     
-               Integer isupdate =  hoaDonServiec.updateSoLuongGioHang(updateSoLuong, MaSP, MaHD);
-              // sanISamPhamServiecs.updateSoLuongSP(MaSP, x.getSoLuongTon() - NhapSoLuong);
-               return;
-               // }
+                if (MaSP.equals(x.getMa())) {
+                    if (x.getSoLuongTon() >= NhapSoLuong) {
 
-           }
+                        Integer isupdate = hoaDonServiec.updateSoLuongGioHang(NhapSoLuong, MaSP, MaHD);
+                        int updateSoLuong = x.getSoLuongTon() + Integer.parseInt(tb_gioHang.getValueAt(rowSP, 2).toString());
+                        getListGioHangHDCT(MaHD);
+                        sanISamPhamServiecs.updateSoLuongSP(x.getMa(), updateSoLuong - NhapSoLuong);
+                        list.clear();
+                        getListSP();
+                        return;
+                    } else if (x.getSoLuongTon() < NhapSoLuong) {
+                        JOptionPane.showMessageDialog(this, "số Lượng sản phẩm không đủ");
+                        return;
+                    }
+                }
+
+            }
         } catch (Exception e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "vui lòng nhập nó không nhập kí tự");
         }
 
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void searchText1CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_searchText1CaretUpdate
+        String Ten = searchText1.getText().trim();
+        if (Ten.isEmpty()) {
+            List<SanPhamViewModel> list = sanISamPhamServiecs.getListSanPham();
+            list.clear();
+            getListSP();
+            return;
+        }
+        model = (DefaultTableModel) tb_sanPham.getModel();
+        model.setRowCount(0);
+        List<SanPham> getList = sanISamPhamServiecs.seachSanPham(Ten);
+        for (SanPham x : getList) {
+            model.addRow(new Object[]{
+                x.getMa(),
+                x.getTen(),
+                x.getMauSac().getTen(),
+                format.format(x.getKhuenMai().getGiaTriGiam()),
+                x.getKhuenMai().getHinhThucKM(),
+                x.getChatLieu().getTen(),
+                x.getKichCo().getTen(),
+                format.format(x.getGiaBan()),
+                x.getSoLuongTon(),});
+        }
+
+    }//GEN-LAST:event_searchText1CaretUpdate
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -761,7 +809,6 @@ public class frm_Banhang extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

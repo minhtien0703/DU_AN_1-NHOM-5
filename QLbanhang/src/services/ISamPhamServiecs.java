@@ -5,6 +5,7 @@
 package services;
 
 import java.util.List;
+import models.SanPham;
 import viewmodels.SanPhamViewModel;
 
 /**
@@ -15,4 +16,5 @@ public interface ISamPhamServiecs {
       List<SanPhamViewModel> getListSanPham();
       boolean updateSoLuongSP(String Masp, int SoLuong ) ;
       Integer getIdSanPham(String MaSP);
+      List<SanPham> seachSanPham(String Ten);
 }

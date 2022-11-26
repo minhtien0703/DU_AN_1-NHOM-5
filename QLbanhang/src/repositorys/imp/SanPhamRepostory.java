@@ -31,7 +31,7 @@ public class SanPhamRepostory implements ISanPhamReposory {
                 + "JOIN KichCo KC ON SP.IdKC = KC.Id JOIN ChatLieu CL ON SP.IdCL = CL.Id JOIN KhuyenMai KM ON SP.IdKM = KM.Id";
         Connection conn = DBConnection.openDbConnection();
         Statement stt = conn.createStatement();
-    
+
         ResultSet rs = stt.executeQuery(sql);
         while (rs.next()) {
             SanPham sp = new SanPham();
@@ -75,26 +75,64 @@ public class SanPhamRepostory implements ISanPhamReposory {
             return false;
         }
     }
-  
-    
+
     @Override
     public Integer getIdSanPham(String MaSP) {
         Integer idSP = 0;
-         try {
+        try {
             String sql = "select id from ChitietSP where Ma = ?";
             Connection conn = DBConnection.openDbConnection();
             PreparedStatement pr = conn.prepareStatement(sql);
             pr.setString(1, MaSP);
             ResultSet rs = pr.executeQuery();
-             while (rs.next()) {                 
-                 idSP = rs.getInt(1);
-                
-             }
+            while (rs.next()) {
+                idSP = rs.getInt(1);
+
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
-        
+
         }
-         return idSP;
+        return idSP;
+    }
+
+    @Override
+    public List<SanPham> seachSanPham(String Ten) {
+        List<SanPham> getListSP = new ArrayList<>();
+        try {
+
+            String sql = "SELECT SP.MA , SP.TEN , MS.Ten AS N'Màu Sắc' ,KM.Giatrigiam  , KM.HinhthucKM , KC.Ten AS N'Kích Cỡ' , CL.Ten AS N'CHẤT LIỆU', SP.SoLuongTon ,SP.GiaBan FROM ChitietSP SP \n"
+                    + "JOIN MauSac MS ON SP.IdMauSac = MS.Id\n"
+                    + "JOIN KichCo KC ON SP.IdKC = KC.Id JOIN ChatLieu CL ON SP.IdCL = CL.Id JOIN KhuyenMai KM ON SP.IdKM = KM.Id WHERE SP.TEN LIKE ?";
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pr = conn.prepareStatement(sql);
+            pr.setString(1, "%" + Ten + "%");
+            ResultSet rs = pr.executeQuery();
+            while (rs.next()) {
+                SanPham sp = new SanPham();
+                sp.setMa(rs.getString(1));
+                sp.setTen(rs.getString(2));
+                MauSac ms = new MauSac();
+                ms.setTen(rs.getString(3));
+                sp.setMauSac(ms);
+                KhuyenMai km = new KhuyenMai();
+                km.setGiaTriGiam(rs.getDouble(4));
+                km.setHinhThucKM(rs.getString(5));
+                sp.setKhuenMai(km);
+                KichCo ks = new KichCo();
+                ks.setTen(rs.getString(6));
+                sp.setKichCo(ks);
+                ChatLieu cl = new ChatLieu();
+                cl.setTen(rs.getString(7));
+                sp.setChatLieu(cl);
+                sp.setSoLuongTon(rs.getInt(8));
+                sp.setGiaBan(rs.getDouble(9));
+                getListSP.add(sp);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getListSP;
     }
 
 }
