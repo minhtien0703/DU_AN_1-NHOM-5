@@ -13,12 +13,24 @@ import models.HoaDonChiTiet;
  * @author Admin
  */
 public interface IHoaDonRepostory {
-    Integer insertHoaDon(HoaDon hd , Integer idNV);
-    Integer insertHoaDonChiTiet(HoaDonChiTiet hdct );
+
+    Integer insertHoaDon(HoaDon hd, Integer idNV);
+
+    Integer insertHoaDonChiTiet(HoaDonChiTiet hdct);
+
     List<HoaDon> getListHD(int TrangThai);
+
     Integer getIdHD(String MaHD);
+
     List<HoaDonChiTiet> getListHoaDonChiTiet(String MaHD);
-    Integer deleteSanPham(int idHD , int idSP);
-    Integer updateSanPhamTrenGioHang(int idHD , int idSP , int SoLuong);
+
+    Integer deleteSanPham(int idHD, int idSP);
+
+    Integer updateSanPhamTrenGioHang(int idHD, int idSP, int SoLuong);
+
     Integer clearSanPhamTrenGioHang(int idHD);
+
+    Integer getIDCTSP(int MaHD);
+
+    Integer updateSoLuongGioHang(int SoLuong,String MaSP , String MaHD);
 }

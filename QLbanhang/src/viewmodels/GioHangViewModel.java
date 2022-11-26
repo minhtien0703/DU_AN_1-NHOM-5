@@ -16,6 +16,7 @@ public class GioHangViewModel {
     private Double ThanhTien;
     private Double GiamGia;
     private String HinhThucGiamGia;
+   
     public GioHangViewModel() {
     }
 
@@ -24,13 +25,12 @@ public class GioHangViewModel {
         this.TenSP = TenSP;
         this.SoLuong = SoLuong;
         this.DonGia = DonGia;
-        this.ThanhTien = ThanhTien;
+      
         this.GiamGia = GiamGia;
         this.HinhThucGiamGia = HinhThucGiamGia;
+       
     }
-
-
-  
+ 
 
     public String getMaSP() {
         return MaSP;
@@ -83,5 +83,7 @@ public class GioHangViewModel {
     public void setHinhThucGiamGia(String HinhThucGiamGia) {
         this.HinhThucGiamGia = HinhThucGiamGia;
     }
+
+ 
     
 }
