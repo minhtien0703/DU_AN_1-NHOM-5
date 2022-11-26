@@ -1,33 +1,32 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
-package models;
+package viewmodels;
+
+
 
 /**
  *
- * @author Admin
+ * @author Win10
  */
-public class HoaDonChiTiet {
+public class HoaDonCTViewModel {
     private Integer idHoaDon;
     private Integer idCTSP;
     private int Soluong;
     private Double DonGia;
     private Double DonKhiGiam;
-    private HoaDon haoDon;
-    private SanPham sanPham;
 
-    public HoaDonChiTiet() {
+    public HoaDonCTViewModel() {
     }
 
-    public HoaDonChiTiet(Integer idHoaDon, Integer idCTSP, int Soluong, Double DonGia, Double DonKhiGiam, HoaDon haoDon, SanPham sanPham) {
+    public HoaDonCTViewModel(Integer idHoaDon, Integer idCTSP, int Soluong, Double DonGia, Double DonKhiGiam) {
         this.idHoaDon = idHoaDon;
         this.idCTSP = idCTSP;
         this.Soluong = Soluong;
         this.DonGia = DonGia;
         this.DonKhiGiam = DonKhiGiam;
-        this.haoDon = haoDon;
-        this.sanPham = sanPham;
     }
 
     public Integer getIdHoaDon() {
@@ -70,25 +69,9 @@ public class HoaDonChiTiet {
         this.DonKhiGiam = DonKhiGiam;
     }
 
-    public HoaDon getHaoDon() {
-        return haoDon;
-    }
-
-    public void setHaoDon(HoaDon haoDon) {
-        this.haoDon = haoDon;
-    }
-
-    public SanPham getSanPham() {
-        return sanPham;
-    }
-
-    public void setSanPham(SanPham sanPham) {
-        this.sanPham = sanPham;
-    }
-
     @Override
     public String toString() {
-        return "HoaDonChiTiet{" + "idHoaDon=" + idHoaDon + ", idCTSP=" + idCTSP + ", Soluong=" + Soluong + ", DonGia=" + DonGia + ", DonKhiGiam=" + DonKhiGiam + ", haoDon=" + haoDon + ", sanPham=" + sanPham + '}';
+        return "HoaDonCTViewModel{" + "idHoaDon=" + idHoaDon + ", idCTSP=" + idCTSP + ", Soluong=" + Soluong + ", DonGia=" + DonGia + ", DonKhiGiam=" + DonKhiGiam + '}';
     }
-
+   
 }
