@@ -75,17 +75,21 @@ public class SanPhamRepostory implements ISanPhamReposory {
             return false;
         }
     }
-
+  
+    
     @Override
     public Integer getIdSanPham(String MaSP) {
         Integer idSP = 0;
          try {
-            String sql = "select id from SanPham where Ma = ?";
+            String sql = "select id from ChitietSP where Ma = ?";
             Connection conn = DBConnection.openDbConnection();
             PreparedStatement pr = conn.prepareStatement(sql);
             pr.setString(1, MaSP);
             ResultSet rs = pr.executeQuery();
-           idSP =  rs.getInt(1);
+             while (rs.next()) {                 
+                 idSP = rs.getInt(1);
+                
+             }
         } catch (Exception ex) {
             ex.printStackTrace();
         

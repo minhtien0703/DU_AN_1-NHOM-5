@@ -28,7 +28,7 @@ public class HoaDonService implements IHoaDonService{
 
         List<HoaDon> list = hoadon1.GetAllHD();
         for (HoaDon x : list) {
-            list01.add(new HoaDonViewModel(x.getId(), x.getIDKH(), x.getIDNV(), x.getMa(), x.getNgayTao(), x.getNgayThanhToan(), x.getTrangThai()));
+            list01.add(new HoaDonViewModel(x.getId(),x.getIDKH() ,x.getIDNV() ,x.getMa(),x.getNgayTao() ,x.getNgayThanhToan() ,x.getTinhTrang()));
         }
         return list01;
 
@@ -51,7 +51,7 @@ public class HoaDonService implements IHoaDonService{
 
         List<HoaDon> list = hoadon1.TimID(ID);
         for (HoaDon x : list) {
-            list01.add(new HoaDonViewModel(x.getIDNV(), x.getIDKH(), x.getIDNV(), x.getMa(), x.getNgayTao(), x.getNgayThanhToan(), x.getTrangThai()));
+            list01.add(new HoaDonViewModel(x.getIDNV(), x.getIDKH(), x.getIDNV(), x.getMa(), x.getNgayTao(), x.getNgayThanhToan(), x.getTinhTrang()));
         }
         return list01; 
     }

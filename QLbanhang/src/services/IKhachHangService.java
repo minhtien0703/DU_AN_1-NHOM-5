@@ -7,18 +7,21 @@ package services;
 import java.util.List;
 import models.KhachHang;
 import viewmodels.KhachHangViewMD;
+import viewmodels.KhuyenmaiViewmodel;
 
 /**
  *
  * @author PC
  */
-public interface KhachHangSV {
-      List<KhachHangViewMD > getall();
+public interface IKhachHangService {
+
+    List<KhachHangViewMD> getall();
 
     String add(KhachHang khachHang);
 
     String update(int id, KhachHang khachHang);
 
     String delete(int id);
-    
+
+
 }

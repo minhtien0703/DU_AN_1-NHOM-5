@@ -49,5 +49,10 @@ public class SanPhamServiec implements ISamPhamServiecs{
     
      return sanPhamReposory.updateSoLuongSP(Masp, SoLuong);
     }
+
+    @Override
+    public Integer getIdSanPham(String MaSP) {
+        return sanPhamReposory.getIdSanPham(MaSP);
+    }
     
 }

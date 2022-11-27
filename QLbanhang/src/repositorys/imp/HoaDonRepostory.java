@@ -17,6 +17,7 @@ import utilconnext.DBConnection;
  */
 public class HoaDonRepostory implements IHoaDonRepostory {
 
+
     @Override
     public List<HoaDon> GetAllHD() {
         String query = "SELECT [id]\n"
@@ -32,13 +33,13 @@ public class HoaDonRepostory implements IHoaDonRepostory {
             List<HoaDon> listSP = new ArrayList<>();
             while (rs.next()) {
                 HoaDon hoadon = new HoaDon();
-                hoadon.setId(rs.getString(1));
-                hoadon.setIDKH(rs.getString(2));
-                hoadon.setIDNV(rs.getString(3));
+                hoadon.setId(rs.getInt(1));
+                hoadon.setIDKH(rs.getInt(2));
+                hoadon.setIDNV(rs.getInt(3));
                 hoadon.setMa(rs.getString(4));
                 hoadon.setNgayTao(rs.getDate(5));
                 hoadon.setNgayThanhToan(rs.getDate(6));
-                hoadon.setTrangThai(rs.getInt(7));
+                hoadon.setTinhTrang(rs.getInt(7));
 
                 listSP.add(hoadon);
             }
@@ -72,37 +73,21 @@ public class HoaDonRepostory implements IHoaDonRepostory {
         return null;
     }
 
-    @Override
-    public Integer insertHoaDon(HoaDon hd) {
-        int result = 0;
-        try {
-            String sql = "insert into HoaDon (Ma ,IdNV, NgayTao , NgayThanhToan , TinhTrang) values(? , ? ,? ,? ,?)";
-            Connection conn = DBConnection.openDbConnection();
-            PreparedStatement pr = conn.prepareStatement(sql);
-            pr.setString(1, hd.getMa());
-            pr.setInt(2, 1);
-            pr.setDate(3, hd.getNgayTao());
-            pr.setDate(4, hd.getNgayThanhToan());
-            pr.setInt(5, hd.getTrangThai());
-            result = pr.executeUpdate();
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
-
-        }
-        return result;
-    }
+   
 
     @Override
+
     public Integer insertHoaDonChiTiet(HoaDonChiTiet hdct, Integer idSP, Integer idHD) {
 
+
         int result = 0;
         try {
-            String sql = "insert into HoaDonChiTiet (IdHD ,ICTSP, Soluong , Dongia ) values(? , ? ,? ,?)";
+            String sql = "insert into HoaDonChiTiet (IdHD ,idCTSP, Soluong , Dongia ) values(? , ? ,? ,?)";
             Connection conn = DBConnection.openDbConnection();
             PreparedStatement pr = conn.prepareStatement(sql);
-            pr.setInt(1, idSP);
-            pr.setInt(2, idHD);
+            pr.setInt(2, hdct.getSanPham().getId());
+            pr.setInt(1, hdct.getHaoDon().getId());
             pr.setInt(3, hdct.getSoluong());
             pr.setDouble(4, hdct.getDonGia());
 
@@ -116,6 +101,7 @@ public class HoaDonRepostory implements IHoaDonRepostory {
     }
 
     @Override
+
     public List<HoaDon> TimID(String ID) {
         List<HoaDon> hd = new ArrayList<>();
         String sql = "SELECT [Id]\n"
@@ -136,7 +122,7 @@ public class HoaDonRepostory implements IHoaDonRepostory {
             pstm.setString(1, ID);
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                hd.add(new HoaDon(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5), rs.getDate(6), rs.getInt(7)));
+                hd.add(new HoaDon(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getDate(5), rs.getDate(6), rs.getInt(7)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(HoaDonRepostory.class.getName()).log(Level.SEVERE, null, ex);
@@ -144,4 +130,34 @@ public class HoaDonRepostory implements IHoaDonRepostory {
 
         return hd;
     }
-}
+
+    @Override
+    public Integer insertHoaDon(HoaDon hd) {
+        
+        int result = 0;
+        try {
+            String sql = "insert into HoaDon (Ma ,IdNV, NgayTao , NgayThanhToan , TinhTrang) values(? , ? ,? ,? ,?)";
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pr = conn.prepareStatement(sql);
+            pr.setString(1, hd.getMa());
+            pr.setInt(2, hd.getIDNV());
+            pr.setDate(3, hd.getNgayTao());
+            pr.setDate(4, hd.getNgayThanhToan());
+            pr.setDouble(5,hd.getTinhTrang());
+
+           
+            result = pr.executeUpdate();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+        }
+        return result;
+    }
+    }
+
+   
+
+   
+
+

@@ -13,9 +13,11 @@ import models.HoaDonChiTiet;
  * @author Admin
  */
 public interface IHoaDonRepostory {
+
     public List<HoaDon> GetAllHD();
     public List<HoaDonChiTiet> GetAllHDCT();
     Integer insertHoaDon(HoaDon hd);
     Integer insertHoaDonChiTiet(HoaDonChiTiet hdct , Integer idSP , Integer idHD );
     List<HoaDon> TimID(String ID);
+
 }

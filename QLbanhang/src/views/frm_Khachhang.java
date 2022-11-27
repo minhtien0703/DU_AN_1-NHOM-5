@@ -6,16 +6,15 @@ package views;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.KhachHang;
-import services.KhachHangSV;
 import services.imp.khahangsvImpl;
 import viewmodels.KhachHangViewMD;
+import services.IKhachHangService;
 
 /**
  *
@@ -25,12 +24,14 @@ public class frm_Khachhang extends javax.swing.JPanel {
 
     DefaultTableModel defaultTableModel = new DefaultTableModel();
     List<KhachHangViewMD> listKhachHang;
-    KhachHangSV KH = new khahangsvImpl();
+    private IKhachHangService KH;
 
     public frm_Khachhang() {
         initComponents();
+        KH = new khahangsvImpl();
         listKhachHang = KH.getall();
         showTable(listKhachHang);
+
     }
 
     public void showTable(List<KhachHangViewMD> list) {
@@ -57,7 +58,6 @@ public class frm_Khachhang extends javax.swing.JPanel {
         cv.setNgaysinh(sdf.format(date_ngaysinh.getDate()));
         cv.setSdt(txt_sdt.getText());
         cv.setEmail(txt_email.getText());
-        cv.setDiemthuong(Integer.parseInt(txt_diemthuong.getText()));
 
         return cv;
     }
@@ -94,10 +94,6 @@ public class frm_Khachhang extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập Email!");
             return false;
         }
-        if (txt_diemthuong.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa nhập điểm thưởng!");
-            return false;
-        }
 
         return true;
 
@@ -129,8 +125,6 @@ public class frm_Khachhang extends javax.swing.JPanel {
         txt_sdt = new swing.MyTextField();
         jLabel9 = new javax.swing.JLabel();
         txt_email = new swing.MyTextField();
-        jLabel10 = new javax.swing.JLabel();
-        txt_diemthuong = new swing.MyTextField();
         btn_LamMoi = new swing.MyButton();
         btn_them = new swing.MyButton();
         Btn_capNhat = new swing.MyButton();
@@ -213,13 +207,6 @@ public class frm_Khachhang extends javax.swing.JPanel {
         panelBorder1.add(txt_email);
         txt_email.setBounds(390, 150, 210, 30);
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel10.setText("Điểm thưởng");
-        panelBorder1.add(jLabel10);
-        jLabel10.setBounds(390, 190, 210, 20);
-        panelBorder1.add(txt_diemthuong);
-        txt_diemthuong.setBounds(390, 210, 210, 30);
-
         btn_LamMoi.setBackground(new java.awt.Color(125, 224, 237));
         btn_LamMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/refresh.png"))); // NOI18N
         btn_LamMoi.setText("Làm Mới");
@@ -283,6 +270,11 @@ public class frm_Khachhang extends javax.swing.JPanel {
         txt_timKiem.setBounds(10, 0, 220, 40);
 
         Btn_timKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search_24px.png"))); // NOI18N
+        Btn_timKiem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Btn_timKiemMouseClicked(evt);
+            }
+        });
         panelBorder3.add(Btn_timKiem);
         Btn_timKiem.setBounds(240, 0, 40, 40);
 
@@ -342,7 +334,6 @@ public class frm_Khachhang extends javax.swing.JPanel {
         date_ngaysinh.setCalendar(null);
         txt_sdt.setText("");
         txt_email.setText("");
-        txt_diemthuong.setText("");
 
     }//GEN-LAST:event_btn_LamMoiActionPerformed
 
@@ -395,12 +386,15 @@ public class frm_Khachhang extends javax.swing.JPanel {
             date_ngaysinh.setDate(sdf.parse(kh.getNgaysinh()));
             txt_sdt.setText(kh.getSdt());
             txt_email.setText(kh.getEmail());
-            txt_diemthuong.setText(String.valueOf(kh.getDiemthuong()));
 
         } catch (ParseException ex) {
             Logger.getLogger(frm_Khachhang.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_TB_bangMouseClicked
+
+    private void Btn_timKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_timKiemMouseClicked
+
+    }//GEN-LAST:event_Btn_timKiemMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -413,7 +407,6 @@ public class frm_Khachhang extends javax.swing.JPanel {
     private javax.swing.ButtonGroup buttonGroup1;
     private com.toedter.calendar.JDateChooser date_ngaysinh;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -429,7 +422,6 @@ public class frm_Khachhang extends javax.swing.JPanel {
     private javax.swing.JRadioButton rd_nu;
     private swing.MyTextField txt_Ho;
     private swing.MyTextField txt_Ten;
-    private swing.MyTextField txt_diemthuong;
     private swing.MyTextField txt_email;
     private swing.MyTextField txt_sdt;
     private swing.MyTextField txt_tenDem;

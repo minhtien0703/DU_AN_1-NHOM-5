@@ -2,17 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package viewmodels;
+package models;
 
 import java.sql.Date;
 
-
 /**
  *
- * @author Admin
+ * @author PC
  */
-public class HoaDonViewModel {
-    private Integer id;
+public class HoaDon {
+
+     private Integer id;
     private Integer IDKH;
     private Integer IDNV;
     private String Ma;
@@ -20,11 +20,10 @@ public class HoaDonViewModel {
     private Date NgayThanhToan;
     private double TinhTrang;
 
-
-    public HoaDonViewModel() {
+    public HoaDon() {
     }
 
-    public HoaDonViewModel(Integer id, Integer IDKH, Integer IDNV, String Ma, Date NgayTao, Date NgayThanhToan, double TinhTrang) {
+    public HoaDon(Integer id, Integer IDKH, Integer IDNV, String Ma, Date NgayTao, Date NgayThanhToan, int TinhTrang) {
         this.id = id;
         this.IDKH = IDKH;
         this.IDNV = IDNV;
@@ -92,9 +91,13 @@ public class HoaDonViewModel {
 
     @Override
     public String toString() {
-        return "HoaDonViewModel{" + "id=" + id + ", IDKH=" + IDKH + ", IDNV=" + IDNV + ", Ma=" + Ma + ", NgayTao=" + NgayTao + ", NgayThanhToan=" + NgayThanhToan + ", TinhTrang=" + TinhTrang + '}';
+        return "HoaDon{" + "id=" + id + ", IDKH=" + IDKH + ", IDNV=" + IDNV + ", Ma=" + Ma + ", NgayTao=" + NgayTao + ", NgayThanhToan=" + NgayThanhToan + ", TinhTrang=" + TinhTrang + '}';
     }
+
+   
 
     
      
+
 }
+ 

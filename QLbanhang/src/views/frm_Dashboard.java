@@ -5,6 +5,7 @@
 package views;
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -14,15 +15,24 @@ import javax.swing.JPanel;
 public class frm_Dashboard extends javax.swing.JFrame {
 
     private JPanel panelchid;
-    int xx, xy;
+    private int xx, xy;
+    private int id;
+    private String TenCV;
 
-    public frm_Dashboard() {
+    public frm_Dashboard(String TenNhanVien, int idNV, String tencv) {
         initComponents();
+        TenCV = tencv;
+        id = idNV;
+        lbl_tenNhanVien.setText(TenNhanVien);
+        setLocationRelativeTo(null);
+        setdashboad();
+    }
+
+    private void setdashboad() {
         setColor(btnbanhang);
         crep1.setOpaque(true);
         resetColor(new JPanel[]{btnsanpham, btnkhuyenmai, btnkhachhang, btnnhanvien, btnthongke, btnhoadon, btndangxuat}, new JPanel[]{crep2, crep3, crep4, crep5, crepp1, crepp2, crepp3});
-        setpanal(new frm_Banhang());
-        setLocationRelativeTo(null);
+        setpanal(new frm_Banhang(id));
     }
 
     private void setColor(JPanel pane) {
@@ -55,7 +65,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
         lbltieude = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lbl_tenNhanVien = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnbanhang = new javax.swing.JPanel();
         crep1 = new javax.swing.JPanel();
@@ -138,10 +148,10 @@ public class frm_Dashboard extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(0, 0, 128));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("TÊN NHÂN VIÊN");
-        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 140, 40));
+        lbl_tenNhanVien.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_tenNhanVien.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_tenNhanVien.setText("TÊN NHÂN VIÊN");
+        jPanel4.add(lbl_tenNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 140, 40));
 
         jLabel2.setForeground(new java.awt.Color(204, 255, 255));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user64px.png"))); // NOI18N
@@ -576,7 +586,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
         setColor(btnbanhang);
         crep1.setOpaque(true);
         resetColor(new JPanel[]{btnsanpham, btnkhuyenmai, btnkhachhang, btnnhanvien, btnthongke, btnhoadon, btndangxuat}, new JPanel[]{crep2, crep3, crep4, crep5, crepp1, crepp2, crepp3});
-        setpanal(new frm_Banhang());
+        setpanal(new frm_Banhang(id));
         lbltieude.setText("Bán hàng");
     }//GEN-LAST:event_btnbanhangMousePressed
 
@@ -589,11 +599,17 @@ public class frm_Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnsanphamMousePressed
 
     private void btnkhuyenmaiMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnkhuyenmaiMousePressed
-        setColor(btnkhuyenmai);
-        crep3.setOpaque(true);
-        resetColor(new JPanel[]{btnbanhang, btnsanpham, btnkhachhang, btnnhanvien, btnthongke, btnhoadon, btndangxuat}, new JPanel[]{crep1, crep2, crep4, crep5, crepp1, crepp2, crepp3});
-        setpanal(new frm_Khuyenmai());
-        lbltieude.setText("Khuyễn mãi");
+        if (TenCV.equalsIgnoreCase("quản lý")) {
+            setColor(btnkhuyenmai);
+            crep3.setOpaque(true);
+            resetColor(new JPanel[]{btnbanhang, btnsanpham, btnkhachhang, btnnhanvien, btnthongke, btnhoadon, btndangxuat}, new JPanel[]{crep1, crep2, crep4, crep5, crepp1, crepp2, crepp3});
+            setpanal(new frm_Khuyenmai());
+            lbltieude.setText("Khuyễn mãi");
+        } else {
+            JOptionPane.showMessageDialog(this, "Bạn không có quyền truy cập !");
+            setdashboad();
+            return;
+        }
     }//GEN-LAST:event_btnkhuyenmaiMousePressed
 
     private void btnkhachhangMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnkhachhangMousePressed
@@ -605,11 +621,17 @@ public class frm_Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnkhachhangMousePressed
 
     private void btnnhanvienMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnnhanvienMousePressed
-        setColor(btnnhanvien);
-        crep5.setOpaque(true);
-        resetColor(new JPanel[]{btnbanhang, btnsanpham, btnkhuyenmai, btnkhachhang, btnthongke, btnhoadon, btndangxuat}, new JPanel[]{crep1, crep2, crep3, crep4, crepp1, crepp2, crepp3});
-        setpanal(new frm_Nhanvien());
-        lbltieude.setText("Nhân viên");
+        if (TenCV.equalsIgnoreCase("quản lý")) {
+            setColor(btnnhanvien);
+            crep5.setOpaque(true);
+            resetColor(new JPanel[]{btnbanhang, btnsanpham, btnkhuyenmai, btnkhachhang, btnthongke, btnhoadon, btndangxuat}, new JPanel[]{crep1, crep2, crep3, crep4, crepp1, crepp2, crepp3});
+            setpanal(new frm_Nhanvien());
+            lbltieude.setText("Nhân viên");
+        } else {
+            JOptionPane.showMessageDialog(this, "Bạn không có quyền truy cập !");
+            setdashboad();
+            return;
+        }
     }//GEN-LAST:event_btnnhanvienMousePressed
 
     private void btnhoadonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnhoadonMousePressed
@@ -621,11 +643,17 @@ public class frm_Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnhoadonMousePressed
 
     private void btnthongkeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnthongkeMousePressed
-        setColor(btnthongke);
-        crepp1.setOpaque(true);
-        resetColor(new JPanel[]{btnbanhang, btnsanpham, btnkhuyenmai, btnkhachhang, btnnhanvien, btnhoadon, btndangxuat}, new JPanel[]{crep1, crep2, crep3, crep4, crep5, crepp2, crepp3});
-        setpanal(new frm_Thongke());
-        lbltieude.setText("Thống kê");
+        if (TenCV.equalsIgnoreCase("quản lý")) {
+            setColor(btnthongke);
+            crepp1.setOpaque(true);
+            resetColor(new JPanel[]{btnbanhang, btnsanpham, btnkhuyenmai, btnkhachhang, btnnhanvien, btnhoadon, btndangxuat}, new JPanel[]{crep1, crep2, crep3, crep4, crep5, crepp2, crepp3});
+            setpanal(new frm_Thongke());
+            lbltieude.setText("Thống kê");
+        } else {
+            JOptionPane.showMessageDialog(this, "Bạn không có quyền truy cập !");
+            setdashboad();
+            return;
+        }
     }//GEN-LAST:event_btnthongkeMousePressed
 
     private void btndangxuatMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btndangxuatMousePressed
@@ -634,7 +662,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
         resetColor(new JPanel[]{btnbanhang, btnsanpham, btnkhuyenmai, btnkhachhang, btnnhanvien, btnthongke, btnhoadon}, new JPanel[]{crep1, crep2, crep3, crep4, crep5, crepp1, crepp2});
         new frm_Login().setVisible(true);
         this.dispose();
-        
+
     }//GEN-LAST:event_btndangxuatMousePressed
 
     /**
@@ -689,7 +717,6 @@ public class frm_Dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel crepp1;
     private javax.swing.JPanel crepp2;
     private javax.swing.JPanel crepp3;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
@@ -704,6 +731,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JLabel lbl_tenNhanVien;
     private javax.swing.JLabel lbltieude;
     private javax.swing.JPanel pnmain;
     // End of variables declaration//GEN-END:variables

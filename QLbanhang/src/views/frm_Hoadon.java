@@ -37,7 +37,7 @@ public class frm_Hoadon extends javax.swing.JPanel {
                 hoaDonViewModel.getMa(),
                 hoaDonViewModel.getNgayTao(),
                 hoaDonViewModel.getNgayThanhToan(),
-                hoaDonViewModel.getTrangThai() == 1 ? "chưa thanh toán" : "đã thanh toán",});
+                hoaDonViewModel.getTinhTrang()== 1 ? "chưa thanh toán" : "đã thanh toán",});
         }
 
     }
@@ -243,7 +243,7 @@ public class frm_Hoadon extends javax.swing.JPanel {
                 x.getMa(),
                 x.getNgayTao(),
                 x.getNgayThanhToan(),
-                x.getTrangThai() == 1 ? "chưa thanh toán" : "đã thanh toán",});
+                x.getTinhTrang()== 1 ? "chưa thanh toán" : "đã thanh toán",});
             stt++;
         }
     }//GEN-LAST:event_jLabel3MouseClicked

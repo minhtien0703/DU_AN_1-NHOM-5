@@ -6,12 +6,14 @@ package repositorys;
 
 import java.util.List;
 import models.KhachHang;
+import models.KhuyenMai;
+import viewmodels.KhachHangViewMD;
 
 /**
  *
  * @author PC
  */
-public interface KhachHangRP {
+public interface IKhachHangReposytory {
 
     List<KhachHang> getall();
 

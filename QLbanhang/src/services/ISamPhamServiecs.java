@@ -14,4 +14,5 @@ import viewmodels.SanPhamViewModel;
 public interface ISamPhamServiecs {
       List<SanPhamViewModel> getListSanPham();
       boolean updateSoLuongSP(String Masp, int SoLuong ) ;
+      Integer getIdSanPham(String MaSP);
 }

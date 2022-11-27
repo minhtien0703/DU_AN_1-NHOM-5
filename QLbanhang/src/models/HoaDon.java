@@ -11,50 +11,36 @@ import java.sql.Date;
  * @author PC
  */
 public class HoaDon {
-     private String id;
-    private String IDKH;
-    private String IDNV;
     private String Ma;
     private Date NgayTao;
     private Date NgayThanhToan;
-    private int TrangThai;
+    private int TinhTrang;
+    private String GhiChu;
 
     public HoaDon() {
     }
+    
+   
 
-    public HoaDon(String id, String IDKH, String IDNV, String Ma, Date NgayTao, Date NgayThanhToan, int TrangThai) {
-        this.id = id;
-        this.IDKH = IDKH;
-        this.IDNV = IDNV;
+    public HoaDon(String Ma, Date NgayTao, Date NgayThanhToan, int TinhTrang,String GhiChu) {
         this.Ma = Ma;
         this.NgayTao = NgayTao;
         this.NgayThanhToan = NgayThanhToan;
-        this.TrangThai = TrangThai;
+        this.TinhTrang = TinhTrang;
+        this.GhiChu = GhiChu;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
+    
+   
 
-    public String getIDKH() {
-        return IDKH;
-    }
-
-    public void setIDKH(String IDKH) {
-        this.IDKH = IDKH;
-    }
-
-    public String getIDNV() {
-        return IDNV;
-    }
-
-    public void setIDNV(String IDNV) {
-        this.IDNV = IDNV;
-    }
+    
 
     public String getMa() {
         return Ma;
@@ -92,6 +78,10 @@ public class HoaDon {
     public String toString() {
         return "HoaDon{" + "id=" + id + ", IDKH=" + IDKH + ", IDNV=" + IDNV + ", Ma=" + Ma + ", NgayTao=" + NgayTao + ", NgayThanhToan=" + NgayThanhToan + ", TrangThai=" + TrangThai + '}';
     }
-     
+
+    public void setGhiChu(String GhiChu) {
+        this.GhiChu = GhiChu;
+    }
+
+    
 }
- 

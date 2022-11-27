@@ -5,12 +5,12 @@
 package services;
 
 import java.util.List;
-import models.Chucvu;
+import models.User;
 
 /**
  *
- * @author hungh
+ * @author Admin
  */
-public interface IChucvuService {
-    public List<Chucvu> getAllChucVu();
+public interface IUserServiec {
+   boolean getUser( String TaiKhoan ,String MatKhau);
 }

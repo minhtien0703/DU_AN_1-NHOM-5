@@ -86,4 +86,13 @@ public class KhuyenmaiService implements IKhuyenmaiService{
         return lstKM;
     }
 
+    @Override
+    public List<KhuyenmaiViewmodel> GetOnebyten(String ten) {
+         List<KhuyenMai> lst = repository.GetOnebyten(ten);
+        lstKM = new ArrayList<>();
+        for (KhuyenMai x : lst) {
+            lstKM.add(new KhuyenmaiViewmodel(x.getTenKM(), x.getHinhThucKM(), x.getNgayBatDau(), x.getNgayKetThuc(), x.getGiaTriGiam()));
+        }
+        return lstKM;
+    }
 }

@@ -6,6 +6,7 @@ package views;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,13 +19,13 @@ public class frm_Login extends javax.swing.JFrame {
      */
     private frm_Dangnhap dangnhap = new frm_Dangnhap();
     private frm_Quenmatkhau quenmatkhau = new frm_Quenmatkhau();
-    
+
     public frm_Login() {
         initComponents();
         setLocationRelativeTo(null);
         animation();
     }
-    
+
     private void animation() {
         Slide.setAnimate(20);
         Slide.init(dangnhap, quenmatkhau);
@@ -45,8 +46,10 @@ public class frm_Login extends javax.swing.JFrame {
         dangnhap.btndangnhapEven(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new frm_Dashboard().setVisible(true);
-                dispose();
+                // new frm_Dashboard().setVisible(true);
+                if (dangnhap.isdangnhap() == true) {
+                    dispose();
+                }
             }
         });
     }

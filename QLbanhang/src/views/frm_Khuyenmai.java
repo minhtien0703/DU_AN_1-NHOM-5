@@ -76,7 +76,7 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tb_khuyenmai = new javax.swing.JTable();
         panelBorder2 = new swing.PanelBorder();
-        searchText2 = new swing.SearchText();
+        src_timkiem = new swing.SearchText();
         lbl_timkiem = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         dateTK_KT = new com.toedter.calendar.JDateChooser();
@@ -215,8 +215,8 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
         jScrollPane1.setBounds(10, 370, 990, 260);
 
         panelBorder2.setBackground(new java.awt.Color(255, 255, 255));
-        panelBorder2.add(searchText2);
-        searchText2.setBounds(10, 0, 240, 40);
+        panelBorder2.add(src_timkiem);
+        src_timkiem.setBounds(10, 0, 240, 40);
 
         lbl_timkiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search_24px.png"))); // NOI18N
         lbl_timkiem.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -393,6 +393,7 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
         dateTK_BD.setCalendar(null);
         dateTK_KT.setCalendar(null);
         buttonGroup1.clearSelection();
+        src_timkiem.setText("");
         LoadData();
     }//GEN-LAST:event_btn_clearActionPerformed
 
@@ -421,8 +422,8 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
 
     private void lbl_timkiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_timkiemMouseClicked
         // TODO add your handling code here:
-        if (dateTK_BD.getDate()==null && dateTK_KT.getDate() == null) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa chọn ngày bắt đầu hoặc ngày kết thúc để tìm kiếm");
+        if (dateTK_BD.getDate()==null && dateTK_KT.getDate() == null && src_timkiem.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa chọn ngày bắt đầu hoặc ngày kết thúc hoặc tên khuyến mãi để tìm kiếm");
             return;      
         }
         if (dateTK_BD.getDate()!=null && dateTK_KT.getDate()==null) {
@@ -487,6 +488,25 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
                 });
                 stt++;
             }
+            return;
+        }
+        if (dateTK_BD.getDate()==null && dateTK_KT.getDate()==null) {
+            if (khuyenmaiService.GetOnebyten("%"+src_timkiem.getText()+"%").isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Không có khuyến mãi nào");
+                return;
+            }
+            defaultTableModel.setRowCount(0);
+            int stt = 1;
+            for (KhuyenmaiViewmodel x : khuyenmaiService.GetOnebyten("%"+src_timkiem.getText()+"%")) {
+                defaultTableModel.addRow(new Object[]{
+                    stt,
+                    x.getTenKM(),
+                    x.getNgayBatDau(),
+                    x.getNgayKetThuc(),
+                    String.format("%.0f", x.getGiaTriGiam()) + " " + x.getHinhThucKM()
+                });
+                stt++;
+            }
         }
     }//GEN-LAST:event_lbl_timkiemMouseClicked
 
@@ -515,7 +535,7 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
     private swing.PanelGradiente panelGradiente1;
     private javax.swing.JRadioButton rd_VND;
     private javax.swing.JRadioButton rd_phantram;
-    private swing.SearchText searchText2;
+    private swing.SearchText src_timkiem;
     private javax.swing.JTable tb_khuyenmai;
     private swing.MyTextField txt_giatrgiam;
     private swing.MyTextField txt_tenkm;

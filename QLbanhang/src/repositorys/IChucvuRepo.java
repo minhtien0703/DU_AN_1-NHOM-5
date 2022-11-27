@@ -7,11 +7,12 @@ package repositorys;
 import java.util.List;
 import models.Chucvu;
 
+
 /**
  *
  * @author hungh
  */
 public interface IChucvuRepo {
 
-    public List<Chucvu> getall();
+   public List<Chucvu> getAllChucVu();
 }

@@ -28,4 +28,7 @@ public interface IKhuyenmaiRepository {
     public List<KhuyenMai> GetOnebyKT(String date);
 
     public List<KhuyenMai> GetOnebyALL(String datedb,String datekt);
+    
+    public List<KhuyenMai> GetOnebyten(String ten);
+    
 }
