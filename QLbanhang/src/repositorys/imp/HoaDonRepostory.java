@@ -8,6 +8,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.HoaDon;
 import models.HoaDonChiTiet;
+import models.KhuyenMai;
+import models.SanPham;
 import repositorys.IHoaDonRepostory;
 import utilconnext.DBConnection;
 
@@ -73,34 +75,7 @@ public class HoaDonRepostory implements IHoaDonRepostory {
         return null;
     }
 
-
-   
-
-    @Override
-
-    public Integer insertHoaDonChiTiet(HoaDonChiTiet hdct, Integer idSP, Integer idHD) {
-
-
-        int result = 0;
-        try {
-            String sql = "insert into HoaDonChiTiet (IdHD ,idCTSP, Soluong , Dongia ) values(? , ? ,? ,?)";
-            Connection conn = DBConnection.openDbConnection();
-            PreparedStatement pr = conn.prepareStatement(sql);
-            pr.setInt(2, hdct.getSanPham().getId());
-            pr.setInt(1, hdct.getHaoDon().getId());
-            pr.setInt(3, hdct.getSoluong());
-            pr.setDouble(4, hdct.getDonGia());
-
-            result = pr.executeUpdate();
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-
-        }
-        return result;
-    }
-
-    @Override
+ @Override
 
     public List<HoaDon> TimID(String ID) {
         List<HoaDon> hd = new ArrayList<>();
@@ -130,10 +105,13 @@ public class HoaDonRepostory implements IHoaDonRepostory {
 
         return hd;
     }
+   
 
+    
+   
+/////////////////////////////////////////////////
     @Override
-    public Integer insertHoaDon(HoaDon hd) {
-        
+    public Integer insertHoaDon(HoaDon hd, Integer idNV) {
         int result = 0;
         try {
             String sql = "insert into HoaDon (Ma ,IdNV, NgayTao , NgayThanhToan , TinhTrang) values(? , ? ,? ,? ,?)";
@@ -154,16 +132,37 @@ public class HoaDonRepostory implements IHoaDonRepostory {
         }
         return result;
     }
+    
+    @Override
+    public Integer insertHoaDonChiTiet(HoaDonChiTiet hdct) {
+        int result = 0;
+        try {
+            String sql = "insert into HoaDonChiTiet (IdHD ,idCTSP, Soluong , Dongia ) values(? , ? ,? ,?)";
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pr = conn.prepareStatement(sql);
+            pr.setInt(2, hdct.getSanPham().getId());
+            pr.setInt(1, hdct.getHaoDon().getId());
+            pr.setInt(3, hdct.getSoluong());
+            pr.setDouble(4, hdct.getDonGia());
+
+            result = pr.executeUpdate();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+        }
+        return result;
+    }
+      @Override
+    public List<HoaDon> getListHD(double TinhTrang) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-<<<<<<< HEAD
-   
-
-   
-
-
-=======
     @Override
+    public Integer getIdHD(String MaHD) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     public List<HoaDonChiTiet> getListHoaDonChiTiet(String MaHD) {
         List<HoaDonChiTiet> getList = new ArrayList<>();
         try {
@@ -195,7 +194,7 @@ public class HoaDonRepostory implements IHoaDonRepostory {
         return getList;
     }
 
-    @Override
+    
     public Integer deleteSanPham(int idHD, int idSP) {
         int rs = 0;
         try {
@@ -213,7 +212,7 @@ public class HoaDonRepostory implements IHoaDonRepostory {
         return rs;
     }
 
-    @Override
+    
     public Integer updateSanPhamTrenGioHang(int idHD, int idSP, int SoLuong) {
         int rs = 0;
         try {
@@ -295,5 +294,12 @@ public class HoaDonRepostory implements IHoaDonRepostory {
          return rs;
     }
 
+    
+
+    
+
+  
+
+    
+
 }
->>>>>>> b94651137ba6c8db04c4cb80993343759178f986

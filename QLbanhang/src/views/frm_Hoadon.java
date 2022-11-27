@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import services.IHoaDonService;
 import services.imp.HoaDonService;
-import viewmodels.HoaDonCTViewModel;
+import viewmodels.HoaDonCHiTietViewModel;
 import viewmodels.HoaDonViewModel;
 
 public class frm_Hoadon extends javax.swing.JPanel {
@@ -45,14 +45,14 @@ public class frm_Hoadon extends javax.swing.JPanel {
     private void loatdate2() {
         defaultTableModel = (DefaultTableModel) tbl_HoaDonCT.getModel();
         defaultTableModel.setRowCount(0);
-        List<HoaDonCTViewModel> hdct = hoaDonService.getAllHDCT();
-        for (HoaDonCTViewModel c : hdct) {
+        List<HoaDonCHiTietViewModel> hdct = hoaDonService.getAllHDCT();
+        for (HoaDonCHiTietViewModel c : hdct) {
             defaultTableModel.addRow(new Object[]{
                 c.getIdHoaDon(),
                 c.getIdCTSP(),
                 c.getSoluong(),
                 c.getDonGia(),
-                c.getDonKhiGiam()
+                c.getDonGiaKhiGiam()
             });
         }
     }

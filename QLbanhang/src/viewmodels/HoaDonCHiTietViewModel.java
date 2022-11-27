@@ -12,37 +12,43 @@ import models.SanPham;
  * @author Admin
  */
 public class HoaDonCHiTietViewModel {
-    private HoaDon haDon;
-    private SanPham sanPham;
+    private Integer idHoaDon;
+    private Integer idCTSP;
     private int Soluong;
     private Double DonGia;
     private Double DonGiaKhiGiam;
-
+    private HoaDon haDon;
+    private SanPham sanPham;
+   
+    
+  
     public HoaDonCHiTietViewModel() {
     }
 
-    public HoaDonCHiTietViewModel(HoaDon haDon, SanPham sanPham, int Soluong, Double DonGia, Double DonGiaKhiGiam) {
-        this.haDon = haDon;
-        this.sanPham = sanPham;
+    public HoaDonCHiTietViewModel(Integer idHoaDon, Integer idCTSP, int Soluong, Double DonGia, Double DonGiaKhiGiam, HoaDon haDon, SanPham sanPham) {
+        this.idHoaDon = idHoaDon;
+        this.idCTSP = idCTSP;
         this.Soluong = Soluong;
         this.DonGia = DonGia;
         this.DonGiaKhiGiam = DonGiaKhiGiam;
-    }
-
-    public HoaDon getHaDon() {
-        return haDon;
-    }
-
-    public void setHaDon(HoaDon haDon) {
         this.haDon = haDon;
-    }
-
-    public SanPham getSanPham() {
-        return sanPham;
-    }
-
-    public void setSanPham(SanPham sanPham) {
         this.sanPham = sanPham;
+    }
+
+    public Integer getIdHoaDon() {
+        return idHoaDon;
+    }
+
+    public void setIdHoaDon(Integer idHoaDon) {
+        this.idHoaDon = idHoaDon;
+    }
+
+    public Integer getIdCTSP() {
+        return idCTSP;
+    }
+
+    public void setIdCTSP(Integer idCTSP) {
+        this.idCTSP = idCTSP;
     }
 
     public int getSoluong() {
@@ -68,10 +74,28 @@ public class HoaDonCHiTietViewModel {
     public void setDonGiaKhiGiam(Double DonGiaKhiGiam) {
         this.DonGiaKhiGiam = DonGiaKhiGiam;
     }
-   public Double getThanhTien(){
-   return DonGia * Soluong;
-   }
- 
+
+    public HoaDon getHaDon() {
+        return haDon;
+    }
+
+    public void setHaDon(HoaDon haDon) {
+        this.haDon = haDon;
+    }
+
+    public SanPham getSanPham() {
+        return sanPham;
+    }
+
+    public void setSanPham(SanPham sanPham) {
+        this.sanPham = sanPham;
+    }
+
+    @Override
+    public String toString() {
+        return "HoaDonCHiTietViewModel{" + "idHoaDon=" + idHoaDon + ", idCTSP=" + idCTSP + ", Soluong=" + Soluong + ", DonGia=" + DonGia + ", DonGiaKhiGiam=" + DonGiaKhiGiam + ", haDon=" + haDon + ", sanPham=" + sanPham + '}';
+    }
+
     
     
 }

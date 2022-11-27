@@ -6,7 +6,8 @@
 package services;
 
 import java.util.List;
-import viewmodels.HoaDonCTViewModel;
+import viewmodels.HoaDonCHiTietViewModel;
+
 
 import viewmodels.HoaDonViewModel;
 
@@ -16,7 +17,26 @@ import viewmodels.HoaDonViewModel;
  */
 public interface IHoaDonService {
 public List<HoaDonViewModel> getAllHD();
-public List<HoaDonCTViewModel> getAllHDCT();
+public List<HoaDonCHiTietViewModel> getAllHDCT();
+ List<HoaDonViewModel> TimID(String ID);
+  Integer saveHD(HoaDonViewModel hoaDon, int idNV);
 
-    List<HoaDonViewModel> TimID(String ID);
+    Integer saveHDCT(HoaDonCHiTietViewModel hoaDonChiTiet, String MaSP, String MaHD);
+
+    List<HoaDonViewModel> getListHD(int TrangThai);
+
+    Integer getIdHD(String MaHD);
+
+    List<HoaDonCHiTietViewModel> getListHoaDonChiTiet(String MaHD);
+
+    Integer deleteSanPham(int idHD, int idSP);
+
+    Integer updateSanPhamTrenGioHang(int idHD, int idSP, int SoLuong);
+
+    Integer clearSanPhamTrenGioHang(int idHD);
+    
+    Integer getIDCTSP(int MaHD);
+    
+     Integer updateSoLuongGioHang(int SoLuong,String MaSP , String MaHD);
 }
+

@@ -7,26 +7,24 @@ package repositorys;
 import java.util.List;
 import models.HoaDon;
 import models.HoaDonChiTiet;
-
+    
 /**
  *
  * @author Admin
  */
 public interface IHoaDonRepostory {
 
-<<<<<<< HEAD
+
     public List<HoaDon> GetAllHD();
     public List<HoaDonChiTiet> GetAllHDCT();
-    Integer insertHoaDon(HoaDon hd);
-    Integer insertHoaDonChiTiet(HoaDonChiTiet hdct , Integer idSP , Integer idHD );
     List<HoaDon> TimID(String ID);
 
-=======
+///
     Integer insertHoaDon(HoaDon hd, Integer idNV);
 
     Integer insertHoaDonChiTiet(HoaDonChiTiet hdct);
 
-    List<HoaDon> getListHD(int TrangThai);
+    List<HoaDon> getListHD(double TinhTrang);
 
     Integer getIdHD(String MaHD);
 
@@ -41,5 +39,5 @@ public interface IHoaDonRepostory {
     Integer getIDCTSP(int MaHD);
 
     Integer updateSoLuongGioHang(int SoLuong,String MaSP , String MaHD);
->>>>>>> b94651137ba6c8db04c4cb80993343759178f986
+
 }
