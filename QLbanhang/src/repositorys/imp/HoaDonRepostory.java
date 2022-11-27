@@ -156,8 +156,144 @@ public class HoaDonRepostory implements IHoaDonRepostory {
     }
     }
 
+<<<<<<< HEAD
    
 
    
 
 
+=======
+    @Override
+    public List<HoaDonChiTiet> getListHoaDonChiTiet(String MaHD) {
+        List<HoaDonChiTiet> getList = new ArrayList<>();
+        try {
+            String sql = "SELECT SP.Ma , SP.Ten , HDCT.Dongia , HDCT.Soluong , KM.Giatrigiam , KM.HinhthucKM ,HDCT.IdCTSP FROM HoaDon HD JOIN HoaDonChiTiet HDCT ON HD.Id = HDCT.IdHD\n"
+                    + "                    JOIN ChitietSP SP ON SP.Id = HDCT.IdCTSP join KhuyenMai km ON SP.IdKM = KM.Id WHERE HD.Ma =?";
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pr = conn.prepareStatement(sql);
+            pr.setString(1, MaHD);
+            ResultSet rs = pr.executeQuery();
+            while (rs.next()) {
+                HoaDonChiTiet hdct = new HoaDonChiTiet();
+                KhuyenMai km = new KhuyenMai();
+                km.setGiaTriGiam(rs.getDouble(5));
+                km.setHinhThucKM(rs.getString(6));
+
+                SanPham sp = new SanPham();
+                sp.setTen(rs.getString(2));
+                sp.setMa(rs.getString(1));
+                sp.setId(rs.getInt(7));
+                sp.setKhuenMai(km);
+                hdct.setSanPham(sp);
+                hdct.setSoluong(rs.getInt(4));
+                hdct.setDonGia(rs.getDouble(3));
+                getList.add(hdct);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getList;
+    }
+
+    @Override
+    public Integer deleteSanPham(int idHD, int idSP) {
+        int rs = 0;
+        try {
+            String sql = "DELETE FROM HoaDonChiTiet WHERE IdHD = ? AND IdCTSP = ?";
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pr = conn.prepareStatement(sql);
+            pr.setInt(1, idHD);
+            pr.setInt(2, idSP);
+            rs = pr.executeUpdate();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+        }
+        return rs;
+    }
+
+    @Override
+    public Integer updateSanPhamTrenGioHang(int idHD, int idSP, int SoLuong) {
+        int rs = 0;
+        try {
+            String sql = "UPDATE HoaDonChiTiet SET Soluong = ? WHERE IdHD = ? AND IdCTSP = ?";
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pr = conn.prepareStatement(sql);
+            pr.setInt(2, idHD);
+            pr.setInt(3, idSP);
+            pr.setInt(1, SoLuong);
+            rs = pr.executeUpdate();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+        }
+        return rs;
+    }
+
+    @Override
+    public Integer clearSanPhamTrenGioHang(int idHD) {
+        int rs = 0;
+        try {
+            String sql = "DELETE FROM HoaDonChiTiet WHERE IdHD = ?";
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pr = conn.prepareStatement(sql);
+            pr.setInt(1, idHD);
+
+            rs = pr.executeUpdate();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+        }
+        return rs;
+    }
+
+    @Override
+    public Integer getIDCTSP(int MaHD) {
+        int idCTSP = 0;
+        try {
+            String sql = "select idCTSP from HoaDonChiTiet where idHD = ?";
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pr = conn.prepareStatement(sql);
+            pr.setInt(1, MaHD);
+            ResultSet rs = pr.executeQuery();
+            while (rs.next()) {
+                idCTSP = rs.getInt(1);
+                System.out.println(idCTSP);
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+        }
+        return idCTSP;
+    }
+
+    @Override
+    public Integer updateSoLuongGioHang(int SoLuong,String MaSP , String MaHD) {
+        int rs = 0;
+        try {
+            String sql = "UPDATE HoaDonChiTiet SET Soluong = ? WHERE IdHD IN (SELECT ID FROM HoaDon WHERE MA = ?) AND IdCTSP IN (SELECT ID FROM ChitietSP WHERE MA = ?)";
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pr = conn.prepareStatement(sql);
+            pr.setInt(1, SoLuong);
+            pr.setString(2, MaHD);
+            pr.setString(3, MaSP);
+            rs = pr.executeUpdate();
+            if (rs > 0 ) {
+                System.out.println("thành công");
+            }else{
+                System.out.println("thất bại");
+            }
+           
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            
+        }
+         return rs;
+    }
+
+}
+>>>>>>> b94651137ba6c8db04c4cb80993343759178f986

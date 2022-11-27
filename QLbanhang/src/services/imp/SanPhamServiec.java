@@ -22,9 +22,11 @@ public class SanPhamServiec implements ISamPhamServiecs{
    private ISanPhamReposory sanPhamReposory;
    private List<SanPhamViewModel> getListSP;
 
+
     public SanPhamServiec() {
    sanPhamReposory = new SanPhamRepostory();
    getListSP = new ArrayList<>();
+ 
 
     }
    
@@ -53,6 +55,12 @@ public class SanPhamServiec implements ISamPhamServiecs{
     @Override
     public Integer getIdSanPham(String MaSP) {
         return sanPhamReposory.getIdSanPham(MaSP);
+    }
+
+    @Override
+    public List<SanPham> seachSanPham(String Ten) {
+    return sanPhamReposory.seachSanPham(Ten);
+       
     }
     
 }

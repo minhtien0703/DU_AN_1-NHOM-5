@@ -29,6 +29,7 @@ import viewmodels.SanPhamViewModel;
 public class frm_Banhang extends javax.swing.JPanel {
 
     private DefaultTableModel model;
+    private DefaultTableModel modelGioHang;
     private ISamPhamServiecs sanISamPhamServiecs;
     private IHoaDonServiec hoaDonServiec;
     private List<GioHangViewModel> listGioHang = new ArrayList<>();
@@ -38,6 +39,7 @@ public class frm_Banhang extends javax.swing.JPanel {
     public frm_Banhang(Integer idNhanVien) {
         initComponents();
         model = new DefaultTableModel();
+        modelGioHang = (DefaultTableModel) tb_gioHang.getModel();
         sanISamPhamServiecs = new SanPhamServiec();
         hoaDonServiec = new HoaDonServiec();
 
@@ -65,10 +67,10 @@ public class frm_Banhang extends javax.swing.JPanel {
     }
 
     private void getListGioHang() {
-        model = (DefaultTableModel) tb_gioHang.getModel();
-        model.setRowCount(0);
+        modelGioHang = (DefaultTableModel) tb_gioHang.getModel();
+        modelGioHang.setRowCount(0);
         for (GioHangViewModel x : listGioHang) {
-            model.addRow(new Object[]{
+            modelGioHang.addRow(new Object[]{
                 x.getMaSP(),
                 x.getTenSP(),
                 x.getSoLuong(),
@@ -78,14 +80,14 @@ public class frm_Banhang extends javax.swing.JPanel {
     }
 
     private void getListGioHangHDCT(String MaHD) {
-        model = (DefaultTableModel) tb_gioHang.getModel();
-        model.setRowCount(0);
+        modelGioHang = (DefaultTableModel) tb_gioHang.getModel();
+        modelGioHang.setRowCount(0);
         List<HoaDonCHiTietViewModel> list = hoaDonServiec.getListHoaDonChiTiet(MaHD);
         if (list.isEmpty()) {
             return;
         }
         for (HoaDonCHiTietViewModel x : list) {
-            model.addRow(new Object[]{
+            modelGioHang.addRow(new Object[]{
                 x.getSanPham().getMa(),
                 x.getSanPham().getTen(),
                 x.getSoluong(),
@@ -151,6 +153,8 @@ public class frm_Banhang extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         panelGradiente1 = new swing.PanelGradiente();
         jScrollPane2 = new javax.swing.JScrollPane();
         tb_sanPham = new javax.swing.JTable();
@@ -200,6 +204,14 @@ public class frm_Banhang extends javax.swing.JPanel {
         jLabel16 = new javax.swing.JLabel();
         lbl_giamGia1 = new javax.swing.JLabel();
 
+        jMenuItem1.setText("Thêm");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem1);
+
         setBackground(new java.awt.Color(204, 255, 255));
         setMinimumSize(new java.awt.Dimension(1010, 640));
         setName(""); // NOI18N
@@ -244,10 +256,21 @@ public class frm_Banhang extends javax.swing.JPanel {
 
         myButton3.setBackground(new java.awt.Color(125, 224, 237));
         myButton3.setText("Lọc");
+        myButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myButton3ActionPerformed(evt);
+            }
+        });
         panelGradiente1.add(myButton3);
         myButton3.setBounds(490, 20, 70, 30);
 
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
+
+        searchText1.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                searchText1CaretUpdate(evt);
+            }
+        });
         panelBorder1.add(searchText1);
         searchText1.setBounds(10, 0, 180, 30);
 
@@ -301,6 +324,7 @@ public class frm_Banhang extends javax.swing.JPanel {
                 "Mã SP", "Tên SP", "Số Lượng", "Đơn Giá", "Thành Tiền"
             }
         ));
+        tb_gioHang.setComponentPopupMenu(jPopupMenu1);
         tb_gioHang.setGridColor(new java.awt.Color(255, 255, 255));
         tb_gioHang.setRowHeight(20);
         jScrollPane3.setViewportView(tb_gioHang);
@@ -471,62 +495,74 @@ public class frm_Banhang extends javax.swing.JPanel {
         if (row < 0) {
             return;
         }
-        int NhapSoLuong = Integer.parseInt(JOptionPane.showInputDialog(this, "nhap so luong"));
-        String MaSP = tb_sanPham.getValueAt(row, 0).toString();
-        String TenSP = tb_sanPham.getValueAt(row, 1).toString();
-        int SoLuong = Integer.parseInt(tb_sanPham.getValueAt(row, 8).toString());
-        Double DonGia = Double.parseDouble(tb_sanPham.getValueAt(row, 7).toString());
-        Double GiamGia = Double.parseDouble(tb_sanPham.getValueAt(row, 3).toString());
-        String hinhThucGiamGia = tb_sanPham.getValueAt(row, 4).toString();
-        if (SoLuong >= NhapSoLuong) {
-            for (GioHangViewModel x : listGioHang) {
-                if (MaSP.equals(x.getMaSP())) {
-                    JOptionPane.showMessageDialog(this, "Sản Phẩm Đã có Trên Giỏ Hàng ");
-                    return;
-                }
-            }
-
-            listGioHang.add(new GioHangViewModel(MaSP, TenSP, NhapSoLuong, DonGia, GiamGia, hinhThucGiamGia));
-            getListGioHang();
-            int kq = SoLuong - NhapSoLuong;
-            sanISamPhamServiecs.updateSoLuongSP(MaSP, kq);
-            List<SanPhamViewModel> list = sanISamPhamServiecs.getListSanPham();
-            list.clear();
-            getListSP();
-            Double tongPT = 0.0;
-            Double tongVN = 0.0;
-            Double tongTien = 0.0;
-            Double giam = Double.parseDouble(lbl_giamGia1.getText());
-            int count = 0;
-            for (GioHangViewModel x : listGioHang) {
-                tongTien = tongTien + x.getThanhTien();
-                lbl_tongTien1.setText(String.valueOf(tongTien));
-                if (tb_gioHang.getValueAt(count, 0).equals(MaSP) && x.getHinhThucGiamGia().equals("%")) {
-                    tongPT = x.getThanhTien() * x.getGiamGia() / 100;
-                    lbl_giamGia1.setText(String.valueOf(giam += tongPT));
-                    lbl_giamGia1.setText(String.valueOf(giam));
-                } else {
-                    tongVN = x.getGiamGia();
-                    lbl_giamGia1.setText(String.valueOf(giam + tongVN));
-                }
-                count++;
-
-            }
-            Double ThanhTien = Double.parseDouble(lbl_tongTien1.getText()) - Double.parseDouble(lbl_giamGia1.getText());
-            lbl_thanhTien.setText(String.valueOf(format.format(ThanhTien)));
-        } else if (SoLuong < NhapSoLuong) {
-            JOptionPane.showMessageDialog(this, "san pham không đủ ");
+        if (rowHD < 0) {
+            JOptionPane.showMessageDialog(this, "chọn vào sản phẩm bạn muốn mua");
             return;
+        }
+        try {
 
-        }
-        List<HoaDonViewModel> listHoaDon = hoaDonServiec.getListHD(1);
-        for (HoaDonViewModel x : listHoaDon) {
-            if (tb_hoaDon.getValueAt(rowHD, 0).toString().equals(x.getMa())) {
-                HoaDonCHiTietViewModel hdct = inputHDCT(DonGia, NhapSoLuong);
-                hoaDonServiec.saveHDCT(hdct, MaSP, x.getMa());
+            int NhapSoLuong = Integer.parseInt(JOptionPane.showInputDialog(this, "nhap so luong"));
+            String MaSP = tb_sanPham.getValueAt(row, 0).toString();
+            String TenSP = tb_sanPham.getValueAt(row, 1).toString();
+            int SoLuong = Integer.parseInt(tb_sanPham.getValueAt(row, 8).toString());
+            Double DonGia = Double.parseDouble(tb_sanPham.getValueAt(row, 7).toString());
+            Double GiamGia = Double.parseDouble(tb_sanPham.getValueAt(row, 3).toString());
+            String hinhThucGiamGia = tb_sanPham.getValueAt(row, 4).toString();
+            List<HoaDonCHiTietViewModel> listh = hoaDonServiec.getListHoaDonChiTiet(tb_hoaDon.getValueAt(rowHD, 0).toString());
+            if (SoLuong >= NhapSoLuong) {
+                for (HoaDonCHiTietViewModel x : listh) {
+                    if (x.getSanPham().getMa().equals(MaSP)) {
+                        JOptionPane.showMessageDialog(this, "sản Phẩm Đã Có Trên Giỏ Hàng");
+                        return;
+                    }
+                }
+
+                listGioHang.add(new GioHangViewModel(MaSP, TenSP, NhapSoLuong, DonGia, GiamGia, hinhThucGiamGia));
+                getListGioHang();
+
+                int kq = SoLuong - NhapSoLuong;
+                sanISamPhamServiecs.updateSoLuongSP(MaSP, kq);
+                List<SanPhamViewModel> list = sanISamPhamServiecs.getListSanPham();
+                list.clear();
+                getListSP();
+                Double tongPT = 0.0;
+                Double tongVN = 0.0;
+                Double tongTien = 0.0;
+                Double giam = Double.parseDouble(lbl_giamGia1.getText());
+                int count = 0;
+                for (GioHangViewModel x : listGioHang) {
+                    tongTien = tongTien + x.getThanhTien();
+                    lbl_tongTien1.setText(String.valueOf(tongTien));
+                    if (tb_gioHang.getValueAt(count, 0).equals(MaSP) && x.getHinhThucGiamGia().equals("%")) {
+                        tongPT = x.getThanhTien() * x.getGiamGia() / 100;
+                        lbl_giamGia1.setText(String.valueOf(giam += tongPT));
+                        lbl_giamGia1.setText(String.valueOf(giam));
+                    } else {
+                        tongVN = x.getGiamGia();
+                        lbl_giamGia1.setText(String.valueOf(giam + tongVN));
+                    }
+                    count++;
+
+                }
+                Double ThanhTien = Double.parseDouble(lbl_tongTien1.getText()) - Double.parseDouble(lbl_giamGia1.getText());
+                lbl_thanhTien.setText(String.valueOf(format.format(ThanhTien)));
+            } else if (SoLuong < NhapSoLuong) {
+                JOptionPane.showMessageDialog(this, "san pham không đủ ");
                 return;
+
             }
+            List<HoaDonViewModel> listHoaDon = hoaDonServiec.getListHD(1);
+            for (HoaDonViewModel x : listHoaDon) {
+                if (tb_hoaDon.getValueAt(rowHD, 0).toString().equals(x.getMa())) {
+                    HoaDonCHiTietViewModel hdct = inputHDCT(DonGia, NhapSoLuong);
+                    hoaDonServiec.saveHDCT(hdct, MaSP, x.getMa());
+                    return;
+
+                }
+            }
+        } catch (Exception e) {
         }
+
 
     }//GEN-LAST:event_tb_sanPhamMouseClicked
 
@@ -562,58 +598,61 @@ public class frm_Banhang extends javax.swing.JPanel {
         if (row < 0) {
             return;
         }
+        listGioHang.clear();
         String MaHD = tb_hoaDon.getValueAt(row, 0).toString();
-        getListGioHangHDCT(MaHD);
-//        List<HoaDonCHiTietViewModel> list = hoaDonServiec.getListHoaDonChiTiet(MaHD);
-//        if (list.isEmpty()) {
-//            return;
-//        }
-//         
-//            for (HoaDonCHiTietViewModel x : list) {
-//                     
-//                listGioHang.add(new GioHangViewModel(x.getSanPham().getMa(), x.getSanPham().getTen(), x.getSoluong(), x.getDonGia(),
-//                       x.getSanPham().getKhuenMai().getGiaTriGiam(), x.getSanPham().getKhuenMai().getHinhThucKM()));
-//
-//            }
-//            getListGioHang();
-        
-        Double tongPT = 0.0;
-        Double tongVN = 0.0;
-        Double tongTien = 0.0;
-        Double giam = Double.parseDouble(lbl_giamGia1.getText());
-        int count = 0;
-        
-        for (GioHangViewModel x : listGioHang) {
-            tongTien = tongTien + x.getThanhTien();
-            lbl_tongTien1.setText(String.valueOf(tongTien));
+        try {
+            lbl_tongTien1.setText(String.valueOf(0));
+            lbl_giamGia1.setText(String.valueOf(0));
+            lbl_thanhTien.setText(String.valueOf(0));
 
-            List<SanPhamViewModel> listSanPham = sanISamPhamServiecs.getListSanPham();
+            getListGioHangHDCT(MaHD);
 
-            if (tb_gioHang.getValueAt(count, 0).equals(x.getMaSP()) && x.getHinhThucGiamGia().equals("%")) {
-                tongPT = x.getThanhTien() * x.getGiamGia() / 100;
-                lbl_giamGia1.setText(String.valueOf(giam += tongPT));
-                lbl_giamGia1.setText(String.valueOf(giam));
-            } else {
-                tongVN = x.getGiamGia();
-                lbl_giamGia1.setText(String.valueOf(giam + tongVN));
+            Double tongPT = 0.0;
+            Double tongVN = 0.0;
+            Double tongTien = 0.0;
+            Double giam = Double.parseDouble(lbl_giamGia1.getText());
+            int count = 0;
+            List<HoaDonCHiTietViewModel> list = hoaDonServiec.getListHoaDonChiTiet(MaHD);
+
+            for (HoaDonCHiTietViewModel x : list) {
+                tongTien = tongTien + x.getThanhTien();
+                lbl_tongTien1.setText(String.valueOf(tongTien));
+
+                List<SanPhamViewModel> listSanPham = sanISamPhamServiecs.getListSanPham();
+
+                if (tb_gioHang.getValueAt(count, 0).equals(x.getSanPham().getMa()) && x.getSanPham().getKhuenMai().getHinhThucKM().equals("%")) {
+                    tongPT = x.getThanhTien() * x.getSanPham().getKhuenMai().getGiaTriGiam() / 100;
+                    lbl_giamGia1.setText(String.valueOf(giam += tongPT));
+                    lbl_giamGia1.setText(String.valueOf(giam));
+                } else {
+                    tongVN = x.getSanPham().getKhuenMai().getGiaTriGiam();
+                    lbl_giamGia1.setText(String.valueOf(giam += tongVN));
+                }
+
+                count++;
+
             }
-
-            count++;
-
+            Double ThanhTien = Double.parseDouble(lbl_tongTien1.getText()) - Double.parseDouble(lbl_giamGia1.getText());
+            lbl_thanhTien.setText(String.valueOf(format.format(ThanhTien)));
+        } catch (Exception e) {
+            lbl_tongTien1.setText(String.valueOf(0));
+            lbl_giamGia1.setText(String.valueOf(0));
+            lbl_thanhTien.setText(String.valueOf(0));
         }
-        Double ThanhTien = Double.parseDouble(lbl_tongTien1.getText()) - Double.parseDouble(lbl_giamGia1.getText());
-        lbl_thanhTien.setText(String.valueOf(format.format(ThanhTien)));
     }//GEN-LAST:event_tb_hoaDonMouseClicked
 
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
         int rowSP = tb_gioHang.getSelectedRow();
         int rowHD = tb_hoaDon.getSelectedRow();
         if (rowSP < 0) {
+            JOptionPane.showMessageDialog(this, "chọn 1 sản phẩm trong giỏ hàng để xoá");
             return;
         }
         if (rowHD < 0) {
+            JOptionPane.showMessageDialog(this, "chọn Hoá đơn bạn muốn xoá sản phẩm đấy");
             return;
         }
+
         String MaSP = tb_gioHang.getValueAt(rowSP, 0).toString();
         String MaHD = tb_hoaDon.getValueAt(rowHD, 0).toString();
         Integer soLuong = Integer.parseInt(tb_gioHang.getValueAt(rowSP, 2).toString());
@@ -626,10 +665,12 @@ public class frm_Banhang extends javax.swing.JPanel {
                 sanISamPhamServiecs.updateSoLuongSP(MaSP, x.getSoLuongTon() + soLuong);
                 list.clear();
                 getListSP();
+                getListGioHangHDCT(MaHD);
+                break;
 
-                return;
             }
         }
+         listGioHang.clear();
 
 
     }//GEN-LAST:event_myButton1ActionPerformed
@@ -640,32 +681,112 @@ public class frm_Banhang extends javax.swing.JPanel {
         if (rowHD < 0) {
             return;
         }
-        if (rowGH < 0) {
-            return;
-        }
+
         String MaHD = tb_hoaDon.getValueAt(rowHD, 0).toString();
+        int count = 0;
+        List<SanPhamViewModel> list = sanISamPhamServiecs.getListSanPham();
+        List<HoaDonCHiTietViewModel> listHD = hoaDonServiec.getListHoaDonChiTiet(MaHD);
+        for (HoaDonCHiTietViewModel gioHang : listHD) {
+            GioHangViewModel hg = new GioHangViewModel();
+            hg.setMaSP(tb_gioHang.getValueAt(count, 0).toString());
+            hg.setSoLuong(Integer.parseInt(tb_gioHang.getValueAt(count, 2).toString()));
+            hg.setTenSP(tb_gioHang.getValueAt(count, 1).toString());
+            hg.setDonGia(Double.parseDouble(tb_gioHang.getValueAt(count, 3).toString()));
+
+            count++;
+            listGioHang.add(hg);
+        }
         Integer idHd = hoaDonServiec.getIdHD(MaHD);
         hoaDonServiec.clearSanPhamTrenGioHang(idHd);
-        List<SanPhamViewModel> list = sanISamPhamServiecs.getListSanPham();
-        for (SanPhamViewModel x : list) {
+        for (GioHangViewModel x : listGioHang) {
+            for (SanPhamViewModel sanPham : list) {
+                if (x.getMaSP().equals(sanPham.getMa())) {
+                    sanISamPhamServiecs.updateSoLuongSP(sanPham.getMa(), sanPham.getSoLuongTon() + x.getSoLuong());
+                    getListGioHangHDCT(MaHD);
 
-            for (GioHangViewModel gioHang : listGioHang) {
-                if (gioHang.getMaSP().equals(x.getMa())) {
-                    sanISamPhamServiecs.updateSoLuongSP(gioHang.getMaSP(), x.getSoLuongTon() + gioHang.getSoLuong());
-                    list.clear();
-                    getListSP();
-
-                    return;
-                }
-                if (tb_gioHang.getValueAt(rowGH, 0).equals(gioHang.getMaSP())) {
-                    listGioHang.remove(x);
-                    getListGioHang();
-                    return;
                 }
             }
+
         }
+        list.clear();
+        getListSP();
+        listGioHang.clear();
+        lbl_tongTien1.setText(String.valueOf(0));
+        lbl_giamGia1.setText(String.valueOf(0));
+        lbl_thanhTien.setText(String.valueOf(0));
 
     }//GEN-LAST:event_myButton2ActionPerformed
+
+    private void myButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton3ActionPerformed
+
+    }//GEN-LAST:event_myButton3ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        int rowSP = tb_gioHang.getSelectedRow();
+        int rowHD = tb_hoaDon.getSelectedRow();
+        if (rowSP < 0) {
+            return;
+        }
+        if (rowHD < 0) {
+            return;
+        }
+        String MaSP = tb_gioHang.getValueAt(rowSP, 0).toString();
+        String MaHD = tb_hoaDon.getValueAt(rowHD, 0).toString();
+
+        List<SanPhamViewModel> list = sanISamPhamServiecs.getListSanPham();
+//        List<HoaDonCHiTietViewModel> getList = hoaDonServiec.getListHoaDonChiTiet(MaHD);
+        try {
+            int NhapSoLuong = Integer.parseInt(JOptionPane.showInputDialog(this, "nhap so luong"));
+            for (SanPhamViewModel x : list) {
+                if (MaSP.equals(x.getMa())) {
+                    if (x.getSoLuongTon() >= NhapSoLuong) {
+
+                        Integer isupdate = hoaDonServiec.updateSoLuongGioHang(NhapSoLuong, MaSP, MaHD);
+                        int updateSoLuong = x.getSoLuongTon() + Integer.parseInt(tb_gioHang.getValueAt(rowSP, 2).toString());
+                        getListGioHangHDCT(MaHD);
+                        sanISamPhamServiecs.updateSoLuongSP(x.getMa(), updateSoLuong - NhapSoLuong);
+                        list.clear();
+                        getListSP();
+                        return;
+                    } else if (x.getSoLuongTon() < NhapSoLuong) {
+                        JOptionPane.showMessageDialog(this, "số Lượng sản phẩm không đủ");
+                        return;
+                    }
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "vui lòng nhập nó không nhập kí tự");
+        }
+
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void searchText1CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_searchText1CaretUpdate
+        String Ten = searchText1.getText().trim();
+        if (Ten.isEmpty()) {
+            List<SanPhamViewModel> list = sanISamPhamServiecs.getListSanPham();
+            list.clear();
+            getListSP();
+            return;
+        }
+        model = (DefaultTableModel) tb_sanPham.getModel();
+        model.setRowCount(0);
+        List<SanPham> getList = sanISamPhamServiecs.seachSanPham(Ten);
+        for (SanPham x : getList) {
+            model.addRow(new Object[]{
+                x.getMa(),
+                x.getTen(),
+                x.getMauSac().getTen(),
+                format.format(x.getKhuenMai().getGiaTriGiam()),
+                x.getKhuenMai().getHinhThucKM(),
+                x.getChatLieu().getTen(),
+                x.getKichCo().getTen(),
+                format.format(x.getGiaBan()),
+                x.getSoLuongTon(),});
+        }
+
+    }//GEN-LAST:event_searchText1CaretUpdate
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -687,6 +808,8 @@ public class frm_Banhang extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
