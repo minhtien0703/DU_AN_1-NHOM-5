@@ -30,31 +30,71 @@ public class frm_Thongke extends javax.swing.JPanel {
         panelBorder2 = new swing.PanelBorder();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
         panelBorder3 = new swing.PanelBorder();
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
         panelBorder4 = new swing.PanelBorder();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        panelBorder1 = new swing.PanelBorder();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        myButton1 = new swing.MyButton();
+        myButton2 = new swing.MyButton();
+        panelBorder5 = new swing.PanelBorder();
+        searchText1 = new swing.SearchText();
+        jLabel7 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1010, 640));
 
         panelGradiente1.setColorPrimario(new java.awt.Color(204, 255, 255));
         panelGradiente1.setColorSecundario(new java.awt.Color(255, 204, 255));
+        panelGradiente1.setMaximumSize(new java.awt.Dimension(1000, 630));
+        panelGradiente1.setMinimumSize(new java.awt.Dimension(1000, 630));
+        panelGradiente1.setName(""); // NOI18N
 
         panelBorder2.setBackground(new java.awt.Color(204, 204, 255));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 102, 51));
+        jLabel1.setForeground(new java.awt.Color(255, 0, 0));
         jLabel1.setText("Doanh thu ngày");
         panelBorder2.add(jLabel1);
         jLabel1.setBounds(100, 0, 180, 40);
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/money.png"))); // NOI18N
         panelBorder2.add(jLabel5);
-        jLabel5.setBounds(30, 0, 60, 40);
+        jLabel5.setBounds(50, 0, 40, 40);
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(0, 0, 153));
+        jLabel16.setText("Tổng lợi nhuận :");
+        panelBorder2.add(jLabel16);
+        jLabel16.setBounds(30, 140, 210, 30);
+
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(0, 0, 153));
+        jLabel18.setText("Tổng doanh thu :");
+        panelBorder2.add(jLabel18);
+        jLabel18.setBounds(30, 60, 210, 30);
+
+        jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(0, 0, 153));
+        jLabel19.setText("Tổng vốn :");
+        panelBorder2.add(jLabel19);
+        jLabel19.setBounds(30, 100, 210, 30);
 
         panelGradiente1.add(panelBorder2);
-        panelBorder2.setBounds(43, 0, 280, 130);
+        panelBorder2.setBounds(50, 0, 280, 190);
 
         panelBorder3.setBackground(new java.awt.Color(204, 204, 255));
 
@@ -63,32 +103,110 @@ public class frm_Thongke extends javax.swing.JPanel {
         jLabel3.setText("Doanh thu năm");
         panelBorder3.add(jLabel3);
         jLabel3.setBounds(110, 0, 180, 40);
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/money.png"))); // NOI18N
         panelBorder3.add(jLabel6);
-        jLabel6.setBounds(30, 0, 60, 40);
+        jLabel6.setBounds(60, 0, 40, 40);
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(0, 0, 153));
+        jLabel22.setText("Tổng lợi nhuận :");
+        panelBorder3.add(jLabel22);
+        jLabel22.setBounds(30, 140, 210, 30);
+
+        jLabel24.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(0, 0, 153));
+        jLabel24.setText("Tổng vốn :");
+        panelBorder3.add(jLabel24);
+        jLabel24.setBounds(30, 100, 210, 30);
+
+        jLabel23.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(0, 0, 153));
+        jLabel23.setText("Tổng doanh thu :");
+        panelBorder3.add(jLabel23);
+        jLabel23.setBounds(30, 60, 210, 30);
 
         panelGradiente1.add(panelBorder3);
-        panelBorder3.setBounds(689, 0, 280, 130);
+        panelBorder3.setBounds(689, 0, 280, 190);
 
         panelBorder4.setBackground(new java.awt.Color(204, 204, 255));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 51, 0));
+        jLabel2.setForeground(new java.awt.Color(255, 0, 0));
         jLabel2.setText("Doanh thu tháng");
         panelBorder4.add(jLabel2);
         jLabel2.setBounds(100, 0, 180, 40);
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/money.png"))); // NOI18N
         panelBorder4.add(jLabel4);
-        jLabel4.setBounds(30, 0, 60, 40);
+        jLabel4.setBounds(50, 0, 40, 40);
+
+        jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(0, 0, 153));
+        jLabel20.setText("Tổng doanh thu :");
+        panelBorder4.add(jLabel20);
+        jLabel20.setBounds(30, 60, 210, 30);
+
+        jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(0, 0, 153));
+        jLabel21.setText("Tổng vốn :");
+        panelBorder4.add(jLabel21);
+        jLabel21.setBounds(30, 100, 210, 30);
+
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(0, 0, 153));
+        jLabel17.setText("Tổng lợi nhuận :");
+        panelBorder4.add(jLabel17);
+        jLabel17.setBounds(30, 140, 210, 30);
 
         panelGradiente1.add(panelBorder4);
-        panelBorder4.setBounds(366, 0, 280, 130);
+        panelBorder4.setBounds(366, 0, 280, 190);
+
+        panelBorder1.setBackground(new java.awt.Color(204, 204, 255));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        panelBorder1.add(jScrollPane1);
+        jScrollPane1.setBounds(0, 90, 990, 340);
+
+        myButton1.setText("myButton1");
+        panelBorder1.add(myButton1);
+        myButton1.setBounds(240, 30, 120, 40);
+
+        myButton2.setText("myButton2");
+        panelBorder1.add(myButton2);
+        myButton2.setBounds(80, 30, 120, 40);
+
+        panelBorder5.setBackground(new java.awt.Color(255, 255, 255));
+        panelBorder5.add(searchText1);
+        searchText1.setBounds(10, 0, 240, 50);
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search_24px.png"))); // NOI18N
+        panelBorder5.add(jLabel7);
+        jLabel7.setBounds(270, 0, 40, 50);
+
+        panelBorder1.add(panelBorder5);
+        panelBorder5.setBounds(540, 20, 310, 50);
+
+        panelGradiente1.add(panelBorder1);
+        panelBorder1.setBounds(10, 210, 990, 430);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panelGradiente1, javax.swing.GroupLayout.PREFERRED_SIZE, 1072, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(panelGradiente1, javax.swing.GroupLayout.PREFERRED_SIZE, 1012, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -99,14 +217,31 @@ public class frm_Thongke extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private swing.MyButton myButton1;
+    private swing.MyButton myButton2;
+    private swing.PanelBorder panelBorder1;
     private swing.PanelBorder panelBorder2;
     private swing.PanelBorder panelBorder3;
     private swing.PanelBorder panelBorder4;
+    private swing.PanelBorder panelBorder5;
     private swing.PanelGradiente panelGradiente1;
+    private swing.SearchText searchText1;
     // End of variables declaration//GEN-END:variables
 }
