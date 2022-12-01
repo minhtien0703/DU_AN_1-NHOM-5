@@ -4,17 +4,91 @@
  */
 package views;
 
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import models.ChatLieu;
+import models.ChiTietSP;
+import models.DanhMucSP;
+import models.KhuyenMai;
+import models.KichCo;
+import models.MauSac;
+import models.NSX;
+import models.ThuongHieu;
+import services.IChatLieuServices;
+import services.IChiTietSPServices;
+import services.IDanhMucSPServices;
+import services.IKhuyenmaiService;
+import services.IKichCoServices;
+import services.IMauSacServices;
+import services.INSXServices;
+import services.IThuongHieuServices;
+import services.imp.ChatLieuServices;
+import services.imp.ChiTietSPServices;
+import services.imp.DanhMucSPServices;
+import services.imp.KhuyenmaiService;
+import services.imp.KichCoServices;
+import services.imp.MauSacServices;
+import services.imp.NSXServices;
+import services.imp.ThuongHieuServices;
+import viewmodels.ChiTietSPViewModel;
+import viewmodels.KhuyenmaiViewmodel;
+
 /**
  *
  * @author hungh
  */
 public class frm_Sanpham extends javax.swing.JPanel {
 
-    /**
-     * Creates new form sanpham
-     */
+    private IChiTietSPServices iChiTietSPServices;
+    private INSXServices iNSXServices;
+    private IMauSacServices iMauSacServices;
+    private IDanhMucSPServices iDanhMucSPServices;
+    private IKichCoServices iKichCoServices;
+    private IChatLieuServices iChatLieuServices;
+    private IThuongHieuServices iThuongHieuServices;
+    private IKhuyenmaiService iKhuyenmaiService;
+    DefaultTableModel defaultTableModel;
+    List<ChiTietSPViewModel> listctsp;
+
     public frm_Sanpham() {
         initComponents();
+
+        innitTable();
+//        listctsp = iChiTietSPServices.getAll();
+        iChiTietSPServices = new ChiTietSPServices();
+        iNSXServices = new NSXServices();
+        iMauSacServices = new MauSacServices();
+        iDanhMucSPServices = new DanhMucSPServices();
+        iKichCoServices = new KichCoServices();
+        iChatLieuServices = new ChatLieuServices();
+        iThuongHieuServices = new ThuongHieuServices();
+        iKhuyenmaiService = new KhuyenmaiService();
+
+        List<NSX> listnsx = iNSXServices.getAll();
+        cbo_nsx.setModel(new DefaultComboBoxModel(listnsx.toArray()));
+
+        List<MauSac> listms = iMauSacServices.getAll();
+        cbo_mausac.setModel(new DefaultComboBoxModel(listms.toArray()));
+
+        List<DanhMucSP> listdmsp = iDanhMucSPServices.getAll();
+        cbo_danhmuc.setModel(new DefaultComboBoxModel(listdmsp.toArray()));
+
+        List<KichCo> listkc = iKichCoServices.getAll();
+        cbo_size.setModel(new DefaultComboBoxModel(listkc.toArray()));
+
+        List<ChatLieu> listcl = iChatLieuServices.getAll();
+        cbo_chatlieu.setModel(new DefaultComboBoxModel(listcl.toArray()));
+
+        List<ThuongHieu> listth = iThuongHieuServices.getAll();
+        cbo_thuonghieu1.setModel(new DefaultComboBoxModel(listth.toArray()));
+
+        List<KhuyenmaiViewmodel> listkm = iKhuyenmaiService.GetALL();
+        cbo_khuyenmai.setModel(new DefaultComboBoxModel(listkm.toArray()));
+
+        loadData();
+
     }
 
     /**
@@ -28,9 +102,9 @@ public class frm_Sanpham extends javax.swing.JPanel {
 
         panelGradiente1 = new swing.PanelGradiente();
         panelBorder1 = new swing.PanelBorder();
-        myTextField1 = new swing.MyTextField();
+        txt_ma = new swing.MyTextField();
         jLabel1 = new javax.swing.JLabel();
-        myTextField2 = new swing.MyTextField();
+        txt_ten = new swing.MyTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -38,30 +112,30 @@ public class frm_Sanpham extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        myTextField9 = new swing.MyTextField();
         jLabel9 = new javax.swing.JLabel();
-        myTextField10 = new swing.MyTextField();
+        txt_soluongton = new swing.MyTextField();
         jLabel10 = new javax.swing.JLabel();
-        myTextField11 = new swing.MyTextField();
+        txt_gianhap = new swing.MyTextField();
         jLabel11 = new javax.swing.JLabel();
-        myTextField12 = new swing.MyTextField();
+        txt_giaban = new swing.MyTextField();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txt_mota = new javax.swing.JTextArea();
         jLabel13 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jComboBox4 = new javax.swing.JComboBox<>();
-        jComboBox5 = new javax.swing.JComboBox<>();
-        jComboBox6 = new javax.swing.JComboBox<>();
-        myButton2 = new swing.MyButton();
-        myButton3 = new swing.MyButton();
-        myButton4 = new swing.MyButton();
-        myButton5 = new swing.MyButton();
+        cbo_khuyenmai = new javax.swing.JComboBox<>();
+        cbo_nsx = new javax.swing.JComboBox<>();
+        cbo_mausac = new javax.swing.JComboBox<>();
+        cbo_danhmuc = new javax.swing.JComboBox<>();
+        cbo_size = new javax.swing.JComboBox<>();
+        cbo_chatlieu = new javax.swing.JComboBox<>();
+        btn_capnhat = new swing.MyButton();
+        btn_lammoi = new swing.MyButton();
+        btn_xoa = new swing.MyButton();
+        btn_them = new swing.MyButton();
+        cbo_thuonghieu1 = new javax.swing.JComboBox<>();
         panelBorder2 = new swing.PanelBorder();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbl_sp = new javax.swing.JTable();
         panelBorder3 = new swing.PanelBorder();
         searchText1 = new swing.SearchText();
         jLabel14 = new javax.swing.JLabel();
@@ -75,14 +149,14 @@ public class frm_Sanpham extends javax.swing.JPanel {
         panelGradiente1.setColorSecundario(new java.awt.Color(255, 204, 255));
 
         panelBorder1.setBackground(new java.awt.Color(204, 204, 255));
-        panelBorder1.add(myTextField1);
-        myTextField1.setBounds(30, 30, 210, 40);
+        panelBorder1.add(txt_ma);
+        txt_ma.setBounds(30, 30, 210, 40);
 
         jLabel1.setText("Mã sản phẩm");
         panelBorder1.add(jLabel1);
         jLabel1.setBounds(30, 10, 210, 20);
-        panelBorder1.add(myTextField2);
-        myTextField2.setBounds(30, 100, 210, 40);
+        panelBorder1.add(txt_ten);
+        txt_ten.setBounds(30, 100, 210, 40);
 
         jLabel2.setText("Tên sản phẩm");
         panelBorder1.add(jLabel2);
@@ -111,36 +185,34 @@ public class frm_Sanpham extends javax.swing.JPanel {
         jLabel8.setText("Thương hiệu");
         panelBorder1.add(jLabel8);
         jLabel8.setBounds(280, 220, 210, 20);
-        panelBorder1.add(myTextField9);
-        myTextField9.setBounds(530, 30, 210, 40);
 
         jLabel9.setText("Khuyến mãi");
         panelBorder1.add(jLabel9);
         jLabel9.setBounds(530, 10, 210, 20);
-        panelBorder1.add(myTextField10);
-        myTextField10.setBounds(530, 100, 210, 40);
+        panelBorder1.add(txt_soluongton);
+        txt_soluongton.setBounds(530, 100, 210, 40);
 
         jLabel10.setText("Số lượng tồn");
         panelBorder1.add(jLabel10);
         jLabel10.setBounds(530, 80, 210, 20);
-        panelBorder1.add(myTextField11);
-        myTextField11.setBounds(530, 170, 210, 40);
+        panelBorder1.add(txt_gianhap);
+        txt_gianhap.setBounds(530, 170, 210, 40);
 
         jLabel11.setText("Giá nhập");
         panelBorder1.add(jLabel11);
         jLabel11.setBounds(530, 150, 210, 20);
-        panelBorder1.add(myTextField12);
-        myTextField12.setBounds(530, 240, 210, 40);
+        panelBorder1.add(txt_giaban);
+        txt_giaban.setBounds(530, 240, 210, 40);
 
         jLabel12.setText("Mô tả");
         panelBorder1.add(jLabel12);
         jLabel12.setBounds(760, 220, 220, 20);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(2);
-        jTextArea1.setTabSize(0);
-        jTextArea1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 153)));
-        jScrollPane4.setViewportView(jTextArea1);
+        txt_mota.setColumns(20);
+        txt_mota.setRows(2);
+        txt_mota.setTabSize(0);
+        txt_mota.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 153)));
+        jScrollPane4.setViewportView(txt_mota);
 
         panelBorder1.add(jScrollPane4);
         jScrollPane4.setBounds(760, 240, 220, 70);
@@ -149,70 +221,95 @@ public class frm_Sanpham extends javax.swing.JPanel {
         panelBorder1.add(jLabel13);
         jLabel13.setBounds(530, 220, 210, 20);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
-        panelBorder1.add(jComboBox1);
-        jComboBox1.setBounds(280, 240, 210, 40);
+        cbo_khuyenmai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbo_khuyenmai.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
+        panelBorder1.add(cbo_khuyenmai);
+        cbo_khuyenmai.setBounds(530, 30, 210, 40);
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
-        panelBorder1.add(jComboBox2);
-        jComboBox2.setBounds(30, 170, 210, 40);
+        cbo_nsx.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbo_nsx.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
+        panelBorder1.add(cbo_nsx);
+        cbo_nsx.setBounds(30, 170, 210, 40);
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
-        panelBorder1.add(jComboBox3);
-        jComboBox3.setBounds(30, 240, 210, 40);
+        cbo_mausac.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbo_mausac.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
+        panelBorder1.add(cbo_mausac);
+        cbo_mausac.setBounds(30, 240, 210, 40);
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
-        panelBorder1.add(jComboBox4);
-        jComboBox4.setBounds(280, 30, 210, 40);
+        cbo_danhmuc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbo_danhmuc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
+        panelBorder1.add(cbo_danhmuc);
+        cbo_danhmuc.setBounds(280, 30, 210, 40);
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
-        panelBorder1.add(jComboBox5);
-        jComboBox5.setBounds(280, 100, 210, 40);
+        cbo_size.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbo_size.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
+        panelBorder1.add(cbo_size);
+        cbo_size.setBounds(280, 100, 210, 40);
 
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
-        panelBorder1.add(jComboBox6);
-        jComboBox6.setBounds(280, 170, 210, 40);
+        cbo_chatlieu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbo_chatlieu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
+        panelBorder1.add(cbo_chatlieu);
+        cbo_chatlieu.setBounds(280, 170, 210, 40);
 
-        myButton2.setBackground(new java.awt.Color(125, 224, 237));
-        myButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/floppy-disk.png"))); // NOI18N
-        myButton2.setText("Cập nhật");
-        myButton2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        panelBorder1.add(myButton2);
-        myButton2.setBounds(810, 120, 130, 40);
+        btn_capnhat.setBackground(new java.awt.Color(125, 224, 237));
+        btn_capnhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/floppy-disk.png"))); // NOI18N
+        btn_capnhat.setText("Cập nhật");
+        btn_capnhat.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_capnhat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_capnhatActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(btn_capnhat);
+        btn_capnhat.setBounds(810, 120, 130, 40);
 
-        myButton3.setBackground(new java.awt.Color(125, 224, 237));
-        myButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/refresh.png"))); // NOI18N
-        myButton3.setText("Làm mới");
-        myButton3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        panelBorder1.add(myButton3);
-        myButton3.setBounds(810, 20, 130, 40);
+        btn_lammoi.setBackground(new java.awt.Color(125, 224, 237));
+        btn_lammoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/refresh.png"))); // NOI18N
+        btn_lammoi.setText("Làm mới");
+        btn_lammoi.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_lammoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_lammoiActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(btn_lammoi);
+        btn_lammoi.setBounds(810, 20, 130, 40);
 
-        myButton4.setBackground(new java.awt.Color(125, 224, 237));
-        myButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tay.png"))); // NOI18N
-        myButton4.setText("Xóa");
-        myButton4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        panelBorder1.add(myButton4);
-        myButton4.setBounds(810, 170, 130, 40);
+        btn_xoa.setBackground(new java.awt.Color(125, 224, 237));
+        btn_xoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tay.png"))); // NOI18N
+        btn_xoa.setText("Xóa");
+        btn_xoa.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_xoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_xoaActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(btn_xoa);
+        btn_xoa.setBounds(810, 170, 130, 40);
 
-        myButton5.setBackground(new java.awt.Color(125, 224, 237));
-        myButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add.png"))); // NOI18N
-        myButton5.setText("Thêm");
-        myButton5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        panelBorder1.add(myButton5);
-        myButton5.setBounds(810, 70, 130, 40);
+        btn_them.setBackground(new java.awt.Color(125, 224, 237));
+        btn_them.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add.png"))); // NOI18N
+        btn_them.setText("Thêm");
+        btn_them.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_them.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_themActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(btn_them);
+        btn_them.setBounds(810, 70, 130, 40);
+
+        cbo_thuonghieu1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbo_thuonghieu1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
+        panelBorder1.add(cbo_thuonghieu1);
+        cbo_thuonghieu1.setBounds(280, 240, 210, 40);
 
         panelGradiente1.add(panelBorder1);
         panelBorder1.setBounds(8, 0, 990, 320);
 
         panelBorder2.setBackground(new java.awt.Color(204, 204, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_sp.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -223,9 +320,14 @@ public class frm_Sanpham extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTable1.setGridColor(new java.awt.Color(255, 255, 255));
-        jTable1.setRowHeight(20);
-        jScrollPane1.setViewportView(jTable1);
+        tbl_sp.setGridColor(new java.awt.Color(255, 255, 255));
+        tbl_sp.setRowHeight(20);
+        tbl_sp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_spMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbl_sp);
 
         panelBorder2.add(jScrollPane1);
         jScrollPane1.setBounds(0, 60, 990, 240);
@@ -268,14 +370,89 @@ public class frm_Sanpham extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btn_lammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lammoiActionPerformed
+        // TODO add your handling code here:
+        clearForm();
+    }//GEN-LAST:event_btn_lammoiActionPerformed
+
+    private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
+        // TODO add your handling code here:
+        if (check()) {
+            JOptionPane.showMessageDialog(this, iChiTietSPServices.Add(getData()));
+            listctsp = iChiTietSPServices.getAll();
+            loadData();
+        }
+    }//GEN-LAST:event_btn_themActionPerformed
+
+    private void btn_capnhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_capnhatActionPerformed
+        // TODO add your handling code here:
+        int row = tbl_sp.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "Bạn cần chọn sản phẩm để cập nhật");
+            return;
+        }
+        if (JOptionPane.showConfirmDialog(this, "Bạn có muốn cập nhật không ?") == JOptionPane.YES_NO_OPTION) {
+            int id = getId();
+
+            JOptionPane.showMessageDialog(this, iChiTietSPServices.Update(id, getData()));
+            listctsp = iChiTietSPServices.getAll();
+            loadData();
+
+        }
+    }//GEN-LAST:event_btn_capnhatActionPerformed
+
+    private void btn_xoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xoaActionPerformed
+        // TODO add your handling code here:
+        int row = tbl_sp.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "Bạn cần chọn sản phẩm để xóa");
+            return;
+        }
+        if (JOptionPane.showConfirmDialog(this, "Bạn có muốn xóa không ?") == JOptionPane.YES_NO_OPTION) {
+            int id = getId();
+
+            JOptionPane.showMessageDialog(this, iChiTietSPServices.Delete(id));
+            listctsp = iChiTietSPServices.getAll();
+            loadData();
+
+        }
+    }//GEN-LAST:event_btn_xoaActionPerformed
+
+    private void tbl_spMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_spMouseClicked
+        // TODO add your handling code here:
+        try {
+            int row = tbl_sp.getSelectedRow();
+            ChiTietSPViewModel ctsp = listctsp.get(row);
+            txt_ma.setText(ctsp.getMa());
+            txt_ten.setText(ctsp.getTen());
+            cbo_nsx.setSelectedItem(ctsp.getIdnsx());
+            cbo_mausac.setSelectedItem(ctsp.getIdmausac());
+            cbo_danhmuc.setSelectedItem(ctsp.getIddanhmuc());
+            cbo_size.setSelectedItem(ctsp.getIdkc());
+            cbo_chatlieu.setSelectedItem(ctsp.getIdcl());
+            cbo_thuonghieu1.setSelectedItem(ctsp.getIdth());
+            cbo_khuyenmai.setSelectedItem(ctsp.getIdkm());
+            txt_soluongton.setText(String.valueOf(ctsp.getSoluongton()));
+            txt_gianhap.setText(String.valueOf(ctsp.getGianhap()));
+            txt_giaban.setText(String.valueOf(ctsp.getGiaban()));
+            txt_mota.setText(ctsp.getMota());
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_tbl_spMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JComboBox<String> jComboBox5;
-    private javax.swing.JComboBox<String> jComboBox6;
+    private swing.MyButton btn_capnhat;
+    private swing.MyButton btn_lammoi;
+    private swing.MyButton btn_them;
+    private swing.MyButton btn_xoa;
+    private javax.swing.JComboBox<String> cbo_chatlieu;
+    private javax.swing.JComboBox<String> cbo_danhmuc;
+    private javax.swing.JComboBox<String> cbo_khuyenmai;
+    private javax.swing.JComboBox<String> cbo_mausac;
+    private javax.swing.JComboBox<String> cbo_nsx;
+    private javax.swing.JComboBox<String> cbo_size;
+    private javax.swing.JComboBox<String> cbo_thuonghieu1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -294,22 +471,110 @@ public class frm_Sanpham extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
-    private swing.MyButton myButton2;
-    private swing.MyButton myButton3;
-    private swing.MyButton myButton4;
-    private swing.MyButton myButton5;
-    private swing.MyTextField myTextField1;
-    private swing.MyTextField myTextField10;
-    private swing.MyTextField myTextField11;
-    private swing.MyTextField myTextField12;
-    private swing.MyTextField myTextField2;
-    private swing.MyTextField myTextField9;
     private swing.PanelBorder panelBorder1;
     private swing.PanelBorder panelBorder2;
     private swing.PanelBorder panelBorder3;
     private swing.PanelGradiente panelGradiente1;
     private swing.SearchText searchText1;
+    private javax.swing.JTable tbl_sp;
+    private swing.MyTextField txt_giaban;
+    private swing.MyTextField txt_gianhap;
+    private swing.MyTextField txt_ma;
+    private javax.swing.JTextArea txt_mota;
+    private swing.MyTextField txt_soluongton;
+    private swing.MyTextField txt_ten;
     // End of variables declaration//GEN-END:variables
+
+    private void innitTable() {
+        defaultTableModel = (DefaultTableModel) tbl_sp.getModel();
+        defaultTableModel.setRowCount(0);
+        defaultTableModel.addColumn("Mã");
+        defaultTableModel.addColumn("Tên");
+        defaultTableModel.addColumn("NSX");
+        defaultTableModel.addColumn("Màu sắc");
+        defaultTableModel.addColumn("Danh mục");
+        defaultTableModel.addColumn("Size");
+        defaultTableModel.addColumn("Chất liệu");
+        defaultTableModel.addColumn("Thương hiệu");
+        defaultTableModel.addColumn("Khuyến mãi");       
+        defaultTableModel.addColumn("Số lượng tồn");
+        defaultTableModel.addColumn("Giá nhập");
+        defaultTableModel.addColumn("Giá bán");
+        defaultTableModel.addColumn("Mô tả");
+
+    }
+
+    private void loadData() {
+        defaultTableModel = (DefaultTableModel) tbl_sp.getModel();
+        defaultTableModel.setRowCount(0);        
+        for (ChiTietSPViewModel x : iChiTietSPServices.getAll()) {
+            defaultTableModel.addRow(new Object[]{
+                x.getMa(),x.getTen(),x.getIdnsx(),x.getIdmausac(),x.getIddanhmuc(),x.getIdkc(),x.getIdcl(),x.getIdth(),x.getIdkm(),x.getSoluongton(),x.getGianhap(),x.getGiaban(),x.getMota(),x.getQrcode()
+            });
+        }
+    }
+
+    public ChiTietSP getData() {
+        String ma = txt_ma.getText();
+        String ten = txt_ten.getText();
+        NSX nsx =(NSX) cbo_nsx.getSelectedItem();
+        MauSac ms = (MauSac) cbo_mausac.getSelectedItem();
+        DanhMucSP dmsp = (DanhMucSP) cbo_danhmuc.getSelectedItem();
+        KichCo kc = (KichCo) cbo_size.getSelectedItem();
+        ChatLieu cl = (ChatLieu) cbo_chatlieu.getSelectedItem();
+        ThuongHieu th = (ThuongHieu) cbo_thuonghieu1.getSelectedItem();
+        KhuyenmaiViewmodel km = (KhuyenmaiViewmodel) cbo_khuyenmai.getSelectedItem();
+        int slt = Integer.parseInt(txt_soluongton.getText());
+        double gianhap = Double.parseDouble(txt_gianhap.getText());
+        double giaban = Double.parseDouble(txt_giaban.getText());
+        String mota = txt_mota.getText();
+        String qrcode = "";
+
+        return new ChiTietSP(ma, ten, nsx.getTen(), ms.getTen(), dmsp.getTen(), kc.getTen(), cl.getTen(), th.getTen(), km.getTenKM(), slt, gianhap, giaban, mota, qrcode);
+    }
+
+    public void clearForm() {
+        txt_ma.setText("");
+        txt_ten.setText("");      
+        txt_soluongton.setText("");
+        txt_gianhap.setText("");
+        txt_giaban.setText("");
+        txt_mota.setText("");
+    }
+
+    public boolean check() {
+        if (txt_ma.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn không đc để trống");
+            return false;
+        }
+        if (txt_ten.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn không đc để trống");
+            return false;
+        }
+        
+        if (txt_soluongton.getText() == null) {
+            JOptionPane.showMessageDialog(this, "Bạn không đc để trống");
+            return false;
+        }
+        if (txt_gianhap.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn không đc để trống");
+            return false;
+        }
+        if (txt_giaban.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn không đc để trống");
+            return false;
+        }
+        if (txt_mota.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn không đc để trống");
+            return false;
+        }
+        return true;
+    }
+
+    public int getId() {
+        Integer row = tbl_sp.getSelectedRow();
+        int id = (int) tbl_sp.getValueAt(row, 0);
+        return id;
+
+    }
 }
