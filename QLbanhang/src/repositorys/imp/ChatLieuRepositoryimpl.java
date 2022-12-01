@@ -37,7 +37,7 @@ public class ChatLieuRepositoryimpl implements IChatLieuRepository{
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
-                listcl.add(new ChatLieu(rs.getString(1)));
+                listcl.add(new ChatLieu(rs.getString(2)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ChatLieuRepositoryimpl.class.getName()).log(Level.SEVERE, null, ex);

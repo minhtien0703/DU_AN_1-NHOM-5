@@ -487,7 +487,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
 
     private void innitTable() {
         defaultTableModel = (DefaultTableModel) tbl_sp.getModel();
-        defaultTableModel.setRowCount(0);
+        defaultTableModel.setColumnCount(0);
         defaultTableModel.addColumn("Mã");
         defaultTableModel.addColumn("Tên");
         defaultTableModel.addColumn("NSX");

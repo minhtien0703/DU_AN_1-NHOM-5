@@ -25,6 +25,11 @@ public class ChatLieu {
     public void setTen(String Ten) {
         this.Ten = Ten;
     }
+
+    @Override
+    public String toString() {
+        return  Ten ;
+    }
     
     
 }

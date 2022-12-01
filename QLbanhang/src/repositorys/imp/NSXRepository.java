@@ -37,7 +37,7 @@ public class NSXRepository implements INSXRepository{
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
-                listnsx.add(new NSX(rs.getString(1)));
+                listnsx.add(new NSX(rs.getString(2)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ChatLieuRepositoryimpl.class.getName()).log(Level.ALL.SEVERE, null, ex);

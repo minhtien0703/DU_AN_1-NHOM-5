@@ -37,7 +37,7 @@ public class ThuongHieuRepository implements IThuongHieuRepository{
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
-                listth.add(new ThuongHieu(rs.getString(1)));
+                listth.add(new ThuongHieu(rs.getString(2)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ChatLieuRepositoryimpl.class.getName()).log(Level.ALL.SEVERE, null, ex);

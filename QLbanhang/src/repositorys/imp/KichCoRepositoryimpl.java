@@ -40,7 +40,7 @@ public class KichCoRepositoryimpl implements IKichCoRepository{
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
-                listkc.add(new KichCo(rs.getString(1)));
+                listkc.add(new KichCo(rs.getString(2)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(KichCoRepositoryimpl.class.getName()).log(Level.SEVERE, null, ex);

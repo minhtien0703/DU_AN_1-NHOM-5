@@ -37,7 +37,7 @@ public class MauSacRepositoryimpl implements IMauSacRepository{
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
-                listms.add(new MauSac(rs.getString(1)));
+                listms.add(new MauSac(rs.getString(2)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(MauSacRepositoryimpl.class.getName()).log(Level.SEVERE, null, ex);

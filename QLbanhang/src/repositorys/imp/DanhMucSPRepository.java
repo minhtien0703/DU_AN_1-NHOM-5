@@ -37,7 +37,7 @@ public class DanhMucSPRepository implements IDanhMucSPRepository{
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
-                listdmsp.add(new DanhMucSP(rs.getString(1)));
+                listdmsp.add(new DanhMucSP(rs.getString(2)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DanhMucSPRepository.class.getName()).log(Level.SEVERE, null, ex);
