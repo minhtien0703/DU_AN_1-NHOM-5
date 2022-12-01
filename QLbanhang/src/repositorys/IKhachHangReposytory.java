@@ -6,8 +6,7 @@ package repositorys;
 
 import java.util.List;
 import models.KhachHang;
-import models.KhuyenMai;
-import viewmodels.KhachHangViewMD;
+import viewmodels.KhachHang02ViewMD;
 
 /**
  *
@@ -17,10 +16,16 @@ public interface IKhachHangReposytory {
 
     List<KhachHang> getall();
 
+    List<KhachHang02ViewMD> getall02();
+
     boolean add(KhachHang khachhang);
 
     boolean update(int id, KhachHang khachhang);
 
     boolean delete(int id);
+
+    public List<KhachHang> GetTK(String ten);
+
+    public List<KhachHang02ViewMD> GetTK01(String ID);
 
 }

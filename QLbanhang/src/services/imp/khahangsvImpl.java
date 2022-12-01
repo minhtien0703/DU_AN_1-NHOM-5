@@ -11,6 +11,7 @@ import repositorys.imp.KhachHangRPImpl;
 import viewmodels.KhachHangViewMD;
 import repositorys.IKhachHangReposytory;
 import services.IKhachHangService;
+import viewmodels.KhachHang02ViewMD;
 
 /**
  *
@@ -59,6 +60,26 @@ public class khahangsvImpl implements IKhachHangService {
         return "Xóa thất bại";
     }
 
-   
+    @Override
+    public List<KhachHangViewMD> GetTK(String ten) {
+        List<KhachHang> kh = khachHang01.GetTK(ten);
+        List<KhachHangViewMD> list01 = new ArrayList<>();
+        for (KhachHang x : kh) {
+            list01.add(new KhachHangViewMD(x.getId(), x.getTen(), x.getTendem(), x.getHo(), x.getGioitinh(), x.getNgaysinh(), x.getEmail(), x.getSdt(), x.getDiemthuong()));
+        }
+        return list01;
+
+    }
+
+    @Override
+    public List<KhachHang02ViewMD> GetTK1(String ID) {
+        return khachHang01.GetTK01(ID);
+    }
+
+    @Override
+    public List<KhachHang02ViewMD> getall01() {
+        return khachHang01.getall02();
+
+    }
 
 }
