@@ -248,7 +248,7 @@ public class frm_Quenmatkhau extends javax.swing.JPanel {
                 + "    <h3 style=\"color: blue;\">Thank you very much</h3>\n"
                 + "</body>\n"
                 + "</html>";
-        utilconnext.SendMail.send(txt_email.getText(), sub, messsage, "beeclothes03@gmail.com", "vdkxdnnmvnrjykqn");
+        utilconnext.SendMail.send(txt_email.getText(), sub, messsage, "beeclothes03@gmail.com", "oqwlaqrxcivxfsxy");
     }//GEN-LAST:event_btn_sendMouseClicked
 
 

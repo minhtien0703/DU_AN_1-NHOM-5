@@ -41,7 +41,7 @@ public class frm_Nhanvien extends javax.swing.JPanel {
         inittable();
         List<Chucvu> cvv = CVService.getAllChucVu();
         cbochucvu.setModel(new DefaultComboBoxModel((cvv.toArray())));
-        txtTaikhoan.setEditable(false);
+        txtTaikhoan.setEditable(true);
         defaultTableModel = (DefaultTableModel) tblnhanvien.getModel();
     }
 
@@ -249,12 +249,6 @@ public class frm_Nhanvien extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setText("Tài Khoản");
         panelGradiente1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 220, 20));
-
-        txtTaikhoan.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtTaikhoanCaretUpdate(evt);
-            }
-        });
         panelGradiente1.add(txtTaikhoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, 220, 40));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -571,7 +565,7 @@ public class frm_Nhanvien extends javax.swing.JPanel {
         }
         defaultTableModel.setRowCount(0);
         int stt=1;
-        for (UsersViewmodel x : nhanVienService.SearchNVV("%"+searchtxt.getText()+"%")) {
+        for (UsersViewmodel x : nhanVienService.SearchNVV(searchtxt.getText())) {
             defaultTableModel.addRow(new Object[]{
                 stt,
                 x.getHo(),
@@ -590,14 +584,6 @@ public class frm_Nhanvien extends javax.swing.JPanel {
         }
         
     }//GEN-LAST:event_lbl_searchMouseClicked
-
-    private void txtTaikhoanCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtTaikhoanCaretUpdate
-        if (txtho.getText().isEmpty() && txttendem.getText().isEmpty() && txtten.getText().isEmpty()) {
-            return;
-        }
-        String tk =utilconnext.ZenTK.Zenma(txtho.getText()+" "+txttendem.getText()+" "+txtten.getText());
-        txtTaikhoan.setText(tk);
-    }//GEN-LAST:event_txtTaikhoanCaretUpdate
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

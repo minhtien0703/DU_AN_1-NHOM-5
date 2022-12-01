@@ -128,3 +128,9 @@ ADD Ghichu varchar(255)
 ALTER TABLE Khuyenmai
 
 ADD Trangthai bit Default 0
+ALTER TABLE HoaDonChiTiet
+
+Drop COLUMN DonGiakhiGiam
+ALTER TABLE Hoadon
+
+ADD TongTien decimal

@@ -4,19 +4,51 @@
  */
 package views;
 
+import java.util.List;
+import models.Thongke;
+import repositorys.IThongkeRepository;
+import repositorys.imp.ThongkeRepository;
+
 /**
  *
  * @author hungh
  */
 public class frm_Thongke extends javax.swing.JPanel {
-
+    IThongkeRepository repository ;
     /**
      * Creates new form thongke
      */
     public frm_Thongke() {
         initComponents();
+        repository = new ThongkeRepository();
+        loadDAY();
+        loadMONTH();
+        loadYEAR();
     }
-
+    void loadDAY(){
+        List<Thongke> lst = repository.getbyday();
+        for (Thongke thongke : lst) {
+            lbl_doanhthuday.setText(String.format("%.0f",thongke.getDoanhthu()));
+            lbl_vonday.setText(String.format("%.0f",thongke.getVon()));
+            lbl_loinnhuanday.setText(String.format("%.0f",thongke.getLoinhuan()));
+        }
+    }
+        void loadMONTH(){
+        List<Thongke> lst = repository.getbymonth();
+        for (Thongke thongke : lst) {
+            lbl_doanhthumonth.setText(String.format("%.0f",thongke.getDoanhthu()));
+            lbl_vonmonth.setText(String.format("%.0f",thongke.getVon()));
+            lbl_loinhuanmonth.setText(String.format("%.0f",thongke.getLoinhuan()));
+        }
+    }
+            void loadYEAR(){
+        List<Thongke> lst = repository.getbyyear();
+                for (Thongke thongke : lst) {
+                    lbl_doanhthuYear.setText(String.format("%.0f",thongke.getDoanhthu()));
+                    lbl_vonYear.setText(String.format("%.0f",thongke.getVon()));
+                    lbl_loinhuanYear.setText(String.format("%.0f",thongke.getLoinhuan()));
+                }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,26 +65,36 @@ public class frm_Thongke extends javax.swing.JPanel {
         jLabel16 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
+        lbl_loinnhuanday = new javax.swing.JLabel();
+        lbl_doanhthuday = new javax.swing.JLabel();
+        lbl_vonday = new javax.swing.JLabel();
         panelBorder3 = new swing.PanelBorder();
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
+        lbl_loinhuanYear = new javax.swing.JLabel();
+        lbl_doanhthuYear = new javax.swing.JLabel();
+        lbl_vonYear = new javax.swing.JLabel();
         panelBorder4 = new swing.PanelBorder();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
+        lbl_loinhuanmonth = new javax.swing.JLabel();
+        lbl_doanhthumonth = new javax.swing.JLabel();
+        lbl_vonmonth = new javax.swing.JLabel();
         panelBorder1 = new swing.PanelBorder();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         myButton1 = new swing.MyButton();
         myButton2 = new swing.MyButton();
-        panelBorder5 = new swing.PanelBorder();
-        searchText1 = new swing.SearchText();
-        jLabel7 = new javax.swing.JLabel();
+        date_month = new com.toedter.calendar.JMonthChooser();
+        date_year = new com.toedter.calendar.JYearChooser();
+        btn_search = new javax.swing.JButton();
+        date_date = new com.toedter.calendar.JDateChooser();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1010, 640));
@@ -79,19 +121,31 @@ public class frm_Thongke extends javax.swing.JPanel {
         jLabel16.setForeground(new java.awt.Color(0, 0, 153));
         jLabel16.setText("Tổng lợi nhuận :");
         panelBorder2.add(jLabel16);
-        jLabel16.setBounds(30, 140, 210, 30);
+        jLabel16.setBounds(30, 140, 100, 30);
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(0, 0, 153));
         jLabel18.setText("Tổng doanh thu :");
         panelBorder2.add(jLabel18);
-        jLabel18.setBounds(30, 60, 210, 30);
+        jLabel18.setBounds(30, 60, 110, 30);
 
         jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(0, 0, 153));
         jLabel19.setText("Tổng vốn :");
         panelBorder2.add(jLabel19);
-        jLabel19.setBounds(30, 100, 210, 30);
+        jLabel19.setBounds(30, 100, 70, 30);
+
+        lbl_loinnhuanday.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        panelBorder2.add(lbl_loinnhuanday);
+        lbl_loinnhuanday.setBounds(130, 140, 100, 30);
+
+        lbl_doanhthuday.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        panelBorder2.add(lbl_doanhthuday);
+        lbl_doanhthuday.setBounds(140, 60, 100, 30);
+
+        lbl_vonday.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        panelBorder2.add(lbl_vonday);
+        lbl_vonday.setBounds(100, 100, 100, 30);
 
         panelGradiente1.add(panelBorder2);
         panelBorder2.setBounds(50, 0, 280, 190);
@@ -112,19 +166,31 @@ public class frm_Thongke extends javax.swing.JPanel {
         jLabel22.setForeground(new java.awt.Color(0, 0, 153));
         jLabel22.setText("Tổng lợi nhuận :");
         panelBorder3.add(jLabel22);
-        jLabel22.setBounds(30, 140, 210, 30);
+        jLabel22.setBounds(30, 140, 100, 30);
 
         jLabel24.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(0, 0, 153));
         jLabel24.setText("Tổng vốn :");
         panelBorder3.add(jLabel24);
-        jLabel24.setBounds(30, 100, 210, 30);
+        jLabel24.setBounds(30, 100, 65, 30);
 
         jLabel23.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(0, 0, 153));
         jLabel23.setText("Tổng doanh thu :");
         panelBorder3.add(jLabel23);
-        jLabel23.setBounds(30, 60, 210, 30);
+        jLabel23.setBounds(30, 60, 110, 30);
+
+        lbl_loinhuanYear.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        panelBorder3.add(lbl_loinhuanYear);
+        lbl_loinhuanYear.setBounds(130, 140, 140, 30);
+
+        lbl_doanhthuYear.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        panelBorder3.add(lbl_doanhthuYear);
+        lbl_doanhthuYear.setBounds(140, 60, 130, 30);
+
+        lbl_vonYear.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        panelBorder3.add(lbl_vonYear);
+        lbl_vonYear.setBounds(100, 100, 170, 30);
 
         panelGradiente1.add(panelBorder3);
         panelBorder3.setBounds(689, 0, 280, 190);
@@ -145,19 +211,31 @@ public class frm_Thongke extends javax.swing.JPanel {
         jLabel20.setForeground(new java.awt.Color(0, 0, 153));
         jLabel20.setText("Tổng doanh thu :");
         panelBorder4.add(jLabel20);
-        jLabel20.setBounds(30, 60, 210, 30);
+        jLabel20.setBounds(30, 60, 110, 30);
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(0, 0, 153));
         jLabel21.setText("Tổng vốn :");
         panelBorder4.add(jLabel21);
-        jLabel21.setBounds(30, 100, 210, 30);
+        jLabel21.setBounds(30, 100, 70, 30);
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(0, 0, 153));
         jLabel17.setText("Tổng lợi nhuận :");
         panelBorder4.add(jLabel17);
-        jLabel17.setBounds(30, 140, 210, 30);
+        jLabel17.setBounds(30, 140, 100, 30);
+
+        lbl_loinhuanmonth.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        panelBorder4.add(lbl_loinhuanmonth);
+        lbl_loinhuanmonth.setBounds(130, 140, 140, 30);
+
+        lbl_doanhthumonth.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        panelBorder4.add(lbl_doanhthumonth);
+        lbl_doanhthumonth.setBounds(140, 60, 130, 30);
+
+        lbl_vonmonth.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        panelBorder4.add(lbl_vonmonth);
+        lbl_vonmonth.setBounds(100, 100, 160, 30);
 
         panelGradiente1.add(panelBorder4);
         panelBorder4.setBounds(366, 0, 280, 190);
@@ -182,22 +260,26 @@ public class frm_Thongke extends javax.swing.JPanel {
 
         myButton1.setText("myButton1");
         panelBorder1.add(myButton1);
-        myButton1.setBounds(240, 30, 120, 40);
+        myButton1.setBounds(120, 30, 120, 40);
 
         myButton2.setText("myButton2");
         panelBorder1.add(myButton2);
-        myButton2.setBounds(80, 30, 120, 40);
+        myButton2.setBounds(0, 30, 120, 40);
+        panelBorder1.add(date_month);
+        date_month.setBounds(560, 40, 114, 22);
+        panelBorder1.add(date_year);
+        date_year.setBounds(730, 40, 110, 22);
 
-        panelBorder5.setBackground(new java.awt.Color(255, 255, 255));
-        panelBorder5.add(searchText1);
-        searchText1.setBounds(10, 0, 240, 50);
-
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search_24px.png"))); // NOI18N
-        panelBorder5.add(jLabel7);
-        jLabel7.setBounds(270, 0, 40, 50);
-
-        panelBorder1.add(panelBorder5);
-        panelBorder5.setBounds(540, 20, 310, 50);
+        btn_search.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search_24px.png"))); // NOI18N
+        btn_search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_searchActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(btn_search);
+        btn_search.setBounds(920, 30, 40, 40);
+        panelBorder1.add(date_date);
+        date_date.setBounds(330, 30, 88, 22);
 
         panelGradiente1.add(panelBorder1);
         panelBorder1.setBounds(10, 210, 990, 430);
@@ -214,8 +296,15 @@ public class frm_Thongke extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btn_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_searchActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_search;
+    private com.toedter.calendar.JDateChooser date_date;
+    private com.toedter.calendar.JMonthChooser date_month;
+    private com.toedter.calendar.JYearChooser date_year;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -231,17 +320,23 @@ public class frm_Thongke extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lbl_doanhthuYear;
+    private javax.swing.JLabel lbl_doanhthuday;
+    private javax.swing.JLabel lbl_doanhthumonth;
+    private javax.swing.JLabel lbl_loinhuanYear;
+    private javax.swing.JLabel lbl_loinhuanmonth;
+    private javax.swing.JLabel lbl_loinnhuanday;
+    private javax.swing.JLabel lbl_vonYear;
+    private javax.swing.JLabel lbl_vonday;
+    private javax.swing.JLabel lbl_vonmonth;
     private swing.MyButton myButton1;
     private swing.MyButton myButton2;
     private swing.PanelBorder panelBorder1;
     private swing.PanelBorder panelBorder2;
     private swing.PanelBorder panelBorder3;
     private swing.PanelBorder panelBorder4;
-    private swing.PanelBorder panelBorder5;
     private swing.PanelGradiente panelGradiente1;
-    private swing.SearchText searchText1;
     // End of variables declaration//GEN-END:variables
 }

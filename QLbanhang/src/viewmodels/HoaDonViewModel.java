@@ -5,6 +5,8 @@
 package viewmodels;
 
 import java.sql.Date;
+import models.KhachHang;
+import models.User;
 
 
 /**
@@ -12,50 +14,40 @@ import java.sql.Date;
  * @author Admin
  */
 public class HoaDonViewModel {
-    private Integer id;
-    private Integer IDKH;
-    private Integer IDNV;
+    private KhachHang kh;
+    private User us;
     private String Ma;
     private Date NgayTao;
     private Date NgayThanhToan;
-    private double TinhTrang;
+    private int TinhTrang;
 
 
     public HoaDonViewModel() {
     }
 
-    public HoaDonViewModel(Integer id, Integer IDKH, Integer IDNV, String Ma, Date NgayTao, Date NgayThanhToan, double TinhTrang) {
-        this.id = id;
-        this.IDKH = IDKH;
-        this.IDNV = IDNV;
+    public HoaDonViewModel(KhachHang kh, User us, String Ma, Date NgayTao, Date NgayThanhToan, int TinhTrang) {
+        this.kh = kh;
+        this.us = us;
         this.Ma = Ma;
         this.NgayTao = NgayTao;
         this.NgayThanhToan = NgayThanhToan;
         this.TinhTrang = TinhTrang;
     }
 
-    public Integer getId() {
-        return id;
+    public KhachHang getKh() {
+        return kh;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setKh(KhachHang kh) {
+        this.kh = kh;
     }
 
-    public Integer getIDKH() {
-        return IDKH;
+    public User getUs() {
+        return us;
     }
 
-    public void setIDKH(Integer IDKH) {
-        this.IDKH = IDKH;
-    }
-
-    public Integer getIDNV() {
-        return IDNV;
-    }
-
-    public void setIDNV(Integer IDNV) {
-        this.IDNV = IDNV;
+    public void setUs(User us) {
+        this.us = us;
     }
 
     public String getMa() {
@@ -82,18 +74,14 @@ public class HoaDonViewModel {
         this.NgayThanhToan = NgayThanhToan;
     }
 
-    public double getTinhTrang() {
+    public int getTinhTrang() {
         return TinhTrang;
     }
 
-    public void setTinhTrang(double TinhTrang) {
+    public void setTinhTrang(int TinhTrang) {
         this.TinhTrang = TinhTrang;
     }
 
-    @Override
-    public String toString() {
-        return "HoaDonViewModel{" + "id=" + id + ", IDKH=" + IDKH + ", IDNV=" + IDNV + ", Ma=" + Ma + ", NgayTao=" + NgayTao + ", NgayThanhToan=" + NgayThanhToan + ", TinhTrang=" + TinhTrang + '}';
-    }
 
     
      

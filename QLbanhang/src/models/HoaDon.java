@@ -8,23 +8,25 @@ import java.sql.Date;
  * @author PC
  */
 public class HoaDon {
-
-     private Integer id;
-    private Integer IDKH;
-    private Integer IDNV;
+    private User user;
+    private Integer id;
+    private KhachHang khachHang;
     private String Ma;
+    private String Ghichu;
     private Date NgayTao;
     private Date NgayThanhToan;
-    private double TinhTrang;
+    private int TinhTrang;
+    
 
     public HoaDon() {
     }
 
-    public HoaDon(Integer id, Integer IDKH, Integer IDNV, String Ma, Date NgayTao, Date NgayThanhToan, int TinhTrang) {
+    public HoaDon(User user, Integer id, KhachHang khachHang, String Ma, String Ghichu, Date NgayTao, Date NgayThanhToan, int TinhTrang) {
+        this.user = user;
         this.id = id;
-        this.IDKH = IDKH;
-        this.IDNV = IDNV;
+        this.khachHang = khachHang;
         this.Ma = Ma;
+        this.Ghichu = Ghichu;
         this.NgayTao = NgayTao;
         this.NgayThanhToan = NgayThanhToan;
         this.TinhTrang = TinhTrang;
@@ -34,24 +36,32 @@ public class HoaDon {
         return id;
     }
 
+    public String getGhichu() {
+        return Ghichu;
+    }
+
+    public void setGhichu(String Ghichu) {
+        this.Ghichu = Ghichu;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public Integer getIDKH() {
-        return IDKH;
+    public User getUser() {
+        return user;
     }
 
-    public void setIDKH(Integer IDKH) {
-        this.IDKH = IDKH;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Integer getIDNV() {
-        return IDNV;
+    public KhachHang getKhachHang() {
+        return khachHang;
     }
 
-    public void setIDNV(Integer IDNV) {
-        this.IDNV = IDNV;
+    public void setKhachHang(KhachHang khachHang) {
+        this.khachHang = khachHang;
     }
 
     public String getMa() {
@@ -78,21 +88,16 @@ public class HoaDon {
         this.NgayThanhToan = NgayThanhToan;
     }
 
-    public double getTinhTrang() {
+    public int getTinhTrang() {
         return TinhTrang;
     }
 
-    public void setTinhTrang(double TinhTrang) {
+    public void setTinhTrang(int TinhTrang) {
         this.TinhTrang = TinhTrang;
     }
 
-    @Override
-    public String toString() {
-        return "HoaDon{" + "id=" + id + ", IDKH=" + IDKH + ", IDNV=" + IDNV + ", Ma=" + Ma + ", NgayTao=" + NgayTao + ", NgayThanhToan=" + NgayThanhToan + ", TinhTrang=" + TinhTrang + '}';
-    }
 
    
-
     
      
 

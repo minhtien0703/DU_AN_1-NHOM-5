@@ -9,41 +9,21 @@ package models;
  * @author Admin
  */
 public class HoaDonChiTiet {
-    private Integer idHoaDon;
-    private Integer idCTSP;
     private int Soluong;
     private Double DonGia;
     private Double DonKhiGiam;
-    private HoaDon haoDon;
+    private HoaDon hoaDon;
     private SanPham sanPham;
 
     public HoaDonChiTiet() {
     }
 
     public HoaDonChiTiet(Integer idHoaDon, Integer idCTSP, int Soluong, Double DonGia, Double DonKhiGiam, HoaDon haoDon, SanPham sanPham) {
-        this.idHoaDon = idHoaDon;
-        this.idCTSP = idCTSP;
         this.Soluong = Soluong;
         this.DonGia = DonGia;
         this.DonKhiGiam = DonKhiGiam;
-        this.haoDon = haoDon;
+        this.hoaDon = haoDon;
         this.sanPham = sanPham;
-    }
-
-    public Integer getIdHoaDon() {
-        return idHoaDon;
-    }
-
-    public void setIdHoaDon(Integer idHoaDon) {
-        this.idHoaDon = idHoaDon;
-    }
-
-    public Integer getIdCTSP() {
-        return idCTSP;
-    }
-
-    public void setIdCTSP(Integer idCTSP) {
-        this.idCTSP = idCTSP;
     }
 
     public int getSoluong() {
@@ -71,11 +51,11 @@ public class HoaDonChiTiet {
     }
 
     public HoaDon getHaoDon() {
-        return haoDon;
+        return hoaDon;
     }
 
     public void setHaoDon(HoaDon haoDon) {
-        this.haoDon = haoDon;
+        this.hoaDon = haoDon;
     }
 
     public SanPham getSanPham() {
@@ -84,11 +64,6 @@ public class HoaDonChiTiet {
 
     public void setSanPham(SanPham sanPham) {
         this.sanPham = sanPham;
-    }
-
-    @Override
-    public String toString() {
-        return "HoaDonChiTiet{" + "idHoaDon=" + idHoaDon + ", idCTSP=" + idCTSP + ", Soluong=" + Soluong + ", DonGia=" + DonGia + ", DonKhiGiam=" + DonKhiGiam + ", haoDon=" + haoDon + ", sanPham=" + sanPham + '}';
     }
 
 }

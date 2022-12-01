@@ -41,11 +41,13 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
                 x.getTenKM(),
                 x.getNgayBatDau(),
                 x.getNgayKetThuc(),
-                String.format("%.0f", x.getGiaTriGiam()) + " " + x.getHinhThucKM()
+                String.format("%.0f", x.getGiaTriGiam()) + " " + x.getHinhThucKM(),
+                x.getTrangthai() ==0? "Còn hạn" : "Hết hạn"
             });
             stt++;
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -201,7 +203,7 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
 
             },
             new String [] {
-                "STT", "Tên khuyến mãi", "Ngày bắt đầu", "Ngày kết thúc", "Giá trị giảm"
+                "STT", "Tên khuyến mãi", "Ngày bắt đầu", "Ngày kết thúc", "Giá trị giảm", "Trạng thái"
             }
         ));
         tb_khuyenmai.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -394,6 +396,7 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
         dateTK_KT.setCalendar(null);
         buttonGroup1.clearSelection();
         src_timkiem.setText("");
+        khuyenmaiService.UpdateTT();
         LoadData();
     }//GEN-LAST:event_btn_clearActionPerformed
 
@@ -403,17 +406,25 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
             // TODO add your handling code here:
             int r = tb_khuyenmai.getSelectedRow();
             txt_tenkm.setText((String) tb_khuyenmai.getValueAt(r, 1));
-            txt_giatrgiam.setText((String) tb_khuyenmai.getValueAt(r, 4));
+//            txt_giatrgiam.setText((String) tb_khuyenmai.getValueAt(r, 4));
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date date1 = sdf.parse((String) tb_khuyenmai.getValueAt(r, 2));
             Date date2 = sdf.parse((String) tb_khuyenmai.getValueAt(r, 3));
             date_BD.setDate(date1);
             date_KT.setDate(date2);
             String hinhthuc=tb_khuyenmai.getValueAt(r, 4).toString();
+            String giatri=tb_khuyenmai.getValueAt(r, 4).toString();
             if (hinhthuc.contains("%")) {
                 rd_phantram.setSelected(true);
             }else if (hinhthuc.contains("VND")) {
                 rd_VND.setSelected(true);
+            }
+            if (giatri.contains("%")) {
+                int index = giatri.indexOf("%");
+                txt_giatrgiam.setText(giatri.substring(0, index));
+            }else if (giatri.contains("VND")) {
+                int index = giatri.indexOf("VND");
+                txt_giatrgiam.setText(giatri.substring(0, index));
             }
         } catch (ParseException ex) {
 //            Logger.getLogger(FrmKhuyenmai.class.getName()).log(Level.SEVERE, null, ex);
@@ -441,7 +452,8 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
                     x.getTenKM(),
                     x.getNgayBatDau(),
                     x.getNgayKetThuc(),
-                    String.format("%.0f", x.getGiaTriGiam()) + " " + x.getHinhThucKM()
+                    String.format("%.0f", x.getGiaTriGiam()) + " " + x.getHinhThucKM(),
+                    x.getTrangthai() ==0? "Còn hạn" : "Hết hạn"
                 });
                 stt++;
             }
@@ -462,7 +474,8 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
                     x.getTenKM(),
                     x.getNgayBatDau(),
                     x.getNgayKetThuc(),
-                    String.format("%.0f", x.getGiaTriGiam()) + " " + x.getHinhThucKM()
+                    String.format("%.0f", x.getGiaTriGiam()) + " " + x.getHinhThucKM(),
+                    x.getTrangthai() ==0? "Còn hạn" : "Hết hạn"
                 });
                 stt++;
             }
@@ -484,7 +497,8 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
                     x.getTenKM(),
                     x.getNgayBatDau(),
                     x.getNgayKetThuc(),
-                    String.format("%.0f", x.getGiaTriGiam()) + " " + x.getHinhThucKM()
+                    String.format("%.0f", x.getGiaTriGiam()) + " " + x.getHinhThucKM(),
+                    x.getTrangthai() ==0? "Còn hạn" : "Hết hạn"
                 });
                 stt++;
             }
@@ -503,7 +517,8 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
                     x.getTenKM(),
                     x.getNgayBatDau(),
                     x.getNgayKetThuc(),
-                    String.format("%.0f", x.getGiaTriGiam()) + " " + x.getHinhThucKM()
+                    String.format("%.0f", x.getGiaTriGiam()) + " " + x.getHinhThucKM(),
+                    x.getTrangthai() ==0? "Còn hạn" : "Hết hạn"
                 });
                 stt++;
             }

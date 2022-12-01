@@ -26,7 +26,7 @@ public class SendMail {
             }
         });
         try {
-            MimeMessage message = new MimeMessage(session);
+            Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(user));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
             message.setSubject(sub);

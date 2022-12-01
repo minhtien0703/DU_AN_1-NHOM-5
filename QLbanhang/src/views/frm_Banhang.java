@@ -117,8 +117,8 @@ public class frm_Banhang extends javax.swing.JPanel {
             model.addRow(new Object[]{
                 x.getMa(),
                 x.getNgayTao(),
-                x.getUser().getTen(),
-                getTrangThaiHD(x.getTrangThai())
+                x.getUs().getTen(),
+                getTrangThaiHD(x.getTinhTrang())
 
             });
         }

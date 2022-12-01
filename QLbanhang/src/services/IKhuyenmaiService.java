@@ -30,4 +30,6 @@ public interface IKhuyenmaiService {
     public List<KhuyenmaiViewmodel> GetOnebyALL(String datedb, String datekt);
 
     public List<KhuyenmaiViewmodel> GetOnebyten(String ten);
+
+    public boolean UpdateTT();
 }

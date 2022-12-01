@@ -16,15 +16,13 @@ public interface IHoaDonRepostory {
 
 
     public List<HoaDon> GetAllHD();
-    public List<HoaDonChiTiet> GetAllHDCT();
-    List<HoaDon> TimID(String ID);
 
 ///
     Integer insertHoaDon(HoaDon hd, Integer idNV);
 
     Integer insertHoaDonChiTiet(HoaDonChiTiet hdct);
 
-    List<HoaDon> getListHD(double TinhTrang);
+    List<HoaDon> getListHD(int TinhTrang);
 
     Integer getIdHD(String MaHD);
 

@@ -38,7 +38,7 @@ public class KhuyenmaiReponsitory implements IKhuyenmaiRepository{
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
-                lstKm.add(new KhuyenMai(rs.getString(1), rs.getString(2), rs.getString(5), rs.getString(3), rs.getString(4), rs.getDouble(6)));
+                lstKm.add(new KhuyenMai(rs.getString(1), rs.getString(2), rs.getString(5), rs.getString(3), rs.getString(4), rs.getDouble(6),rs.getInt(7)));
                         }
         } catch (SQLException ex) {
             Logger.getLogger(KhuyenmaiReponsitory.class.getName()).log(Level.SEVERE, null, ex);
@@ -57,6 +57,7 @@ public class KhuyenmaiReponsitory implements IKhuyenmaiRepository{
             pstm.setString(3, km.getNgayBatDau());
             pstm.setString(4, km.getNgayKetThuc());
             pstm.setDouble(5, km.getGiaTriGiam());
+            pstm.setDouble(6, 0);
             pstm.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -118,14 +119,14 @@ String sql = "UPDATE KHUYENMAI SET TEN=?,NGAYBATDAU=?,NGAYKETTHUC = ?,HINHTHUCKM
     public List<KhuyenMai> GetOnebyBD(String date) {
         try {
             lstKm.removeAll(lstKm);
-            String sql = "Select Ten, Ngaybatdau, Ngayketthuc, HinhthucKM, Giatrigiam from KhuyenMai \n" +
+            String sql = "Select Ten, Ngaybatdau, Ngayketthuc, HinhthucKM, Giatrigiam,Trangthai from KhuyenMai \n" +
                     "Where Ngaybatdau =?";
             Connection conn = DBConnection.openDbConnection();
             PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setString(1, date);
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                lstKm.add(new KhuyenMai( rs.getString(1), rs.getString(4), rs.getString(2), rs.getString(3), rs.getDouble(5)));
+                lstKm.add(new KhuyenMai( rs.getString(1), rs.getString(4), rs.getString(2), rs.getString(3), rs.getDouble(5),rs.getInt(6)));
                         }
         } catch (SQLException ex) {
             Logger.getLogger(KhuyenmaiReponsitory.class.getName()).log(Level.SEVERE, null, ex);
@@ -137,14 +138,14 @@ String sql = "UPDATE KHUYENMAI SET TEN=?,NGAYBATDAU=?,NGAYKETTHUC = ?,HINHTHUCKM
     public List<KhuyenMai> GetOnebyKT(String date) {
            try {
             lstKm.removeAll(lstKm);
-            String sql = "Select Ten, Ngaybatdau, Ngayketthuc, HinhthucKM, Giatrigiam from KhuyenMai \n" +
+            String sql = "Select Ten, Ngaybatdau, Ngayketthuc, HinhthucKM, Giatrigiam,Trangthai from KhuyenMai \n" +
                     "Where NGAYKETTHUC =?";
             Connection conn = DBConnection.openDbConnection();
             PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setString(1, date);
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                lstKm.add(new KhuyenMai( rs.getString(1), rs.getString(4), rs.getString(2), rs.getString(3), rs.getDouble(5)));
+                lstKm.add(new KhuyenMai( rs.getString(1), rs.getString(4), rs.getString(2), rs.getString(3), rs.getDouble(5),rs.getInt(6)));
                         }
         } catch (SQLException ex) {
             Logger.getLogger(KhuyenmaiReponsitory.class.getName()).log(Level.SEVERE, null, ex);
@@ -156,7 +157,7 @@ String sql = "UPDATE KHUYENMAI SET TEN=?,NGAYBATDAU=?,NGAYKETTHUC = ?,HINHTHUCKM
     public List<KhuyenMai> GetOnebyALL(String datedb, String datekt) {
          try {
             lstKm.removeAll(lstKm);
-            String sql = "Select Ten, Ngaybatdau, Ngayketthuc, HinhthucKM, Giatrigiam from KhuyenMai \n" +
+            String sql = "Select Ten, Ngaybatdau, Ngayketthuc, HinhthucKM, Giatrigiam,Trangthai from KhuyenMai \n" +
                     "Where Ngaybatdau =? and NGAYKETTHUC =?";
             Connection conn = DBConnection.openDbConnection();
             PreparedStatement pstm = conn.prepareStatement(sql);
@@ -164,7 +165,7 @@ String sql = "UPDATE KHUYENMAI SET TEN=?,NGAYBATDAU=?,NGAYKETTHUC = ?,HINHTHUCKM
             pstm.setString(2, datekt);
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                lstKm.add(new KhuyenMai( rs.getString(1), rs.getString(4), rs.getString(2), rs.getString(3), rs.getDouble(5)));
+                lstKm.add(new KhuyenMai( rs.getString(1), rs.getString(4), rs.getString(2), rs.getString(3), rs.getDouble(5),rs.getInt(6)));
                         }
         } catch (SQLException ex) {
             Logger.getLogger(KhuyenmaiReponsitory.class.getName()).log(Level.SEVERE, null, ex);
@@ -176,18 +177,30 @@ String sql = "UPDATE KHUYENMAI SET TEN=?,NGAYBATDAU=?,NGAYKETTHUC = ?,HINHTHUCKM
     public List<KhuyenMai> GetOnebyten(String ten) {
 try {
             lstKm.removeAll(lstKm);
-            String sql = "SELECT Ten,Ngaybatdau,Ngayketthuc,HinhthucKM,Giatrigiam from KhuyenMai\n" +
+            String sql = "SELECT Ten,Ngaybatdau,Ngayketthuc,HinhthucKM,Giatrigiam,Trangthai from KhuyenMai\n" +
                         "where  Ten like ? ";
             Connection conn = DBConnection.openDbConnection();
             PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setString(1, ten);
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                lstKm.add(new KhuyenMai( rs.getString(1), rs.getString(4), rs.getString(2), rs.getString(3), rs.getDouble(5)));
+                lstKm.add(new KhuyenMai( rs.getString(1), rs.getString(4), rs.getString(2), rs.getString(3), rs.getDouble(5),rs.getInt(6)));
                         }
         } catch (SQLException ex) {
             Logger.getLogger(KhuyenmaiReponsitory.class.getName()).log(Level.SEVERE, null, ex);
         }
                     return lstKm;    }
-    
+
+    @Override
+    public boolean UpdateTT() {
+        String sql = "UPDATE KHUYENMAI SET TrangThai = 1 WHERE NGAYKETTHUC < GETDATE()";
+        try {
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }    }
+
 }

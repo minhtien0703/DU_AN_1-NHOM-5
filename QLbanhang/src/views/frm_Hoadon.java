@@ -21,7 +21,7 @@ public class frm_Hoadon extends javax.swing.JPanel {
         iHoaDonService = new HoaDonService();
         hoaDonService = new HoaDonService();
 
-        loatdate1();
+//        loatdate1();
 
     }
 
@@ -31,9 +31,8 @@ public class frm_Hoadon extends javax.swing.JPanel {
         List<HoaDonViewModel> hdv = iHoaDonService.getAllHD();
         for (HoaDonViewModel hoaDonViewModel : hdv) {
             defaultTableModel.addRow(new Object[]{
-                hoaDonViewModel.getId(),
-                hoaDonViewModel.getIDKH(),
-                hoaDonViewModel.getIDNV(),
+                hoaDonViewModel.getKh().getTen(),
+                hoaDonViewModel.getUs().getTen(),
                 hoaDonViewModel.getMa(),
                 hoaDonViewModel.getNgayTao(),
                 hoaDonViewModel.getNgayThanhToan(),
@@ -48,8 +47,8 @@ public class frm_Hoadon extends javax.swing.JPanel {
         List<HoaDonCHiTietViewModel> hdct = hoaDonService.getAllHDCT();
         for (HoaDonCHiTietViewModel c : hdct) {
             defaultTableModel.addRow(new Object[]{
-                c.getIdHoaDon(),
-                c.getIdCTSP(),
+                c.getSanPham().getMa(),
+                c.getSanPham().getTen(),
                 c.getSoluong(),
                 c.getDonGia(),
                 c.getDonGiaKhiGiam()
@@ -98,7 +97,7 @@ public class frm_Hoadon extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "ID NHÂN VIÊN", "TÊN KHÁCH HÀNG", "MA", "NGÀY TẠO", "NGÀY TT", "TRẠNG THÁI", "GHI CHÚ"
+                "STT", "MA", "TÊN NHÂN VIÊN", "TÊN KHÁCH HÀNG", "NGÀY TẠO", "NGÀY TT", "TRẠNG THÁI", "GHI CHÚ"
             }
         ));
         tbl_hoadon.setGridColor(new java.awt.Color(255, 255, 255));
@@ -184,7 +183,7 @@ public class frm_Hoadon extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID HÓA ĐƠN", "ID CTSP", "TÊN SP", "SỐ LƯỢNG", "ĐƠN GIÁ", "ĐƠN GIÁ KHI GIẢM"
+                "MÃ SẢN PHẨM", "TÊN SẢN PHẨM", "SỐ LƯỢNG", "ĐƠN GIÁ", "ĐƠN GIÁ KHI GIẢM"
             }
         ));
         tbl_HoaDonCT.setGridColor(new java.awt.Color(255, 255, 255));
@@ -237,9 +236,9 @@ public class frm_Hoadon extends javax.swing.JPanel {
         for (HoaDonViewModel x : hoaDonService.TimID( txt_tk.getText())) {
             defaultTableModel.addRow(new Object[]{
                 stt,
-                x.getId(),
-                x.getIDKH(),
-                x.getIDNV(),
+                x.getMa(),
+                x.getUs().getTen(),
+                x.getKh().getTen(),
                 x.getMa(),
                 x.getNgayTao(),
                 x.getNgayThanhToan(),

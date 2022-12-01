@@ -12,8 +12,6 @@ import models.SanPham;
  * @author Admin
  */
 public class HoaDonCHiTietViewModel {
-    private Integer idHoaDon;
-    private Integer idCTSP;
     private int Soluong;
     private Double DonGia;
     private Double DonGiaKhiGiam;
@@ -25,30 +23,12 @@ public class HoaDonCHiTietViewModel {
     public HoaDonCHiTietViewModel() {
     }
 
-    public HoaDonCHiTietViewModel(Integer idHoaDon, Integer idCTSP, int Soluong, Double DonGia, Double DonGiaKhiGiam, HoaDon haDon, SanPham sanPham) {
-        this.idHoaDon = idHoaDon;
-        this.idCTSP = idCTSP;
+    public HoaDonCHiTietViewModel( int Soluong, Double DonGia, Double DonGiaKhiGiam, HoaDon haDon, SanPham sanPham) {
         this.Soluong = Soluong;
         this.DonGia = DonGia;
         this.DonGiaKhiGiam = DonGiaKhiGiam;
         this.haDon = haDon;
         this.sanPham = sanPham;
-    }
-
-    public Integer getIdHoaDon() {
-        return idHoaDon;
-    }
-
-    public void setIdHoaDon(Integer idHoaDon) {
-        this.idHoaDon = idHoaDon;
-    }
-
-    public Integer getIdCTSP() {
-        return idCTSP;
-    }
-
-    public void setIdCTSP(Integer idCTSP) {
-        this.idCTSP = idCTSP;
     }
 
     public int getSoluong() {
@@ -91,11 +71,8 @@ public class HoaDonCHiTietViewModel {
         this.sanPham = sanPham;
     }
 
-    @Override
-    public String toString() {
-        return "HoaDonCHiTietViewModel{" + "idHoaDon=" + idHoaDon + ", idCTSP=" + idCTSP + ", Soluong=" + Soluong + ", DonGia=" + DonGia + ", DonGiaKhiGiam=" + DonGiaKhiGiam + ", haDon=" + haDon + ", sanPham=" + sanPham + '}';
+    public double getThanhTien(){
+        return DonGia*Soluong;
     }
-
-    
     
 }

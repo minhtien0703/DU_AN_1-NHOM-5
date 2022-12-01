@@ -77,8 +77,8 @@ public class HoaDonServiec implements IHoaDonServiec {
             HoaDonViewModel hd = new HoaDonViewModel();
             hd.setMa(hoaDon.getMa());
             hd.setNgayTao(hoaDon.getNgayTao());
-            hd.setTrangThai(hoaDon.getTinhTrang());
-            hd.setUser(hoaDon.getUser());
+            hd.setTinhTrang(hoaDon.getTinhTrang());
+            hd.setUs(hoaDon.getUser());
             getListHD.add(hd);
         }
         return getListHD;
