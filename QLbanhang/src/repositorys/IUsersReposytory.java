@@ -18,7 +18,7 @@ public interface IUsersReposytory {
 
     boolean add(Users nv);
 
-    boolean update(Users us,String id);
+    boolean update(Users us, String id);
 
     boolean delete(String id);
 
@@ -27,4 +27,6 @@ public interface IUsersReposytory {
     boolean updateMK(Users us, String mail);
 
     String kiemtra(String mail);
+
+    Users getUserbytk(String tk);
 }

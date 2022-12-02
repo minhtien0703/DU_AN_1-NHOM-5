@@ -20,7 +20,9 @@ import repositorys.IUsersReposytory;
  */
 public class UsersReposytory implements IUsersReposytory {
 
-     @Override
+    final String SQL_SELECT_BY_TK = "SELECT Users.id,Users.Ten,TenDem,Ho,NgaySinh,Gioitinh,Sdt,IdCV,TaiKhoan,MatKhau,Email,ChucVu.Ten,TrangThai FROM Users join ChucVu on ChucVu.Id = Users.IdCV where Taikhoan = ?";
+
+    @Override
     public List<Users> getAllNhanVien() {
         List<Users> nvv = new ArrayList<>();
         String sql = "SELECT Users.id,Users.Ten,TenDem,Ho,NgaySinh,Gioitinh,Sdt,IdCV,TaiKhoan,MatKhau,Email,ChucVu.Ten,TrangThai FROM Users join ChucVu \n"
@@ -43,7 +45,7 @@ public class UsersReposytory implements IUsersReposytory {
                 String email = rs.getString(11);
                 Integer tt = rs.getInt(13);
 
-                nvv.add(new Users(id,ten, tendem, ho, ngaysinh, gioitinh, sdt, tk, mk, email, cvv, tt));
+                nvv.add(new Users(id, ten, tendem, ho, ngaysinh, gioitinh, sdt, tk, mk, email, cvv, tt));
             }
         } catch (SQLException ex) {
             Logger.getLogger(UsersReposytory.class.getName()).log(Level.SEVERE, null, ex);
@@ -73,11 +75,11 @@ public class UsersReposytory implements IUsersReposytory {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
-        }               
+        }
     }
 
     @Override
-    public boolean update(Users us,String id) {
+    public boolean update(Users us, String id) {
         String sql = "UPDATE Users\n"
                 + "set Ten = ? ,\n"
                 + "TenDem = ?,\n"
@@ -92,7 +94,7 @@ public class UsersReposytory implements IUsersReposytory {
                 + "TrangThai = ?\n"
                 + "where Id = ?";
 
-try {
+        try {
             Connection conn = DBConnection.openDbConnection();
             PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setString(1, us.getTen());
@@ -112,28 +114,27 @@ try {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
-        }       
+        }
     }
 
     @Override
     public List<Users> SearchNVV(String Ten) {
-    List<Users> nvv = new ArrayList<>();
+        List<Users> nvv = new ArrayList<>();
         String sql = " SELECT Users.Ho,Users.TenDem,Users.Ten ,NgaySinh,Gioitinh,Sdt,IdCV,TaiKhoan,MatKhau,Email,TrangThai,ChucVu.Ten FROM Users join ChucVu on ChucVu.Id = Users.IdCV Where CAST(Ho+' '+TenDem+' '+Users.Ten as nvarchar) like ?";
         try {
             Connection conn = DBConnection.openDbConnection();
             PreparedStatement pstm = conn.prepareStatement(sql);
-            pstm.setNString(1, "%"+Ten+"%");
+            pstm.setNString(1, "%" + Ten + "%");
             ResultSet rs = pstm.executeQuery();
-            while (rs.next()) {                
-                nvv.add(new Users(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(8), rs.getString(9), rs.getString(10), new Chucvu(rs.getString(7),rs.getString(12)), rs.getInt(11)));
+            while (rs.next()) {
+                nvv.add(new Users(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(8), rs.getString(9), rs.getString(10), new Chucvu(rs.getString(7), rs.getString(12)), rs.getInt(11)));
             }
-            } catch (SQLException ex) {
-             Logger.getLogger(UsersReposytory.class.getName()).log(Level.SEVERE, null, ex);
-         }
-        
-        return nvv;    
-}
+        } catch (SQLException ex) {
+            Logger.getLogger(UsersReposytory.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
+        return nvv;
+    }
 
     @Override
     public boolean delete(String id) {
@@ -147,12 +148,12 @@ try {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
-        }       
+        }
     }
 
     @Override
     public boolean updateMK(Users us, String mail) {
-        String sql = "UPDATE NHANVIEN SET MATKHAU = ? WHERE EMAIL = ?";
+        String sql = "UPDATE Users SET MatKhau = ? WHERE TaiKhoan = ?";
         try {
             Connection conn = DBConnection.openDbConnection();
             PreparedStatement pstm = conn.prepareStatement(sql);
@@ -169,7 +170,7 @@ try {
 
     @Override
     public String kiemtra(String mail) {
-        String sql = "SELECT EMAIL FROM NHANVIEN WHERE EMAIL = ?";
+        String sql = "SELECT EMAIL FROM Users WHERE EMAIL = ?";
         String box = null;
         try {
             Connection conn = DBConnection.openDbConnection();
@@ -186,5 +187,35 @@ try {
         }
     }
 
-}
+    @Override
+    public Users getUserbytk(String tk) {
+        return getdataQuery(SQL_SELECT_BY_TK, tk).get(0);
+    }
 
+    private List<Users> getdataQuery(String SQL, Object... arvg) {
+        List<Users> lst = new ArrayList<>();
+
+        try {
+            ResultSet rs = DBConnection.getDataFromQuery(SQL, arvg);
+            while (rs.next()) {
+                Chucvu cvv = new Chucvu(rs.getString(8), rs.getString(12));
+                String id = rs.getString(1);
+                String ten = rs.getString(2);
+                String tendem = rs.getString(3);
+                String ho = rs.getString(4);
+                String ngaysinh = rs.getString(5);
+                Integer gioitinh = rs.getInt(6);
+                String sdt = rs.getString(7);
+                String tk = rs.getString(9);
+                String mk = rs.getString(10);
+                String email = rs.getString(11);
+                Integer tt = rs.getInt(13);
+
+                lst.add(new Users(id, ten, tendem, ho, ngaysinh, gioitinh, sdt, tk, mk, email, cvv, tt));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UsersReposytory.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lst;
+    }
+}

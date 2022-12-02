@@ -17,6 +17,7 @@ import services.IUsersService;
  * @author hungh
  */
 public class UsersService implements IUsersService {
+
     List<UsersViewmodel> lstuser;
     private IUsersReposytory usersReposytory;
 
@@ -24,7 +25,6 @@ public class UsersService implements IUsersService {
         lstuser = new ArrayList<>();
         usersReposytory = new UsersReposytory();
     }
-    
 
     @Override
     public List<UsersViewmodel> getAllNhanVien() {
@@ -42,8 +42,8 @@ public class UsersService implements IUsersService {
     }
 
     @Override
-    public boolean update(UsersViewmodel us,String id) {
-        return usersReposytory.update(new Users(us.getTen(), us.getTendem(), us.getHo(), us.getNgaysinh(), us.getGioitinh(), us.getSdt(), us.getTk(), us.getMk(), us.getEmail(), us.getChucVu(), us.getTT()),id);
+    public boolean update(UsersViewmodel us, String id) {
+        return usersReposytory.update(new Users(us.getTen(), us.getTendem(), us.getHo(), us.getNgaysinh(), us.getGioitinh(), us.getSdt(), us.getTk(), us.getMk(), us.getEmail(), us.getChucVu(), us.getTT()), id);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class UsersService implements IUsersService {
         for (Users us : usersReposytory.SearchNVV(Ten)) {
             lstuser.add(new UsersViewmodel(us.getTen(), us.getTendem(), us.getHo(), us.getNgaysinh(), us.getGioitinh(), us.getSdt(), us.getTk(), us.getMk(), us.getEmail(), us.getChucVu(), us.getTT()));
         }
-        return lstuser;  
+        return lstuser;
     }
 
     @Override
@@ -68,5 +68,10 @@ public class UsersService implements IUsersService {
     @Override
     public String kiemtra(String mail) {
         return usersReposytory.kiemtra(mail);
+    }
+
+    @Override
+    public Users getUserbytk(String tk) {
+        return usersReposytory.getUserbytk(tk);
     }
 }
