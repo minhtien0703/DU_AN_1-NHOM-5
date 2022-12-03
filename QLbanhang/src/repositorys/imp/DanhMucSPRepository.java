@@ -37,7 +37,7 @@ public class DanhMucSPRepository implements IDanhMucSPRepository{
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
-                listdmsp.add(new DanhMucSP(rs.getString(2)));
+                listdmsp.add(new DanhMucSP(rs.getString(1),rs.getString(2)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DanhMucSPRepository.class.getName()).log(Level.SEVERE, null, ex);
@@ -47,7 +47,7 @@ public class DanhMucSPRepository implements IDanhMucSPRepository{
     
     @Override
     public boolean Add(DanhMucSP dmsp){
-        String sql = "insert into DanhMucSP(Id,Ten) values (?)";
+        String sql = "insert into DanhMucSP(Id,Ten) values (newID(),?)";
         try {
             Connection cn = DBConnection.openDbConnection();
             PreparedStatement pstm = cn.prepareStatement(sql);

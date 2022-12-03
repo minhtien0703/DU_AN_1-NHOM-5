@@ -9,13 +9,23 @@ package models;
  * @author Admin
  */
 public class ChatLieu {
+    private String id;
     private String Ten;
-
+    
     public ChatLieu() {
     }
 
-    public ChatLieu(String Ten) {
+    public ChatLieu(String id, String Ten) {
+        this.id = id;
         this.Ten = Ten;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTen() {
@@ -25,6 +35,7 @@ public class ChatLieu {
     public void setTen(String Ten) {
         this.Ten = Ten;
     }
+  
 
     @Override
     public String toString() {

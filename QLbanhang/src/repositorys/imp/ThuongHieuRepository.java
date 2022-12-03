@@ -37,7 +37,7 @@ public class ThuongHieuRepository implements IThuongHieuRepository{
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
-                listth.add(new ThuongHieu(rs.getString(2)));
+                listth.add(new ThuongHieu(rs.getString(1),rs.getString(2)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ChatLieuRepositoryimpl.class.getName()).log(Level.ALL.SEVERE, null, ex);
@@ -47,7 +47,7 @@ public class ThuongHieuRepository implements IThuongHieuRepository{
     
     @Override
     public boolean Add(ThuongHieu th){
-        String sql = "insert into ThuongHieu(Id,Ten) values (?)";
+        String sql = "insert into ThuongHieu(Id,Ten) values (newID(),?)";
         try {
             Connection cn = DBConnection.openDbConnection();
             PreparedStatement pstm = cn.prepareStatement(sql);

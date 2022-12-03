@@ -9,6 +9,7 @@ package models;
  * @author Admin
  */
 public class DanhMuc {
+    
     private String Ten;
 
     public DanhMuc() {

@@ -37,7 +37,7 @@ public class NSXRepository implements INSXRepository{
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
-                listnsx.add(new NSX(rs.getString(2)));
+                listnsx.add(new NSX(rs.getString(1),rs.getString(2)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ChatLieuRepositoryimpl.class.getName()).log(Level.ALL.SEVERE, null, ex);
@@ -47,7 +47,7 @@ public class NSXRepository implements INSXRepository{
     
     @Override
     public boolean Add(NSX nsx){
-        String sql = "insert into NSX(Id,Ten) values (?)";
+        String sql = "insert into NSX(Id,Ten) values (newID(),?)";
         try {
             Connection cn = DBConnection.openDbConnection();
             PreparedStatement pstm = cn.prepareStatement(sql);

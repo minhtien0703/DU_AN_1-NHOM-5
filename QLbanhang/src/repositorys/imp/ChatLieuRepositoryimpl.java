@@ -37,7 +37,7 @@ public class ChatLieuRepositoryimpl implements IChatLieuRepository{
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
-                listcl.add(new ChatLieu(rs.getString(2)));
+                listcl.add(new ChatLieu(rs.getString(1),rs.getString(2)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ChatLieuRepositoryimpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -47,7 +47,7 @@ public class ChatLieuRepositoryimpl implements IChatLieuRepository{
     
     @Override
     public boolean Add(ChatLieu cl){
-        String sql = "insert into ChatLieu(Id,Ten) values (?)";
+        String sql = "insert into ChatLieu(Id,Ten) values (newID(),?)";
         try {
             Connection cn = DBConnection.openDbConnection();
             PreparedStatement pstm = cn.prepareStatement(sql);

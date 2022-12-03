@@ -9,19 +9,25 @@ package models;
  * @author vieta
  */
 public class NSX {
-
+    private String id;
    
     private String ten;
 
     public NSX() {
     }
 
-    public NSX( String ten) {
-     
+    public NSX(String id, String ten) {
+        this.id = id;
         this.ten = ten;
     }
 
-   
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getTen() {
         return ten;
@@ -30,6 +36,8 @@ public class NSX {
     public void setTen(String ten) {
         this.ten = ten;
     }
+
+    
 
     @Override
     public String toString() {

@@ -40,7 +40,7 @@ public class KichCoRepositoryimpl implements IKichCoRepository{
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
-                listkc.add(new KichCo(rs.getString(2)));
+                listkc.add(new KichCo(rs.getString(1),rs.getString(2)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(KichCoRepositoryimpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -50,7 +50,7 @@ public class KichCoRepositoryimpl implements IKichCoRepository{
     
     @Override
     public boolean Add(KichCo kc){
-        String sql = "insert into KichCo(Id,Ten) values (?)";
+        String sql = "insert into KichCo(Id,Ten) values (newID(),?)";
         try {
             Connection cn = DBConnection.openDbConnection();
             PreparedStatement pstm = cn.prepareStatement(sql);
