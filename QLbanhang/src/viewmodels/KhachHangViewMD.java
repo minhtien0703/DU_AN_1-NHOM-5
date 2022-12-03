@@ -9,7 +9,8 @@ package viewmodels;
  * @author PC
  */
 public class KhachHangViewMD {
-      private int id;
+
+    private int id;
     private String ten;
     private String tendem;
     private String ho;
@@ -33,8 +34,6 @@ public class KhachHangViewMD {
         this.sdt = sdt;
         this.diemthuong = diemthuong;
     }
-
-    
 
     public int getId() {
         return id;
@@ -109,8 +108,8 @@ public class KhachHangViewMD {
     }
 
     public Object[] toDataRow() {
-        return new Object[]{id, ten, tendem, ho, gioitinh == 0 ? "Nam":"Nữ", ngaysinh, email, sdt, diemthuong};
+        return new Object[]{id, ho + " " + tendem + " " + ten, gioitinh == 0 ? "Nam" : "Nữ", ngaysinh, sdt, email, diemthuong};
 
     }
-    
+
 }

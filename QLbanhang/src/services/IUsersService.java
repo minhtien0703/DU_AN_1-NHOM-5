@@ -5,6 +5,7 @@
 package services;
 
 import java.util.List;
+import models.Users;
 
 import viewmodels.UsersViewmodel;
 
@@ -27,5 +28,7 @@ public interface IUsersService {
     boolean updateMK(UsersViewmodel us, String mail);
 
     String kiemtra(String mail);
+    
+    Users getUserbytk(String tk);
 
 }

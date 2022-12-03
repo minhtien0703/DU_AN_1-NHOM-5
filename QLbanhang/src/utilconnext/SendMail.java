@@ -13,22 +13,26 @@ import javax.mail.internet.*;
  * @author ADMIN
  */
 public class SendMail {
-    public static void send(String to,String sub,String msb,final String user,final String pass) {
-        Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com"); //SMTP Host
-        props.put("mail.smtp.port", "587"); //TLS Port
-        props.put("mail.smtp.auth", "true"); //enable authentication
-        props.put("mail.smtp.starttls.enable", "true");
-        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
-            @Override
+    public static void send(String emailto,String sub,String msb) {
+        final String username = "teohahu1@gmail.com";
+        final String password = "nniyttljwljuofdt";
+
+        Properties prop = new Properties();
+        prop.put("mail.smtp.host", "smtp.gmail.com");
+        prop.put("mail.smtp.port", "587");
+        prop.put("mail.smtp.auth", "true");
+        prop.put("mail.smtp.starttls.enable", "true"); //TLS
+
+        Session session = Session.getInstance(prop,
+                new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(user, pass);
+                return new PasswordAuthentication(username, password);
             }
         });
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(user));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            message.setFrom(new InternetAddress(username));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(emailto));
             message.setSubject(sub);
             message.setContent(msb,"text/html");
             Transport.send(message);
