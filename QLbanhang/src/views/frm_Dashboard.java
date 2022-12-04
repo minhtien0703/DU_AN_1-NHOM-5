@@ -25,7 +25,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
         id = idNV;
         lbl_tenNhanVien.setText(TenNhanVien);
         setLocationRelativeTo(null);
-//        setdashboad();
+        setdashboad();
     }
 
     private void setdashboad() {
