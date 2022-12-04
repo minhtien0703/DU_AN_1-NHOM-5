@@ -32,5 +32,5 @@ public interface IKhuyenmaiRepository {
     public List<KhuyenMai> GetOnebyten(String ten);
     
     public boolean UpdateTT();
-    
+    public boolean UpdateTT2();
 }

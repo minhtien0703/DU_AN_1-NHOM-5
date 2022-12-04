@@ -32,4 +32,6 @@ public interface IKhuyenmaiService {
     public List<KhuyenmaiViewmodel> GetOnebyten(String ten);
 
     public boolean UpdateTT();
+    
+    public boolean UpdateTT2();
 }

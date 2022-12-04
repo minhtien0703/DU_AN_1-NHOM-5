@@ -100,5 +100,11 @@ public class KhuyenmaiService implements IKhuyenmaiService{
     public boolean UpdateTT() {
         boolean iscapnhat = repository.UpdateTT();
         return iscapnhat;    }
-  
+
+    @Override
+    public boolean UpdateTT2() {
+        boolean iscapnhat = repository.UpdateTT2();
+        return iscapnhat;
+    }
+
 }

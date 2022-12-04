@@ -201,6 +201,19 @@ try {
             return true;
         } catch (Exception e) {
             return false;
-        }    }
+        }
+    }
 
+    @Override
+    public boolean UpdateTT2() {
+        String sql = "UPDATE KHUYENMAI SET TrangThai = 0 WHERE NGAYKETTHUC > GETDATE()";
+        try {
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

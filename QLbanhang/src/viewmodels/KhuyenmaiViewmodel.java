@@ -75,4 +75,10 @@ public class KhuyenmaiViewmodel {
     public void setGiaTriGiam(Double GiaTriGiam) {
         this.GiaTriGiam = GiaTriGiam;
     }
+
+    @Override
+    public String toString() {
+        return  TenKM;
+    }
+    
 }

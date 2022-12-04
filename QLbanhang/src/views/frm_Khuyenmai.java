@@ -365,8 +365,10 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
                 return;
             }
             khuyenmaiService.Update(km,lst.get(r).getID());
+            khuyenmaiService.UpdateTT2();
             LoadData();
             JOptionPane.showMessageDialog(this, "Sửa thành công");
+
         }
     }//GEN-LAST:event_btn_suaActionPerformed
 
@@ -397,7 +399,9 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
         buttonGroup1.clearSelection();
         src_timkiem.setText("");
         khuyenmaiService.UpdateTT();
+        khuyenmaiService.UpdateTT2();
         LoadData();
+
     }//GEN-LAST:event_btn_clearActionPerformed
 
     private void tb_khuyenmaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_khuyenmaiMouseClicked
