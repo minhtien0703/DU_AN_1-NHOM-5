@@ -74,4 +74,14 @@ public class UsersService implements IUsersService {
     public Users getUserbytk(String tk) {
         return usersReposytory.getUserbytk(tk);
     }
+
+    @Override
+    public String kiemtrasdt(String sdt) {
+        return usersReposytory.kiemtrasdt(sdt);
+    }
+
+    @Override
+    public String kiemtratk(String tk) {
+        return usersReposytory.kiemtratk(tk);
+    }
 }

@@ -406,7 +406,7 @@ public class frm_Nhanvien extends javax.swing.JPanel {
     private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
         UsersViewmodel nv = getInputForm();
         String sdt = "(0\\d{9})";
-        String mail ="^[a-zA-Z][a-zA-Z0-9]+@[a-zA-Z]+(\\\\.[a-zA-Z]+){1,3}$";
+        String mail ="^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
         if (getInputForm().getTen().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập tên!");
             return;
@@ -445,6 +445,18 @@ public class frm_Nhanvien extends javax.swing.JPanel {
         }
         if (!getInputForm().getEmail().matches(mail)) {
             JOptionPane.showMessageDialog(this, "Email của bạn chưa đúng định dạng");
+            return;
+        }
+        if (nhanVienService.kiemtra(getInputForm().getEmail())!=null) {
+            JOptionPane.showMessageDialog(this, "Email đã tồn tại");
+            return;
+        }
+        if (nhanVienService.kiemtrasdt(getInputForm().getSdt())!=null) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại của bạn đã tồn tại");
+            return;
+        }
+        if (nhanVienService.kiemtratk(getInputForm().getTk())!=null) {
+            JOptionPane.showMessageDialog(this, "Tên tài khoản đã tồn tại");
             return;
         }
         if (JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thêm ?")==JOptionPane.YES_OPTION)
@@ -514,7 +526,7 @@ public class frm_Nhanvien extends javax.swing.JPanel {
             } else {
                 rd_nu.setSelected(true);
             }
-            if (tblnhanvien.getValueAt(index, 10).toString().equals("Quản lí")) {
+            if (tblnhanvien.getValueAt(index, 10).toString().equals("Quản lý")) {
                 cbochucvu.setSelectedIndex(0);  
             }else{
                 cbochucvu.setSelectedIndex(1); 

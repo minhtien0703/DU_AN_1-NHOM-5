@@ -193,7 +193,7 @@ try {
 
     @Override
     public boolean UpdateTT() {
-        String sql = "UPDATE KHUYENMAI SET TrangThai = 1 WHERE NGAYKETTHUC < GETDATE()";
+        String sql = "UPDATE KHUYENMAI SET TrangThai = 1,GIATRIGIAM =0 WHERE NGAYKETTHUC < GETDATE()";
         try {
             Connection conn = DBConnection.openDbConnection();
             PreparedStatement pstm = conn.prepareStatement(sql);

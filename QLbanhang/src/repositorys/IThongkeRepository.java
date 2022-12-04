@@ -20,4 +20,6 @@ public interface IThongkeRepository {
     public List<Thongke> getbymonth(String date);
     public List<Thongke> getbyyear(String date);
     public List<Thongke> getbyall(String day,String month,String year);
+    public List<Thongke> getsp();
+    public List<Thongke> getnv();
 }

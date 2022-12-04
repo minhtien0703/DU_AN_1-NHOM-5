@@ -13,6 +13,7 @@ public class Thongke {
     private double doanhthu,von,loinhuan;
     private Users users;
     private int soSP;
+    private ChiTietSP chiTietSP;
     public Thongke() {
     }
 
@@ -25,6 +26,12 @@ public class Thongke {
     public Thongke(Users users, int soSP) {
         this.users = users;
         this.soSP = soSP;
+    }
+
+    public Thongke(int soSP, ChiTietSP chiTietSP,double loinhuan) {
+        this.soSP = soSP;
+        this.chiTietSP = chiTietSP;
+        this.loinhuan = loinhuan;
     }
 
     public double getDoanhthu() {
@@ -70,6 +77,14 @@ public class Thongke {
 
     public void setSoSP(int soSP) {
         this.soSP = soSP;
+    }
+
+    public ChiTietSP getChiTietSP() {
+        return chiTietSP;
+    }
+
+    public void setChiTietSP(ChiTietSP chiTietSP) {
+        this.chiTietSP = chiTietSP;
     }
 
 

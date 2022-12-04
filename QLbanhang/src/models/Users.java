@@ -161,7 +161,7 @@ public class Users {
 
     @Override
     public String toString() {
-        return "Nhanvien{" + "id=" + id + ", ten=" + ten + ", tendem=" + tendem + ", ho=" + ho + ", ngaysinh=" + ngaysinh + ", gioitinh=" + gioitinh + ", sdt=" + sdt + ", tk=" + tk + ", mk=" + mk + ", email=" + email + ", ChucVu=" + ChucVu + ", TT=" + TT + '}';
+        return ten;
     }
 
 }

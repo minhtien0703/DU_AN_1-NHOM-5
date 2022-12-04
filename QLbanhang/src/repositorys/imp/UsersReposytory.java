@@ -218,4 +218,42 @@ public class UsersReposytory implements IUsersReposytory {
         }
         return lst;
     }
+
+    @Override
+    public String kiemtrasdt(String sdt) {
+        String sql = "SELECT SDT FROM Users WHERE SDT = ?";
+        String box = null;
+        try {
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setString(1, sdt);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                box = rs.getString(1);
+            }
+            return box;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public String kiemtratk(String tk) {
+    String sql = "SELECT TAIKHOAN FROM Users WHERE TAIKHOAN = ?";
+        String box = null;
+        try {
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setString(1, tk);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                box = rs.getString(1);
+            }
+            return box;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

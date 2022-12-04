@@ -31,4 +31,8 @@ public interface IUsersService {
     
     Users getUserbytk(String tk);
 
+    String kiemtrasdt(String sdt);
+
+    String kiemtratk(String tk);
+
 }

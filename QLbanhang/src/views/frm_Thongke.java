@@ -4,7 +4,11 @@
  */
 package views;
 
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import models.Thongke;
 import repositorys.IThongkeRepository;
 import repositorys.imp.ThongkeRepository;
@@ -15,6 +19,8 @@ import repositorys.imp.ThongkeRepository;
  */
 public class frm_Thongke extends javax.swing.JPanel {
     IThongkeRepository repository ;
+    DefaultTableModel defaultTableModel1;
+    DefaultTableModel defaultTableModel2;
     /**
      * Creates new form thongke
      */
@@ -24,6 +30,10 @@ public class frm_Thongke extends javax.swing.JPanel {
         loadDAY();
         loadMONTH();
         loadYEAR();
+        defaultTableModel1 = (DefaultTableModel) Tb_Sp.getModel();
+        defaultTableModel2 = (DefaultTableModel) tb_nv.getModel();
+        loadNV();
+        loadSP();
     }
     void loadDAY(){
         List<Thongke> lst = repository.getbyday();
@@ -87,14 +97,15 @@ public class frm_Thongke extends javax.swing.JPanel {
         lbl_doanhthumonth = new javax.swing.JLabel();
         lbl_vonmonth = new javax.swing.JLabel();
         panelBorder1 = new swing.PanelBorder();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        myButton1 = new swing.MyButton();
-        myButton2 = new swing.MyButton();
         date_month = new com.toedter.calendar.JMonthChooser();
         date_year = new com.toedter.calendar.JYearChooser();
         btn_search = new javax.swing.JButton();
-        date_date = new com.toedter.calendar.JDateChooser();
+        date_day = new com.toedter.calendar.JDayChooser();
+        Click_Nv = new javax.swing.JTabbedPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        Tb_Sp = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tb_nv = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1010, 640));
@@ -242,29 +253,7 @@ public class frm_Thongke extends javax.swing.JPanel {
 
         panelBorder1.setBackground(new java.awt.Color(204, 204, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
-        panelBorder1.add(jScrollPane1);
-        jScrollPane1.setBounds(0, 90, 990, 340);
-
-        myButton1.setText("myButton1");
-        panelBorder1.add(myButton1);
-        myButton1.setBounds(120, 30, 120, 40);
-
-        myButton2.setText("myButton2");
-        panelBorder1.add(myButton2);
-        myButton2.setBounds(0, 30, 120, 40);
+        date_month.setMonth(0);
         panelBorder1.add(date_month);
         date_month.setBounds(560, 40, 114, 22);
         panelBorder1.add(date_year);
@@ -278,8 +267,35 @@ public class frm_Thongke extends javax.swing.JPanel {
         });
         panelBorder1.add(btn_search);
         btn_search.setBounds(920, 30, 40, 40);
-        panelBorder1.add(date_date);
-        date_date.setBounds(330, 30, 88, 22);
+        panelBorder1.add(date_day);
+        date_day.setBounds(275, 0, 250, 90);
+
+        Tb_Sp.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "STT", "Tên Sp", "Số lượt mua", "lợi nhuận"
+            }
+        ));
+        jScrollPane2.setViewportView(Tb_Sp);
+
+        Click_Nv.addTab("Sản phẩm", jScrollPane2);
+
+        tb_nv.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "STT", "Tên NV", "Số sản phẩm bán được"
+            }
+        ));
+        jScrollPane3.setViewportView(tb_nv);
+
+        Click_Nv.addTab("Nhân viên", jScrollPane3);
+
+        panelBorder1.add(Click_Nv);
+        Click_Nv.setBounds(0, 90, 990, 340);
 
         panelGradiente1.add(panelBorder1);
         panelBorder1.setBounds(10, 210, 990, 430);
@@ -297,12 +313,41 @@ public class frm_Thongke extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchActionPerformed
-        // TODO add your handling code here:
+
+        
     }//GEN-LAST:event_btn_searchActionPerformed
+    private void loadSP() {
+        defaultTableModel1.setRowCount(0);
+        int stt = 1;
+        for (Thongke x : repository.getsp()) {
+            defaultTableModel1.addRow(new Object[]{
+                stt,
+                x.getChiTietSP(),
+                x.getSoSP(),
+                x.getLoinhuan()
+            });
+            stt++;
+        }
+    }
+    private void loadNV() {
+        defaultTableModel2.setRowCount(0);
+        int stt=1;
+        for (Thongke x : repository.getnv()) {
+            defaultTableModel2.addRow(new Object[]{
+                stt,
+                x.getUsers(),
+                x.getSoSP()
+            });
+            stt++;
+        }
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTabbedPane Click_Nv;
+    private javax.swing.JTable Tb_Sp;
     private javax.swing.JButton btn_search;
-    private com.toedter.calendar.JDateChooser date_date;
+    private com.toedter.calendar.JDayChooser date_day;
     private com.toedter.calendar.JMonthChooser date_month;
     private com.toedter.calendar.JYearChooser date_year;
     private javax.swing.JLabel jLabel1;
@@ -320,8 +365,8 @@ public class frm_Thongke extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lbl_doanhthuYear;
     private javax.swing.JLabel lbl_doanhthuday;
     private javax.swing.JLabel lbl_doanhthumonth;
@@ -331,12 +376,11 @@ public class frm_Thongke extends javax.swing.JPanel {
     private javax.swing.JLabel lbl_vonYear;
     private javax.swing.JLabel lbl_vonday;
     private javax.swing.JLabel lbl_vonmonth;
-    private swing.MyButton myButton1;
-    private swing.MyButton myButton2;
     private swing.PanelBorder panelBorder1;
     private swing.PanelBorder panelBorder2;
     private swing.PanelBorder panelBorder3;
     private swing.PanelBorder panelBorder4;
     private swing.PanelGradiente panelGradiente1;
+    private javax.swing.JTable tb_nv;
     // End of variables declaration//GEN-END:variables
 }
