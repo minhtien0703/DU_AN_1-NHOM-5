@@ -133,6 +133,9 @@ public class frm_Dangnhap extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
+        if (JOptionPane.showConfirmDialog(this, "Bạn Có Chắc Chắn Muốn Thoát Không !") != JOptionPane.YES_OPTION) {
+            return;
+        }
         System.exit(0);
     }//GEN-LAST:event_myButton1ActionPerformed
 

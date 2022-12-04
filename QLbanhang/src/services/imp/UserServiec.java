@@ -31,25 +31,25 @@ public class UserServiec implements IUserServiec {
     public boolean getUser(String TaiKhoan, String MatKhau) {
         List<User> list = userRepostory.getUser(TaiKhoan, MatKhau);
         if (TaiKhoan.isEmpty()) {
-            JOptionPane.showMessageDialog(new frm_Login(), "Nhập tài khoản");
+            JOptionPane.showMessageDialog(new frm_Login(), " Mời Bạn Nhập tài khoản");
             return false;
 
         }
         if (MatKhau.isEmpty()) {
-            JOptionPane.showMessageDialog(new frm_Login(), "Nhập mật khẩu");
-
+            JOptionPane.showMessageDialog(new frm_Login(), "Mời Bạn Nhập mật khẩu");
+            return false;
         }
                            
         if (list != null) {
             for (User x : list) {
                 if (x.getChucVu().getTen().equalsIgnoreCase("quản lý")) {
-                    JOptionPane.showMessageDialog(new frm_Login(), "Đăng nhập thành công !");
+                    JOptionPane.showMessageDialog(new frm_Login(), "Đăng nhập thành công! (Quản Lý)");
                     String tenNV = x.getHo()+" "+x.getTenDem()+" "+x.getTen();
                     new frm_Dashboard(tenNV, x.getId(),x.getChucVu().getTen()).setVisible(true);
                     return true;
 
                 } else {
-                    JOptionPane.showMessageDialog(new frm_Login(), "Đăng nhập thành công !");
+                    JOptionPane.showMessageDialog(new frm_Login(), "Đăng nhập thành công! (Nhân Viên)");
                     String tenNV = x.getHo()+" "+x.getTenDem()+" "+x.getTen();
                     new frm_Dashboard(tenNV, x.getId(),x.getChucVu().getTen()).setVisible(true);
                     return true;
@@ -58,7 +58,7 @@ public class UserServiec implements IUserServiec {
             }
 
         }
-        JOptionPane.showMessageDialog(new frm_Login(), "Sai tài khoản và mật khẩu"); 
+        JOptionPane.showMessageDialog(new frm_Login(), "Sai Tài Khoản Hoặc Mật Khẩu"); 
         return false;
     }
 

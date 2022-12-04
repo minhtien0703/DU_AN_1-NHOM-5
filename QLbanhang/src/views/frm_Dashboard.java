@@ -25,7 +25,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
         id = idNV;
         lbl_tenNhanVien.setText(TenNhanVien);
         setLocationRelativeTo(null);
-//        setdashboad();
+        setdashboad();
     }
 
     private void setdashboad() {
@@ -657,6 +657,9 @@ public class frm_Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnthongkeMousePressed
 
     private void btndangxuatMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btndangxuatMousePressed
+        if (JOptionPane.showConfirmDialog(this, "Bạn Có Muốn Đăng Xuất không!") != JOptionPane.YES_OPTION) {
+            return;
+        }
         setColor(btndangxuat);
         crepp3.setOpaque(true);
         resetColor(new JPanel[]{btnbanhang, btnsanpham, btnkhuyenmai, btnkhachhang, btnnhanvien, btnthongke, btnhoadon}, new JPanel[]{crep1, crep2, crep3, crep4, crep5, crepp1, crepp2});
