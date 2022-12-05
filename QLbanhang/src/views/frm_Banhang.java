@@ -97,14 +97,11 @@ public class frm_Banhang extends javax.swing.JPanel {
     }
 
     private String getTrangThaiHD(int TrangThai) {
-        if (TrangThai == 1) {
+        if (TrangThai == 0) {
             return "chờ thanh Toán";
         }
-        if (TrangThai == 2) {
+        if (TrangThai == 1) {
             return "Đã thanh Toán";
-        }
-        if (TrangThai == 3) {
-            return "Đã Huỷ";
         }
         return null;
     }

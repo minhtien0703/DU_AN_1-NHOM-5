@@ -14,12 +14,22 @@ import models.Thongke;
  */
 public interface IThongkeRepository {
     public List<Thongke> getbyday();
-    public List<Thongke> getbymonth();
-    public List<Thongke> getbyyear();
+    public int gethdday();
     public List<Thongke> getbyday(String date);
     public List<Thongke> getbymonth(String date);
     public List<Thongke> getbyyear(String date);
-    public List<Thongke> getbyall(String day,String month,String year);
     public List<Thongke> getsp();
     public List<Thongke> getnv();
+    public int getmonth1();
+    public int getmonth2();
+    public int getmonth3();
+    public int getmonth4();
+    public int getmonth5();
+    public int getmonth6();
+    public int getmonth7();
+    public int getmonth8();
+    public int getmonth9();
+    public int getmonth10();
+    public int getmonth11();
+    public int getmonth12();
 }
