@@ -219,4 +219,32 @@ public class KhuyenmaiReponsitory implements IKhuyenmaiRepository {
             return false;
         }
     }
+
+    private List<KhuyenMai> Getbyid(int id) {
+        List<KhuyenMai> lst = new ArrayList<>();;
+        try {
+
+            String sql = "SELECT * FROM dbo.KhuyenMai WHERE Id = ?";
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setObject(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                lst.add(new KhuyenMai(rs.getString(1), rs.getString(2), rs.getString(5), rs.getString(3), rs.getString(4), rs.getDouble(6), rs.getInt(7)));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(KhuyenmaiReponsitory.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lst;
+    }
+
+    @Override
+    public KhuyenMai getbyid(int id) {
+        KhuyenMai km = new KhuyenMai();
+        if (id == 0) {
+            return km;
+        }
+        km = Getbyid(id).get(0);
+        return km;
+    }
 }

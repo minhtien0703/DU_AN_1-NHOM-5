@@ -1220,8 +1220,8 @@ public class frm_Banhang extends javax.swing.JPanel {
     }//GEN-LAST:event_txt_tienKhachDuaCaretUpdate
 
     private void btn_taoHoaDon1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_taoHoaDon1ActionPerformed
-        QRCode qr = new QRCode();
-        qr.setVisible(true);
+        //QRCode qr = new QRCode();
+        //qr.setVisible(true);
 
     }//GEN-LAST:event_btn_taoHoaDon1ActionPerformed
 

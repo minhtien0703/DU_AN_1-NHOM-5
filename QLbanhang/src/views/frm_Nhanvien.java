@@ -43,6 +43,7 @@ public class frm_Nhanvien extends javax.swing.JPanel {
         cbochucvu.setModel(new DefaultComboBoxModel((cvv.toArray())));
         txtTaikhoan.setEditable(true);
         defaultTableModel = (DefaultTableModel) tblnhanvien.getModel();
+        loaddata();
     }
 
     private void inittable() {
@@ -203,7 +204,6 @@ public class frm_Nhanvien extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         chk_tt = new javax.swing.JCheckBox();
         lblTongnv = new javax.swing.JLabel();
-        btnhienthi = new swing.MyButton();
         btnthem = new swing.MyButton();
         btncapnhat = new swing.MyButton();
         btnxoa = new swing.MyButton();
@@ -310,17 +310,6 @@ public class frm_Nhanvien extends javax.swing.JPanel {
         lblTongnv.setText("Tổng nhân viên :");
         panelGradiente1.add(lblTongnv, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 200, -1));
 
-        btnhienthi.setBackground(new java.awt.Color(125, 224, 237));
-        btnhienthi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/refresh.png"))); // NOI18N
-        btnhienthi.setText("Hiển thị");
-        btnhienthi.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnhienthi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnhienthiActionPerformed(evt);
-            }
-        });
-        panelGradiente1.add(btnhienthi, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 90, 120, 40));
-
         btnthem.setBackground(new java.awt.Color(125, 224, 237));
         btnthem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add.png"))); // NOI18N
         btnthem.setText("Thêm");
@@ -341,7 +330,7 @@ public class frm_Nhanvien extends javax.swing.JPanel {
                 btncapnhatActionPerformed(evt);
             }
         });
-        panelGradiente1.add(btncapnhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 160, 120, 40));
+        panelGradiente1.add(btncapnhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 90, 120, 40));
 
         btnxoa.setBackground(new java.awt.Color(125, 224, 237));
         btnxoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tay.png"))); // NOI18N
@@ -389,7 +378,7 @@ public class frm_Nhanvien extends javax.swing.JPanel {
                 btnlmmoiActionPerformed(evt);
             }
         });
-        panelGradiente1.add(btnlmmoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 230, 120, 40));
+        panelGradiente1.add(btnlmmoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 160, 120, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -468,10 +457,6 @@ public class frm_Nhanvien extends javax.swing.JPanel {
         }
         
     }//GEN-LAST:event_btnthemActionPerformed
-
-    private void btnhienthiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhienthiActionPerformed
-        loaddata();
-    }//GEN-LAST:event_btnhienthiActionPerformed
 
     private void btnxoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxoaActionPerformed
 
@@ -600,7 +585,6 @@ public class frm_Nhanvien extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.MyButton btncapnhat;
-    private swing.MyButton btnhienthi;
     private swing.MyButton btnlmmoi;
     private swing.MyButton btnthem;
     private swing.MyButton btnxoa;

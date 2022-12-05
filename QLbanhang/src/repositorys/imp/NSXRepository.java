@@ -4,11 +4,7 @@
  */
 package repositorys.imp;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -22,70 +18,53 @@ import utilconnext.DBConnection;
  * @author vieta
  */
 public class NSXRepository implements INSXRepository{
-     List<NSX> listnsx;
-    
-    public NSXRepository(){
-        listnsx = new ArrayList<>();
-    }
-    
+     final String SQL_SELECT_ALL = "SELECT Id,Ten FROM dbo.NSX";
+    final String SQL_SELECT_BY_ID = "SELECT Id,Ten FROM dbo.NSX WHERE Id = ?";
+    final String SQL_INSERT = "INSERT INTO dbo.NSX( Ten ) VALUES ( ? )";
+    final String SQL_UPDATE = "UPDATE dbo.NSX SET Ten = ? WHERE Id = ?";
+    final String SQL_DELETE = "DELETE dbo.NSX WHERE Id = ?";
+
     @Override
-    public List<NSX> getAll(){
+    public List<NSX> getAll() {
+
+        return getdataquery(SQL_SELECT_ALL);
+
+    }
+
+    @Override
+    public int insert(NSX x) {
+
+        return DBConnection.ExcuteQuery(SQL_INSERT, x.getTen());
+
+    }
+
+    @Override
+    public int update(NSX x, int id) {
+        return DBConnection.ExcuteQuery(SQL_UPDATE, x.getTen(), id);
+    }
+
+    @Override
+    public int delete(int id) {
+        return DBConnection.ExcuteQuery(SQL_DELETE, id);
+    }
+
+    @Override
+    public NSX getbyid(int id) {
+        return getdataquery(SQL_SELECT_BY_ID, id).get(0);
+    }
+
+    private List<NSX> getdataquery(String SQL, Object... arvg) {
+        List<NSX> lst = new ArrayList<>();
         try {
-            listnsx.removeAll(listnsx);
-            String sql = "select * from NSX";
-            Connection cn = DBConnection.openDbConnection();
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            while(rs.next()){
-                listnsx.add(new NSX(rs.getString(1),rs.getString(2)));
+            ResultSet rl = DBConnection.getDataFromQuery(SQL, arvg);
+            while (rl.next()) {
+                lst.add(new NSX((int) rl.getObject(1), (String) rl.getObject(2)));
             }
+
         } catch (SQLException ex) {
-            Logger.getLogger(ChatLieuRepositoryimpl.class.getName()).log(Level.ALL.SEVERE, null, ex);
+            ex.printStackTrace();
         }
-        return listnsx;
-    }
-    
-    @Override
-    public boolean Add(NSX nsx){
-        String sql = "insert into NSX(Id,Ten) values (newID(),?)";
-        try {
-            Connection cn = DBConnection.openDbConnection();
-            PreparedStatement pstm = cn.prepareStatement(sql);
-         
-            pstm.setString(1, nsx.getTen());
-            pstm.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }        
-    }
-    
-    @Override
-    public boolean Update(NSX nsx,String id){
-        String sql = "update NSX set Ten = ? where id = ?";
-        try {
-            Connection cn = DBConnection.openDbConnection();
-            PreparedStatement pstm = cn.prepareStatement(sql);
-    
-            pstm.setString(1, nsx.getTen());
-            pstm.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-    
-    @Override
-    public boolean Delete(String id){
-        String sql = "delete from NSX where id = ?";
-        int check = 0;
-        try {
-            Connection cn = DBConnection.openDbConnection();
-            PreparedStatement pstm = cn.prepareStatement(sql);
-            pstm.setObject(1, id);
-            check = pstm.executeUpdate();
-        } catch (Exception e) {
-        }
-        return check > 0;
+        return lst;
+
     }
 }

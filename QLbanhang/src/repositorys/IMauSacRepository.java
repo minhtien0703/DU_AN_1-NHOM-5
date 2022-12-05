@@ -14,9 +14,11 @@ import models.MauSac;
 public interface IMauSacRepository {
     public List<MauSac> getAll();
     
-    public boolean Add(MauSac ms);
+    public int insert(MauSac x);
     
-    public boolean Update(MauSac ms,String id);
+    public int update(MauSac x,int id);
     
-    public boolean Delete(String id);
+    public int delete(int id);
+    
+    public MauSac getbyid(int id);
 }

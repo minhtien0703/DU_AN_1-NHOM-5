@@ -6,6 +6,7 @@ package services;
 
 import java.util.List;
 import models.NSX;
+import viewmodels.Objecttt;
 
 /**
  *
@@ -14,9 +15,11 @@ import models.NSX;
 public interface INSXServices {
     List<NSX> getAll();
     
-    String Add(NSX nsx);
+    String Add(Objecttt x);
     
-    String Update(NSX nsx,String id);
+    String Update(Objecttt x,int id);
     
-    String Delete(String id);
+    String Delete(int id);
+    
+    NSX getbyid(int id);
 }

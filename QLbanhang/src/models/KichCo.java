@@ -9,23 +9,15 @@ package models;
  * @author Admin
  */
 public class KichCo {
-    private String id;
+    private int id;
     private String Ten;
 
     public KichCo() {
     }
 
-    public KichCo(String id, String Ten) {
+    public KichCo(int id,String Ten) {
         this.id = id;
         this.Ten = Ten;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getTen() {
@@ -36,7 +28,13 @@ public class KichCo {
         this.Ten = Ten;
     }
 
-   
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     @Override
     public String toString() {

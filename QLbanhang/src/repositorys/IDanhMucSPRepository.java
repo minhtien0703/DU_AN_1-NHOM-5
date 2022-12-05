@@ -14,9 +14,11 @@ import models.DanhMucSP;
 public interface IDanhMucSPRepository {
     public List<DanhMucSP> getAll();
     
-    public boolean Add(DanhMucSP dmsp);
+    public int insert(DanhMucSP x);
     
-    public boolean Update(DanhMucSP dmsp,String id);
+    public int update(DanhMucSP dmsp,int id);
     
-    public boolean Delete(String id);
+    public int delete(int id);
+    
+    public DanhMucSP getdanhmucbyid(int id);
 }

@@ -14,9 +14,11 @@ import models.KichCo;
 public interface IKichCoRepository {
     public List<KichCo> getAll();
     
-    public boolean Add(KichCo kc);
+    public int insert(KichCo x);
     
-    public boolean Update(KichCo kc,String id);
+    public int update(KichCo x,int id);
     
-    public boolean Delete(String id);
+    public int delete(int id);
+    
+    public KichCo getbyid(int id);
 }

@@ -6,6 +6,7 @@ package services;
 
 import java.util.List;
 import models.KichCo;
+import viewmodels.Objecttt;
 
 /**
  *
@@ -14,9 +15,11 @@ import models.KichCo;
 public interface IKichCoServices {
     List<KichCo> getAll();
     
-    String Add(KichCo kc);
+    String Add(Objecttt x);
     
-    String Update(KichCo kc,String id);
+    String Update(Objecttt x,int id);
     
-    String Delete(String id);
+    String Delete(int id);
+    
+    KichCo getbyid(int id);
 }

@@ -12,11 +12,14 @@ import models.ChatLieu;
  * @author vieta
  */
 public interface IChatLieuRepository {
-        public List<ChatLieu> getAll();
 
-        public boolean Add(ChatLieu cl);
+    public List<ChatLieu> getAll();
 
-        public boolean Update(ChatLieu cl,String id);
+    public int insert(ChatLieu x);
 
-        public boolean Delete(String id);
+    public int update(ChatLieu x, int id);
+
+    public int delete(int id);
+    
+    public ChatLieu getbyid(int id);
 }

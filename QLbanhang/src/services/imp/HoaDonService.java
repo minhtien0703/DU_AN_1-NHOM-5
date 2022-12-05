@@ -21,7 +21,7 @@ import viewmodels.HoaDonViewModel;
  *
  * @author Win10
  */
-public class HoaDonService implements IHoaDonService{
+public class HoaDonService implements IHoaDonService {
 
     private IHoaDonRepostory hoadon1 = new HoaDonRepostory();
     private IHoaDonRepostory hoadon2 = new HoaDonRepostory();
@@ -29,20 +29,23 @@ public class HoaDonService implements IHoaDonService{
     private IHoaDonRepostory hoaDonRepostory;
     private List<HoaDonCHiTietViewModel> getListHDCT;
     private ISamPhamServiecs sanISamPhamServiecs;
-    
-    public HoaDonService {
+
+ 
+
+    public HoaDonService(){
         getListHD = new ArrayList<>();
         getListHDCT = new ArrayList<>();
         hoaDonRepostory = new HoaDonRepostory();
         sanISamPhamServiecs = new SanPhamServiec();
 
     }
+
     public List<HoaDonViewModel> getAllHD() {
         List<HoaDonViewModel> list01 = new ArrayList<>();
 
         List<HoaDon> list = hoadon1.GetAllHD();
         for (HoaDon x : list) {
-            list01.add(new HoaDonViewModel(x.getId(),x.getIDKH() ,x.getIDNV() ,x.getMa(),x.getNgayTao() ,x.getNgayThanhToan() ,x.getTinhTrang()));
+            list01.add(new HoaDonViewModel(x.getKhachHang(), x.getUser(), x.getMa(), x.getNgayTao(), x.getNgayThanhToan(), x.getTinhTrang(), x.getGhichu()));
         }
         return list01;
 
@@ -51,10 +54,10 @@ public class HoaDonService implements IHoaDonService{
     @Override
     public List<HoaDonCHiTietViewModel> getAllHDCT() {
         List<HoaDonCHiTietViewModel> list02 = new ArrayList<>();
-        
+
         List<HoaDonChiTiet> List00 = hoadon2.GetAllHDCT();
         for (HoaDonChiTiet c : List00) {
-           list02.add(new HoaDonCHiTietViewModel(c.getIdHoaDon(), c.getIdCTSP(), c.getSoluong(), c.getDonGia(), c.getDonKhiGiam()));
+            list02.add(new HoaDonCHiTietViewModel(c.getIdHoaDon(), c.getIdCTSP(), c.getSoluong(), c.getDonGia(), c.getDonKhiGiam()));
         }
         return list02;
     }
@@ -67,11 +70,9 @@ public class HoaDonService implements IHoaDonService{
         for (HoaDon x : list) {
             list01.add(new HoaDonViewModel(x.getIDNV(), x.getIDKH(), x.getIDNV(), x.getMa(), x.getNgayTao(), x.getNgayThanhToan(), x.getTinhTrang()));
         }
-        return list01; 
+        return list01;
     }
-    
 
-   
     @Override
     public Integer saveHD(HoaDonViewModel hoaDon, int idNV) {
         HoaDon hd = new HoaDon();
@@ -155,15 +156,13 @@ public class HoaDonService implements IHoaDonService{
     }
 
     @Override
-    public Integer updateSoLuongGioHang(int SoLuong,String MaSP , String MaHD) {
-         return hoaDonRepostory.updateSoLuongGioHang(SoLuong, MaSP, MaHD);
+    public Integer updateSoLuongGioHang(int SoLuong, String MaSP, String MaHD) {
+        return hoaDonRepostory.updateSoLuongGioHang(SoLuong, MaSP, MaHD);
 
     }
 
+}
 
-    }
-     
-   
 //
 //     private final HoaDonRepostory chucVuRepository = new HoaDonRepostory();
 //

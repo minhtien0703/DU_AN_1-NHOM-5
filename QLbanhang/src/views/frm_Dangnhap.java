@@ -29,7 +29,7 @@ public class frm_Dangnhap extends javax.swing.JPanel {
     }
 
     public void addEventquenmatkhau(ActionListener event) {
-        quenmatkhau.addActionListener(event);
+        quenmatkhau1.addActionListener(event);
     }
 
     public void btndangnhapEven(ActionListener event) {
@@ -56,11 +56,12 @@ public class frm_Dangnhap extends javax.swing.JPanel {
         txtPass = new swing.MyPassword();
         jLabel3 = new javax.swing.JLabel();
         myButton1 = new swing.MyButton();
-        quenmatkhau = new javax.swing.JButton();
+        lbl_thongBao = new javax.swing.JButton();
         txtUser = new swing.MyTextField();
         jLabel1 = new javax.swing.JLabel();
         myButton2 = new swing.MyButton();
         hideshow = new javax.swing.JLabel();
+        quenmatkhau1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(328, 373));
@@ -95,12 +96,11 @@ public class frm_Dangnhap extends javax.swing.JPanel {
         });
         add(myButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 350, 120, 48));
 
-        quenmatkhau.setForeground(new java.awt.Color(255, 51, 51));
-        quenmatkhau.setText("Quên mật khẩu ?");
-        quenmatkhau.setBorder(null);
-        quenmatkhau.setContentAreaFilled(false);
-        quenmatkhau.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        add(quenmatkhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 280, -1, -1));
+        lbl_thongBao.setForeground(new java.awt.Color(255, 51, 51));
+        lbl_thongBao.setBorder(null);
+        lbl_thongBao.setContentAreaFilled(false);
+        lbl_thongBao.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        add(lbl_thongBao, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 270, -1, -1));
 
         txtUser.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtUser.setMinimumSize(new java.awt.Dimension(300, 40));
@@ -130,6 +130,13 @@ public class frm_Dangnhap extends javax.swing.JPanel {
             }
         });
         add(hideshow, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 220, 30, 40));
+
+        quenmatkhau1.setForeground(new java.awt.Color(255, 51, 51));
+        quenmatkhau1.setText("Quên mật khẩu ?");
+        quenmatkhau1.setBorder(null);
+        quenmatkhau1.setContentAreaFilled(false);
+        quenmatkhau1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        add(quenmatkhau1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 300, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
@@ -159,9 +166,10 @@ public class frm_Dangnhap extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton lbl_thongBao;
     private swing.MyButton myButton1;
     private swing.MyButton myButton2;
-    private javax.swing.JButton quenmatkhau;
+    private javax.swing.JButton quenmatkhau1;
     private swing.MyPassword txtPass;
     private swing.MyTextField txtUser;
     // End of variables declaration//GEN-END:variables

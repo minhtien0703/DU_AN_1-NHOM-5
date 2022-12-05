@@ -6,6 +6,7 @@ package services;
 
 import java.util.List;
 import models.ChatLieu;
+import viewmodels.Objecttt;
 
 /**
  *
@@ -14,9 +15,11 @@ import models.ChatLieu;
 public interface IChatLieuServices {
     List<ChatLieu> getAll();
     
-    String Add(ChatLieu cl);
+    String Add(Objecttt x);
     
-    String Update(ChatLieu cl,String id);
+    String Update(Objecttt x,int id);
     
-    String Delete(String id);
+    String Delete(int id);
+    
+    ChatLieu getbyid(int id);
 }

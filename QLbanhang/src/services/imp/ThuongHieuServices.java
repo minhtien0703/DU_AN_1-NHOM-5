@@ -9,43 +9,50 @@ import models.ThuongHieu;
 import repositorys.IThuongHieuRepository;
 import repositorys.imp.ThuongHieuRepository;
 import services.IThuongHieuServices;
+import viewmodels.Objecttt;
 
 /**
  *
  * @author vieta
  */
-public class ThuongHieuServices implements IThuongHieuServices{
-     private IThuongHieuRepository thuongHieuRepository = new ThuongHieuRepository();
-    
+public class ThuongHieuServices implements IThuongHieuServices {
+
+    private IThuongHieuRepository thuongHieuRepository = new ThuongHieuRepository();
     @Override
-    public List<ThuongHieu> getAll(){
+    public List<ThuongHieu> getAll() {
         return thuongHieuRepository.getAll();
     }
-    
+
     @Override
-    public String Add(ThuongHieu th){
-        boolean add = thuongHieuRepository.Add(th);
-        if(add){
-            return "Thêm thành công";
+    public String Add(Objecttt x) {
+        ThuongHieu thuonghieu = new ThuongHieu(x.getId(), x.getTen());
+        int xxx = thuongHieuRepository.insert(thuonghieu);
+        if (xxx == 1) {
+            return "Thành công";
         }
-        return "Thêm thất bại";
+        return "Thất bại";
     }
-    
+
     @Override
-    public String Update(ThuongHieu th,String id){
-        boolean update = thuongHieuRepository.Update(th, id);
-        if(update){
-            return "Sửa thành công";
+    public String Update(Objecttt x, int id) {
+        ThuongHieu thuonghieu = new ThuongHieu(x.getId(), x.getTen());
+        int xxx = thuongHieuRepository.update(thuonghieu,id);
+        if (xxx == 1) {
+            return "Thành công";
         }
-        return "Sửa thất bại";
+        return "Thất bại";
     }
-    
+
     @Override
-    public String Delete(String id){
-        boolean delete = thuongHieuRepository.Delete(id);
-        if(delete){
-            return "Xóa thành công";
+    public String Delete(int id) {
+        if (thuongHieuRepository.delete(id) == 1) {
+            return "Thành công";
         }
-        return "Xóa thất bại";
+        return "Thất bại";
+    }
+
+    @Override
+    public ThuongHieu getbyid(int id) {
+        return thuongHieuRepository.getbyid(id);
     }
 }

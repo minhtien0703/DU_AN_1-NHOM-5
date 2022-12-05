@@ -9,6 +9,7 @@ import models.KichCo;
 import repositorys.IKichCoRepository;
 import repositorys.imp.KichCoRepositoryimpl;
 import services.IKichCoServices;
+import viewmodels.Objecttt;
 
 /**
  *
@@ -17,35 +18,42 @@ import services.IKichCoServices;
 public class KichCoServices implements IKichCoServices{
     private IKichCoRepository kichCoRepository = new KichCoRepositoryimpl();
     
-    @Override
-    public List<KichCo> getAll(){
+     @Override
+    public List<KichCo> getAll() {
         return kichCoRepository.getAll();
     }
-    
+
     @Override
-    public String Add(KichCo kc){
-        boolean add = kichCoRepository.Add(kc);
-        if(add){
-            return "Thêm thành công";
+    public String Add(Objecttt x) {
+        KichCo kichco = new KichCo(x.getId(), x.getTen());
+        int xxx = kichCoRepository.insert(kichco);
+        if (xxx == 1) {
+            return "Thành công";
         }
-        return "Thêm thất bại";
+        return "Thất bại";
     }
-    
+
     @Override
-    public String Update(KichCo kc,String id){
-        boolean update = kichCoRepository.Update(kc, id);
-        if(update){
-            return "Sửa thành công";
+    public String Update(Objecttt x, int id) {
+        KichCo kichCo = new KichCo(x.getId(), x.getTen());
+        int xxx = kichCoRepository.update(kichCo,id);
+        if (xxx == 1) {
+            return "Thành công";
         }
-        return "Sửa thất bại";
+        return "Thất bại";
     }
-    
+
     @Override
-    public String Delete(String id){
-        boolean delete = kichCoRepository.Delete(id);
-        if(delete){
-            return "Xóa thành công";
+    public String Delete(int id) {
+        if (kichCoRepository.delete(id) == 1) {
+            return "Thành công";
         }
-        return "Xóa thất bại";
+        return "Thất bại";
     }
+
+    @Override
+    public KichCo getbyid(int id) {
+        return kichCoRepository.getbyid(id);
+    }
+
 }

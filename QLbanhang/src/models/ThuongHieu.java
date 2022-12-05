@@ -9,22 +9,23 @@ package models;
  * @author vieta
  */
 public class ThuongHieu {
-    private String id;
+
+    private int id;
     private String ten;
 
     public ThuongHieu() {
     }
 
-    public ThuongHieu(String id, String ten) {
+    public ThuongHieu(int id, String ten) {
         this.id = id;
         this.ten = ten;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -36,12 +37,9 @@ public class ThuongHieu {
         this.ten = ten;
     }
 
-    
-
     @Override
     public String toString() {
-        return  ten ;
+        return ten;
     }
-    
-    
+
 }

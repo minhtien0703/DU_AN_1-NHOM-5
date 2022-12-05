@@ -6,6 +6,7 @@ package services;
 
 import java.util.List;
 import models.DanhMucSP;
+import viewmodels.Objecttt;
 
 /**
  *
@@ -14,9 +15,11 @@ import models.DanhMucSP;
 public interface IDanhMucSPServices {
     List<DanhMucSP> getAll();
     
-    String Add(DanhMucSP dmsp);
+    String Add(Objecttt x);
     
-    String Update(DanhMucSP dmsp,String id);
+    String Update(Objecttt x,int id);
     
-    String Delete(String id);
+    String Delete(int id);
+    
+    DanhMucSP getbyid(int id);
 }

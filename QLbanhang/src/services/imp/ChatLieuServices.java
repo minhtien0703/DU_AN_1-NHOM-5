@@ -9,43 +9,52 @@ import models.ChatLieu;
 import repositorys.IChatLieuRepository;
 import repositorys.imp.ChatLieuRepositoryimpl;
 import services.IChatLieuServices;
+import viewmodels.Objecttt;
 
 /**
  *
  * @author vieta
  */
-public class ChatLieuServices implements IChatLieuServices{
-     private IChatLieuRepository chatLieuRepository = new ChatLieuRepositoryimpl();
-    
+public class ChatLieuServices implements IChatLieuServices {
+
+    private IChatLieuRepository chatLieuRepository = new ChatLieuRepositoryimpl();
+
     @Override
-    public List<ChatLieu> getAll(){
+    public List<ChatLieu> getAll() {
         return chatLieuRepository.getAll();
     }
-    
+
     @Override
-    public String Add(ChatLieu cl){
-        boolean add = chatLieuRepository.Add(cl);
-        if(add){
-            return "Thêm thành công";
+    public String Add(Objecttt x) {
+        ChatLieu chatlieu = new ChatLieu(x.getId(), x.getTen());
+        int them = chatLieuRepository.insert(chatlieu);
+        if (them == 1) {
+            return "Thành công";
         }
-        return "Thêm thất bại";
+        return "Thất bại";
     }
-    
+
     @Override
-    public String Update(ChatLieu cl,String id){
-        boolean update = chatLieuRepository.Update(cl, id);
-        if(update){
-            return "Sửa thành công";
+    public String Update(Objecttt x, int id) {
+        ChatLieu chatlieu = new ChatLieu(x.getId(), x.getTen());
+        int them = chatLieuRepository.update(chatlieu,id);
+        if (them == 1) {
+            return "Thành công";
         }
-        return "Sửa thất bại";
+        return "Thất bại";
     }
-    
+
     @Override
-    public String Delete(String id){
-        boolean delete = chatLieuRepository.Delete(id);
-        if(delete){
-            return "Xóa thành công";
+    public String Delete(int id) {
+        if (chatLieuRepository.delete(id) == 1) {
+            return "Thành công";
         }
-        return "Xóa thất bại";
+        return "Thất bại";
     }
+
+    @Override
+    public ChatLieu getbyid(int id) {
+        return chatLieuRepository.getbyid(id);
+    }
+
 }

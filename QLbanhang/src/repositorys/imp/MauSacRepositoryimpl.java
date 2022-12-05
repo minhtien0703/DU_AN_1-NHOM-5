@@ -4,11 +4,7 @@
  */
 package repositorys.imp;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -22,70 +18,53 @@ import utilconnext.DBConnection;
  * @author vieta
  */
 public class MauSacRepositoryimpl implements IMauSacRepository{
-    List<MauSac> listms;
-    
-    public MauSacRepositoryimpl(){
-        listms = new ArrayList<>();
-    }
-    
+    final String SQL_SELECT_ALL = "SELECT Id,Ten FROM dbo.MauSac";
+    final String SQL_SELECT_BY_ID = "SELECT Id,Ten FROM dbo.MauSac WHERE Id = ?";
+    final String SQL_INSERT = "INSERT INTO dbo.MauSac(Ten) VALUES(?)";
+    final String SQL_UPDATE = "UPDATE dbo.MauSac SET Ten = ? WHERE Id = ?";
+    final String SQL_DELETE = "DELETE dbo.MauSac WHERE Id = ?";
+
     @Override
-    public List<MauSac> getAll(){
+    public List<MauSac> getAll() {
+
+        return getdataquery(SQL_SELECT_ALL);
+
+    }
+
+    @Override
+    public int insert(MauSac x) {
+
+        return DBConnection.ExcuteQuery(SQL_INSERT, x.getTen());
+
+    }
+
+    @Override
+    public int update(MauSac x, int id) {
+        return DBConnection.ExcuteQuery(SQL_UPDATE, x.getTen(), id);
+    }
+
+    @Override
+    public int delete(int id) {
+        return DBConnection.ExcuteQuery(SQL_DELETE, id);
+    }
+
+    @Override
+    public MauSac getbyid(int id) {
+        return getdataquery(SQL_SELECT_BY_ID, id).get(0);
+    }
+
+    private List<MauSac> getdataquery(String SQL, Object... arvg) {
+        List<MauSac> lst = new ArrayList<>();
         try {
-            listms.removeAll(listms);
-            String sql = "select * from MauSac";
-            Connection cn = DBConnection.openDbConnection();
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            while(rs.next()){
-                listms.add(new MauSac(rs.getString(1),rs.getString(2)));
+            ResultSet rl = DBConnection.getDataFromQuery(SQL, arvg);
+            while (rl.next()) {
+                lst.add(new MauSac((int) rl.getObject(1), (String) rl.getObject(2)));
             }
+
         } catch (SQLException ex) {
-            Logger.getLogger(MauSacRepositoryimpl.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
-        return listms;
-    }
-    
-    @Override
-    public boolean Add(MauSac ms){
-        String sql = "insert into MauSac(Id,Ten) values (newID(),?)";
-        try {
-            Connection cn = DBConnection.openDbConnection();
-            PreparedStatement pstm = cn.prepareStatement(sql);
-          
-            pstm.setString(1, ms.getTen());
-            pstm.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }        
-    }
-    
-    @Override
-    public boolean Update(MauSac ms,String id){
-        String sql = "update MauSac set Ten = ? where id = ?";
-        try {
-            Connection cn = DBConnection.openDbConnection();
-            PreparedStatement pstm = cn.prepareStatement(sql);
-           
-            pstm.setString(1, ms.getTen());
-            pstm.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-    
-    @Override
-    public boolean Delete(String id){
-        String sql = "delete from MauSac where id = ?";
-        int check = 0;
-        try {
-            Connection cn = DBConnection.openDbConnection();
-            PreparedStatement pstm = cn.prepareStatement(sql);
-            pstm.setObject(1, id);
-            check = pstm.executeUpdate();
-        } catch (Exception e) {
-        }
-        return check > 0;
+        return lst;
+
     }
 }

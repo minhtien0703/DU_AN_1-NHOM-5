@@ -12,14 +12,13 @@ public class ChiTietSP {
 
     private String ma;
     private String ten;
-    private String idnsx;
-    private String idmausac;
-    private String iddanhmuc;
-    private String idkc;
-    private String idcl;
-    private String idth;
-    private String idkm;
-
+    private int idnsx;
+    private int idmausac;
+    private int iddanhmuc;
+    private int idkc;
+    private int idcl;
+    private int idth;
+    private int idkm;
     private int soluongton;
     private Double gianhap;
     private Double giaban;
@@ -29,7 +28,7 @@ public class ChiTietSP {
     public ChiTietSP() {
     }
 
-    public ChiTietSP(String ma, String ten, String idnsx, String idmausac, String iddanhmuc, String idkc, String idcl, String idth, String idkm, int soluongton, Double gianhap, Double giaban, String mota, String qrcode) {
+    public ChiTietSP(String ma, String ten, int idnsx, int idmausac, int iddanhmuc, int idkc, int idcl, int idth, int idkm, int soluongton, Double gianhap, Double giaban, String mota, String qrcode) {
         this.ma = ma;
         this.ten = ten;
         this.idnsx = idnsx;
@@ -39,7 +38,6 @@ public class ChiTietSP {
         this.idcl = idcl;
         this.idth = idth;
         this.idkm = idkm;
-
         this.soluongton = soluongton;
         this.gianhap = gianhap;
         this.giaban = giaban;
@@ -63,59 +61,59 @@ public class ChiTietSP {
         this.ten = ten;
     }
 
-    public String getIdnsx() {
+    public int getIdnsx() {
         return idnsx;
     }
 
-    public void setIdnsx(String idnsx) {
+    public void setIdnsx(int idnsx) {
         this.idnsx = idnsx;
     }
 
-    public String getIdmausac() {
+    public int getIdmausac() {
         return idmausac;
     }
 
-    public void setIdmausac(String idmausac) {
+    public void setIdmausac(int idmausac) {
         this.idmausac = idmausac;
     }
 
-    public String getIddanhmuc() {
+    public int getIddanhmuc() {
         return iddanhmuc;
     }
 
-    public void setIddanhmuc(String iddanhmuc) {
+    public void setIddanhmuc(int iddanhmuc) {
         this.iddanhmuc = iddanhmuc;
     }
 
-    public String getIdkc() {
+    public int getIdkc() {
         return idkc;
     }
 
-    public void setIdkc(String idkc) {
+    public void setIdkc(int idkc) {
         this.idkc = idkc;
     }
 
-    public String getIdcl() {
+    public int getIdcl() {
         return idcl;
     }
 
-    public void setIdcl(String idcl) {
+    public void setIdcl(int idcl) {
         this.idcl = idcl;
     }
 
-    public String getIdth() {
+    public int getIdth() {
         return idth;
     }
 
-    public void setIdth(String idth) {
+    public void setIdth(int idth) {
         this.idth = idth;
     }
 
-    public String getIdkm() {
+    public int getIdkm() {
         return idkm;
     }
 
-    public void setIdkm(String idkm) {
+    public void setIdkm(int idkm) {
         this.idkm = idkm;
     }
 
@@ -157,11 +155,6 @@ public class ChiTietSP {
 
     public void setQrcode(String qrcode) {
         this.qrcode = qrcode;
-    }
-
-    @Override
-    public String toString() {
-        return  ten;
     }
 
 }
