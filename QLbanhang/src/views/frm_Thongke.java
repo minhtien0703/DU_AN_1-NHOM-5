@@ -4,12 +4,19 @@
  */
 package views;
 
+import java.awt.Color;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.Thongke;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 import repositorys.IThongkeRepository;
 import repositorys.imp.ThongkeRepository;
 
@@ -27,38 +34,25 @@ public class frm_Thongke extends javax.swing.JPanel {
     public frm_Thongke() {
         initComponents();
         repository = new ThongkeRepository();
-        loadDAY();
-        loadMONTH();
-        loadYEAR();
         defaultTableModel1 = (DefaultTableModel) Tb_Sp.getModel();
         defaultTableModel2 = (DefaultTableModel) tb_nv.getModel();
         loadNV();
         loadSP();
+        date_day.setVisible(false);
+        date_month.setVisible(false);
+        date_year.setVisible(false);
+        loadhd();
+        doanhthu();
     }
-    void loadDAY(){
-        List<Thongke> lst = repository.getbyday();
-        for (Thongke thongke : lst) {
-            lbl_doanhthuday.setText(String.format("%.0f",thongke.getDoanhthu()));
-            lbl_vonday.setText(String.format("%.0f",thongke.getVon()));
-            lbl_loinnhuanday.setText(String.format("%.0f",thongke.getLoinhuan()));
+    void loadhd(){
+        lbl_hd.setText(String.valueOf(repository.gethdday()));
+    }
+    void doanhthu(){
+        for (Thongke x : repository.getbyday()) {
+            lbl_doanhthu.setText(String.format("%.0f",x.getDoanhthu())+" VND");
+            lbl_sanpham.setText(String.valueOf(x.getSoSP()));
         }
-    }
-        void loadMONTH(){
-        List<Thongke> lst = repository.getbymonth();
-        for (Thongke thongke : lst) {
-            lbl_doanhthumonth.setText(String.format("%.0f",thongke.getDoanhthu()));
-            lbl_vonmonth.setText(String.format("%.0f",thongke.getVon()));
-            lbl_loinhuanmonth.setText(String.format("%.0f",thongke.getLoinhuan()));
-        }
-    }
-            void loadYEAR(){
-        List<Thongke> lst = repository.getbyyear();
-                for (Thongke thongke : lst) {
-                    lbl_doanhthuYear.setText(String.format("%.0f",thongke.getDoanhthu()));
-                    lbl_vonYear.setText(String.format("%.0f",thongke.getVon()));
-                    lbl_loinhuanYear.setText(String.format("%.0f",thongke.getLoinhuan()));
-                }
-    }
+    }       
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -68,44 +62,35 @@ public class frm_Thongke extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         panelGradiente1 = new swing.PanelGradiente();
         panelBorder2 = new swing.PanelBorder();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        lbl_loinnhuanday = new javax.swing.JLabel();
-        lbl_doanhthuday = new javax.swing.JLabel();
-        lbl_vonday = new javax.swing.JLabel();
+        lbl_doanhthu = new javax.swing.JLabel();
         panelBorder3 = new swing.PanelBorder();
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
         lbl_loinhuanYear = new javax.swing.JLabel();
-        lbl_doanhthuYear = new javax.swing.JLabel();
-        lbl_vonYear = new javax.swing.JLabel();
+        lbl_sanpham = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         panelBorder4 = new swing.PanelBorder();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        lbl_loinhuanmonth = new javax.swing.JLabel();
-        lbl_doanhthumonth = new javax.swing.JLabel();
-        lbl_vonmonth = new javax.swing.JLabel();
+        lbl_hd = new javax.swing.JLabel();
         panelBorder1 = new swing.PanelBorder();
-        date_month = new com.toedter.calendar.JMonthChooser();
-        date_year = new com.toedter.calendar.JYearChooser();
-        btn_search = new javax.swing.JButton();
-        date_day = new com.toedter.calendar.JDayChooser();
         Click_Nv = new javax.swing.JTabbedPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         Tb_Sp = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         tb_nv = new javax.swing.JTable();
+        rd_ngay = new javax.swing.JRadioButton();
+        rd_thang = new javax.swing.JRadioButton();
+        rd_nam = new javax.swing.JRadioButton();
+        date_day = new com.toedter.calendar.JDayChooser();
+        date_month = new com.toedter.calendar.JMonthChooser();
+        date_year = new com.toedter.calendar.JYearChooser();
+        btn_bieudo = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1010, 640));
@@ -120,155 +105,73 @@ public class frm_Thongke extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel1.setText("Doanh thu ngày");
+        jLabel1.setText("Doanh thu");
         panelBorder2.add(jLabel1);
-        jLabel1.setBounds(100, 0, 180, 40);
+        jLabel1.setBounds(80, 0, 110, 40);
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/money.png"))); // NOI18N
         panelBorder2.add(jLabel5);
-        jLabel5.setBounds(50, 0, 40, 40);
+        jLabel5.setBounds(30, 0, 40, 40);
 
-        jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel16.setText("Tổng lợi nhuận :");
-        panelBorder2.add(jLabel16);
-        jLabel16.setBounds(30, 140, 100, 30);
-
-        jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel18.setText("Tổng doanh thu :");
-        panelBorder2.add(jLabel18);
-        jLabel18.setBounds(30, 60, 110, 30);
-
-        jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel19.setText("Tổng vốn :");
-        panelBorder2.add(jLabel19);
-        jLabel19.setBounds(30, 100, 70, 30);
-
-        lbl_loinnhuanday.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        panelBorder2.add(lbl_loinnhuanday);
-        lbl_loinnhuanday.setBounds(130, 140, 100, 30);
-
-        lbl_doanhthuday.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        panelBorder2.add(lbl_doanhthuday);
-        lbl_doanhthuday.setBounds(140, 60, 100, 30);
-
-        lbl_vonday.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        panelBorder2.add(lbl_vonday);
-        lbl_vonday.setBounds(100, 100, 100, 30);
+        lbl_doanhthu.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lbl_doanhthu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        panelBorder2.add(lbl_doanhthu);
+        lbl_doanhthu.setBounds(10, 50, 210, 90);
 
         panelGradiente1.add(panelBorder2);
-        panelBorder2.setBounds(50, 0, 280, 190);
+        panelBorder2.setBounds(10, 0, 230, 190);
 
         panelBorder3.setBackground(new java.awt.Color(204, 204, 255));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel3.setText("Doanh thu năm");
+        jLabel3.setText("Sản phẩm");
         panelBorder3.add(jLabel3);
-        jLabel3.setBounds(110, 0, 180, 40);
+        jLabel3.setBounds(80, 0, 130, 50);
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/money.png"))); // NOI18N
         panelBorder3.add(jLabel6);
-        jLabel6.setBounds(60, 0, 40, 40);
-
-        jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel22.setText("Tổng lợi nhuận :");
-        panelBorder3.add(jLabel22);
-        jLabel22.setBounds(30, 140, 100, 30);
-
-        jLabel24.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel24.setText("Tổng vốn :");
-        panelBorder3.add(jLabel24);
-        jLabel24.setBounds(30, 100, 65, 30);
-
-        jLabel23.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel23.setText("Tổng doanh thu :");
-        panelBorder3.add(jLabel23);
-        jLabel23.setBounds(30, 60, 110, 30);
+        jLabel6.setBounds(40, 0, 40, 40);
 
         lbl_loinhuanYear.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         panelBorder3.add(lbl_loinhuanYear);
         lbl_loinhuanYear.setBounds(130, 140, 140, 30);
 
-        lbl_doanhthuYear.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        panelBorder3.add(lbl_doanhthuYear);
-        lbl_doanhthuYear.setBounds(140, 60, 130, 30);
+        lbl_sanpham.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lbl_sanpham.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        panelBorder3.add(lbl_sanpham);
+        lbl_sanpham.setBounds(30, 60, 160, 100);
 
-        lbl_vonYear.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        panelBorder3.add(lbl_vonYear);
-        lbl_vonYear.setBounds(100, 100, 170, 30);
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel7.setText("Sản phẩm");
+        panelBorder3.add(jLabel7);
+        jLabel7.setBounds(80, 0, 130, 50);
 
         panelGradiente1.add(panelBorder3);
-        panelBorder3.setBounds(689, 0, 280, 190);
+        panelBorder3.setBounds(530, 0, 230, 190);
 
         panelBorder4.setBackground(new java.awt.Color(204, 204, 255));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel2.setText("Doanh thu tháng");
+        jLabel2.setText("Hóa đơn");
         panelBorder4.add(jLabel2);
-        jLabel2.setBounds(100, 0, 180, 40);
+        jLabel2.setBounds(70, 0, 110, 40);
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/money.png"))); // NOI18N
         panelBorder4.add(jLabel4);
-        jLabel4.setBounds(50, 0, 40, 40);
+        jLabel4.setBounds(30, 0, 40, 40);
 
-        jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel20.setText("Tổng doanh thu :");
-        panelBorder4.add(jLabel20);
-        jLabel20.setBounds(30, 60, 110, 30);
-
-        jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel21.setText("Tổng vốn :");
-        panelBorder4.add(jLabel21);
-        jLabel21.setBounds(30, 100, 70, 30);
-
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel17.setText("Tổng lợi nhuận :");
-        panelBorder4.add(jLabel17);
-        jLabel17.setBounds(30, 140, 100, 30);
-
-        lbl_loinhuanmonth.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        panelBorder4.add(lbl_loinhuanmonth);
-        lbl_loinhuanmonth.setBounds(130, 140, 140, 30);
-
-        lbl_doanhthumonth.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        panelBorder4.add(lbl_doanhthumonth);
-        lbl_doanhthumonth.setBounds(140, 60, 130, 30);
-
-        lbl_vonmonth.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        panelBorder4.add(lbl_vonmonth);
-        lbl_vonmonth.setBounds(100, 100, 160, 30);
+        lbl_hd.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lbl_hd.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        panelBorder4.add(lbl_hd);
+        lbl_hd.setBounds(40, 50, 150, 100);
 
         panelGradiente1.add(panelBorder4);
-        panelBorder4.setBounds(366, 0, 280, 190);
+        panelBorder4.setBounds(270, 0, 230, 190);
 
         panelBorder1.setBackground(new java.awt.Color(204, 204, 255));
-
-        date_month.setMonth(0);
-        panelBorder1.add(date_month);
-        date_month.setBounds(560, 40, 114, 22);
-        panelBorder1.add(date_year);
-        date_year.setBounds(730, 40, 110, 22);
-
-        btn_search.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search_24px.png"))); // NOI18N
-        btn_search.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_searchActionPerformed(evt);
-            }
-        });
-        panelBorder1.add(btn_search);
-        btn_search.setBounds(920, 30, 40, 40);
-        panelBorder1.add(date_day);
-        date_day.setBounds(275, 0, 250, 90);
 
         Tb_Sp.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -297,6 +200,51 @@ public class frm_Thongke extends javax.swing.JPanel {
         panelBorder1.add(Click_Nv);
         Click_Nv.setBounds(0, 90, 990, 340);
 
+        buttonGroup1.add(rd_ngay);
+        rd_ngay.setText("Ngày");
+        rd_ngay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rd_ngayActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(rd_ngay);
+        rd_ngay.setBounds(30, 10, 60, 23);
+
+        buttonGroup1.add(rd_thang);
+        rd_thang.setText("Tháng");
+        rd_thang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rd_thangActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(rd_thang);
+        rd_thang.setBounds(110, 10, 60, 23);
+
+        buttonGroup1.add(rd_nam);
+        rd_nam.setText("Năm");
+        rd_nam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rd_namActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(rd_nam);
+        rd_nam.setBounds(190, 10, 60, 23);
+        panelBorder1.add(date_day);
+        date_day.setBounds(260, 0, 280, 110);
+        panelBorder1.add(date_month);
+        date_month.setBounds(351, 10, 120, 30);
+        panelBorder1.add(date_year);
+        date_year.setBounds(380, 10, 47, 30);
+
+        btn_bieudo.setText("Biểu đồ");
+        btn_bieudo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_bieudoActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(btn_bieudo);
+        btn_bieudo.setBounds(817, 20, 140, 40);
+
         panelGradiente1.add(panelBorder1);
         panelBorder1.setBounds(10, 210, 990, 430);
 
@@ -304,7 +252,7 @@ public class frm_Thongke extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelGradiente1, javax.swing.GroupLayout.PREFERRED_SIZE, 1012, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panelGradiente1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1012, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -312,10 +260,56 @@ public class frm_Thongke extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchActionPerformed
+    private void rd_ngayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rd_ngayActionPerformed
+        // TODO add your handling code here:
+        date_day.setVisible(true);
+        date_month.setVisible(false);
+        date_year.setVisible(false);
+      
+    }//GEN-LAST:event_rd_ngayActionPerformed
 
-        
-    }//GEN-LAST:event_btn_searchActionPerformed
+    private void rd_thangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rd_thangActionPerformed
+        // TODO add your handling code here:
+        date_day.setVisible(false);
+        date_month.setVisible(true);
+        date_year.setVisible(false);
+     
+    }//GEN-LAST:event_rd_thangActionPerformed
+
+    private void rd_namActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rd_namActionPerformed
+        // TODO add your handling code here:
+        date_day.setVisible(false);
+        date_month.setVisible(false);
+        date_year.setVisible(true);
+      
+    }//GEN-LAST:event_rd_namActionPerformed
+
+    private void btn_bieudoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_bieudoActionPerformed
+        // TODO add your handling code here:
+        final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        dataset.addValue(repository.getmonth1(), "VND", "1");
+        dataset.addValue(repository.getmonth2(), "VND", "2");
+        dataset.addValue(repository.getmonth3(), "VND", "3");
+        dataset.addValue(repository.getmonth4(), "VND", "4");
+        dataset.addValue(repository.getmonth5(), "VND", "5");
+        dataset.addValue(repository.getmonth6(), "VND", "6");
+        dataset.addValue(repository.getmonth7(), "VND", "7");
+        dataset.addValue(repository.getmonth8(), "VND", "8");
+        dataset.addValue(repository.getmonth9(), "VND", "9");
+        dataset.addValue(repository.getmonth10(), "VND", "10");
+        dataset.addValue(repository.getmonth11(), "VND", "11");
+        dataset.addValue(repository.getmonth12(), "VND", "12");
+        JFreeChart barChart = ChartFactory.createBarChart(
+                "BIỂU ĐỒ DOANH THU",
+                "THÁNG", "VND",
+                dataset, PlotOrientation.VERTICAL, false, true, false);
+        CategoryPlot categoryPlot = new CategoryPlot();
+        categoryPlot.setRangeGridlinePaint(Color.BLACK);
+        ChartFrame chartFrame = new ChartFrame("Biều đồ", barChart); 
+        chartFrame.setVisible(true);
+        chartFrame.setSize(1000,500);
+        chartFrame.setLocationRelativeTo(null);
+    }//GEN-LAST:event_btn_bieudoActionPerformed
     private void loadSP() {
         defaultTableModel1.setRowCount(0);
         int stt = 1;
@@ -324,7 +318,7 @@ public class frm_Thongke extends javax.swing.JPanel {
                 stt,
                 x.getChiTietSP(),
                 x.getSoSP(),
-                x.getLoinhuan()
+                String.format("%.0f",x.getLoinhuan())+" VND"
             });
             stt++;
         }
@@ -346,41 +340,32 @@ public class frm_Thongke extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane Click_Nv;
     private javax.swing.JTable Tb_Sp;
-    private javax.swing.JButton btn_search;
+    private javax.swing.JButton btn_bieudo;
+    private javax.swing.ButtonGroup buttonGroup1;
     private com.toedter.calendar.JDayChooser date_day;
     private com.toedter.calendar.JMonthChooser date_month;
     private com.toedter.calendar.JYearChooser date_year;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JLabel lbl_doanhthuYear;
-    private javax.swing.JLabel lbl_doanhthuday;
-    private javax.swing.JLabel lbl_doanhthumonth;
+    private javax.swing.JLabel lbl_doanhthu;
+    private javax.swing.JLabel lbl_hd;
     private javax.swing.JLabel lbl_loinhuanYear;
-    private javax.swing.JLabel lbl_loinhuanmonth;
-    private javax.swing.JLabel lbl_loinnhuanday;
-    private javax.swing.JLabel lbl_vonYear;
-    private javax.swing.JLabel lbl_vonday;
-    private javax.swing.JLabel lbl_vonmonth;
+    private javax.swing.JLabel lbl_sanpham;
     private swing.PanelBorder panelBorder1;
     private swing.PanelBorder panelBorder2;
     private swing.PanelBorder panelBorder3;
     private swing.PanelBorder panelBorder4;
     private swing.PanelGradiente panelGradiente1;
+    private javax.swing.JRadioButton rd_nam;
+    private javax.swing.JRadioButton rd_ngay;
+    private javax.swing.JRadioButton rd_thang;
     private javax.swing.JTable tb_nv;
     // End of variables declaration//GEN-END:variables
 }

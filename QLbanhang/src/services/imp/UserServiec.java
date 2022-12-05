@@ -36,7 +36,10 @@ public class UserServiec implements IUserServiec {
 
         }
         if (MatKhau.isEmpty()) {
+
             JOptionPane.showMessageDialog(new frm_Login(), "Mời Bạn Nhập mật khẩu");
+
+            JOptionPane.showMessageDialog(new frm_Login(), "Nhập mật khẩu");
             return false;
         }
                            
