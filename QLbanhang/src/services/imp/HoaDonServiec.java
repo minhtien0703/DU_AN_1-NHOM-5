@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import models.HoaDon;
 import models.HoaDonChiTiet;
+import models.KhachHang;
 import models.SanPham;
 import models.User;
 import repositorys.IHoaDonRepostory;
@@ -16,6 +17,7 @@ import repositorys.ISanPhamReposory;
 import repositorys.imp.HoaDonRepostory;
 import repositorys.imp.SanPhamRepostory;
 import services.IHoaDonServiec;
+import services.IKhachHangService;
 import services.ISamPhamServiecs;
 import viewmodels.HoaDonCHiTietViewModel;
 import viewmodels.HoaDonViewModel;
@@ -27,10 +29,10 @@ import viewmodels.SanPhamViewModel;
  */
 public class HoaDonServiec implements IHoaDonServiec {
 
-    private List<HoaDonViewModel> getListHD;
+   private List<HoaDonViewModel> getListHD;
     private IHoaDonRepostory hoaDonRepostory;
     private List<HoaDonCHiTietViewModel> getListHDCT;
-
+    private IKhachHangService khachHangService;
     private ISamPhamServiecs sanISamPhamServiecs;
 
     public HoaDonServiec() {
@@ -38,6 +40,7 @@ public class HoaDonServiec implements IHoaDonServiec {
         getListHDCT = new ArrayList<>();
         hoaDonRepostory = new HoaDonRepostory();
         sanISamPhamServiecs = new SanPhamServiec();
+        khachHangService = new khahangsvImpl();
 
     }
 
@@ -98,6 +101,9 @@ public class HoaDonServiec implements IHoaDonServiec {
             hd.setDonGia(hoaDonChiTiet.getDonGia());
             hd.setSoluong(hoaDonChiTiet.getSoluong());
             hd.setSanPham(hoaDonChiTiet.getSanPham());
+            HoaDon hoaDon = new HoaDon();
+            hoaDon.setKhachHang(hoaDonChiTiet.getHaoDon().getKhachHang());
+            hd.setHaDon(hoaDon);
             getListHDCT.add(hd);
         }
         return getListHDCT;
@@ -124,9 +130,25 @@ public class HoaDonServiec implements IHoaDonServiec {
     }
 
     @Override
-    public Integer updateSoLuongGioHang(int SoLuong,String MaSP , String MaHD) {
-         return hoaDonRepostory.updateSoLuongGioHang(SoLuong, MaSP, MaHD);
+    public Integer updateSoLuongGioHang(int SoLuong, String MaSP, String MaHD) {
+        return hoaDonRepostory.updateSoLuongGioHang(SoLuong, MaSP, MaHD);
 
+    }
+
+    @Override
+    public Integer updateTrangThaiHoaDon(HoaDonViewModel hd) {
+        HoaDon hoaDon = new HoaDon();
+        hoaDon.setGhichu(hd.getGhiChu());
+        hoaDon.setNgayThanhToan(hd.getNgayThanhToan());
+        hoaDon.setMa(hd.getMa());
+//        hoaDon.setKhachHang(hd.getKhachHang());
+        hoaDon.setTinhTrang(2);
+        return hoaDonRepostory.updateTrangThaiHoaDon(hoaDon);
+    }
+
+    @Override
+    public Integer updateHoaDonKhachHang(int Ma, String MaHD) {
+      return hoaDonRepostory.updateHoaDonKhachHang(Ma, MaHD);
     }
 
 }

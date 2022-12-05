@@ -22,7 +22,7 @@ public interface IHoaDonRepostory {
 
     Integer insertHoaDonChiTiet(HoaDonChiTiet hdct);
 
-    List<HoaDon> getListHD(int TinhTrang);
+    List<HoaDon> getListHD(int TrangThai);
 
     Integer getIdHD(String MaHD);
 
@@ -37,5 +37,9 @@ public interface IHoaDonRepostory {
     Integer getIDCTSP(int MaHD);
 
     Integer updateSoLuongGioHang(int SoLuong,String MaSP , String MaHD);
+    
+    Integer updateTrangThaiHoaDon(HoaDon hd);
+    
+    Integer updateHoaDonKhachHang(int Ma, String MaHD);
 
 }

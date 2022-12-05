@@ -52,7 +52,7 @@ public class HoaDonRepostory implements IHoaDonRepostory {
     }
 
 /////////////////////////////////////////////////
-    @Override
+     @Override
     public Integer insertHoaDon(HoaDon hd, Integer idNV) {
         int result = 0;
         try {
@@ -60,12 +60,10 @@ public class HoaDonRepostory implements IHoaDonRepostory {
             Connection conn = DBConnection.openDbConnection();
             PreparedStatement pr = conn.prepareStatement(sql);
             pr.setString(1, hd.getMa());
-            pr.setInt(2, hd.getUser().getId());
+            pr.setInt(2, idNV);
             pr.setDate(3, hd.getNgayTao());
             pr.setDate(4, hd.getNgayThanhToan());
-            pr.setDouble(5,hd.getTinhTrang());
-
-           
+            pr.setInt(5, hd.getTinhTrang());
             result = pr.executeUpdate();
 
         } catch (Exception ex) {
@@ -74,9 +72,10 @@ public class HoaDonRepostory implements IHoaDonRepostory {
         }
         return result;
     }
-    
+
     @Override
     public Integer insertHoaDonChiTiet(HoaDonChiTiet hdct) {
+
         int result = 0;
         try {
             String sql = "insert into HoaDonChiTiet (IdHD ,idCTSP, Soluong , Dongia ) values(? , ? ,? ,?)";
@@ -95,14 +94,15 @@ public class HoaDonRepostory implements IHoaDonRepostory {
         }
         return result;
     }
-      @Override
-    public List<HoaDon> getListHD(int TinhTrang) {
+
+    @Override
+    public List<HoaDon> getListHD(int TrangThai) {
         List<HoaDon> getListGD = new ArrayList<>();
         try {
-            String sql = "SELECT HD.Ma , HD.NgayTao , NV.Ten , HD.TinhTrang FROM HoaDon HD JOIN Users NV ON HD.IdNV = NV.Id WHERE HD.TinhTrang = ?";
+            String sql = "SELECT HD.Ma , HD.NgayTao , NV.Ten , HD.TinhTrang , NV.TenDem , NV.Ho FROM HoaDon HD JOIN Users NV ON HD.IdNV = NV.Id WHERE HD.TinhTrang = ?";
             Connection conn = DBConnection.openDbConnection();
             PreparedStatement pr = conn.prepareStatement(sql);
-            pr.setInt(1, TinhTrang);
+            pr.setInt(1, TrangThai);
             ResultSet rs = pr.executeQuery();
             while (rs.next()) {
                 HoaDon hd = new HoaDon();
@@ -110,7 +110,7 @@ public class HoaDonRepostory implements IHoaDonRepostory {
                 hd.setMa(rs.getString(1));
                 hd.setNgayTao(rs.getDate(2));
                 User uesr = new User();
-                uesr.setTen(rs.getString(3));
+                uesr.setTen(rs.getString(6)+" "+rs.getString(5)+" " + rs.getString(3));
                 hd.setUser(uesr);
                 hd.setTinhTrang(rs.getInt(4));
                 getListGD.add(hd);
@@ -141,12 +141,14 @@ public class HoaDonRepostory implements IHoaDonRepostory {
         }
         return idHD;
     }
-    
+
+    @Override
     public List<HoaDonChiTiet> getListHoaDonChiTiet(String MaHD) {
         List<HoaDonChiTiet> getList = new ArrayList<>();
         try {
-            String sql = "SELECT SP.Ma , SP.Ten , HDCT.Dongia , HDCT.Soluong , KM.Giatrigiam , KM.HinhthucKM ,HDCT.IdCTSP FROM HoaDon HD JOIN HoaDonChiTiet HDCT ON HD.Id = HDCT.IdHD\n"
-                    + "                    JOIN ChitietSP SP ON SP.Id = HDCT.IdCTSP join KhuyenMai km ON SP.IdKM = KM.Id WHERE HD.Ma =?";
+            String sql = "SELECT SP.Ma , SP.Ten , HDCT.Dongia , HDCT.Soluong , KM.Giatrigiam , KM.HinhthucKM ,HDCT.IdCTSP , kh.Ho , kh.TenDem , kh.Ten , kh.Sdt , kh.Diemthuong FROM HoaDon HD JOIN HoaDonChiTiet HDCT ON HD.Id = HDCT.IdHD\n"
+                    + "                    JOIN ChitietSP SP ON SP.Id = HDCT.IdCTSP join KhuyenMai km ON SP.IdKM = KM.Id JOIN KhachHang kh on"
+                    + " HD.idKH = kh.id  WHERE HD.Ma =?";
             Connection conn = DBConnection.openDbConnection();
             PreparedStatement pr = conn.prepareStatement(sql);
             pr.setString(1, MaHD);
@@ -165,6 +167,14 @@ public class HoaDonRepostory implements IHoaDonRepostory {
                 hdct.setSanPham(sp);
                 hdct.setSoluong(rs.getInt(4));
                 hdct.setDonGia(rs.getDouble(3));
+                
+                KhachHang kh = new KhachHang();
+                kh.setTen(rs.getString(8)+" "+rs.getString(9)+" "+rs.getString(10));
+                kh.setSdt(rs.getString(11));
+                kh.setDiemthuong(rs.getInt(12));
+                HoaDon hd= new HoaDon();
+                hd.setKhachHang(kh);
+                hdct.setHaoDon(hd);
                 getList.add(hdct);
             }
         } catch (Exception e) {
@@ -173,7 +183,7 @@ public class HoaDonRepostory implements IHoaDonRepostory {
         return getList;
     }
 
-    
+    @Override
     public Integer deleteSanPham(int idHD, int idSP) {
         int rs = 0;
         try {
@@ -191,7 +201,7 @@ public class HoaDonRepostory implements IHoaDonRepostory {
         return rs;
     }
 
-    
+    @Override
     public Integer updateSanPhamTrenGioHang(int idHD, int idSP, int SoLuong) {
         int rs = 0;
         try {
@@ -250,7 +260,7 @@ public class HoaDonRepostory implements IHoaDonRepostory {
     }
 
     @Override
-    public Integer updateSoLuongGioHang(int SoLuong,String MaSP , String MaHD) {
+    public Integer updateSoLuongGioHang(int SoLuong, String MaSP, String MaHD) {
         int rs = 0;
         try {
             String sql = "UPDATE HoaDonChiTiet SET Soluong = ? WHERE IdHD IN (SELECT ID FROM HoaDon WHERE MA = ?) AND IdCTSP IN (SELECT ID FROM ChitietSP WHERE MA = ?)";
@@ -260,18 +270,60 @@ public class HoaDonRepostory implements IHoaDonRepostory {
             pr.setString(2, MaHD);
             pr.setString(3, MaSP);
             rs = pr.executeUpdate();
-            if (rs > 0 ) {
+            if (rs > 0) {
                 System.out.println("thành công");
-            }else{
+            } else {
                 System.out.println("thất bại");
             }
-           
+
         } catch (Exception ex) {
             ex.printStackTrace();
-            
+
         }
-         return rs;
+        return rs;
     }
+
+    @Override
+    public Integer updateTrangThaiHoaDon(HoaDon hd) {
+        int rs = 0;
+        try {
+            String sql = "update HoaDon set TinhTrang = ? , Ghichu = ? ,NgayThanhToan = ?   where Ma = ?";
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pr = conn.prepareStatement(sql);
+            pr.setInt(1, hd.getTinhTrang());
+            pr.setString(2, hd.getGhichu());
+            pr.setDate(3, hd.getNgayThanhToan());
+            pr.setString(4, hd.getMa());
+//            pr.setInt(4, hd.getKhachHang().getId());
+            rs = pr.executeUpdate();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+        }
+        return rs;
+    }
+
+    @Override
+    public Integer updateHoaDonKhachHang(int Ma  ,String MaHD) {
+          int rs = 0;
+        try {
+            String sql = "UPDATE HoaDon SET idKH = ? WHERE Ma = ?";
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pr = conn.prepareStatement(sql);
+            pr.setInt(1, Ma);
+            pr.setString(2, MaHD);
+          
+            rs = pr.executeUpdate();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+        }
+        return rs;
+    }
+
+    
 
     
 

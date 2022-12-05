@@ -18,13 +18,14 @@ import models.KhuyenMai;
 import repositorys.IKhuyenmaiRepository;
 import utilconnext.DBConnection;
 
-
 /**
  *
  * @author ADMIN
  */
-public class KhuyenmaiReponsitory implements IKhuyenmaiRepository{
+public class KhuyenmaiReponsitory implements IKhuyenmaiRepository {
+
     List<KhuyenMai> lstKm;
+
     public KhuyenmaiReponsitory() {
         lstKm = new ArrayList<>();
     }
@@ -38,12 +39,12 @@ public class KhuyenmaiReponsitory implements IKhuyenmaiRepository{
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
-                lstKm.add(new KhuyenMai(rs.getString(1), rs.getString(2), rs.getString(5), rs.getString(3), rs.getString(4), rs.getDouble(6),rs.getInt(7)));
-                        }
+                lstKm.add(new KhuyenMai(rs.getString(1), rs.getString(2), rs.getString(5), rs.getString(3), rs.getString(4), rs.getDouble(6), rs.getInt(7)));
+            }
         } catch (SQLException ex) {
             Logger.getLogger(KhuyenmaiReponsitory.class.getName()).log(Level.SEVERE, null, ex);
         }
-                    return lstKm;
+        return lstKm;
     }
 
     @Override
@@ -67,7 +68,7 @@ public class KhuyenmaiReponsitory implements IKhuyenmaiRepository{
 
     @Override
     public boolean Update(KhuyenMai km, String id) {
-String sql = "UPDATE KHUYENMAI SET TEN=?,NGAYBATDAU=?,NGAYKETTHUC = ?,HINHTHUCKM=?,GIATRIGIAM =? WHERE ID = ?";
+        String sql = "UPDATE KHUYENMAI SET TEN=?,NGAYBATDAU=?,NGAYKETTHUC = ?,HINHTHUCKM=?,GIATRIGIAM =? WHERE ID = ?";
         try {
             Connection conn = DBConnection.openDbConnection();
             PreparedStatement pstm = conn.prepareStatement(sql);
@@ -81,7 +82,8 @@ String sql = "UPDATE KHUYENMAI SET TEN=?,NGAYBATDAU=?,NGAYKETTHUC = ?,HINHTHUCKM
             return true;
         } catch (Exception e) {
             return false;
-        }    }
+        }
+    }
 
     @Override
     public boolean Delete(String id) {
@@ -106,7 +108,7 @@ String sql = "UPDATE KHUYENMAI SET TEN=?,NGAYBATDAU=?,NGAYKETTHUC = ?,HINHTHUCKM
             PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setString(1, ten);
             ResultSet rs = pstm.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 box = rs.getString(1);
             }
         } catch (Exception e) {
@@ -119,77 +121,78 @@ String sql = "UPDATE KHUYENMAI SET TEN=?,NGAYBATDAU=?,NGAYKETTHUC = ?,HINHTHUCKM
     public List<KhuyenMai> GetOnebyBD(String date) {
         try {
             lstKm.removeAll(lstKm);
-            String sql = "Select Ten, Ngaybatdau, Ngayketthuc, HinhthucKM, Giatrigiam,Trangthai from KhuyenMai \n" +
-                    "Where Ngaybatdau =?";
+            String sql = "Select Ten, Ngaybatdau, Ngayketthuc, HinhthucKM, Giatrigiam,Trangthai from KhuyenMai \n"
+                    + "Where Ngaybatdau =?";
             Connection conn = DBConnection.openDbConnection();
             PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setString(1, date);
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                lstKm.add(new KhuyenMai( rs.getString(1), rs.getString(4), rs.getString(2), rs.getString(3), rs.getDouble(5),rs.getInt(6)));
-                        }
+                lstKm.add(new KhuyenMai(rs.getString(1), rs.getString(4), rs.getString(2), rs.getString(3), rs.getDouble(5), rs.getInt(6)));
+            }
         } catch (SQLException ex) {
             Logger.getLogger(KhuyenmaiReponsitory.class.getName()).log(Level.SEVERE, null, ex);
         }
-                    return lstKm;
+        return lstKm;
     }
 
     @Override
     public List<KhuyenMai> GetOnebyKT(String date) {
-           try {
+        try {
             lstKm.removeAll(lstKm);
-            String sql = "Select Ten, Ngaybatdau, Ngayketthuc, HinhthucKM, Giatrigiam,Trangthai from KhuyenMai \n" +
-                    "Where NGAYKETTHUC =?";
+            String sql = "Select Ten, Ngaybatdau, Ngayketthuc, HinhthucKM, Giatrigiam,Trangthai from KhuyenMai \n"
+                    + "Where NGAYKETTHUC =?";
             Connection conn = DBConnection.openDbConnection();
             PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setString(1, date);
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                lstKm.add(new KhuyenMai( rs.getString(1), rs.getString(4), rs.getString(2), rs.getString(3), rs.getDouble(5),rs.getInt(6)));
-                        }
+                lstKm.add(new KhuyenMai(rs.getString(1), rs.getString(4), rs.getString(2), rs.getString(3), rs.getDouble(5), rs.getInt(6)));
+            }
         } catch (SQLException ex) {
             Logger.getLogger(KhuyenmaiReponsitory.class.getName()).log(Level.SEVERE, null, ex);
         }
-                    return lstKm;
+        return lstKm;
     }
 
     @Override
     public List<KhuyenMai> GetOnebyALL(String datedb, String datekt) {
-         try {
+        try {
             lstKm.removeAll(lstKm);
-            String sql = "Select Ten, Ngaybatdau, Ngayketthuc, HinhthucKM, Giatrigiam,Trangthai from KhuyenMai \n" +
-                    "Where Ngaybatdau =? and NGAYKETTHUC =?";
+            String sql = "Select Ten, Ngaybatdau, Ngayketthuc, HinhthucKM, Giatrigiam,Trangthai from KhuyenMai \n"
+                    + "Where Ngaybatdau =? and NGAYKETTHUC =?";
             Connection conn = DBConnection.openDbConnection();
             PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setString(1, datedb);
             pstm.setString(2, datekt);
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                lstKm.add(new KhuyenMai( rs.getString(1), rs.getString(4), rs.getString(2), rs.getString(3), rs.getDouble(5),rs.getInt(6)));
-                        }
+                lstKm.add(new KhuyenMai(rs.getString(1), rs.getString(4), rs.getString(2), rs.getString(3), rs.getDouble(5), rs.getInt(6)));
+            }
         } catch (SQLException ex) {
             Logger.getLogger(KhuyenmaiReponsitory.class.getName()).log(Level.SEVERE, null, ex);
         }
-                    return lstKm;
+        return lstKm;
     }
 
     @Override
     public List<KhuyenMai> GetOnebyten(String ten) {
-try {
+        try {
             lstKm.removeAll(lstKm);
-            String sql = "SELECT Ten,Ngaybatdau,Ngayketthuc,HinhthucKM,Giatrigiam,Trangthai from KhuyenMai\n" +
-                        "where  Ten like ? ";
+            String sql = "SELECT Ten,Ngaybatdau,Ngayketthuc,HinhthucKM,Giatrigiam,Trangthai from KhuyenMai\n"
+                    + "where  Ten like ? ";
             Connection conn = DBConnection.openDbConnection();
             PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setString(1, ten);
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                lstKm.add(new KhuyenMai( rs.getString(1), rs.getString(4), rs.getString(2), rs.getString(3), rs.getDouble(5),rs.getInt(6)));
-                        }
+                lstKm.add(new KhuyenMai(rs.getString(1), rs.getString(4), rs.getString(2), rs.getString(3), rs.getDouble(5), rs.getInt(6)));
+            }
         } catch (SQLException ex) {
             Logger.getLogger(KhuyenmaiReponsitory.class.getName()).log(Level.SEVERE, null, ex);
         }
-                    return lstKm;    }
+        return lstKm;
+    }
 
     @Override
     public boolean UpdateTT() {

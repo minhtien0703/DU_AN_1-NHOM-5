@@ -17,6 +17,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
     private JPanel panelchid;
     private int xx, xy;
     private int id;
+    private String TenNV;
     private String TenCV;
 
     public frm_Dashboard(String TenNhanVien, int idNV, String tencv) {
@@ -24,6 +25,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
         TenCV = tencv;
         id = idNV;
         lbl_tenNhanVien.setText(TenNhanVien);
+        TenNV = TenNhanVien;
         setLocationRelativeTo(null);
         setdashboad();
     }
@@ -32,7 +34,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
         setColor(btnbanhang);
         crep1.setOpaque(true);
         resetColor(new JPanel[]{btnsanpham, btnkhuyenmai, btnkhachhang, btnnhanvien, btnthongke, btnhoadon, btndangxuat}, new JPanel[]{crep2, crep3, crep4, crep5, crepp1, crepp2, crepp3});
-        setpanal(new frm_Banhang(id));
+        setpanal(new frm_Banhang(id , TenNV ));
     }
 
     private void setColor(JPanel pane) {
@@ -149,7 +151,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbl_tenNhanVien.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lbl_tenNhanVien.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_tenNhanVien.setForeground(new java.awt.Color(102, 255, 204));
         lbl_tenNhanVien.setText("TÊN NHÂN VIÊN");
         jPanel4.add(lbl_tenNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 140, 40));
 
@@ -586,7 +588,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
         setColor(btnbanhang);
         crep1.setOpaque(true);
         resetColor(new JPanel[]{btnsanpham, btnkhuyenmai, btnkhachhang, btnnhanvien, btnthongke, btnhoadon, btndangxuat}, new JPanel[]{crep2, crep3, crep4, crep5, crepp1, crepp2, crepp3});
-        setpanal(new frm_Banhang(id));
+        setpanal(new frm_Banhang(id , TenNV));
         lbltieude.setText("Bán hàng");
     }//GEN-LAST:event_btnbanhangMousePressed
 
