@@ -49,7 +49,7 @@ public class KhuyenmaiReponsitory implements IKhuyenmaiRepository {
 
     @Override
     public boolean Add(KhuyenMai km) {
-        String sql = "INSERT INTO KHUYENMAI(TEN,HINHTHUCKM,NGAYBATDAU,NGAYKETTHUC,GIATRIGIAM) VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO KHUYENMAI(TEN,HINHTHUCKM,NGAYBATDAU,NGAYKETTHUC,GIATRIGIAM,TRANGTHAI) VALUES(?,?,?,?,?,?)";
         try {
             Connection conn = DBConnection.openDbConnection();
             PreparedStatement pstm = conn.prepareStatement(sql);

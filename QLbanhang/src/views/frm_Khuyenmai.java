@@ -206,6 +206,7 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
                 "STT", "Tên khuyến mãi", "Ngày bắt đầu", "Ngày kết thúc", "Giá trị giảm", "Trạng thái"
             }
         ));
+        tb_khuyenmai.setRowHeight(25);
         tb_khuyenmai.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tb_khuyenmaiMouseClicked(evt);
@@ -217,6 +218,12 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
         jScrollPane1.setBounds(10, 370, 990, 260);
 
         panelBorder2.setBackground(new java.awt.Color(255, 255, 255));
+
+        src_timkiem.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                src_timkiemCaretUpdate(evt);
+            }
+        });
         panelBorder2.add(src_timkiem);
         src_timkiem.setBounds(10, 0, 240, 40);
 
@@ -508,11 +515,10 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
             }
             return;
         }
-        if (dateTK_BD.getDate()==null && dateTK_KT.getDate()==null) {
-            if (khuyenmaiService.GetOnebyten("%"+src_timkiem.getText()+"%").isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Không có khuyến mãi nào");
-                return;
-            }
+    }//GEN-LAST:event_lbl_timkiemMouseClicked
+
+    private void src_timkiemCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_src_timkiemCaretUpdate
+        // TODO add your handling code here:
             defaultTableModel.setRowCount(0);
             int stt = 1;
             for (KhuyenmaiViewmodel x : khuyenmaiService.GetOnebyten("%"+src_timkiem.getText()+"%")) {
@@ -526,8 +532,7 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
                 });
                 stt++;
             }
-        }
-    }//GEN-LAST:event_lbl_timkiemMouseClicked
+    }//GEN-LAST:event_src_timkiemCaretUpdate
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

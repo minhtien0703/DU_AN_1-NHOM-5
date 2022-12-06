@@ -49,7 +49,7 @@ public class HoaDonServiec implements IHoaDonServiec {
         HoaDon hd = new HoaDon();
         hd.setMa(hoaDon.getMa());
         hd.setNgayTao(hoaDon.getNgayTao());
-        hd.setTinhTrang(1);
+        hd.setTinhTrang(0);
 
         Integer isInsert = hoaDonRepostory.insertHoaDon(hd, idNV);
         return isInsert;

@@ -128,7 +128,7 @@ public class KhachHang02ViewMD {
     }
 
     public Object[] toDataRow() {
-        return new Object[]{id, ho + " " + tendem + " " + ten, SDT, IDHD, ngayTao,tensp, SL, dongia,  trangthai == 1 ? "chờ thanh toán" : "Đã Thanh Toán"};
+        return new Object[]{id, ho + " " + tendem + " " + ten, SDT, IDHD, ngayTao,tensp, SL, dongia,  trangthai == 0 ? "chờ thanh toán" : "Đã Thanh Toán"};
 
     }
 }

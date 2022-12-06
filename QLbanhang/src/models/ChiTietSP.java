@@ -157,4 +157,9 @@ public class ChiTietSP {
         this.qrcode = qrcode;
     }
 
+    @Override
+    public String toString() {
+        return   ten ;
+    }
+
 }

@@ -127,7 +127,7 @@ public class UsersReposytory implements IUsersReposytory {
             pstm.setNString(1, "%" + Ten + "%");
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                nvv.add(new Users(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(8), rs.getString(9), rs.getString(10), new Chucvu(rs.getString(7), rs.getString(12)), rs.getInt(11)));
+                nvv.add(new Users(rs.getString(3), rs.getString(2), rs.getString(1), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(8), rs.getString(9), rs.getString(10), new Chucvu(rs.getString(7), rs.getString(12)), rs.getInt(11)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(UsersReposytory.class.getName()).log(Level.SEVERE, null, ex);

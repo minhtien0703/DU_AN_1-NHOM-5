@@ -225,8 +225,8 @@ public class frm_Sanpham extends javax.swing.JPanel {
         double gianhap = (double) tbl_sp.getValueAt(row, 10);
         double giaban = (double) tbl_sp.getValueAt(row, 11);
         String mota = tbl_sp.getValueAt(row, 12).toString();
-        String barcode = tbl_sp.getValueAt(row, 13).toString();
-        return new ChiTietSPViewModel(ma, ten, nsx, ms, dmsp, kc, cl, th, km, soluong, gianhap, giaban, mota, barcode);
+//        String barcode = tbl_sp.getValueAt(row, 13).toString();
+        return new ChiTietSPViewModel(ma, ten, nsx, ms, dmsp, kc, cl, th, km, soluong, gianhap, giaban, mota, "");
     }
 
     /**

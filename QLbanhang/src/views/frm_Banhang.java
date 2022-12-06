@@ -145,14 +145,11 @@ public class frm_Banhang extends javax.swing.JPanel {
     }
 
     private String getTrangThaiHD(int TrangThai) {
-        if (TrangThai == 1) {
+        if (TrangThai == 0) {
             return "chờ thanh Toán";
         }
-        if (TrangThai == 2) {
+        if (TrangThai == 1) {
             return "Đã thanh Toán";
-        }
-        if (TrangThai == 3) {
-            return "Đã Huỷ";
         }
         return null;
     }
@@ -160,7 +157,7 @@ public class frm_Banhang extends javax.swing.JPanel {
     private void getListHoaDon() {
         model = (DefaultTableModel) tb_hoaDon.getModel();
         model.setRowCount(0);
-        List<HoaDonViewModel> getList = hoaDonServiec.getListHD(1);
+        List<HoaDonViewModel> getList = hoaDonServiec.getListHD(0);
         for (HoaDonViewModel x : getList) {
             model.addRow(new Object[]{
                 x.getMa(),
@@ -837,7 +834,7 @@ public class frm_Banhang extends javax.swing.JPanel {
             run = xWPFParagraph7.createRun();
             run.setText("Ngày lập :" + date);
 
-            File f = new File("D://hoaDon.docx");
+            File f = new File("E:\\hoaDon.docx");
             try {
                 FileOutputStream fos = new FileOutputStream(f);
                 XWPFParagraph xWPFParagraph13 = document.createParagraph();
