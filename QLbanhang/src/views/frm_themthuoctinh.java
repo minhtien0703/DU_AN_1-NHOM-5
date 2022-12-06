@@ -4,19 +4,119 @@
  */
 package views;
 
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import models.ChatLieu;
+import models.DanhMucSP;
+import models.KichCo;
+import models.MauSac;
+import models.NSX;
+import models.ThuongHieu;
+import services.IChatLieuServices;
+import services.IDanhMucSPServices;
+import services.IKichCoServices;
+import services.IMauSacServices;
+import services.INSXServices;
+import services.IThuongHieuServices;
+import services.imp.ChatLieuServices;
+import services.imp.DanhMucSPServices;
+import services.imp.KichCoServices;
+import services.imp.MauSacServices;
+import services.imp.NSXServices;
+import services.imp.ThuongHieuServices;
+import viewmodels.Objecttt;
+
 /**
  *
  * @author hungh
  */
 public class frm_themthuoctinh extends javax.swing.JDialog {
 
-    /**
-     * Creates new form frm_themthuoctinh
-     */
+    private INSXServices iNSXServices;
+    private IMauSacServices iMauSacServices;
+    private IDanhMucSPServices iDanhMucSPServices;
+    private IKichCoServices iKichCoServices;
+    private IChatLieuServices iChatLieuServices;
+    private IThuongHieuServices iThuongHieuServices;
+
     public frm_themthuoctinh(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        iChatLieuServices = new ChatLieuServices();
+        iDanhMucSPServices = new DanhMucSPServices();
+        iKichCoServices = new KichCoServices();
+        iMauSacServices = new MauSacServices();
+        iNSXServices = new NSXServices();
+        iThuongHieuServices = new ThuongHieuServices();
         initComponents();
         setLocationRelativeTo(null);
+        inittable();
+        rdoChatlieu.setSelected(true);
+        loadtablechatlieu();
+    }
+
+    private void inittable() {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setColumnCount(0);
+        model.addColumn("ID");
+        model.addColumn("Tên");
+    }
+
+    private void loadtablechatlieu() {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        for (ChatLieu x : iChatLieuServices.getAll()) {
+            model.addRow(new Object[]{x.getId(), x.getTen()});
+        }
+    }
+
+    private void loadtablensx() {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        for (NSX x : iNSXServices.getAll()) {
+            model.addRow(new Object[]{x.getId(), x.getTen()});
+        }
+    }
+
+    private void loadtablemausac() {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        for (MauSac x : iMauSacServices.getAll()) {
+            model.addRow(new Object[]{x.getId(), x.getTen()});
+        }
+    }
+
+    private void loadtablesize() {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        for (KichCo x : iKichCoServices.getAll()) {
+            model.addRow(new Object[]{x.getId(), x.getTen()});
+        }
+    }
+
+    private void loadtabledanhmuc() {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        for (DanhMucSP x : iDanhMucSPServices.getAll()) {
+            model.addRow(new Object[]{x.getId(), x.getTen()});
+        }
+    }
+
+    private void loadtablethuonghieu() {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        for (ThuongHieu x : iThuongHieuServices.getAll()) {
+            model.addRow(new Object[]{x.getId(), x.getTen()});
+        }
+    }
+
+    private Objecttt getdatdtb(int row) {
+        if (row == -1) {
+            return null;
+        }
+        int id = (int) jTable1.getValueAt(row, 0);
+        String ten = (String) jTable1.getValueAt(row, 1);
+        return new Objecttt(id, ten);
     }
 
     /**
@@ -33,12 +133,12 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
         panelBorder1 = new swing.PanelBorder();
         jLabel1 = new javax.swing.JLabel();
         panelBorder3 = new swing.PanelBorder();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
-        jRadioButton6 = new javax.swing.JRadioButton();
-        jRadioButton7 = new javax.swing.JRadioButton();
-        jRadioButton8 = new javax.swing.JRadioButton();
-        jRadioButton9 = new javax.swing.JRadioButton();
+        rdoThuonghieu = new javax.swing.JRadioButton();
+        rdoChatlieu = new javax.swing.JRadioButton();
+        rdoNSX = new javax.swing.JRadioButton();
+        rdoMausac = new javax.swing.JRadioButton();
+        rdoSize = new javax.swing.JRadioButton();
+        rdodanhmuc = new javax.swing.JRadioButton();
         panelBorder4 = new swing.PanelBorder();
         jTextField1 = new javax.swing.JTextField();
         btn_them = new swing.MyButton();
@@ -53,9 +153,10 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Thêm thuộc tính phụ");
+        setAlwaysOnTop(true);
 
         panelGradiente1.setColorPrimario(new java.awt.Color(204, 255, 255));
-        panelGradiente1.setColorSecundario(new java.awt.Color(255, 204, 255));
 
         panelBorder1.setBackground(new java.awt.Color(204, 204, 255));
 
@@ -66,47 +167,77 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
 
         panelBorder3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jRadioButton2.setBackground(new java.awt.Color(255, 255, 255));
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jRadioButton2.setText("Thương hiệu");
-        panelBorder3.add(jRadioButton2);
-        jRadioButton2.setBounds(270, 100, 110, 40);
+        rdoThuonghieu.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(rdoThuonghieu);
+        rdoThuonghieu.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        rdoThuonghieu.setText("Thương hiệu");
+        rdoThuonghieu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdoThuonghieuActionPerformed(evt);
+            }
+        });
+        panelBorder3.add(rdoThuonghieu);
+        rdoThuonghieu.setBounds(270, 100, 110, 40);
 
-        jRadioButton5.setBackground(new java.awt.Color(255, 255, 255));
-        buttonGroup1.add(jRadioButton5);
-        jRadioButton5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jRadioButton5.setText("Chất liệu");
-        panelBorder3.add(jRadioButton5);
-        jRadioButton5.setBounds(30, 30, 110, 40);
+        rdoChatlieu.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(rdoChatlieu);
+        rdoChatlieu.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        rdoChatlieu.setText("Chất liệu");
+        rdoChatlieu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdoChatlieuActionPerformed(evt);
+            }
+        });
+        panelBorder3.add(rdoChatlieu);
+        rdoChatlieu.setBounds(30, 30, 110, 40);
 
-        jRadioButton6.setBackground(new java.awt.Color(255, 255, 255));
-        buttonGroup1.add(jRadioButton6);
-        jRadioButton6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jRadioButton6.setText("Nhà sản xuất");
-        panelBorder3.add(jRadioButton6);
-        jRadioButton6.setBounds(150, 30, 110, 40);
+        rdoNSX.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(rdoNSX);
+        rdoNSX.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        rdoNSX.setText("Nhà sản xuất");
+        rdoNSX.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdoNSXActionPerformed(evt);
+            }
+        });
+        panelBorder3.add(rdoNSX);
+        rdoNSX.setBounds(150, 30, 110, 40);
 
-        jRadioButton7.setBackground(new java.awt.Color(255, 255, 255));
-        buttonGroup1.add(jRadioButton7);
-        jRadioButton7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jRadioButton7.setText("Màu sắc");
-        panelBorder3.add(jRadioButton7);
-        jRadioButton7.setBounds(270, 30, 110, 40);
+        rdoMausac.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(rdoMausac);
+        rdoMausac.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        rdoMausac.setText("Màu sắc");
+        rdoMausac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdoMausacActionPerformed(evt);
+            }
+        });
+        panelBorder3.add(rdoMausac);
+        rdoMausac.setBounds(270, 30, 110, 40);
 
-        jRadioButton8.setBackground(new java.awt.Color(255, 255, 255));
-        buttonGroup1.add(jRadioButton8);
-        jRadioButton8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jRadioButton8.setText("Size");
-        panelBorder3.add(jRadioButton8);
-        jRadioButton8.setBounds(30, 100, 110, 40);
+        rdoSize.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(rdoSize);
+        rdoSize.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        rdoSize.setText("Size");
+        rdoSize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdoSizeActionPerformed(evt);
+            }
+        });
+        panelBorder3.add(rdoSize);
+        rdoSize.setBounds(30, 100, 110, 40);
 
-        jRadioButton9.setBackground(new java.awt.Color(255, 255, 255));
-        buttonGroup1.add(jRadioButton9);
-        jRadioButton9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jRadioButton9.setText("Danh mục");
-        panelBorder3.add(jRadioButton9);
-        jRadioButton9.setBounds(150, 100, 110, 40);
+        rdodanhmuc.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(rdodanhmuc);
+        rdodanhmuc.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        rdodanhmuc.setText("Danh mục");
+        rdodanhmuc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdodanhmucActionPerformed(evt);
+            }
+        });
+        panelBorder3.add(rdodanhmuc);
+        rdodanhmuc.setBounds(150, 100, 110, 40);
 
         panelBorder1.add(panelBorder3);
         panelBorder3.setBounds(370, 20, 450, 170);
@@ -170,7 +301,7 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
         Btn_capNhat.setBounds(860, 130, 120, 33);
 
         panelGradiente1.add(panelBorder1);
-        panelBorder1.setBounds(10, 0, 1160, 230);
+        panelBorder1.setBounds(10, 10, 1160, 230);
 
         panelBorder2.setBackground(new java.awt.Color(204, 204, 255));
 
@@ -189,10 +320,15 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
         ));
         jTable1.setGridColor(new java.awt.Color(204, 204, 255));
         jTable1.setRowHeight(25);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         panelBorder2.add(jScrollPane1);
-        jScrollPane1.setBounds(0, 70, 1160, 260);
+        jScrollPane1.setBounds(0, 70, 1160, 250);
 
         panelBorder5.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -208,7 +344,7 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
         panelBorder5.setBounds(790, 10, 300, 50);
 
         panelGradiente1.add(panelBorder2);
-        panelBorder2.setBounds(10, 260, 1160, 330);
+        panelBorder2.setBounds(10, 260, 1160, 320);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -225,62 +361,179 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_LamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LamMoiActionPerformed
-
+        clearfrom();
+        if (rdoChatlieu.isSelected() == true) {
+            loadtablechatlieu();
+        } else if (rdoNSX.isSelected() == true) {
+            loadtablensx();
+        } else if (rdoMausac.isSelected() == true) {
+            loadtablemausac();
+        } else if (rdoSize.isSelected() == true) {
+            loadtablesize();
+        } else if (rdodanhmuc.isSelected() == true) {
+            loadtabledanhmuc();
+        } else if (rdoThuonghieu.isSelected() == true) {
+            loadtablethuonghieu();
+        }
     }//GEN-LAST:event_btn_LamMoiActionPerformed
 
     private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
-
+        if (rdoChatlieu.isSelected() == true) {
+            JOptionPane.showMessageDialog(this, iChatLieuServices.Add(getdatafrom()));
+            loadtablechatlieu();
+        } else if (rdoNSX.isSelected() == true) {
+            JOptionPane.showMessageDialog(this, iNSXServices.Add(getdatafrom()));
+            loadtablensx();
+        } else if (rdoMausac.isSelected() == true) {
+            JOptionPane.showMessageDialog(this, iMauSacServices.Add(getdatafrom()));
+            loadtablemausac();
+        } else if (rdoSize.isSelected() == true) {
+            JOptionPane.showMessageDialog(this, iKichCoServices.Add(getdatafrom()));
+            loadtablesize();
+        } else if (rdodanhmuc.isSelected() == true) {
+            JOptionPane.showMessageDialog(this, iDanhMucSPServices.Add(getdatafrom()));
+            loadtabledanhmuc();
+        } else if (rdoThuonghieu.isSelected() == true) {
+            JOptionPane.showMessageDialog(this, iThuongHieuServices.Add(getdatafrom()));
+            loadtablethuonghieu();
+        }
     }//GEN-LAST:event_btn_themActionPerformed
 
     private void Btn_capNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_capNhatActionPerformed
-
+        int row = jTable1.getSelectedRow();
+        int id = (int) jTable1.getValueAt(row, 0);
+        if (rdoChatlieu.isSelected() == true) {
+            JOptionPane.showMessageDialog(this, iChatLieuServices.Update(getdatafrom(), id));
+            loadtablechatlieu();
+        } else if (rdoNSX.isSelected() == true) {
+            JOptionPane.showMessageDialog(this, iNSXServices.Update(getdatafrom(), id));
+            loadtablensx();
+        } else if (rdoMausac.isSelected() == true) {
+            JOptionPane.showMessageDialog(this, iMauSacServices.Update(getdatafrom(), id));
+            loadtablemausac();
+        } else if (rdoSize.isSelected() == true) {
+            JOptionPane.showMessageDialog(this, iKichCoServices.Update(getdatafrom(), id));
+            loadtablesize();
+        } else if (rdodanhmuc.isSelected() == true) {
+            JOptionPane.showMessageDialog(this, iDanhMucSPServices.Update(getdatafrom(), id));
+            loadtabledanhmuc();
+        } else if (rdoThuonghieu.isSelected() == true) {
+            JOptionPane.showMessageDialog(this, iThuongHieuServices.Update(getdatafrom(), id));
+            loadtablethuonghieu();
+        }
     }//GEN-LAST:event_Btn_capNhatActionPerformed
 
     private void btn_xoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xoaActionPerformed
-
+        int row = jTable1.getSelectedRow();
+        int id = (int) jTable1.getValueAt(row, 0);
+        if (rdoChatlieu.isSelected() == true) {
+            JOptionPane.showMessageDialog(this, iChatLieuServices.Delete(id));
+            loadtablechatlieu();
+        } else if (rdoNSX.isSelected() == true) {
+            JOptionPane.showMessageDialog(this, iNSXServices.Delete(id));
+            loadtablensx();
+        } else if (rdoMausac.isSelected() == true) {
+            JOptionPane.showMessageDialog(this, iMauSacServices.Delete(id));
+            loadtablemausac();
+        } else if (rdoSize.isSelected() == true) {
+            JOptionPane.showMessageDialog(this, iKichCoServices.Delete(id));
+            loadtablesize();
+        } else if (rdodanhmuc.isSelected() == true) {
+            JOptionPane.showMessageDialog(this, iDanhMucSPServices.Delete(id));
+            loadtabledanhmuc();
+        } else if (rdoThuonghieu.isSelected() == true) {
+            JOptionPane.showMessageDialog(this, iThuongHieuServices.Delete(id));
+            loadtablethuonghieu();
+        }
     }//GEN-LAST:event_btn_xoaActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frm_themthuoctinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frm_themthuoctinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frm_themthuoctinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frm_themthuoctinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void rdoChatlieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoChatlieuActionPerformed
+        if (rdoChatlieu.isSelected() == true) {
+            loadtablechatlieu();
         }
-        //</editor-fold>
+    }//GEN-LAST:event_rdoChatlieuActionPerformed
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                frm_themthuoctinh dialog = new frm_themthuoctinh(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+    private void rdoNSXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoNSXActionPerformed
+        if (rdoNSX.isSelected() == true) {
+            loadtablensx();
+        }
+    }//GEN-LAST:event_rdoNSXActionPerformed
+
+    private void rdoMausacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoMausacActionPerformed
+        if (rdoMausac.isSelected() == true) {
+            loadtablemausac();
+        }
+    }//GEN-LAST:event_rdoMausacActionPerformed
+
+    private void rdoSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoSizeActionPerformed
+        if (rdoSize.isSelected() == true) {
+            loadtablesize();
+        }
+    }//GEN-LAST:event_rdoSizeActionPerformed
+
+    private void rdodanhmucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdodanhmucActionPerformed
+        if (rdodanhmuc.isSelected() == true) {
+            loadtabledanhmuc();
+        }
+    }//GEN-LAST:event_rdodanhmucActionPerformed
+
+    private void rdoThuonghieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoThuonghieuActionPerformed
+        if (rdoThuonghieu.isSelected() == true) {
+            loadtablethuonghieu();
+        }
+    }//GEN-LAST:event_rdoThuonghieuActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        int row = jTable1.getSelectedRow();
+        if (row == -1) {
+            return;
+        }
+        Objecttt x = getdatdtb(row);
+        jTextField1.setText(x.getTen());
+    }//GEN-LAST:event_jTable1MouseClicked
+
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(frm_themthuoctinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(frm_themthuoctinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(frm_themthuoctinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(frm_themthuoctinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//        //</editor-fold>
+//
+//        /* Create and display the dialog */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                frm_themthuoctinh dialog = new frm_themthuoctinh(new javax.swing.JFrame(), true);
+//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+//                    @Override
+//                    public void windowClosing(java.awt.event.WindowEvent e) {
+//                        System.exit(0);
+//                    }
+//                });
+//                dialog.setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.MyButton Btn_capNhat;
@@ -290,12 +543,6 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton5;
-    private javax.swing.JRadioButton jRadioButton6;
-    private javax.swing.JRadioButton jRadioButton7;
-    private javax.swing.JRadioButton jRadioButton8;
-    private javax.swing.JRadioButton jRadioButton9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
@@ -305,6 +552,24 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
     private swing.PanelBorder panelBorder4;
     private swing.PanelBorder panelBorder5;
     private swing.PanelGradiente panelGradiente1;
+    private javax.swing.JRadioButton rdoChatlieu;
+    private javax.swing.JRadioButton rdoMausac;
+    private javax.swing.JRadioButton rdoNSX;
+    private javax.swing.JRadioButton rdoSize;
+    private javax.swing.JRadioButton rdoThuonghieu;
+    private javax.swing.JRadioButton rdodanhmuc;
     private swing.SearchText searchText1;
     // End of variables declaration//GEN-END:variables
+
+    private Objecttt getdatafrom() {
+        if (jTextField1.getText().isEmpty()) {
+            return null;
+        }
+        return new Objecttt(0, jTextField1.getText());
+
+    }
+
+    private void clearfrom() {
+        jTextField1.setText("");
+    }
 }

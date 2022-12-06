@@ -6,6 +6,7 @@ package services;
 
 import java.util.List;
 import models.ThuongHieu;
+import viewmodels.Objecttt;
 
 /**
  *
@@ -14,9 +15,11 @@ import models.ThuongHieu;
 public interface IThuongHieuServices {
     List<ThuongHieu> getAll();
     
-    String Add(ThuongHieu th);
+    String Add(Objecttt x);
     
-    String Update(ThuongHieu th,String id);
+    String Update(Objecttt x,int id);
     
-    String Delete(String id);
+    String Delete(int id);
+    
+    ThuongHieu getbyid(int id);
 }

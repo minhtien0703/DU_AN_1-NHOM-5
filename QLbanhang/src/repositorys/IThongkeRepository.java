@@ -15,6 +15,13 @@ import models.Thongke;
 public interface IThongkeRepository {
     public List<Thongke> getbyday();
     public int gethdday();
+    public int gethdday(String date);
+    public int gethdmonth(String date);
+    public int gethdyear(String date);
+    public int getkhday();
+    public int getkhday(String date);
+    public int getkhmonth(String date);
+    public int getkhyear(String date);
     public List<Thongke> getbyday(String date);
     public List<Thongke> getbymonth(String date);
     public List<Thongke> getbyyear(String date);

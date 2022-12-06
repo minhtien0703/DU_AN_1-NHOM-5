@@ -13,11 +13,17 @@ import viewmodels.ChiTietSPViewModel;
  * @author vieta
  */
 public interface IChiTietSPServices {
-    List<ChiTietSPViewModel> getAll();
-    
-    String Add(ChiTietSP ctsp);
-    
-    String Update(int id, ChiTietSP ctsp);
-    
-    String Delete(int id);
+
+    public List<ChiTietSPViewModel> getAll();
+
+    public List<ChiTietSPViewModel> getlistbyTen(String ten);
+
+    String Add(ChiTietSPViewModel x);
+
+    String Update(String ma, ChiTietSPViewModel x);
+
+    String Delete(String ma);
+
+    public List<ChiTietSPViewModel> getSPhet();
+
 }

@@ -4,11 +4,7 @@
  */
 package repositorys.imp;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -22,75 +18,55 @@ import utilconnext.DBConnection;
  *
  * @author vieta
  */
+public class KichCoRepositoryimpl implements IKichCoRepository {
 
- 
-public class KichCoRepositoryimpl implements IKichCoRepository{
-    List<KichCo> listkc;
-    
-    public KichCoRepositoryimpl(){
-        listkc = new ArrayList<>();
-    }
-    
+    final String SQL_SELECT_ALL = "SELECT Id,Ten FROM dbo.KichCo";
+    final String SQL_SELECT_BY_ID = "SELECT Id,Ten FROM dbo.KichCo WHERE Id = ?";
+    final String SQL_INSERT = "INSERT INTO dbo.KichCo(Ten) VALUES(?)";
+    final String SQL_UPDATE = "UPDATE dbo.KichCo SET Ten = ? WHERE Id = ?";
+    final String SQL_DELETE = "DELETE dbo.KichCo WHERE Id = ?";
+
     @Override
-    public List<KichCo> getAll(){
+    public List<KichCo> getAll() {
+
+        return getdataquery(SQL_SELECT_ALL);
+
+    }
+
+    @Override
+    public int insert(KichCo x) {
+
+        return DBConnection.ExcuteQuery(SQL_INSERT, x.getTen());
+
+    }
+
+    @Override
+    public int update(KichCo x, int id) {
+        return DBConnection.ExcuteQuery(SQL_UPDATE, x.getTen(), id);
+    }
+
+    @Override
+    public int delete(int id) {
+        return DBConnection.ExcuteQuery(SQL_DELETE, id);
+    }
+
+    @Override
+    public KichCo getbyid(int id) {
+        return getdataquery(SQL_SELECT_BY_ID, id).get(0);
+    }
+
+    private List<KichCo> getdataquery(String SQL, Object... arvg) {
+        List<KichCo> lst = new ArrayList<>();
         try {
-            listkc.removeAll(listkc);
-            String sql = "select * from KichCo";
-            Connection cn = DBConnection.openDbConnection();
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            while(rs.next()){
-                listkc.add(new KichCo(rs.getString(1),rs.getString(2)));
+            ResultSet rl = DBConnection.getDataFromQuery(SQL, arvg);
+            while (rl.next()) {
+                lst.add(new KichCo((int) rl.getObject(1), (String) rl.getObject(2)));
             }
+
         } catch (SQLException ex) {
-            Logger.getLogger(KichCoRepositoryimpl.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
-        return listkc;
-    }
-    
-    @Override
-    public boolean Add(KichCo kc){
-        String sql = "insert into KichCo(Id,Ten) values (newID(),?)";
-        try {
-            Connection cn = DBConnection.openDbConnection();
-            PreparedStatement pstm = cn.prepareStatement(sql);
-           
-            pstm.setString(1, kc.getTen());
-            pstm.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }        
-    }
-    
-    @Override
-    public boolean Update(KichCo kc,String id){
-        String sql = "update KichCo set Ten = ? where id = ?";
-        try {
-            Connection cn = DBConnection.openDbConnection();
-            PreparedStatement pstm = cn.prepareStatement(sql);
-            
-            pstm.setString(1, kc.getTen());
-            pstm.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-    
-    @Override
-    public boolean Delete(String id){
-        String sql = "delete from KichCo where id = ?";
-        int check = 0;
-        try {
-            Connection cn = DBConnection.openDbConnection();
-            PreparedStatement pstm = cn.prepareStatement(sql);
-            pstm.setObject(1, id);
-            check = pstm.executeUpdate();
-        } catch (Exception e) {
-        }
-        return check > 0;
+        return lst;
+
     }
 }
-
-

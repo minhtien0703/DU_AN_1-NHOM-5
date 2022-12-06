@@ -243,4 +243,44 @@ public class KhachHangRPImpl implements IKhachHangReposytory {
         return null;
     }
 
+    @Override
+    public List<KhachHang> SeachTheoSDT(String SDT) {
+        List<KhachHang> getList = new ArrayList<>();
+        try {
+            String sql = "SELECT Ten , TenDem , Ho , Diemthuong FROM KhachHang where Sdt = ?";
+            Connection con = DBConnection.openDbConnection(); 
+            PreparedStatement pr = con.prepareStatement(sql);
+            pr.setString(1, SDT);
+            ResultSet rs = pr.executeQuery();
+            while (rs.next()) {                
+               KhachHang kh = new KhachHang();
+               kh.setTen(rs.getString(3) + " " + rs.getString(2) + " " + rs.getString(1));
+               kh.setDiemthuong(rs.getInt(4));
+//               kh.setId(rs.getInt(5));
+               getList.add(kh);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getList;
+    }
+
+    @Override
+    public Integer updateDiemKhachHang(String SDT, int diem) {
+               int rs = 0;
+        try {
+            String sql = "update KhachHang set DiemThuong = ? where Sdt = ?";
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pr = conn.prepareStatement(sql);
+            pr.setInt(1, diem);
+            pr.setString(2, SDT);
+            rs = pr.executeUpdate();
+         
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+        }
+        return rs;
+    }
+
 }

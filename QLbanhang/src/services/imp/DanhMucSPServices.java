@@ -9,6 +9,7 @@ import models.DanhMucSP;
 import repositorys.IDanhMucSPRepository;
 import repositorys.imp.DanhMucSPRepository;
 import services.IDanhMucSPServices;
+import viewmodels.Objecttt;
 
 /**
  *
@@ -17,35 +18,42 @@ import services.IDanhMucSPServices;
 public class DanhMucSPServices implements IDanhMucSPServices{
      private IDanhMucSPRepository danhMucSPRepository = new DanhMucSPRepository();
     
-    @Override
-    public List<DanhMucSP> getAll(){
+     @Override
+    public List<DanhMucSP> getAll() {
         return danhMucSPRepository.getAll();
     }
-    
+
     @Override
-    public String Add(DanhMucSP dmsp){
-        boolean add = danhMucSPRepository.Add(dmsp);
-        if(add){
-            return "Thêm thành công";
+    public String Add(Objecttt x) {
+        DanhMucSP danhmuc = new DanhMucSP(x.getId(), x.getTen());
+        int them = danhMucSPRepository.insert(danhmuc);
+        if (them == 1) {
+            return "Thành công";
         }
-        return "Thêm thất bại";
+        return "Thất bại";
     }
-    
+
     @Override
-    public String Update(DanhMucSP dmsp,String id){
-        boolean update = danhMucSPRepository.Update(dmsp, id);
-        if(update){
-            return "Sửa thành công";
+    public String Update(Objecttt x, int id) {
+        DanhMucSP danhmuc = new DanhMucSP(x.getId(), x.getTen());
+        int sua = danhMucSPRepository.update(danhmuc,id);
+        if (sua == 1) {
+            return "Thành công";
         }
-        return "Sửa thất bại";
+        return "Thất bại";
     }
-    
+
     @Override
-    public String Delete(String id){
-        boolean delete = danhMucSPRepository.Delete(id);
-        if(delete){
-            return "Xóa thành công";
+    public String Delete(int id) {
+        if (danhMucSPRepository.delete(id) == 1) {
+            return "Thành công";
         }
-        return "Xóa thất bại";
+        return "Thất bại";
     }
+
+    @Override
+    public DanhMucSP getbyid(int id) {
+        return danhMucSPRepository.getdanhmucbyid(id);
+    }
+
 }

@@ -9,43 +9,51 @@ import models.NSX;
 import repositorys.INSXRepository;
 import repositorys.imp.NSXRepository;
 import services.INSXServices;
+import viewmodels.Objecttt;
 
 /**
  *
  * @author vieta
  */
-public class NSXServices implements INSXServices{
-     private INSXRepository nSXRepository = new NSXRepository();
-    
+public class NSXServices implements INSXServices {
+
+    private INSXRepository nSXRepository = new NSXRepository();
+
     @Override
-    public List<NSX> getAll(){
+    public List<NSX> getAll() {
         return nSXRepository.getAll();
     }
-    
+
     @Override
-    public String Add(NSX nsx){
-        boolean add = nSXRepository.Add(nsx);
-        if(add){
-            return "Thêm thành công";
+    public String Add(Objecttt x) {
+        NSX nsx = new NSX(x.getId(), x.getTen());
+        int xxx = nSXRepository.insert(nsx);
+        if (xxx == 1) {
+            return "Thành công";
         }
-        return "Thêm thất bại";
+        return "Thất bại";
     }
-    
+
     @Override
-    public String Update(NSX nsx,String id){
-        boolean update = nSXRepository.Update(nsx, id);
-        if(update){
-            return "Sửa thành công";
+    public String Update(Objecttt x, int id) {
+        NSX nsx = new NSX(x.getId(), x.getTen());
+        int xxx = nSXRepository.update(nsx, id);
+        if (xxx == 1) {
+            return "Thành công";
         }
-        return "Sửa thất bại";
+        return "Thất bại";
     }
-    
+
     @Override
-    public String Delete(String id){
-        boolean delete = nSXRepository.Delete(id);
-        if(delete){
-            return "Xóa thành công";
+    public String Delete(int id) {
+        if (nSXRepository.delete(id) == 1) {
+            return "Thành công";
         }
-        return "Xóa thất bại";
+        return "Thất bại";
+    }
+
+    @Override
+    public NSX getbyid(int id) {
+        return nSXRepository.getbyid(id);
     }
 }

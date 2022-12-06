@@ -4,11 +4,7 @@
  */
 package repositorys.imp;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -22,70 +18,55 @@ import utilconnext.DBConnection;
  * @author vieta
  */
 public class ChatLieuRepositoryimpl implements IChatLieuRepository{
-     List<ChatLieu> listcl;
-    
-    public ChatLieuRepositoryimpl(){
-        listcl = new ArrayList<>();
-    }
-    
+    final String SQL_SELECT_ALL = "SELECT Id,Ten FROM dbo.ChatLieu";
+    final String SQL_SELECT_BY_ID = "SELECT Id,Ten FROM dbo.ChatLieu WHERE Id = ?";
+    final String SQL_INSERT = "INSERT INTO dbo.ChatLieu (Ten) VALUES(?)";
+    final String SQL_UPDATE = "UPDATE dbo.ChatLieu SET Ten = ? WHERE Id = ?";
+    final String SQL_DELETE = "DELETE  dbo.ChatLieu WHERE Id = ?";
+
     @Override
-    public List<ChatLieu> getAll(){
+    public List<ChatLieu> getAll() {
+
+        return getdataquery(SQL_SELECT_ALL);
+
+    }
+
+    @Override
+    public int insert(ChatLieu x) {
+
+        return DBConnection.ExcuteQuery(SQL_INSERT, x.getTen());
+
+    }
+
+    @Override
+    public int update(ChatLieu x, int id) {
+        return DBConnection.ExcuteQuery(SQL_UPDATE, x.getTen(), id);
+    }
+
+    @Override
+    public int delete(int id) {
+        return DBConnection.ExcuteQuery(SQL_DELETE, id);
+    }
+
+    @Override
+    public ChatLieu getbyid(int id) {
+        return getdataquery(SQL_SELECT_BY_ID, id).get(0);
+    }
+
+    private List<ChatLieu> getdataquery(String SQL, Object... arvg) {
+        List<ChatLieu> lst = new ArrayList<>();
         try {
-            listcl.removeAll(listcl);
-            String sql = "select * from ChatLieu";
-            Connection cn = DBConnection.openDbConnection();
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            while(rs.next()){
-                listcl.add(new ChatLieu(rs.getString(1),rs.getString(2)));
+            ResultSet rl = DBConnection.getDataFromQuery(SQL, arvg);
+            while (rl.next()) {
+                lst.add(new ChatLieu((int) rl.getObject(1), (String) rl.getObject(2)));
             }
+
         } catch (SQLException ex) {
-            Logger.getLogger(ChatLieuRepositoryimpl.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
-        return listcl;
+        return lst;
+
     }
+     
     
-    @Override
-    public boolean Add(ChatLieu cl){
-        String sql = "insert into ChatLieu(Id,Ten) values (newID(),?)";
-        try {
-            Connection cn = DBConnection.openDbConnection();
-            PreparedStatement pstm = cn.prepareStatement(sql);
-           
-            pstm.setString(1, cl.getTen());
-            pstm.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }        
-    }
-    
-    @Override
-    public boolean Update(ChatLieu cl,String id){
-        String sql = "update ChatLieu set Ten = ? where id = ?";
-        try {
-            Connection cn = DBConnection.openDbConnection();
-            PreparedStatement pstm = cn.prepareStatement(sql);
-            
-            pstm.setString(1, cl.getTen());
-            pstm.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-    
-    @Override
-    public boolean Delete(String id){
-        String sql = "delete from ChatLieu where id = ?";
-        int check = 0;
-        try {
-            Connection cn = DBConnection.openDbConnection();
-            PreparedStatement pstm = cn.prepareStatement(sql);
-            pstm.setObject(1, id);
-            check = pstm.executeUpdate();
-        } catch (Exception e) {
-        }
-        return check > 0;
-    }
 }

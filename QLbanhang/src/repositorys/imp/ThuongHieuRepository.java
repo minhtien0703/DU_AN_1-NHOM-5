@@ -4,11 +4,7 @@
  */
 package repositorys.imp;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -21,71 +17,55 @@ import utilconnext.DBConnection;
  *
  * @author vieta
  */
-public class ThuongHieuRepository implements IThuongHieuRepository{
-     List<ThuongHieu> listth;
-    
-    public ThuongHieuRepository(){
-        listth = new ArrayList<>();
-    }
-    
+public class ThuongHieuRepository implements IThuongHieuRepository {
+
+    final String SQL_SELECT_ALL = "SELECT Id,Ten FROM dbo.ThuongHieu";
+    final String SQL_SELECT_BY_ID = "SELECT Id,Ten FROM dbo.ThuongHieu WHERE Id = ?";
+    final String SQL_INSERT = "INSERT INTO dbo.ThuongHieu(Ten) VALUES(?)";
+    final String SQL_UPDATE = "UPDATE dbo.ThuongHieu SET Ten = ? WHERE Id = ?";
+    final String SQL_DELETE = "DELETE dbo.ThuongHieu WHERE Id = ?";
+
     @Override
-    public List<ThuongHieu> getAll(){
+    public List<ThuongHieu> getAll() {
+
+        return getdataquery(SQL_SELECT_ALL);
+
+    }
+
+    @Override
+    public int insert(ThuongHieu x) {
+
+        return DBConnection.ExcuteQuery(SQL_INSERT, x.getTen());
+
+    }
+
+    @Override
+    public int update(ThuongHieu x, int id) {
+        return DBConnection.ExcuteQuery(SQL_UPDATE, x.getTen(), id);
+    }
+
+    @Override
+    public int delete(int id) {
+        return DBConnection.ExcuteQuery(SQL_DELETE, id);
+    }
+
+    @Override
+    public ThuongHieu getbyid(int id) {
+        return getdataquery(SQL_SELECT_BY_ID, id).get(0);
+    }
+
+    private List<ThuongHieu> getdataquery(String SQL, Object... arvg) {
+        List<ThuongHieu> lst = new ArrayList<>();
         try {
-            listth.removeAll(listth);
-            String sql = "select * from ThuongHieu";
-            Connection cn = DBConnection.openDbConnection();
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            while(rs.next()){
-                listth.add(new ThuongHieu(rs.getString(1),rs.getString(2)));
+            ResultSet rl = DBConnection.getDataFromQuery(SQL, arvg);
+            while (rl.next()) {
+                lst.add(new ThuongHieu((int) rl.getObject(1), (String) rl.getObject(2)));
             }
+
         } catch (SQLException ex) {
-            Logger.getLogger(ChatLieuRepositoryimpl.class.getName()).log(Level.ALL.SEVERE, null, ex);
+            ex.printStackTrace();
         }
-        return listth;
-    }
-    
-    @Override
-    public boolean Add(ThuongHieu th){
-        String sql = "insert into ThuongHieu(Id,Ten) values (newID(),?)";
-        try {
-            Connection cn = DBConnection.openDbConnection();
-            PreparedStatement pstm = cn.prepareStatement(sql);
-         
-            pstm.setString(1, th.getTen());
-            pstm.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }        
-    }
-    
-    @Override
-    public boolean Update(ThuongHieu th,String id){
-        String sql = "update ThuongHieu set Ten = ? where id = ?";
-        try {
-            Connection cn = DBConnection.openDbConnection();
-            PreparedStatement pstm = cn.prepareStatement(sql);
-         
-            pstm.setString(1, th.getTen());
-            pstm.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-    
-    @Override
-    public boolean Delete(String id){
-        String sql = "delete from ThuongHieu where id = ?";
-        int check = 0;
-        try {
-            Connection cn = DBConnection.openDbConnection();
-            PreparedStatement pstm = cn.prepareStatement(sql);
-            pstm.setObject(1, id);
-            check = pstm.executeUpdate();
-        } catch (Exception e) {
-        }
-        return check > 0;
+        return lst;
+
     }
 }

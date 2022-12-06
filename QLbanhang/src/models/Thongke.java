@@ -27,10 +27,9 @@ public class Thongke {
         this.soSP = soSP;
     }
 
-    public Thongke(int soSP, ChiTietSP chiTietSP,double loinhuan) {
+    public Thongke(int soSP, ChiTietSP chiTietSP) {
         this.soSP = soSP;
         this.chiTietSP = chiTietSP;
-        this.loinhuan = loinhuan;
     }
 
     public double getDoanhthu() {

@@ -9,22 +9,22 @@ package models;
  * @author vieta
  */
 public class DanhMucSP {
-   private String id;
+   private int id;
    private String ten;
 
     public DanhMucSP() {
     }
 
-    public DanhMucSP(String id, String ten) {
+    public DanhMucSP(int id, String ten) {
         this.id = id;
         this.ten = ten;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -36,12 +36,10 @@ public class DanhMucSP {
         this.ten = ten;
     }
 
-   
-
     @Override
     public String toString() {
-        return  ten ;
+        return ten;
     }
    
-   
+      
 }

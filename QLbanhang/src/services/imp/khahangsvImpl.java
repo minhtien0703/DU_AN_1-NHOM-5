@@ -82,4 +82,14 @@ public class khahangsvImpl implements IKhachHangService {
 
     }
 
+    @Override
+    public List<KhachHang> TenDiemKhachHang(String SDT) {
+          return khachHang01.SeachTheoSDT(SDT);
+    }
+
+    @Override
+    public Integer updateDiemKhachHang(String SDT, int diem) {
+        return khachHang01.updateDiemKhachHang(SDT, diem);
+    }
+
 }

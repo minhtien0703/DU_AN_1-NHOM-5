@@ -6,17 +6,24 @@ package repositorys;
 
 import java.util.List;
 import models.ChiTietSP;
+import models.SanPham;
 
 /**
  *
  * @author vieta
  */
 public interface IChiTietSPRepository {
+
     public List<ChiTietSP> getAll();
+
+    int insert(ChiTietSP x);
+
+    int update(ChiTietSP x, String Ma);
+
+    int delete(String ma);
+
+    public List<ChiTietSP> getlistbyTen(String ten);
+
+    public List<ChiTietSP> getSPhet();
     
-    public boolean Add(ChiTietSP ctsp);
-    
-    public boolean Update(ChiTietSP ctsp, int id);
-    
-    public boolean Delete(int id);
 }

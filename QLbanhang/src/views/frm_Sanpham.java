@@ -5,6 +5,7 @@
 package views;
 
 import java.util.List;
+import java.util.Random;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -34,6 +35,7 @@ import services.imp.NSXServices;
 import services.imp.ThuongHieuServices;
 import viewmodels.ChiTietSPViewModel;
 import viewmodels.KhuyenmaiViewmodel;
+import viewmodels.SanPhamViewModel;
 
 /**
  *
@@ -50,7 +52,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
     private IThuongHieuServices iThuongHieuServices;
     private IKhuyenmaiService iKhuyenmaiService;
     DefaultTableModel defaultTableModel;
-    List<ChiTietSPViewModel> listctsp;
+    private boolean hish = false;
 
     public frm_Sanpham() {
         initComponents();
@@ -84,11 +86,147 @@ public class frm_Sanpham extends javax.swing.JPanel {
         List<ThuongHieu> listth = iThuongHieuServices.getAll();
         cbo_thuonghieu1.setModel(new DefaultComboBoxModel(listth.toArray()));
 
-        List<KhuyenmaiViewmodel> listkm = iKhuyenmaiService.GetALL();
+        List<KhuyenMai> listkm = iKhuyenmaiService.getlist();
         cbo_khuyenmai.setModel(new DefaultComboBoxModel(listkm.toArray()));
+        loadData(iChiTietSPServices.getAll());
 
-        loadData();
+    }
 
+    private int getindexmausac(ChiTietSPViewModel x) {
+        List<MauSac> lst = iMauSacServices.getAll();
+        int index = -1;
+        for (int i = 0; i < lst.size(); i++) {
+            if (lst.get(i).getId() == x.getMausac().getId()) {
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    private int getindexnsx(ChiTietSPViewModel x) {
+        List<NSX> lst = iNSXServices.getAll();
+        int index = -1;
+        for (int i = 0; i < lst.size(); i++) {
+            if (lst.get(i).getId() == x.getNsx().getId()) {
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    private int getindexdanhmuc(ChiTietSPViewModel x) {
+        List<DanhMucSP> lst = iDanhMucSPServices.getAll();
+        int index = -1;
+        for (int i = 0; i < lst.size(); i++) {
+            if (lst.get(i).getId() == x.getDanhmuc().getId()) {
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    private int getindexsize(ChiTietSPViewModel x) {
+        List<KichCo> lst = iKichCoServices.getAll();
+        int index = -1;
+        for (int i = 0; i < lst.size(); i++) {
+            if (lst.get(i).getId() == x.getKichco().getId()) {
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    private int getindexthuonghieu(ChiTietSPViewModel x) {
+        List<ThuongHieu> lst = iThuongHieuServices.getAll();
+        int index = -1;
+        for (int i = 0; i < lst.size(); i++) {
+            if (lst.get(i).getId() == x.getThuonghieu().getId()) {
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    private int getindexkhuyenmai(ChiTietSPViewModel x) {
+        List<KhuyenMai> lst = iKhuyenmaiService.getlist();
+        int index = -1;
+        for (int i = 0; i < lst.size(); i++) {
+            if (lst.get(i).getID().equals(x.getKhuyenmai().getID())) {
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    private int getindexchatlieu(ChiTietSPViewModel x) {
+        List<ChatLieu> lst = iChatLieuServices.getAll();
+        int index = -1;
+        for (int i = 0; i < lst.size(); i++) {
+            if (lst.get(i).getId() == x.getChatlieu().getId()) {
+                index = i;
+            }
+        }
+        return index;
+
+    }
+
+    private String zenbarcode() {
+        Random random = new Random();
+        int ran = random.nextInt(999999);
+        int dom = random.nextInt(999999);
+        return ran + "" + dom;
+    }
+
+    private ChiTietSPViewModel getdadtafrom() {
+        if (txt_ma.getText().isEmpty() || txt_ten.getText().isEmpty() || txt_soluongton.getText().isEmpty() || txt_gianhap.getText().isEmpty() || txt_giaban.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "không để trống");
+            return null;
+        }
+        String mota = txt_mota.getText();
+        if (txt_mota.getText().equals("")) {
+            mota = "không có";
+        }
+        NSX nsx = (NSX) cbo_nsx.getSelectedItem();
+        DanhMucSP danhmuc = (DanhMucSP) cbo_danhmuc.getSelectedItem();
+        MauSac mausac = (MauSac) cbo_mausac.getSelectedItem();
+        KhuyenMai khuyenmai = (KhuyenMai) cbo_khuyenmai.getSelectedItem();
+        ChatLieu chatlieu = (ChatLieu) cbo_chatlieu.getSelectedItem();
+        ThuongHieu thuonghieu = (ThuongHieu) cbo_thuonghieu1.getSelectedItem();
+        KichCo kichco = (KichCo) cbo_size.getSelectedItem();
+        double gianhap;
+        double giaban;
+        int soluong;
+        try {
+            gianhap = Double.parseDouble(txt_gianhap.getText());
+            giaban = Double.parseDouble(txt_giaban.getText());
+            soluong = Integer.parseInt(txt_soluongton.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "lỗi");
+        }
+        gianhap = Double.parseDouble(txt_gianhap.getText());
+        giaban = Double.parseDouble(txt_giaban.getText());
+        soluong = Integer.parseInt(txt_soluongton.getText());
+
+        ChiTietSPViewModel ctsp = new ChiTietSPViewModel(txt_ma.getText(), txt_ten.getText(), nsx, mausac, danhmuc, kichco, chatlieu, thuonghieu, khuyenmai, soluong, gianhap, giaban, mota, zenbarcode());
+        return ctsp;
+    }
+
+    private ChiTietSPViewModel getdataTB(int row) {
+        String ma = tbl_sp.getValueAt(row, 0).toString();
+        String ten = tbl_sp.getValueAt(row, 1).toString();
+        NSX nsx = (NSX) tbl_sp.getValueAt(row, 2);
+        MauSac ms = (MauSac) tbl_sp.getValueAt(row, 3);
+        DanhMucSP dmsp = (DanhMucSP) tbl_sp.getValueAt(row, 4);
+        KichCo kc = (KichCo) tbl_sp.getValueAt(row, 5);
+        ChatLieu cl = (ChatLieu) tbl_sp.getValueAt(row, 6);
+        ThuongHieu th = (ThuongHieu) tbl_sp.getValueAt(row, 7);
+        KhuyenMai km = (KhuyenMai) tbl_sp.getValueAt(row, 8);
+        int soluong = (int) tbl_sp.getValueAt(row, 9);
+        double gianhap = (double) tbl_sp.getValueAt(row, 10);
+        double giaban = (double) tbl_sp.getValueAt(row, 11);
+        String mota = tbl_sp.getValueAt(row, 12).toString();
+//        String barcode = tbl_sp.getValueAt(row, 13).toString();
+        return new ChiTietSPViewModel(ma, ten, nsx, ms, dmsp, kc, cl, th, km, soluong, gianhap, giaban, mota, "");
     }
 
     /**
@@ -137,10 +275,10 @@ public class frm_Sanpham extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_sp = new javax.swing.JTable();
         panelBorder3 = new swing.PanelBorder();
-        searchText1 = new swing.SearchText();
+        searchText = new swing.SearchText();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
+        hideshow = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1010, 640));
@@ -333,8 +471,14 @@ public class frm_Sanpham extends javax.swing.JPanel {
         jScrollPane1.setBounds(0, 60, 990, 240);
 
         panelBorder3.setBackground(new java.awt.Color(255, 255, 255));
-        panelBorder3.add(searchText1);
-        searchText1.setBounds(10, 0, 250, 40);
+
+        searchText.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchTextKeyReleased(evt);
+            }
+        });
+        panelBorder3.add(searchText);
+        searchText.setBounds(10, 0, 250, 40);
 
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search_24px.png"))); // NOI18N
         panelBorder3.add(jLabel14);
@@ -346,14 +490,24 @@ public class frm_Sanpham extends javax.swing.JPanel {
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/new-page.png"))); // NOI18N
         jLabel15.setText("Thêm thuộc tính");
+        jLabel15.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel15MouseClicked(evt);
+            }
+        });
         panelBorder2.add(jLabel15);
         jLabel15.setBounds(260, 10, 180, 40);
 
-        jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/hide.png"))); // NOI18N
-        jLabel16.setText("  Hiện sản phẩm ẩn");
-        panelBorder2.add(jLabel16);
-        jLabel16.setBounds(40, 10, 180, 40);
+        hideshow.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        hideshow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/hide.png"))); // NOI18N
+        hideshow.setText("  Hiện sản phẩm ẩn");
+        hideshow.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                hideshowMouseClicked(evt);
+            }
+        });
+        panelBorder2.add(hideshow);
+        hideshow.setBounds(40, 10, 180, 40);
 
         panelGradiente1.add(panelBorder2);
         panelBorder2.setBounds(10, 329, 990, 300);
@@ -371,74 +525,77 @@ public class frm_Sanpham extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_lammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lammoiActionPerformed
-        // TODO add your handling code here:
+        loadData(iChiTietSPServices.getAll());
         clearForm();
     }//GEN-LAST:event_btn_lammoiActionPerformed
 
     private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
-        // TODO add your handling code here:
-        if (check()) {
-            JOptionPane.showMessageDialog(this, iChiTietSPServices.Add(getData()));
-            listctsp = iChiTietSPServices.getAll();
-            loadData();
-        }
+        JOptionPane.showMessageDialog(this, iChiTietSPServices.Add(getdadtafrom()));
     }//GEN-LAST:event_btn_themActionPerformed
 
     private void btn_capnhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_capnhatActionPerformed
-        // TODO add your handling code here:
         int row = tbl_sp.getSelectedRow();
-        if (row < 0) {
-            JOptionPane.showMessageDialog(this, "Bạn cần chọn sản phẩm để cập nhật");
-            return;
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "lỗi");
         }
-        if (JOptionPane.showConfirmDialog(this, "Bạn có muốn cập nhật không ?") == JOptionPane.YES_NO_OPTION) {
-            int id = getId();
-
-            JOptionPane.showMessageDialog(this, iChiTietSPServices.Update(id, getData()));
-            listctsp = iChiTietSPServices.getAll();
-            loadData();
-
-        }
+        String ma = (String) tbl_sp.getValueAt(row, 0);
+        JOptionPane.showMessageDialog(this, iChiTietSPServices.Update(ma, getdadtafrom()));
     }//GEN-LAST:event_btn_capnhatActionPerformed
 
     private void btn_xoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xoaActionPerformed
-        // TODO add your handling code here:
         int row = tbl_sp.getSelectedRow();
-        if (row < 0) {
-            JOptionPane.showMessageDialog(this, "Bạn cần chọn sản phẩm để xóa");
-            return;
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "lỗi");
         }
-        if (JOptionPane.showConfirmDialog(this, "Bạn có muốn xóa không ?") == JOptionPane.YES_NO_OPTION) {
-            int id = getId();
-
-            JOptionPane.showMessageDialog(this, iChiTietSPServices.Delete(id));
-            listctsp = iChiTietSPServices.getAll();
-            loadData();
-
-        }
+        String ma = (String) tbl_sp.getValueAt(row, 0);
+        JOptionPane.showMessageDialog(this, iChiTietSPServices.Delete(ma));
     }//GEN-LAST:event_btn_xoaActionPerformed
 
     private void tbl_spMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_spMouseClicked
-        // TODO add your handling code here:
-        try {
-            int row = tbl_sp.getSelectedRow();
-            ChiTietSPViewModel ctsp = listctsp.get(row);
-            txt_ma.setText(ctsp.getMa());
-            txt_ten.setText(ctsp.getTen());
-            cbo_nsx.setSelectedItem(ctsp.getIdnsx());
-            cbo_mausac.setSelectedItem(ctsp.getIdmausac());
-            cbo_danhmuc.setSelectedItem(ctsp.getIddanhmuc());
-            cbo_size.setSelectedItem(ctsp.getIdkc());
-            cbo_chatlieu.setSelectedItem(ctsp.getIdcl());
-            cbo_thuonghieu1.setSelectedItem(ctsp.getIdth());
-            cbo_khuyenmai.setSelectedItem(ctsp.getIdkm());
-            txt_soluongton.setText(String.valueOf(ctsp.getSoluongton()));
-            txt_gianhap.setText(String.valueOf(ctsp.getGianhap()));
-            txt_giaban.setText(String.valueOf(ctsp.getGiaban()));
-            txt_mota.setText(ctsp.getMota());
-        } catch (Exception e) {
+        int row = tbl_sp.getSelectedRow();
+        if (row == -1) {
+            return;
         }
+        ChiTietSPViewModel x = getdataTB(row);
+        txt_ma.setText(x.getMa());
+        txt_ten.setText(x.getTen());
+        txt_soluongton.setText(x.getSoluongton() + "");
+        txt_giaban.setText(x.getGiaban() + "");
+        txt_gianhap.setText(x.getGianhap() + "");
+        txt_mota.setText(x.getMota());
+        cbo_chatlieu.setSelectedIndex(getindexchatlieu(x));
+        cbo_danhmuc.setSelectedIndex(getindexdanhmuc(x));
+        cbo_mausac.setSelectedIndex(getindexmausac(x));
+        cbo_nsx.setSelectedIndex(getindexnsx(x));
+        cbo_size.setSelectedIndex(getindexsize(x));
+        cbo_thuonghieu1.setSelectedIndex(getindexthuonghieu(x));
+        cbo_khuyenmai.setSelectedIndex(getindexkhuyenmai(x));
+
     }//GEN-LAST:event_tbl_spMouseClicked
+
+    private void hideshowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hideshowMouseClicked
+
+        if (hish == false) {
+            hish = true;
+            hideshow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/show.png")));
+            loadData(iChiTietSPServices.getSPhet());
+            hideshow.setText("Ẩn sản phẩm hết");
+        } else {
+            hish = false;
+            hideshow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/hide.png")));
+            hideshow.setText("Hiện sản phẩm hết");
+            loadData(iChiTietSPServices.getAll());
+        }
+
+    }//GEN-LAST:event_hideshowMouseClicked
+
+    private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
+        new frm_themthuoctinh(new javax.swing.JFrame(), true).setVisible(true);
+    }//GEN-LAST:event_jLabel15MouseClicked
+
+    private void searchTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTextKeyReleased
+        loadData(iChiTietSPServices.getlistbyTen("%"+searchText.getText()+"%"));
+    }//GEN-LAST:event_searchTextKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -453,6 +610,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cbo_nsx;
     private javax.swing.JComboBox<String> cbo_size;
     private javax.swing.JComboBox<String> cbo_thuonghieu1;
+    private javax.swing.JLabel hideshow;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -460,7 +618,6 @@ public class frm_Sanpham extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -475,7 +632,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
     private swing.PanelBorder panelBorder2;
     private swing.PanelBorder panelBorder3;
     private swing.PanelGradiente panelGradiente1;
-    private swing.SearchText searchText1;
+    private swing.SearchText searchText;
     private javax.swing.JTable tbl_sp;
     private swing.MyTextField txt_giaban;
     private swing.MyTextField txt_gianhap;
@@ -496,85 +653,98 @@ public class frm_Sanpham extends javax.swing.JPanel {
         defaultTableModel.addColumn("Size");
         defaultTableModel.addColumn("Chất liệu");
         defaultTableModel.addColumn("Thương hiệu");
-        defaultTableModel.addColumn("Khuyến mãi");       
+        defaultTableModel.addColumn("Khuyến mãi");
         defaultTableModel.addColumn("Số lượng tồn");
         defaultTableModel.addColumn("Giá nhập");
         defaultTableModel.addColumn("Giá bán");
         defaultTableModel.addColumn("Mô tả");
+        defaultTableModel.addColumn("Barcode");
 
     }
 
-    private void loadData() {
+    private void loadData(List<ChiTietSPViewModel> lst) {
         defaultTableModel = (DefaultTableModel) tbl_sp.getModel();
-        defaultTableModel.setRowCount(0);        
-        for (ChiTietSPViewModel x : iChiTietSPServices.getAll()) {
+        defaultTableModel.setRowCount(0);
+        for (ChiTietSPViewModel x : lst) {
             defaultTableModel.addRow(new Object[]{
-                x.getMa(),x.getTen(),x.getIdnsx(),x.getIdmausac(),x.getIddanhmuc(),x.getIdkc(),x.getIdcl(),x.getIdth(),x.getIdkm(),x.getSoluongton(),x.getGianhap(),x.getGiaban(),x.getMota(),x.getQrcode()
+                x.getMa(),
+                x.getTen(),
+                x.getNsx(),
+                x.getMausac(),
+                x.getDanhmuc(),
+                x.getKichco(),
+                x.getChatlieu(),
+                x.getThuonghieu(),
+                x.getKhuyenmai(),
+                x.getSoluongton(),
+                x.getGianhap(),
+                x.getGiaban(),
+                x.getMota(),
+                x.getQrcode()
             });
         }
     }
 
-    public ChiTietSP getData() {
-        String ma = txt_ma.getText();
-        String ten = txt_ten.getText();
-        NSX nsx =(NSX) cbo_nsx.getSelectedItem();
-        MauSac ms = (MauSac) cbo_mausac.getSelectedItem();
-        DanhMucSP dmsp = (DanhMucSP) cbo_danhmuc.getSelectedItem();
-        KichCo kc = (KichCo) cbo_size.getSelectedItem();
-        ChatLieu cl = (ChatLieu) cbo_chatlieu.getSelectedItem();
-        ThuongHieu th = (ThuongHieu) cbo_thuonghieu1.getSelectedItem();
-        KhuyenmaiViewmodel km = (KhuyenmaiViewmodel) cbo_khuyenmai.getSelectedItem();
-        int slt = Integer.parseInt(txt_soluongton.getText());
-        double gianhap = Double.parseDouble(txt_gianhap.getText());
-        double giaban = Double.parseDouble(txt_giaban.getText());
-        String mota = txt_mota.getText();
-        String qrcode = "";
-
-        return new ChiTietSP(ma, ten, nsx.getTen(), ms.getTen(), dmsp.getTen(), kc.getTen(), cl.getTen(), th.getTen(), km.getTenKM(), slt, gianhap, giaban, mota, qrcode);
-    }
-
+//    public ChiTietSP getData() {
+//        String ma = txt_ma.getText();
+//        String ten = txt_ten.getText();
+//        NSX nsx =(NSX) cbo_nsx.getSelectedItem();
+//        MauSac ms = (MauSac) cbo_mausac.getSelectedItem();
+//        DanhMucSP dmsp = (DanhMucSP) cbo_danhmuc.getSelectedItem();
+//        KichCo kc = (KichCo) cbo_size.getSelectedItem();
+//        ChatLieu cl = (ChatLieu) cbo_chatlieu.getSelectedItem();
+//        ThuongHieu th = (ThuongHieu) cbo_thuonghieu1.getSelectedItem();
+//        KhuyenmaiViewmodel km = (KhuyenmaiViewmodel) cbo_khuyenmai.getSelectedItem();
+//        int slt = Integer.parseInt(txt_soluongton.getText());
+//        double gianhap = Double.parseDouble(txt_gianhap.getText());
+//        double giaban = Double.parseDouble(txt_giaban.getText());
+//        String mota = txt_mota.getText();
+//        String qrcode = "";
+//
+//        return new ChiTietSP(ma, ten, nsx.getTen(), ms.getTen(), dmsp.getTen(), kc.getTen(), cl.getTen(), th.getTen(), km.getTenKM(), slt, gianhap, giaban, mota, qrcode);
+//    }
     public void clearForm() {
         txt_ma.setText("");
-        txt_ten.setText("");      
+        txt_ten.setText("");
         txt_soluongton.setText("");
         txt_gianhap.setText("");
         txt_giaban.setText("");
         txt_mota.setText("");
     }
 
-    public boolean check() {
-        if (txt_ma.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Bạn không đc để trống");
-            return false;
-        }
-        if (txt_ten.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Bạn không đc để trống");
-            return false;
-        }
-        
-        if (txt_soluongton.getText() == null) {
-            JOptionPane.showMessageDialog(this, "Bạn không đc để trống");
-            return false;
-        }
-        if (txt_gianhap.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Bạn không đc để trống");
-            return false;
-        }
-        if (txt_giaban.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Bạn không đc để trống");
-            return false;
-        }
-        if (txt_mota.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Bạn không đc để trống");
-            return false;
-        }
-        return true;
-    }
-
-    public int getId() {
-        Integer row = tbl_sp.getSelectedRow();
-        int id = (int) tbl_sp.getValueAt(row, 0);
-        return id;
-
-    }
+//    public boolean check() {
+//        if (txt_ma.getText().equals("")) {
+//            JOptionPane.showMessageDialog(this, "Bạn không đc để trống");
+//            return false;
+//        }
+//        if (txt_ten.getText().equals("")) {
+//            JOptionPane.showMessageDialog(this, "Bạn không đc để trống");
+//            return false;
+//        }
+//        
+//        if (txt_soluongton.getText() == null) {
+//            JOptionPane.showMessageDialog(this, "Bạn không đc để trống");
+//            return false;
+//        }
+//        if (txt_gianhap.getText().equals("")) {
+//            JOptionPane.showMessageDialog(this, "Bạn không đc để trống");
+//            return false;
+//        }
+//        if (txt_giaban.getText().equals("")) {
+//            JOptionPane.showMessageDialog(this, "Bạn không đc để trống");
+//            return false;
+//        }
+//        if (txt_mota.getText().equals("")) {
+//            JOptionPane.showMessageDialog(this, "Bạn không đc để trống");
+//            return false;
+//        }
+//        return true;
+//    }
+//
+//    public int getId() {
+//        Integer row = tbl_sp.getSelectedRow();
+//        int id = (int) tbl_sp.getValueAt(row, 0);
+//        return id;
+//
+//    }
 }

@@ -4,6 +4,14 @@
  */
 package viewmodels;
 
+import models.ChatLieu;
+import models.DanhMucSP;
+import models.KhuyenMai;
+import models.KichCo;
+import models.MauSac;
+import models.NSX;
+import models.ThuongHieu;
+
 /**
  *
  * @author vieta
@@ -11,13 +19,13 @@ package viewmodels;
 public class ChiTietSPViewModel {
     private String ma;
     private String ten;
-    private String idnsx;
-    private String idmausac;
-    private String iddanhmuc;
-    private String idkc;
-    private String idcl;
-    private String idth;
-    private String idkm;  
+    private NSX nsx;
+    private MauSac mausac;
+    private DanhMucSP danhmuc;
+    private KichCo kichco;
+    private ChatLieu chatlieu;
+    private ThuongHieu thuonghieu;
+    private KhuyenMai khuyenmai;
     private int soluongton;
     private Double gianhap;
     private Double giaban;
@@ -27,21 +35,20 @@ public class ChiTietSPViewModel {
     public ChiTietSPViewModel() {
     }
 
-    public ChiTietSPViewModel(String ma, String ten, String idnsx, String idmausac, String iddanhmuc, String idkc, String idcl, String idth, String idkm, int soluongton, Double gianhap, Double giaban, String mota ,String qrcode) {
+    public ChiTietSPViewModel(String ma, String ten, NSX nsx, MauSac mausac, DanhMucSP danhmuc, KichCo kichco, ChatLieu chatlieu, ThuongHieu thuonghieu, KhuyenMai khuyenmai, int soluongton, Double gianhap, Double giaban, String mota, String qrcode) {
         this.ma = ma;
         this.ten = ten;
-        this.idnsx = idnsx;
-        this.idmausac = idmausac;
-        this.iddanhmuc = iddanhmuc;
-        this.idkc = idkc;
-        this.idcl = idcl;
-        this.idth = idth;
-        this.idkm = idkm;
-       
+        this.nsx = nsx;
+        this.mausac = mausac;
+        this.danhmuc = danhmuc;
+        this.kichco = kichco;
+        this.chatlieu = chatlieu;
+        this.thuonghieu = thuonghieu;
+        this.khuyenmai = khuyenmai;
         this.soluongton = soluongton;
         this.gianhap = gianhap;
         this.giaban = giaban;
-         this.mota = mota;
+        this.mota = mota;
         this.qrcode = qrcode;
     }
 
@@ -61,63 +68,61 @@ public class ChiTietSPViewModel {
         this.ten = ten;
     }
 
-    public String getIdnsx() {
-        return idnsx;
+    public NSX getNsx() {
+        return nsx;
     }
 
-    public void setIdnsx(String idnsx) {
-        this.idnsx = idnsx;
+    public void setNsx(NSX nsx) {
+        this.nsx = nsx;
     }
 
-    public String getIdmausac() {
-        return idmausac;
+    public MauSac getMausac() {
+        return mausac;
     }
 
-    public void setIdmausac(String idmausac) {
-        this.idmausac = idmausac;
+    public void setMausac(MauSac mausac) {
+        this.mausac = mausac;
     }
 
-    public String getIddanhmuc() {
-        return iddanhmuc;
+    public DanhMucSP getDanhmuc() {
+        return danhmuc;
     }
 
-    public void setIddanhmuc(String iddanhmuc) {
-        this.iddanhmuc = iddanhmuc;
+    public void setDanhmuc(DanhMucSP danhmuc) {
+        this.danhmuc = danhmuc;
     }
 
-    public String getIdkc() {
-        return idkc;
+    public KichCo getKichco() {
+        return kichco;
     }
 
-    public void setIdkc(String idkc) {
-        this.idkc = idkc;
+    public void setKichco(KichCo kichco) {
+        this.kichco = kichco;
     }
 
-    public String getIdcl() {
-        return idcl;
+    public ChatLieu getChatlieu() {
+        return chatlieu;
     }
 
-    public void setIdcl(String idcl) {
-        this.idcl = idcl;
+    public void setChatlieu(ChatLieu chatlieu) {
+        this.chatlieu = chatlieu;
     }
 
-    public String getIdth() {
-        return idth;
+    public ThuongHieu getThuonghieu() {
+        return thuonghieu;
     }
 
-    public void setIdth(String idth) {
-        this.idth = idth;
+    public void setThuonghieu(ThuongHieu thuonghieu) {
+        this.thuonghieu = thuonghieu;
     }
 
-    public String getIdkm() {
-        return idkm;
+    public KhuyenMai getKhuyenmai() {
+        return khuyenmai;
     }
 
-    public void setIdkm(String idkm) {
-        this.idkm = idkm;
+    public void setKhuyenmai(KhuyenMai khuyenmai) {
+        this.khuyenmai = khuyenmai;
     }
-
-   
 
     public int getSoluongton() {
         return soluongton;
@@ -142,7 +147,8 @@ public class ChiTietSPViewModel {
     public void setGiaban(Double giaban) {
         this.giaban = giaban;
     }
-     public String getMota() {
+
+    public String getMota() {
         return mota;
     }
 
@@ -157,4 +163,6 @@ public class ChiTietSPViewModel {
     public void setQrcode(String qrcode) {
         this.qrcode = qrcode;
     }
+
+    
 }

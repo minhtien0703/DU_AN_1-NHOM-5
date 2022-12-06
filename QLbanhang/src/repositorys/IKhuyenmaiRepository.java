@@ -13,6 +13,7 @@ import models.KhuyenMai;
  * @author ADMIN
  */
 public interface IKhuyenmaiRepository {
+
     public List<KhuyenMai> GetAll();
 
     public boolean Add(KhuyenMai km);
@@ -27,10 +28,13 @@ public interface IKhuyenmaiRepository {
 
     public List<KhuyenMai> GetOnebyKT(String date);
 
-    public List<KhuyenMai> GetOnebyALL(String datedb,String datekt);
-    
+    public List<KhuyenMai> GetOnebyALL(String datedb, String datekt);
+
     public List<KhuyenMai> GetOnebyten(String ten);
-    
+
     public boolean UpdateTT();
+
     public boolean UpdateTT2();
+
+    public KhuyenMai getbyid(int id);
 }

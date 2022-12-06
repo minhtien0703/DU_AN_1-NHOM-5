@@ -6,6 +6,7 @@ package services;
 
 import java.util.List;
 import models.MauSac;
+import viewmodels.Objecttt;
 
 /**
  *
@@ -14,9 +15,11 @@ import models.MauSac;
 public interface IMauSacServices {
     List<MauSac> getAll();
     
-    String Add(MauSac ms);
+    String Add(Objecttt x);
     
-    String Update(MauSac ms,String id);
+    String Update(Objecttt x,int id);
     
-    String Delete(String id);
+    String Delete(int id);
+    
+    MauSac getbyid(int id);
 }

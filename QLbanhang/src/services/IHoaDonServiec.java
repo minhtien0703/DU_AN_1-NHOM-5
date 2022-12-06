@@ -30,8 +30,11 @@ public interface IHoaDonServiec {
     Integer updateSanPhamTrenGioHang(int idHD, int idSP, int SoLuong);
 
     Integer clearSanPhamTrenGioHang(int idHD);
-    
+
     Integer getIDCTSP(int MaHD);
-    
-     Integer updateSoLuongGioHang(int SoLuong,String MaSP , String MaHD);
+
+    Integer updateSoLuongGioHang(int SoLuong, String MaSP, String MaHD);
+
+    Integer updateTrangThaiHoaDon(HoaDonViewModel hd );
+    Integer updateHoaDonKhachHang(int Ma  ,String MaHD);
 }

@@ -9,38 +9,38 @@ package models;
  * @author Admin
  */
 public class MauSac {
-    private String id;
-    private String Ten;
+    private int id;
+    private String ten;
 
     public MauSac() {
     }
 
-    public MauSac(String id, String Ten) {
+    public MauSac(int id, String ten) {
         this.id = id;
-        this.Ten = Ten;
+        this.ten = ten;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
     public String getTen() {
-        return Ten;
+        return ten;
     }
 
-    public void setTen(String Ten) {
-        this.Ten = Ten;
+    public void setTen(String ten) {
+        this.ten = ten;
     }
-
-  
 
     @Override
     public String toString() {
-        return  Ten ;
+        return ten ;
     }
+    
+    
     
 }

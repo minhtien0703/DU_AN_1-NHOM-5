@@ -12,11 +12,14 @@ import models.ThuongHieu;
  * @author vieta
  */
 public interface IThuongHieuRepository {
+
     public List<ThuongHieu> getAll();
-    
-    public boolean Add(ThuongHieu th);
-    
-    public boolean Update(ThuongHieu th,String id);
-    
-    public boolean Delete(String id);
+
+    public int insert(ThuongHieu x);
+
+    public int update(ThuongHieu x, int id);
+
+    public int delete(int id);
+
+    public ThuongHieu getbyid(int id);
 }

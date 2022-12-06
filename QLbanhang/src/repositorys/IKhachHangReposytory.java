@@ -27,5 +27,9 @@ public interface IKhachHangReposytory {
     public List<KhachHang> GetTK(String ten);
 
     public List<KhachHang02ViewMD> GetTK01(String ID);
+    
+     List<KhachHang> SeachTheoSDT(String SDT);
+    
+    Integer updateDiemKhachHang(String SDT , int diem);
 
 }

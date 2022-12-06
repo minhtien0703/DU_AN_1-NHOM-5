@@ -29,5 +29,10 @@ public interface IKhachHangService {
     public List<KhachHangViewMD> GetTK(String ten);
 
     public List<KhachHang02ViewMD> GetTK1(String ID);
+    
+    
+     List<KhachHang> TenDiemKhachHang(String SDT);
+    
+     Integer updateDiemKhachHang(String SDT , int diem);
 
 }
