@@ -22,25 +22,29 @@ import utilconnext.DBConnection;
 public class HoaDonRepostory implements IHoaDonRepostory {
 
 
-    @Override
+   @Override
     public List<HoaDon> GetAllHD() {
-        String query = "SELECT a.MA,b.TEN,c.TEN,NGAYTAO,NGAYTHANHTOAN,TRANGTHAI,GHICHU FROM HOADON a JOIN USERS b ON a.IDNV = b.ID "
+        String query = "SELECT a.MA,b.TEN,c.TEN,NGAYTAO,NGAYTHANHTOAN,TinhTrang,GHICHU FROM HOADON a JOIN USERS b ON a.IDNV = b.ID "
                 + "JOIN KHACHHANG c ON a.IDKH = c.ID";
-        try (Connection con = DBConnection.openDbConnection(); PreparedStatement ps = con.prepareStatement(query);) {
+        try (Connection con = DBConnection.openDbConnection();
+                PreparedStatement ps = con.prepareStatement(query);) {
             ResultSet rs = ps.executeQuery();
             List<HoaDon> listSP = new ArrayList<>();
             while (rs.next()) {
                 HoaDon hoadon = new HoaDon();
                 hoadon.setMa(rs.getString(1));
-                User u = new User();
-                u.setTen(rs.getString(2));
-                KhachHang khachHang = new KhachHang();
-                khachHang.setTen(rs.getString(3));
-                hoadon.setKhachHang(khachHang);
                 hoadon.setGhichu(rs.getString(7));
                 hoadon.setNgayTao(rs.getDate(4));
                 hoadon.setNgayThanhToan(rs.getDate(5));
                 hoadon.setTinhTrang(rs.getInt(6));
+
+                User u = new User();
+                u.setTen(rs.getString(2));
+                hoadon.setUser(u);
+
+                KhachHang khachHang = new KhachHang();
+                khachHang.setTen(rs.getString(3));
+                hoadon.setKhachHang(khachHang);
 
                 listSP.add(hoadon);
             }
@@ -51,6 +55,179 @@ public class HoaDonRepostory implements IHoaDonRepostory {
         return null;
     }
 
+    @Override
+    public List<HoaDonChiTiet> GetAllHDCT() {
+        String query = "SELECT c.Ma, b.MA,b.TEN,a.soluong,DonGia FROM HOADONCHITIET a JOIN ChitietSP b ON a.IdCTSP = b.Id"
+                + " JOIN HOADON c ON a.IDHD = c.ID";
+        try (Connection con = DBConnection.openDbConnection();
+                PreparedStatement ps = con.prepareStatement(query);) {
+            ResultSet rs = ps.executeQuery();
+
+            List<HoaDonChiTiet> listHDCT = new ArrayList<>();
+            while (rs.next()) {
+                HoaDonChiTiet hoadonCT = new HoaDonChiTiet();
+                hoadonCT.setSoluong(rs.getInt(4));
+                hoadonCT.setDonGia(rs.getDouble(5));
+
+                SanPham SP = new SanPham();
+                SP.setMa(rs.getString(2));
+                SP.setTen(rs.getString(3));
+                hoadonCT.setSanPham(SP);
+
+                HoaDon hd = new HoaDon();
+                hd.setMa(rs.getString(1));
+                hoadonCT.setHaoDon(hd);
+
+                listHDCT.add(hoadonCT);
+            }
+            return listHDCT;
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return null;
+    }
+
+    @Override
+    public List<HoaDonChiTiet> gettimma(String ma) {
+
+        List<HoaDonChiTiet> getList = new ArrayList<>();
+        try {
+            String sql = "SELECT c.Ma, b.MA,b.TEN,a.soluong,DonGia FROM HOADONCHITIET a JOIN ChitietSP b ON a.IdCTSP = b.Id"
+                    + " JOIN HOADON c ON a.IDHD = c.ID "
+                    + "WHERE c.Ma =?";
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pr = conn.prepareStatement(sql);
+            pr.setString(1, ma);
+            ResultSet rs = pr.executeQuery();
+            while (rs.next()) {
+                HoaDonChiTiet hoadonCT = new HoaDonChiTiet();
+                hoadonCT.setSoluong(rs.getInt(4));
+                hoadonCT.setDonGia(rs.getDouble(5));
+
+                SanPham SP = new SanPham();
+                SP.setMa(rs.getString(2));
+                SP.setTen(rs.getString(3));
+                hoadonCT.setSanPham(SP);
+
+                HoaDon hd = new HoaDon();
+                hd.setMa(rs.getString(1));
+                hoadonCT.setHaoDon(hd);
+                getList.add(hoadonCT);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getList;
+    }
+
+    @Override
+    public List<HoaDon> getHDTen(String Ten) {
+        List<HoaDon> getList = new ArrayList<>();
+        try {
+            String sql = "SELECT a.MA,b.TEN,c.TEN,NGAYTAO,NGAYTHANHTOAN,TinhTrang,GHICHU FROM HOADON a JOIN USERS b ON a.IDNV = b.ID \n"
+                    + "                JOIN KHACHHANG c ON a.IDKH = c.ID\n"
+                    + "                WHERE c.Ten =?";
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pr = conn.prepareStatement(sql);
+            pr.setString(1, Ten);
+            ResultSet rs = pr.executeQuery();
+            while (rs.next()) {
+                HoaDon hoadon = new HoaDon();
+                hoadon.setMa(rs.getString(1));
+                hoadon.setGhichu(rs.getString(7));
+                hoadon.setNgayTao(rs.getDate(4));
+                hoadon.setNgayThanhToan(rs.getDate(5));
+                hoadon.setTinhTrang(rs.getInt(6));
+
+                User u = new User();
+                u.setTen(rs.getString(2));
+                hoadon.setUser(u);
+
+                KhachHang khachHang = new KhachHang();
+                khachHang.setTen(rs.getString(3));
+                hoadon.setKhachHang(khachHang);
+
+                getList.add(hoadon);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getList;
+
+    }
+
+    @Override
+    public List<HoaDon> getHDTrangThai(int TrangThai) {
+        List<HoaDon> getList = new ArrayList<>();
+        try {
+            String sql = "SELECT a.MA,b.TEN,c.TEN,NGAYTAO,NGAYTHANHTOAN,TinhTrang,GHICHU FROM HOADON a JOIN USERS b ON a.IDNV = b.ID \n"
+                    + "                             JOIN KHACHHANG c ON a.IDKH = c.ID\n"
+                    + "							 where a.TinhTrang = ?";
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pr = conn.prepareStatement(sql);
+            pr.setInt(1, TrangThai);
+            ResultSet rs = pr.executeQuery();
+            while (rs.next()) {
+                HoaDon hoadon = new HoaDon();
+                hoadon.setMa(rs.getString(1));
+                hoadon.setGhichu(rs.getString(7));
+                hoadon.setNgayTao(rs.getDate(4));
+                hoadon.setNgayThanhToan(rs.getDate(5));
+                hoadon.setTinhTrang(rs.getInt(6));
+
+                User u = new User();
+                u.setTen(rs.getString(2));
+                hoadon.setUser(u);
+
+                KhachHang khachHang = new KhachHang();
+                khachHang.setTen(rs.getString(3));
+                hoadon.setKhachHang(khachHang);
+
+                getList.add(hoadon);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getList;
+    }
+    
+
+    @Override
+    public List<HoaDon> GetTimNTT(String NgayTT) {
+       List<HoaDon> getList = new ArrayList<>();
+        try {
+            String sql = "SELECT a.MA,b.TEN,c.TEN,NGAYTAO,NGAYTHANHTOAN,TinhTrang,GHICHU FROM HOADON a JOIN USERS b ON a.IDNV = b.ID \n"
+                    + "JOIN KHACHHANG c ON a.IDKH = c.ID\n"
+                    + "where a.NGAYTHANHTOAN = ?";
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pr = conn.prepareStatement(sql);
+            pr.setString(1, NgayTT);
+            ResultSet rs = pr.executeQuery();
+            while (rs.next()) {
+                HoaDon hoadon = new HoaDon();
+                hoadon.setMa(rs.getString(1));
+                hoadon.setGhichu(rs.getString(7));
+                hoadon.setNgayTao(rs.getDate(4));
+                hoadon.setNgayThanhToan(rs.getDate(5));
+                hoadon.setTinhTrang(rs.getInt(6));
+
+                User u = new User();
+                u.setTen(rs.getString(2));
+                hoadon.setUser(u);
+
+                KhachHang khachHang = new KhachHang();
+                khachHang.setTen(rs.getString(3));
+                hoadon.setKhachHang(khachHang);
+
+                getList.add(hoadon);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getList;
+    }
+    
+/////////////////////////////////////////////////
 /////////////////////////////////////////////////
      @Override
     public Integer insertHoaDon(HoaDon hd, Integer idNV) {

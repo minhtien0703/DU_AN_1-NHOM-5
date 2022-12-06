@@ -14,7 +14,7 @@ import models.SanPham;
 public class HoaDonCHiTietViewModel {
     private int Soluong;
     private Double DonGia;
-    private Double DonGiaKhiGiam;
+
     private HoaDon haDon;
     private SanPham sanPham;
    
@@ -23,10 +23,10 @@ public class HoaDonCHiTietViewModel {
     public HoaDonCHiTietViewModel() {
     }
 
-    public HoaDonCHiTietViewModel( int Soluong, Double DonGia, Double DonGiaKhiGiam, HoaDon haDon, SanPham sanPham) {
+    public HoaDonCHiTietViewModel( int Soluong, Double DonGia, HoaDon haDon, SanPham sanPham) {
         this.Soluong = Soluong;
         this.DonGia = DonGia;
-        this.DonGiaKhiGiam = DonGiaKhiGiam;
+      
         this.haDon = haDon;
         this.sanPham = sanPham;
     }
@@ -47,13 +47,7 @@ public class HoaDonCHiTietViewModel {
         this.DonGia = DonGia;
     }
 
-    public Double getDonGiaKhiGiam() {
-        return DonGiaKhiGiam;
-    }
-
-    public void setDonGiaKhiGiam(Double DonGiaKhiGiam) {
-        this.DonGiaKhiGiam = DonGiaKhiGiam;
-    }
+   
 
     public HoaDon getHaDon() {
         return haDon;

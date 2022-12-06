@@ -14,9 +14,17 @@ import models.HoaDonChiTiet;
  */
 public interface IHoaDonRepostory {
 
-
-    public List<HoaDon> GetAllHD();
-
+    public List<HoaDon> GetAllHD();    
+    
+    public List<HoaDon> getHDTen(String Ten);
+    
+    public List<HoaDon> getHDTrangThai(int TrangThai);
+    
+    public List<HoaDonChiTiet> GetAllHDCT();
+    
+    public List<HoaDonChiTiet> gettimma(String ma);
+     
+    public List<HoaDon> GetTimNTT(String NgayTT);
 ///
     Integer insertHoaDon(HoaDon hd, Integer idNV);
 
