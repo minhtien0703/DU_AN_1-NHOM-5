@@ -24,12 +24,16 @@ public interface IKhachHangReposytory {
 
     boolean delete(int id);
 
-    public List<KhachHang> GetTK(String ten);
+    public List<KhachHang> GetTK(String SDT);
 
-    public List<KhachHang02ViewMD> GetTK01(String ID);
-    
-     List<KhachHang> SeachTheoSDT(String SDT);
-    
-    Integer updateDiemKhachHang(String SDT , int diem);
+    public List<KhachHang02ViewMD> GetTKTheoIDKH(int ID);
+
+    List<KhachHang> SeachTheoSDT(String SDT);
+
+    Integer updateDiemKhachHang(String SDT, int diem);
+
+    String kiemtra(String mail);
+
+    String kiemtrasdt(String sdt);
 
 }

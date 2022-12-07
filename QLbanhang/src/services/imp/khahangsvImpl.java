@@ -61,19 +61,14 @@ public class khahangsvImpl implements IKhachHangService {
     }
 
     @Override
-    public List<KhachHangViewMD> GetTK(String ten) {
-        List<KhachHang> kh = khachHang01.GetTK(ten);
+    public List<KhachHangViewMD> GetTK(String SDT) {
+        List<KhachHang> kh = khachHang01.GetTK(SDT);
         List<KhachHangViewMD> list01 = new ArrayList<>();
         for (KhachHang x : kh) {
             list01.add(new KhachHangViewMD(x.getId(), x.getTen(), x.getTendem(), x.getHo(), x.getGioitinh(), x.getNgaysinh(), x.getEmail(), x.getSdt(), x.getDiemthuong()));
         }
         return list01;
 
-    }
-
-    @Override
-    public List<KhachHang02ViewMD> GetTK1(String ID) {
-        return khachHang01.GetTK01(ID);
     }
 
     @Override
@@ -84,12 +79,30 @@ public class khahangsvImpl implements IKhachHangService {
 
     @Override
     public List<KhachHang> TenDiemKhachHang(String SDT) {
-          return khachHang01.SeachTheoSDT(SDT);
+        return khachHang01.SeachTheoSDT(SDT);
     }
 
     @Override
     public Integer updateDiemKhachHang(String SDT, int diem) {
         return khachHang01.updateDiemKhachHang(SDT, diem);
+    }
+
+    @Override
+    public List<KhachHang02ViewMD> GetTKTheoIDKH(int ID) {
+        return khachHang01.GetTKTheoIDKH(ID);
+
+    }
+
+    @Override
+    public String kiemtra(String mail) {
+        return khachHang01.kiemtra(mail);
+
+    }
+
+    @Override
+    public String kiemtrasdt(String sdt) {
+        return khachHang01.kiemtrasdt(sdt);
+
     }
 
 }

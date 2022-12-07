@@ -15,28 +15,25 @@ public class KhachHang02ViewMD {
     private String tendem;
     private String ho;
     private String SDT;
-    private int IDHD;
+    private String MaHD;
     private String ngayTao;
-    private int SL;
     private double dongia;
     private int trangthai;
-    private String tensp;
 
     public KhachHang02ViewMD() {
     }
 
-    public KhachHang02ViewMD(int id, String ten, String tendem, String ho, String SDT, int IDHD, String ngayTao, int SL, double dongia, int trangthai, String tensp) {
+    public KhachHang02ViewMD(int id, String ten, String tendem, String ho, String SDT, String MaHD, String ngayTao, double dongia, int trangthai) {
         this.id = id;
         this.ten = ten;
         this.tendem = tendem;
         this.ho = ho;
         this.SDT = SDT;
-        this.IDHD = IDHD;
+        this.MaHD = MaHD;
         this.ngayTao = ngayTao;
-        this.SL = SL;
         this.dongia = dongia;
         this.trangthai = trangthai;
-        this.tensp = tensp;
+       
     }
 
     public int getId() {
@@ -79,28 +76,12 @@ public class KhachHang02ViewMD {
         this.SDT = SDT;
     }
 
-    public int getIDHD() {
-        return IDHD;
-    }
-
-    public void setIDHD(int IDHD) {
-        this.IDHD = IDHD;
-    }
-
     public String getNgayTao() {
         return ngayTao;
     }
 
     public void setNgayTao(String ngayTao) {
         this.ngayTao = ngayTao;
-    }
-
-    public int getSL() {
-        return SL;
-    }
-
-    public void setSL(int SL) {
-        this.SL = SL;
     }
 
     public double getDongia() {
@@ -119,16 +100,16 @@ public class KhachHang02ViewMD {
         this.trangthai = trangthai;
     }
 
-    public String getTensp() {
-        return tensp;
+    public String getMaHD() {
+        return MaHD;
     }
 
-    public void setTensp(String tensp) {
-        this.tensp = tensp;
+    public void setMaHD(String MaHD) {
+        this.MaHD = MaHD;
     }
 
     public Object[] toDataRow() {
-        return new Object[]{id, ho + " " + tendem + " " + ten, SDT, IDHD, ngayTao,tensp, SL, dongia,  trangthai == 0 ? "chờ thanh toán" : "Đã Thanh Toán"};
+        return new Object[]{id, ho + " " + tendem + " " + ten, SDT, MaHD, ngayTao, dongia, trangthai == 0 ? "chờ thanh toán" : "Đã Thanh Toán"};
 
     }
 }
