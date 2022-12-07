@@ -6,6 +6,7 @@ package services.imp;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import models.ChiTietSP;
 import repositorys.IChatLieuRepository;
 import repositorys.IChiTietSPRepository;
@@ -25,6 +26,7 @@ import repositorys.imp.NSXRepository;
 import repositorys.imp.ThuongHieuRepository;
 import services.IChiTietSPServices;
 import viewmodels.ChiTietSPViewModel;
+import views.frm_Sanpham;
 
 /**
  *
@@ -86,45 +88,42 @@ public class ChiTietSPServices implements IChiTietSPServices {
                     x.getMota(),
                     x.getQrcode()));
         }
-        
+
         return lst;
     }
 
     @Override
-    public String Add(ChiTietSPViewModel x) {
+    public boolean Add(ChiTietSPViewModel x) {
         System.out.println(x.toString());
-        ChiTietSP ctsp = new ChiTietSP(x.getMa(), x.getTen(), x.getNsx().getId(), x.getMausac().getId(), x.getDanhmuc().getId(), x.getKichco().getId(), x.getChatlieu().getId(), x.getThuonghieu().getId(), Integer.parseUnsignedInt(x.getKhuyenmai().getID()), x.getSoluongton(), x.getGianhap(), x.getGiaban(), x.getMota(), x.getQrcode());
         List<ChiTietSP> lst = chiTietSPRepository.check(x.getMa());
-        if (lst != null) {
-            return "Không để mã sản phẩm trùng";
+        ChiTietSP ctsp = new ChiTietSP(x.getMa(), x.getTen(), x.getNsx().getId(), x.getMausac().getId(), x.getDanhmuc().getId(), x.getKichco().getId(), x.getChatlieu().getId(), x.getThuonghieu().getId(), Integer.parseUnsignedInt(x.getKhuyenmai().getID()), x.getSoluongton(), x.getGianhap(), x.getGiaban(), x.getMota(), x.getQrcode());
+        try {
+            ChiTietSP xyy = lst.get(0);
+            JOptionPane.showMessageDialog(new frm_Sanpham(), "Không để trùng mã");
+
+            return false;
+        } catch (Exception e) {
+            if (chiTietSPRepository.insert(ctsp) == 1) {
+                JOptionPane.showMessageDialog(new frm_Sanpham(), "Thành công");
+                return true;
+            }
+            JOptionPane.showMessageDialog(new frm_Sanpham(), "Thất bại");
+            return false;
         }
-       
-        if (chiTietSPRepository.insert(ctsp) == 1) {
-            return "Thành công";
-        }
-        return "Thất bại";
     }
 
     @Override
-    public String Update(String ma, ChiTietSPViewModel x) {
-        ChiTietSP ctsp = new ChiTietSP(x.getMa(), x.getTen(), x.getNsx().getId(), x.getMausac().getId(), x.getDanhmuc().getId(), x.getKichco().getId(), x.getChatlieu().getId(), x.getThuonghieu().getId(), Integer.parseUnsignedInt(x.getKhuyenmai().getID()), x.getSoluongton(), x.getGianhap(),x.getGiaban() , x.getMota(), x.getQrcode());
+    public boolean Update(String ma, ChiTietSPViewModel x) {
+        ChiTietSP ctsp = new ChiTietSP(x.getMa(), x.getTen(), x.getNsx().getId(), x.getMausac().getId(), x.getDanhmuc().getId(), x.getKichco().getId(), x.getChatlieu().getId(), x.getThuonghieu().getId(), Integer.parseUnsignedInt(x.getKhuyenmai().getID()), x.getSoluongton(), x.getGianhap(), x.getGiaban(), x.getMota(), x.getQrcode());
         if (chiTietSPRepository.update(ctsp, ma) == 1) {
-            return "Thành công";
+            return true;
         }
-        return "Thất bại";
-    }
-
-    @Override
-    public String Delete(String ma) {
-        if (chiTietSPRepository.delete(ma) == 1) {
-            return "Thành công";
-        }
-        return "Thất bại";
+        return false;
     }
 
     @Override
     public List<ChiTietSPViewModel> getSPhet() {
-       List<ChiTietSP> list = chiTietSPRepository.getSPhet();
+        List<ChiTietSP> list = chiTietSPRepository.getSPhet();
         List<ChiTietSPViewModel> lst = new ArrayList<>();
         for (ChiTietSP x : list) {
             lst.add(new ChiTietSPViewModel(
@@ -143,7 +142,7 @@ public class ChiTietSPServices implements IChiTietSPServices {
                     x.getMota(),
                     x.getQrcode()));
         }
-        return lst; 
+        return lst;
     }
 
 }

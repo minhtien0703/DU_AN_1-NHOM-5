@@ -569,14 +569,16 @@ public class frm_Sanpham extends javax.swing.JPanel {
 
     private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
         ChiTietSPViewModel x = getdadtafrom();
-        JOptionPane.showMessageDialog(this, iChiTietSPServices.Add(x));
-        xuatbarcode(x);
-        String data = x.getQrcode();
-        String path = "D:\\QRcode\\Qr" + x.getTen() + ".png";
-        Map<EncodeHintType, ErrorCorrectionLevel> hashMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
-        hashMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
-        generateQRcode(data, path, hashMap, 200, 200);
-        System.out.println("QR Code created successfully.");
+        boolean kq = iChiTietSPServices.Add(x);
+        if (kq == true) {
+            xuatbarcode(x);
+            String data = x.getQrcode();
+            String path = "D:\\QRcode\\Qr" + x.getTen() + ".png";
+            Map<EncodeHintType, ErrorCorrectionLevel> hashMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
+            hashMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
+            generateQRcode(data, path, hashMap, 200, 200);
+            System.out.println("QR Code created successfully.");
+        }
     }//GEN-LAST:event_btn_themActionPerformed
 
     private void btn_capnhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_capnhatActionPerformed
@@ -585,7 +587,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "lỗi");
         }
         String ma = (String) tbl_sp.getValueAt(row, 0);
-        JOptionPane.showMessageDialog(this, iChiTietSPServices.Update(ma, getdadtafrom()));
+        boolean kq = iChiTietSPServices.Update(ma, getdadtafrom());
     }//GEN-LAST:event_btn_capnhatActionPerformed
 
     private void btn_xoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xoaActionPerformed

@@ -18,11 +18,9 @@ public interface IChiTietSPServices {
 
     public List<ChiTietSPViewModel> getlistbyTen(String ten);
 
-    String Add(ChiTietSPViewModel x);
+    boolean Add(ChiTietSPViewModel x);
 
-    String Update(String ma, ChiTietSPViewModel x);
-
-    String Delete(String ma);
+    boolean Update(String ma, ChiTietSPViewModel x);
 
     public List<ChiTietSPViewModel> getSPhet();
     
