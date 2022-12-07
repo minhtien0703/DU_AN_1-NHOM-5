@@ -104,6 +104,11 @@ public class SanPhamViewModel {
         this.khuyenMai = khuyenMai;
     }
 
+    @Override
+    public String toString() {
+        return Ten;
+    }
+
 
    
 }

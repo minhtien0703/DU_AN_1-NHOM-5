@@ -26,4 +26,6 @@ public interface IChiTietSPRepository {
 
     public List<ChiTietSP> getSPhet();
     
+    public List<ChiTietSP> check(String maSP);
+         
 }

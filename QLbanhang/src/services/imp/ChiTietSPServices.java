@@ -94,6 +94,11 @@ public class ChiTietSPServices implements IChiTietSPServices {
     public String Add(ChiTietSPViewModel x) {
         System.out.println(x.toString());
         ChiTietSP ctsp = new ChiTietSP(x.getMa(), x.getTen(), x.getNsx().getId(), x.getMausac().getId(), x.getDanhmuc().getId(), x.getKichco().getId(), x.getChatlieu().getId(), x.getThuonghieu().getId(), Integer.parseUnsignedInt(x.getKhuyenmai().getID()), x.getSoluongton(), x.getGianhap(), x.getGiaban(), x.getMota(), x.getQrcode());
+        List<ChiTietSP> lst = chiTietSPRepository.check(x.getMa());
+        if (lst != null) {
+            return "Không để mã sản phẩm trùng";
+        }
+       
         if (chiTietSPRepository.insert(ctsp) == 1) {
             return "Thành công";
         }

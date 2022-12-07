@@ -4,8 +4,22 @@
  */
 package views;
 
+import com.barcodelib.barcode.Linear;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -101,6 +115,30 @@ public class frm_Sanpham extends javax.swing.JPanel {
             }
         }
         return index;
+    }
+
+    private void xuatbarcode(ChiTietSPViewModel x) {
+        System.out.println(x.toString());
+        try {
+            Linear barcode = new Linear();
+            barcode.setType(Linear.CODE128B);
+            barcode.setData(x.getQrcode());
+            barcode.setI(11.0f);
+            barcode.renderBarcode("D:\\QRcode\\" + x.getTen() + ".png");
+            System.out.println("xuất thành công");
+        } catch (Exception e) {
+            System.out.println("xuất thất bại");
+        }
+    }
+
+    public static void generateQRcode(String data, String path, Map map, int h, int w) {
+        try {
+            BitMatrix matrix = new MultiFormatWriter().encode(new String(data.getBytes("UTF-8"), "UTF-8"), BarcodeFormat.QR_CODE, w, h);
+            MatrixToImageWriter.writeToFile(matrix, path.substring(path.lastIndexOf('.') + 1), new File(path));
+        } catch (Exception ex) {
+            Logger.getLogger(frm_Sanpham.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     private int getindexnsx(ChiTietSPViewModel x) {
@@ -225,8 +263,8 @@ public class frm_Sanpham extends javax.swing.JPanel {
         double gianhap = (double) tbl_sp.getValueAt(row, 10);
         double giaban = (double) tbl_sp.getValueAt(row, 11);
         String mota = tbl_sp.getValueAt(row, 12).toString();
-//        String barcode = tbl_sp.getValueAt(row, 13).toString();
-        return new ChiTietSPViewModel(ma, ten, nsx, ms, dmsp, kc, cl, th, km, soluong, gianhap, giaban, mota, "");
+        String barcode = tbl_sp.getValueAt(row, 13).toString();
+        return new ChiTietSPViewModel(ma, ten, nsx, ms, dmsp, kc, cl, th, km, soluong, gianhap, giaban, mota, barcode);
     }
 
     /**
@@ -399,7 +437,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
             }
         });
         panelBorder1.add(btn_capnhat);
-        btn_capnhat.setBounds(810, 120, 130, 40);
+        btn_capnhat.setBounds(810, 120, 140, 40);
 
         btn_lammoi.setBackground(new java.awt.Color(125, 224, 237));
         btn_lammoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/refresh.png"))); // NOI18N
@@ -411,11 +449,11 @@ public class frm_Sanpham extends javax.swing.JPanel {
             }
         });
         panelBorder1.add(btn_lammoi);
-        btn_lammoi.setBounds(810, 20, 130, 40);
+        btn_lammoi.setBounds(810, 20, 140, 40);
 
         btn_xoa.setBackground(new java.awt.Color(125, 224, 237));
-        btn_xoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tay.png"))); // NOI18N
-        btn_xoa.setText("Xóa");
+        btn_xoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/file.png"))); // NOI18N
+        btn_xoa.setText("In Barcode");
         btn_xoa.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btn_xoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -423,7 +461,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
             }
         });
         panelBorder1.add(btn_xoa);
-        btn_xoa.setBounds(810, 170, 130, 40);
+        btn_xoa.setBounds(810, 170, 140, 40);
 
         btn_them.setBackground(new java.awt.Color(125, 224, 237));
         btn_them.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add.png"))); // NOI18N
@@ -435,7 +473,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
             }
         });
         panelBorder1.add(btn_them);
-        btn_them.setBounds(810, 70, 130, 40);
+        btn_them.setBounds(810, 70, 140, 40);
 
         cbo_thuonghieu1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbo_thuonghieu1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
@@ -530,7 +568,15 @@ public class frm_Sanpham extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_lammoiActionPerformed
 
     private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
-        JOptionPane.showMessageDialog(this, iChiTietSPServices.Add(getdadtafrom()));
+        ChiTietSPViewModel x = getdadtafrom();
+        JOptionPane.showMessageDialog(this, iChiTietSPServices.Add(x));
+        xuatbarcode(x);
+        String data = x.getQrcode();
+        String path = "D:\\QRcode\\Qr" + x.getTen() + ".png";
+        Map<EncodeHintType, ErrorCorrectionLevel> hashMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
+        hashMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
+        generateQRcode(data, path, hashMap, 200, 200);
+        System.out.println("QR Code created successfully.");
     }//GEN-LAST:event_btn_themActionPerformed
 
     private void btn_capnhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_capnhatActionPerformed
@@ -545,10 +591,17 @@ public class frm_Sanpham extends javax.swing.JPanel {
     private void btn_xoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xoaActionPerformed
         int row = tbl_sp.getSelectedRow();
         if (row == -1) {
-            JOptionPane.showMessageDialog(this, "lỗi");
+            JOptionPane.showMessageDialog(this, "chọn sản phẩm cần in barcode");
+            return;
         }
-        String ma = (String) tbl_sp.getValueAt(row, 0);
-        JOptionPane.showMessageDialog(this, iChiTietSPServices.Delete(ma));
+        ChiTietSPViewModel x = getdataTB(row);
+        xuatbarcode(x);
+        String data = x.getQrcode();
+        String path = "D:\\QRcode\\Qr" + x.getTen() + ".png";
+        Map<EncodeHintType, ErrorCorrectionLevel> hashMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
+        hashMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
+        generateQRcode(data, path, hashMap, 200, 200);
+        System.out.println("QR Code created successfully.");
     }//GEN-LAST:event_btn_xoaActionPerformed
 
     private void tbl_spMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_spMouseClicked
@@ -594,7 +647,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
     }//GEN-LAST:event_jLabel15MouseClicked
 
     private void searchTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTextKeyReleased
-        loadData(iChiTietSPServices.getlistbyTen("%"+searchText.getText()+"%"));
+        loadData(iChiTietSPServices.getlistbyTen("%" + searchText.getText() + "%"));
     }//GEN-LAST:event_searchTextKeyReleased
 
 
