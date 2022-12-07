@@ -139,41 +139,68 @@ public class frm_Nhanvien extends javax.swing.JPanel {
         String sdt = "(0\\d{9})";
         String mail ="^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
         UsersViewmodel nv = new UsersViewmodel();
-        if (txtten.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa nhập tên!");
-            return null;
+        try {
+            if (txtten.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Bạn chưa nhập tên!");
+                return null;
+            }
+        } catch (Exception e) {
         }
-        if (txttendem.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa nhập tên đệm!");
-            return null;
+        try {
+            if (txttendem.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Bạn chưa nhập tên đệm!");
+                return null;
+            }
+        } catch (Exception e) {
         }
-        if (txtho.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa nhập họ!");
-            return null;
+        try {
+            if (txtho.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Bạn chưa nhập họ!");
+                return null;
+            }
+        } catch (Exception e) {
         }
-        if (datengaysinh.getDate()==null) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa nhập ngày sinh!");
-            return null;
+        try {
+            if (datengaysinh.getDate() == null) {
+                JOptionPane.showMessageDialog(this, "Bạn chưa nhập ngày sinh!");
+                return null;
+            }
+        } catch (Exception e) {
         }
-        if (txtsdt.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa nhập sdt!");
-            return null;
+        try {
+            if (txtsdt.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Bạn chưa nhập sdt!");
+                return null;
+            }
+        } catch (Exception e) {
         }
-        if (txtMatkhau.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa nhập mật khẩu!");
-            return null;
+        try {
+            if (txtMatkhau.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Bạn chưa nhập mật khẩu!");
+                return null;
+            }
+        } catch (Exception e) {
         }
-        if (txtemail.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa nhập email!");
-            return null;
+        try {
+            if (txtemail.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Bạn chưa nhập email!");
+                return null;
+            }
+        } catch (Exception e) {
         }
-        if (!getInputForm().getSdt().matches(sdt)) {
-            JOptionPane.showMessageDialog(this, "Số điện thoại của bạn chưa đúng định dạng");
-            return null;
+        try {
+            if (!txtsdt.getText().matches(sdt)) {
+                JOptionPane.showMessageDialog(this, "Số điện thoại của bạn chưa đúng định dạng");
+                return null;
+            }
+        } catch (Exception e) {
         }
-        if (!getInputForm().getEmail().matches(mail)) {
-            JOptionPane.showMessageDialog(this, "Email của bạn chưa đúng định dạng");
-            return null;
+        try {
+            if (!txtemail.getText().matches(mail)) {
+                JOptionPane.showMessageDialog(this, "Email của bạn chưa đúng định dạng");
+                return null;
+            }
+        } catch (Exception e) {
         }
         if (nhanVienService.kiemtra(txtemail.getText())!=null) {
             JOptionPane.showMessageDialog(this, "Email đã tồn tại");
@@ -531,13 +558,37 @@ public class frm_Nhanvien extends javax.swing.JPanel {
 
     private void btncapnhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncapnhatActionPerformed
         // TODO add your handling code here:
+        UsersViewmodel nv = new UsersViewmodel();
+        nv.setTen(txtten.getText());
+        nv.setTendem(txttendem.getText());
+        nv.setHo(txtho.getText());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = sdf.format(datengaysinh.getDate());
+        nv.setNgaysinh(date);
+        Integer gt;
+        if (rd_nam.isSelected()) {
+            gt = 1;
+        } else {
+            gt = 0;
+        }
+        nv.setGioitinh(gt);
+        nv.setSdt(txtsdt.getText());
+        nv.setTk(txtTaikhoan.getText());
+        nv.setMk(txtMatkhau.getText());
+        nv.setEmail(txtemail.getText());
+        Chucvu cvv = (Chucvu) cbochucvu.getSelectedItem();
+        nv.setChucVu(cvv);
+        if (chk_tt.isSelected()) {
+            nv.setTT(1);
+        } else {
+            nv.setTT(0);
+        }
         Integer row = tblnhanvien.getSelectedRow();
         if (row < 0) {
             JOptionPane.showMessageDialog(this, "Bạn Cần Chọn 1 Dòng Muốn Sửa!");
             return;
         }
         if (JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn sửa ?")==JOptionPane.YES_OPTION) {
-        UsersViewmodel nv = getInputForm();
         IUsersReposytory usersReposytory = new UsersReposytory();
         List<Users> lst = usersReposytory.getAllNhanVien();
         if (nhanVienService.update(nv,lst.get(row).getId()) != false) {

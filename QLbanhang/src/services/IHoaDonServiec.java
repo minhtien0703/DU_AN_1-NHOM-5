@@ -15,6 +15,20 @@ import viewmodels.HoaDonViewModel;
  */
 public interface IHoaDonServiec {
 
+    public List<HoaDonViewModel> getAllHD();
+
+    public List<HoaDonViewModel> getTimHDTen(String Ten);
+
+    public List<HoaDonViewModel> getTimHDTrangThai(int TrangThai);
+    
+    public List<HoaDonViewModel> GetTimNTT(String NgayTT);
+
+    public List<HoaDonCHiTietViewModel> getAllHDCT();
+
+    public List<HoaDonCHiTietViewModel> gettimma(String ma);
+    
+///////
+    
     Integer saveHD(HoaDonViewModel hoaDon, int idNV);
 
     Integer saveHDCT(HoaDonCHiTietViewModel hoaDonChiTiet, String MaSP, String MaHD);

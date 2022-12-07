@@ -28,7 +28,8 @@ import viewmodels.SanPhamViewModel;
  * @author Admin
  */
 public class HoaDonServiec implements IHoaDonServiec {
-
+    private IHoaDonRepostory hoadon1 = new HoaDonRepostory();
+    private IHoaDonRepostory hoadon2 = new HoaDonRepostory();
    private List<HoaDonViewModel> getListHD;
     private IHoaDonRepostory hoaDonRepostory;
     private List<HoaDonCHiTietViewModel> getListHDCT;
@@ -43,7 +44,73 @@ public class HoaDonServiec implements IHoaDonServiec {
         khachHangService = new khahangsvImpl();
 
     }
+      @Override
+    public List<HoaDonViewModel> getAllHD() {
+        List<HoaDonViewModel> list01 = new ArrayList<>();
 
+        List<HoaDon> list = hoadon1.GetAllHD();
+        for (HoaDon x : list) {
+            list01.add(new HoaDonViewModel(x.getKhachHang(),x.getUser(),x.getMa(),x.getNgayTao() ,x.getNgayThanhToan() ,x.getTinhTrang(),x.getGhichu()));
+        }
+        return list01;
+
+    }
+ @Override
+    public List<HoaDonViewModel> getTimHDTen(String Ten) {
+         List<HoaDonViewModel> list04 = new ArrayList<>();
+        
+        List<HoaDon> Listtm = hoaDonRepostory.getHDTen(Ten);
+        for (HoaDon x : Listtm) {
+         list04.add(new HoaDonViewModel(x.getKhachHang(),x.getUser(),x.getMa(),x.getNgayTao() ,x.getNgayThanhToan() ,x.getTinhTrang(),x.getGhichu()));
+     }
+        return list04;
+    }
+    
+    @Override
+    public List<HoaDonCHiTietViewModel> getAllHDCT() {
+        List<HoaDonCHiTietViewModel> list02 = new ArrayList<>();
+        
+        List<HoaDonChiTiet> List00 = hoadon2.GetAllHDCT();
+        for (HoaDonChiTiet c : List00) {
+           list02.add(new HoaDonCHiTietViewModel(c.getSoluong(), c.getDonGia(),c.getHaoDon(),c.getSanPham()));
+        }
+        return list02;
+    }
+ @Override
+    public List<HoaDonCHiTietViewModel> gettimma(String ma) {
+        
+        List<HoaDonCHiTietViewModel> list03 = new ArrayList<>();
+        
+        List<HoaDonChiTiet> Listtm = hoadon2.gettimma(ma);
+        for (HoaDonChiTiet t : Listtm) {
+         list03.add(new HoaDonCHiTietViewModel(t.getSoluong(), t.getDonGia(),t.getHaoDon(),t.getSanPham()));
+     }
+        return list03;
+    }
+  
+    @Override
+    public List<HoaDonViewModel> getTimHDTrangThai(int TrangThai) {
+       List<HoaDonViewModel> list05 = new ArrayList<>();
+        
+        List<HoaDon> Listtm = hoaDonRepostory.getHDTrangThai(TrangThai);
+        for (HoaDon x : Listtm) {
+         list05.add(new HoaDonViewModel(x.getKhachHang(),x.getUser(),x.getMa(),x.getNgayTao() ,x.getNgayThanhToan() ,x.getTinhTrang(),x.getGhichu()));
+     }
+        return list05;
+    }
+
+
+    @Override
+    public List<HoaDonViewModel> GetTimNTT(String NgayTT) {
+        List<HoaDonViewModel> list07 = new ArrayList<>();
+        
+        List<HoaDon> Listtm = hoaDonRepostory.GetTimNTT(NgayTT);
+        for (HoaDon x : Listtm) {
+         list07.add(new HoaDonViewModel(x.getKhachHang(),x.getUser(),x.getMa(),x.getNgayTao() ,x.getNgayThanhToan() ,x.getTinhTrang(),x.getGhichu()));
+     }
+        return list07;
+    }
+///////////////////////
     @Override
     public Integer saveHD(HoaDonViewModel hoaDon, int idNV) {
         HoaDon hd = new HoaDon();
