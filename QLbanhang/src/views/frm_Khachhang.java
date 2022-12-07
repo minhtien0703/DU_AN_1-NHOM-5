@@ -149,7 +149,6 @@ public class frm_Khachhang extends javax.swing.JPanel {
         Btn_capNhat = new swing.MyButton();
         btn_xoa = new swing.MyButton();
         date_ngaysinh1 = new com.toedter.calendar.JDateChooser();
-        jTabbedPane2 = new javax.swing.JTabbedPane();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -277,7 +276,7 @@ public class frm_Khachhang extends javax.swing.JPanel {
             }
         });
         panelBorder1.add(btn_LamMoi);
-        btn_LamMoi.setBounds(660, 50, 120, 30);
+        btn_LamMoi.setBounds(660, 50, 120, 33);
 
         btn_them.setBackground(new java.awt.Color(125, 224, 237));
         btn_them.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add.png"))); // NOI18N
@@ -289,7 +288,7 @@ public class frm_Khachhang extends javax.swing.JPanel {
             }
         });
         panelBorder1.add(btn_them);
-        btn_them.setBounds(820, 50, 120, 30);
+        btn_them.setBounds(820, 50, 120, 33);
 
         Btn_capNhat.setBackground(new java.awt.Color(125, 224, 237));
         Btn_capNhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/floppy-disk.png"))); // NOI18N
@@ -301,7 +300,7 @@ public class frm_Khachhang extends javax.swing.JPanel {
             }
         });
         panelBorder1.add(Btn_capNhat);
-        Btn_capNhat.setBounds(660, 130, 120, 30);
+        Btn_capNhat.setBounds(660, 130, 120, 33);
 
         btn_xoa.setBackground(new java.awt.Color(125, 224, 237));
         btn_xoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tay.png"))); // NOI18N
@@ -313,7 +312,7 @@ public class frm_Khachhang extends javax.swing.JPanel {
             }
         });
         panelBorder1.add(btn_xoa);
-        btn_xoa.setBounds(820, 130, 120, 30);
+        btn_xoa.setBounds(820, 130, 120, 33);
 
         date_ngaysinh1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
         date_ngaysinh1.setDateFormatString("dd/MM/yyyy");
@@ -322,8 +321,6 @@ public class frm_Khachhang extends javax.swing.JPanel {
 
         panelGradiente1.add(panelBorder1);
         panelBorder1.setBounds(10, 0, 990, 260);
-        panelGradiente1.add(jTabbedPane2);
-        jTabbedPane2.setBounds(100, 350, 0, 1);
 
         jTabbedPane3.setBackground(new java.awt.Color(204, 204, 255));
 
@@ -340,7 +337,8 @@ public class frm_Khachhang extends javax.swing.JPanel {
                 "ID", "Họ Và Tên", "Giới Tính", "Ngày Sinh", "SĐT", "Email", "Điểm Thưởng"
             }
         ));
-        TB_bang1.setGridColor(new java.awt.Color(255, 255, 255));
+        TB_bang1.setGridColor(new java.awt.Color(204, 255, 255));
+        TB_bang1.setRowHeight(25);
         TB_bang1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TB_bang1MouseClicked(evt);
@@ -405,6 +403,8 @@ public class frm_Khachhang extends javax.swing.JPanel {
                 "ID", "Họ Và Tên", "SĐT", "ID Hoá Đơn", "Ngày Tạo Hoá Đơn", "Tên Sản Phẩm", "SL Hàng Đã Mua", "Đơn Giá", "Trạng Thái"
             }
         ));
+        TB_bang02.setGridColor(new java.awt.Color(204, 255, 255));
+        TB_bang02.setRowHeight(25);
         jScrollPane4.setViewportView(TB_bang02);
 
         panelBorder4.setBackground(new java.awt.Color(255, 255, 255));
@@ -615,7 +615,6 @@ public class frm_Khachhang extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTable jTable1;
     private swing.PanelBorder panelBorder1;

@@ -93,7 +93,7 @@ public class ChiTietSPServices implements IChiTietSPServices {
     @Override
     public String Add(ChiTietSPViewModel x) {
         System.out.println(x.toString());
-        ChiTietSP ctsp = new ChiTietSP(x.getMa(), x.getTen(), x.getNsx().getId(), x.getMausac().getId(), x.getDanhmuc().getId(), x.getKichco().getId(), x.getChatlieu().getId(), x.getThuonghieu().getId(), Integer.parseUnsignedInt(x.getKhuyenmai().getID()), x.getSoluongton(), x.getGiaban(), x.getGianhap(), x.getMota(), x.getQrcode());
+        ChiTietSP ctsp = new ChiTietSP(x.getMa(), x.getTen(), x.getNsx().getId(), x.getMausac().getId(), x.getDanhmuc().getId(), x.getKichco().getId(), x.getChatlieu().getId(), x.getThuonghieu().getId(), Integer.parseUnsignedInt(x.getKhuyenmai().getID()), x.getSoluongton(), x.getGianhap(), x.getGiaban(), x.getMota(), x.getQrcode());
         if (chiTietSPRepository.insert(ctsp) == 1) {
             return "Thành công";
         }
@@ -102,7 +102,7 @@ public class ChiTietSPServices implements IChiTietSPServices {
 
     @Override
     public String Update(String ma, ChiTietSPViewModel x) {
-        ChiTietSP ctsp = new ChiTietSP(x.getMa(), x.getTen(), x.getNsx().getId(), x.getMausac().getId(), x.getDanhmuc().getId(), x.getKichco().getId(), x.getChatlieu().getId(), x.getThuonghieu().getId(), Integer.parseUnsignedInt(x.getKhuyenmai().getID()), x.getSoluongton(), x.getGiaban(), x.getGianhap(), x.getMota(), x.getQrcode());
+        ChiTietSP ctsp = new ChiTietSP(x.getMa(), x.getTen(), x.getNsx().getId(), x.getMausac().getId(), x.getDanhmuc().getId(), x.getKichco().getId(), x.getChatlieu().getId(), x.getThuonghieu().getId(), Integer.parseUnsignedInt(x.getKhuyenmai().getID()), x.getSoluongton(), x.getGianhap(),x.getGiaban() , x.getMota(), x.getQrcode());
         if (chiTietSPRepository.update(ctsp, ma) == 1) {
             return "Thành công";
         }

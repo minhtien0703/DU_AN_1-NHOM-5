@@ -459,7 +459,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
             }
         ));
         tbl_sp.setGridColor(new java.awt.Color(255, 255, 255));
-        tbl_sp.setRowHeight(20);
+        tbl_sp.setRowHeight(25);
         tbl_sp.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbl_spMouseClicked(evt);
@@ -500,7 +500,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
 
         hideshow.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         hideshow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/hide.png"))); // NOI18N
-        hideshow.setText("  Hiện sản phẩm ẩn");
+        hideshow.setText("  Hiện sản phẩm hết");
         hideshow.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 hideshowMouseClicked(evt);
