@@ -20,6 +20,7 @@ import utilconnext.DBConnection;
 public class ChiTietSPRepository implements IChiTietSPRepository {
 
     final String SQL_SELECT_ALL = "SELECT Ma,Ten,IdNsx,IdMauSac,IdDMuc,IdKC,IdCL,IdTH,IdKM,SoLuongTon,GiaNhap,GiaBan,MoTa,QrCode FROM dbo.ChitietSP WHERE SoLuongTon > 0";
+    final String SQL_SELECT_BY_MA = "SELECT Ma,Ten,IdNsx,IdMauSac,IdDMuc,IdKC,IdCL,IdTH,IdKM,SoLuongTon,GiaNhap,GiaBan,MoTa,QrCode FROM dbo.ChitietSP WHERE Ma = ?";
     final String SQL_SELECT_BY_SL = "SELECT Ma,Ten,IdNsx,IdMauSac,IdDMuc,IdKC,IdCL,IdTH,IdKM,SoLuongTon,GiaNhap,GiaBan,MoTa,QrCode FROM dbo.ChitietSP WHERE SoLuongTon = 0";
     final String SQL_SELECT_BY_TEN = "SELECT Ma,Ten,IdNsx,IdMauSac,IdDMuc,IdKC,IdCL,IdTH,IdKM,SoLuongTon,GiaNhap,GiaBan,MoTa,QrCode FROM dbo.ChitietSP WHERE SoLuongTon > 0 AND ten LIKE ?";
     final String SQL_INSERT = "INSERT INTO dbo.ChitietSP\n"
@@ -85,6 +86,11 @@ public class ChiTietSPRepository implements IChiTietSPRepository {
     @Override
     public List<ChiTietSP> getSPhet() {
         return getdataquery(SQL_SELECT_BY_SL);
+    }
+
+    @Override
+    public List<ChiTietSP> check(String maSP) {
+        return getdataquery(SQL_SELECT_BY_MA, maSP);
     }
 
 }

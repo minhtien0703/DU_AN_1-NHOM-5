@@ -25,5 +25,5 @@ public interface IChiTietSPServices {
     String Delete(String ma);
 
     public List<ChiTietSPViewModel> getSPhet();
-
+    
 }
