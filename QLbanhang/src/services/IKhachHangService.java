@@ -26,13 +26,16 @@ public interface IKhachHangService {
 
     String delete(int id);
 
-    public List<KhachHangViewMD> GetTK(String ten);
+    public List<KhachHangViewMD> GetTK(String SDT);
 
-    public List<KhachHang02ViewMD> GetTK1(String ID);
-    
-    
-     List<KhachHang> TenDiemKhachHang(String SDT);
-    
-     Integer updateDiemKhachHang(String SDT , int diem);
+    public List<KhachHang02ViewMD> GetTKTheoIDKH(int ID);
+
+    List<KhachHang> TenDiemKhachHang(String SDT);
+
+    Integer updateDiemKhachHang(String SDT, int diem);
+
+    String kiemtra(String mail);
+
+    String kiemtrasdt(String sdt);
 
 }

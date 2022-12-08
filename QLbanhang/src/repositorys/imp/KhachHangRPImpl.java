@@ -137,7 +137,7 @@ public class KhachHangRPImpl implements IKhachHangReposytory {
     }
 
     @Override
-    public List<KhachHang> GetTK(String ten) {
+    public List<KhachHang> GetTK(String SDT) {
         List<KhachHang> listkh = new ArrayList<>();
         try {
             listkh.removeAll(listkh);
@@ -151,10 +151,10 @@ public class KhachHangRPImpl implements IKhachHangReposytory {
                     + "      ,[Sdt]\n"
                     + "      ,[Diemthuong]\n"
                     + "  FROM [dbo].[KhachHang]\n"
-                    + "  where ten = ? ";
+                    + "  where sdt like ? ";
             Connection conn = DBConnection.openDbConnection();
             PreparedStatement pstm = conn.prepareStatement(sql);
-            pstm.setString(1, ten);
+            pstm.setString(1, "%" + SDT + "%");
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
                 KhachHang khachhang = new KhachHang();
@@ -177,46 +177,10 @@ public class KhachHangRPImpl implements IKhachHangReposytory {
     }
 
     @Override
-    public List<KhachHang02ViewMD> GetTK01(String ID) {
-        List<KhachHang02ViewMD> listkh = new ArrayList<>();
-        try {
-            listkh.removeAll(listkh);
-            String sql = "SELECT dbo.KhachHang.Id, dbo.KhachHang.Ten, dbo.KhachHang.TenDem, dbo.KhachHang.Ho, dbo.KhachHang.Sdt, dbo.HoaDon.Id AS Expr1, dbo.HoaDon.NgayTao, dbo.HoaDonChiTiet.Soluong, dbo.HoaDonChiTiet.Dongia\n"
-                    + "FROM     dbo.HoaDonChiTiet INNER JOIN\n"
-                    + "                  dbo.HoaDon ON dbo.HoaDonChiTiet.IdHD = dbo.HoaDon.Id INNER JOIN\n"
-                    + "                  dbo.KhachHang ON dbo.HoaDon.IdKH = dbo.KhachHang.Id  where dbo.KhachHang.id = ? ";
-            Connection conn = DBConnection.openDbConnection();
-            PreparedStatement pstm = conn.prepareStatement(sql);
-            pstm.setString(1, ID);
-            ResultSet rs = pstm.executeQuery();
-            while (rs.next()) {
-                KhachHang02ViewMD khachhang = new KhachHang02ViewMD();
-                khachhang.setId(rs.getInt(1));
-                khachhang.setTen(rs.getString(2));
-                khachhang.setTendem(rs.getString(3));
-                khachhang.setHo(rs.getString(4));
-                khachhang.setSDT(rs.getString(5));
-                khachhang.setIDHD(rs.getInt(6));
-                khachhang.setNgayTao(rs.getString(7));
-                khachhang.setSL(rs.getInt(8));
-                khachhang.setDongia(rs.getDouble(9));
-
-                listkh.add(khachhang);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(KhuyenmaiReponsitory.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return listkh;
-    }
-
-    @Override
     public List<KhachHang02ViewMD> getall02() {
-        String query = "SELECT dbo.KhachHang.Id, dbo.KhachHang.Ten, dbo.KhachHang.TenDem, dbo.KhachHang.Ho, dbo.KhachHang.Sdt, dbo.HoaDon.Id AS Expr1, dbo.HoaDon.NgayTao, dbo.HoaDon.TinhTrang, dbo.HoaDonChiTiet.Soluong, dbo.HoaDonChiTiet.Dongia, \n"
-                + "                  dbo.ChitietSP.Ten AS Expr2\n"
-                + "FROM     dbo.HoaDonChiTiet INNER JOIN\n"
-                + "                  dbo.HoaDon ON dbo.HoaDonChiTiet.IdHD = dbo.HoaDon.Id INNER JOIN\n"
-                + "                  dbo.KhachHang ON dbo.HoaDon.IdKH = dbo.KhachHang.Id INNER JOIN\n"
-                + "                  dbo.ChitietSP ON dbo.HoaDonChiTiet.IdCTSP = dbo.ChitietSP.Id ";
+        String query = "SELECT dbo.KhachHang.Id, dbo.KhachHang.Ten, dbo.KhachHang.TenDem, dbo.KhachHang.Ho, dbo.KhachHang.Sdt, dbo.HoaDon.Ma, dbo.HoaDon.NgayTao, dbo.HoaDon.TinhTrang, dbo.HoaDon.TongTien\n"
+                + "FROM     dbo.HoaDon INNER JOIN\n"
+                + "                  dbo.KhachHang ON dbo.HoaDon.IdKH = dbo.KhachHang.Id";
         try ( Connection con = DBConnection.openDbConnection();  PreparedStatement ps = con.prepareStatement(query);) {
             ResultSet rs = ps.executeQuery();
             List<KhachHang02ViewMD> listSP = new ArrayList<>();
@@ -227,12 +191,10 @@ public class KhachHangRPImpl implements IKhachHangReposytory {
                 khachhang.setTendem(rs.getString(3));
                 khachhang.setHo(rs.getString(4));
                 khachhang.setSDT(rs.getString(5));
-                khachhang.setIDHD(rs.getInt(6));
+                khachhang.setMaHD(rs.getString(6));
                 khachhang.setNgayTao(rs.getString(7));
                 khachhang.setTrangthai(rs.getInt(8));
-                khachhang.setSL(rs.getInt(9));
-                khachhang.setDongia(rs.getDouble(10));
-                khachhang.setTensp(rs.getString(11));
+                khachhang.setDongia(rs.getDouble(9));
 
                 listSP.add(khachhang);
             }
@@ -248,16 +210,16 @@ public class KhachHangRPImpl implements IKhachHangReposytory {
         List<KhachHang> getList = new ArrayList<>();
         try {
             String sql = "SELECT Ten , TenDem , Ho , Diemthuong FROM KhachHang where Sdt = ?";
-            Connection con = DBConnection.openDbConnection(); 
+            Connection con = DBConnection.openDbConnection();
             PreparedStatement pr = con.prepareStatement(sql);
             pr.setString(1, SDT);
             ResultSet rs = pr.executeQuery();
-            while (rs.next()) {                
-               KhachHang kh = new KhachHang();
-               kh.setTen(rs.getString(3) + " " + rs.getString(2) + " " + rs.getString(1));
-               kh.setDiemthuong(rs.getInt(4));
+            while (rs.next()) {
+                KhachHang kh = new KhachHang();
+                kh.setTen(rs.getString(3) + " " + rs.getString(2) + " " + rs.getString(1));
+                kh.setDiemthuong(rs.getInt(4));
 //               kh.setId(rs.getInt(5));
-               getList.add(kh);
+                getList.add(kh);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -267,7 +229,7 @@ public class KhachHangRPImpl implements IKhachHangReposytory {
 
     @Override
     public Integer updateDiemKhachHang(String SDT, int diem) {
-               int rs = 0;
+        int rs = 0;
         try {
             String sql = "update KhachHang set DiemThuong = ? where Sdt = ?";
             Connection conn = DBConnection.openDbConnection();
@@ -275,7 +237,7 @@ public class KhachHangRPImpl implements IKhachHangReposytory {
             pr.setInt(1, diem);
             pr.setString(2, SDT);
             rs = pr.executeUpdate();
-         
+
         } catch (Exception ex) {
             ex.printStackTrace();
 
@@ -283,4 +245,73 @@ public class KhachHangRPImpl implements IKhachHangReposytory {
         return rs;
     }
 
+    @Override
+    public List<KhachHang02ViewMD> GetTKTheoIDKH(int ID) {
+        List<KhachHang02ViewMD> listkh = new ArrayList<>();
+        try {
+            listkh.removeAll(listkh);
+            String sql = "SELECT dbo.KhachHang.Id, dbo.KhachHang.Ten, dbo.KhachHang.TenDem, dbo.KhachHang.Ho, dbo.KhachHang.Sdt, dbo.HoaDon.Ma, dbo.HoaDon.NgayTao, dbo.HoaDon.TinhTrang, dbo.HoaDon.TongTien\n"
+                    + "FROM     dbo.HoaDon INNER JOIN\n"
+                    + "                  dbo.KhachHang ON dbo.HoaDon.IdKH = dbo.KhachHang.Id where dbo.KhachHang.id = ? ";
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setInt(1, ID);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                KhachHang02ViewMD khachhang = new KhachHang02ViewMD();
+                khachhang.setId(rs.getInt(1));
+                khachhang.setTen(rs.getString(2));
+                khachhang.setTendem(rs.getString(3));
+                khachhang.setHo(rs.getString(4));
+                khachhang.setSDT(rs.getString(5));
+                khachhang.setMaHD(rs.getString(6));
+                khachhang.setNgayTao(rs.getString(7));
+                khachhang.setDongia(rs.getDouble(9));
+
+                listkh.add(khachhang);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(KhuyenmaiReponsitory.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listkh;
+    }
+
+    @Override
+    public String kiemtra(String mail) {
+        String sql = "SELECT EMAIL FROM KhachHang WHERE EMAIL = ?";
+        String box = null;
+        try {
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setString(1, mail);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                box = rs.getString(1);
+            }
+            return box;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public String kiemtrasdt(String sdt) {
+        String sql = "SELECT SDT FROM KhachHang WHERE SDT = ? ";
+        String box = null;
+        try {
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setString(1, sdt);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                box = rs.getString(1);
+            }
+            return box;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
 }
+    }
