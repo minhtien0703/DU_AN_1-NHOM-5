@@ -6,6 +6,7 @@ package views;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -75,8 +76,7 @@ public class frm_Khachhang extends javax.swing.JPanel {
             gt = 1;
         }
         cv.setGioitinh(gt);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        cv.setNgaysinh(sdf.format(date_ngaysinh1.getDate()));
+        cv.setNgaysinh(date_ngaysinh1.getDate());
         cv.setSdt(txt_sdt.getText());
         cv.setEmail(txt_email.getText());
 
@@ -97,24 +97,8 @@ public class frm_Khachhang extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập tên!");
             return false;
         }
-        if (txt_tenDem.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa nhập tên Đệm!");
-            return false;
-        }
-        if (txt_Ho.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa nhập Họ!");
-            return false;
-        }
-        if (date_ngaysinh1.getDate() == null) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa nhập ngày sinh!");
-            return false;
-        }
         if (txt_sdt.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập SĐT!");
-            return false;
-        }
-        if (txt_email.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa nhập Email!");
             return false;
         }
         try {
@@ -124,19 +108,24 @@ public class frm_Khachhang extends javax.swing.JPanel {
             }
         } catch (Exception e) {
         }
-        try {
-            if (!txt_email.getText().matches(mail)) {
-                JOptionPane.showMessageDialog(this, "Email của bạn chưa đúng định dạng");
-                return false;
+        if (KH.kiemtrasdt(txt_sdt.getText()) != null) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại của bạn đã tồn tại");
+            return false;
+        }
+
+        if (txt_email.getText().equals("")) {
+            return true;
+        } else {
+            try {
+                if (!txt_email.getText().matches(mail)) {
+                    JOptionPane.showMessageDialog(this, "Email của bạn chưa đúng định dạng");
+                    return false;
+                }
+            } catch (Exception e) {
             }
-        } catch (Exception e) {
         }
         if (KH.kiemtra(txt_email.getText()) != null) {
             JOptionPane.showMessageDialog(this, "Email đã tồn tại");
-            return false;
-        }
-        if (KH.kiemtrasdt(txt_sdt.getText()) != null) {
-            JOptionPane.showMessageDialog(this, "Số điện thoại của bạn đã tồn tại");
             return false;
         }
 
@@ -178,7 +167,6 @@ public class frm_Khachhang extends javax.swing.JPanel {
         txt_email = new swing.MyTextField();
         btn_them = new swing.MyButton();
         Btn_capNhat = new swing.MyButton();
-        btn_xoa = new swing.MyButton();
         date_ngaysinh1 = new com.toedter.calendar.JDateChooser();
         btn_LamMoi = new swing.MyButton();
         jTabbedPane2 = new javax.swing.JTabbedPane();
@@ -309,7 +297,7 @@ public class frm_Khachhang extends javax.swing.JPanel {
             }
         });
         panelBorder1.add(btn_them);
-        btn_them.setBounds(820, 50, 120, 30);
+        btn_them.setBounds(670, 30, 120, 40);
 
         Btn_capNhat.setBackground(new java.awt.Color(125, 224, 237));
         Btn_capNhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/floppy-disk.png"))); // NOI18N
@@ -321,19 +309,7 @@ public class frm_Khachhang extends javax.swing.JPanel {
             }
         });
         panelBorder1.add(Btn_capNhat);
-        Btn_capNhat.setBounds(660, 130, 120, 30);
-
-        btn_xoa.setBackground(new java.awt.Color(125, 224, 237));
-        btn_xoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tay.png"))); // NOI18N
-        btn_xoa.setText("Xóa");
-        btn_xoa.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btn_xoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_xoaActionPerformed(evt);
-            }
-        });
-        panelBorder1.add(btn_xoa);
-        btn_xoa.setBounds(820, 130, 120, 30);
+        Btn_capNhat.setBounds(670, 90, 120, 40);
 
         date_ngaysinh1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
         date_ngaysinh1.setDateFormatString("dd/MM/yyyy");
@@ -350,7 +326,7 @@ public class frm_Khachhang extends javax.swing.JPanel {
             }
         });
         panelBorder1.add(btn_LamMoi);
-        btn_LamMoi.setBounds(660, 50, 120, 30);
+        btn_LamMoi.setBounds(670, 150, 120, 40);
 
         panelGradiente1.add(panelBorder1);
         panelBorder1.setBounds(10, 0, 990, 260);
@@ -541,24 +517,6 @@ public class frm_Khachhang extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_Btn_capNhatActionPerformed
 
-    private void btn_xoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xoaActionPerformed
-        int row = TB_bang1.getSelectedRow();
-        if (row < 0) {
-            JOptionPane.showMessageDialog(this, "cần chọn khách hàng để xoá");
-
-            return;
-        }
-        if (JOptionPane.showConfirmDialog(this, "Bạn có muốn xóa không?") == JOptionPane.YES_OPTION) {
-            int id = layid();
-
-            JOptionPane.showMessageDialog(this, KH.delete(id));
-            listKhachHang = KH.getall();
-            showTable(listKhachHang);
-            TXT_01.setText("Tổng số khách hàng là : " + listKhachHang.size());
-
-        }
-    }//GEN-LAST:event_btn_xoaActionPerformed
-
     private void TB_bangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_bangMouseClicked
 
     }//GEN-LAST:event_TB_bangMouseClicked
@@ -570,27 +528,20 @@ public class frm_Khachhang extends javax.swing.JPanel {
         listKhachHang01 = KH.GetTKTheoIDKH(id);
         LBL_SOLUONG.setText("Tổng số hoá đơn là : " + KH.GetTKTheoIDKH(id).size());
 
-        try {
-            int row = TB_bang1.getSelectedRow();
-            KhachHangViewMD kh = listKhachHang.get(row);
-            txt_Ten.setText(kh.getTen());
-            txt_tenDem.setText(kh.getTendem());
-            txt_Ho.setText(kh.getHo());
-            String gt = (TB_bang1.getValueAt(row, 2).toString());
-            if (gt == "Nam") {
-                rd_Nam.setSelected(true);
-            } else {
-                rd_nu.setSelected(true);
-            }
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-            date_ngaysinh1.setDate(sdf.parse(kh.getNgaysinh()));
-            txt_sdt.setText(kh.getSdt());
-            txt_email.setText(kh.getEmail());
-
-        } catch (ParseException ex) {
-            Logger.getLogger(frm_Khachhang.class.getName()).log(Level.SEVERE, null, ex);
+        int row = TB_bang1.getSelectedRow();
+        KhachHangViewMD kh = listKhachHang.get(row);
+        txt_Ten.setText(kh.getTen());
+        txt_tenDem.setText(kh.getTendem());
+        txt_Ho.setText(kh.getHo());
+        String gt = (TB_bang1.getValueAt(row, 2).toString());
+        if (gt == "Nam") {
+            rd_Nam.setSelected(true);
+        } else {
+            rd_nu.setSelected(true);
         }
+        date_ngaysinh1.setDate((Date) TB_bang1.getValueAt(row, 3));
+        txt_sdt.setText(kh.getSdt());
+        txt_email.setText(kh.getEmail());
     }//GEN-LAST:event_TB_bang1MouseClicked
 
     private void Btn_timKiem1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_timKiem1MouseClicked
@@ -623,7 +574,6 @@ public class frm_Khachhang extends javax.swing.JPanel {
     private swing.MyButton btn_LamMoi;
     private swing.MyButton btn_LamMoi1;
     private swing.MyButton btn_them;
-    private swing.MyButton btn_xoa;
     private javax.swing.ButtonGroup buttonGroup1;
     private com.toedter.calendar.JDateChooser date_ngaysinh1;
     private javax.swing.JLabel jLabel1;

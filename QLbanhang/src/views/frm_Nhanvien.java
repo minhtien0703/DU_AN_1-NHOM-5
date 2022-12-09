@@ -306,7 +306,6 @@ public class frm_Nhanvien extends javax.swing.JPanel {
         lblTongnv = new javax.swing.JLabel();
         btnthem = new swing.MyButton();
         btncapnhat = new swing.MyButton();
-        btnxoa = new swing.MyButton();
         panelBorder2 = new swing.PanelBorder();
         searchtxt = new swing.SearchText();
         lbl_search = new javax.swing.JLabel();
@@ -420,7 +419,7 @@ public class frm_Nhanvien extends javax.swing.JPanel {
                 btnthemActionPerformed(evt);
             }
         });
-        panelGradiente1.add(btnthem, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 90, 120, 40));
+        panelGradiente1.add(btnthem, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, 120, 40));
 
         btncapnhat.setBackground(new java.awt.Color(125, 224, 237));
         btncapnhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/floppy-disk.png"))); // NOI18N
@@ -431,18 +430,7 @@ public class frm_Nhanvien extends javax.swing.JPanel {
                 btncapnhatActionPerformed(evt);
             }
         });
-        panelGradiente1.add(btncapnhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 90, 120, 40));
-
-        btnxoa.setBackground(new java.awt.Color(125, 224, 237));
-        btnxoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tay.png"))); // NOI18N
-        btnxoa.setText("Xóa");
-        btnxoa.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnxoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnxoaActionPerformed(evt);
-            }
-        });
-        panelGradiente1.add(btnxoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 160, 120, 40));
+        panelGradiente1.add(btncapnhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 90, 120, 40));
 
         panelBorder2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -485,7 +473,7 @@ public class frm_Nhanvien extends javax.swing.JPanel {
                 btnlmmoiActionPerformed(evt);
             }
         });
-        panelGradiente1.add(btnlmmoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 160, 120, 40));
+        panelGradiente1.add(btnlmmoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 160, 120, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -514,35 +502,6 @@ public class frm_Nhanvien extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_btnthemActionPerformed
-
-    private void btnxoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxoaActionPerformed
-
-        Integer row = tblnhanvien.getSelectedRow();
-        if (row < 0) {
-            JOptionPane.showMessageDialog(this, "Bạn Chưa Chọn Dòng Muốn Xóa!");
-            return;
-        }
-        if (JOptionPane.showConfirmDialog(this, "Bạn Có Chắc Chắn Muốn Xóa Không !") != JOptionPane.YES_OPTION) {
-            return;
-        }
-        IUsersReposytory usersReposytory = new UsersReposytory();
-        List<Users> lst = usersReposytory.getAllNhanVien();
-        if (nhanVienService.delete(lst.get(row).getId()) != false) {
-            JOptionPane.showMessageDialog(this, "Xóa Thành Công");
-            loaddata();
-        } else {
-            JOptionPane.showMessageDialog(this, "Xóa Thất Bại!");
-        }
-
-        if (tblnhanvien.getRowCount() > 0) {
-            tblnhanvien.setRowSelectionInterval(0, 0);
-            Showtable();
-        } else {
-            ClearForm();
-        }
-
-
-    }//GEN-LAST:event_btnxoaActionPerformed
 
     private void tblnhanvienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblnhanvienMouseClicked
 
@@ -667,7 +626,6 @@ public class frm_Nhanvien extends javax.swing.JPanel {
     private swing.MyButton btncapnhat;
     private swing.MyButton btnlmmoi;
     private swing.MyButton btnthem;
-    private swing.MyButton btnxoa;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cbochucvu;
     private javax.swing.JCheckBox chk_tt;

@@ -74,7 +74,6 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
         btn_them = new swing.MyButton();
         btn_sua = new swing.MyButton();
         btn_clear = new swing.MyButton();
-        btn_xoa = new swing.MyButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tb_khuyenmai = new javax.swing.JTable();
         panelBorder2 = new swing.PanelBorder();
@@ -157,7 +156,7 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
             }
         });
         panelBorder1.add(btn_them);
-        btn_them.setBounds(690, 90, 130, 40);
+        btn_them.setBounds(750, 30, 130, 40);
 
         btn_sua.setBackground(new java.awt.Color(125, 224, 237));
         btn_sua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/floppy-disk.png"))); // NOI18N
@@ -169,7 +168,7 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
             }
         });
         panelBorder1.add(btn_sua);
-        btn_sua.setBounds(840, 90, 120, 40);
+        btn_sua.setBounds(750, 100, 130, 40);
 
         btn_clear.setBackground(new java.awt.Color(125, 224, 237));
         btn_clear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/refresh.png"))); // NOI18N
@@ -181,19 +180,7 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
             }
         });
         panelBorder1.add(btn_clear);
-        btn_clear.setBounds(690, 160, 130, 40);
-
-        btn_xoa.setBackground(new java.awt.Color(125, 224, 237));
-        btn_xoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tay.png"))); // NOI18N
-        btn_xoa.setText("Xóa");
-        btn_xoa.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btn_xoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_xoaActionPerformed(evt);
-            }
-        });
-        panelBorder1.add(btn_xoa);
-        btn_xoa.setBounds(840, 160, 120, 40);
+        btn_clear.setBounds(750, 170, 130, 40);
 
         panelGradiente1.add(panelBorder1);
         panelBorder1.setBounds(10, 0, 990, 300);
@@ -379,22 +366,6 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btn_suaActionPerformed
 
-    private void btn_xoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xoaActionPerformed
-        // TODO add your handling code here:
-        int r = tb_khuyenmai.getSelectedRow();
-        IKhuyenmaiRepository repository= new KhuyenmaiReponsitory();
-        List<KhuyenMai> lst = repository.GetAll();
-        if (r<0) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa chọn dòng nào");
-            return;
-        }
-        if (JOptionPane.showConfirmDialog(this, "Bạn có muốn xóa không?")==JOptionPane.YES_OPTION) {
-            khuyenmaiService.Delete(lst.get(r).getID());
-            LoadData();
-            JOptionPane.showMessageDialog(this, "Xóa thành công");
-        }
-    }//GEN-LAST:event_btn_xoaActionPerformed
-
     private void btn_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clearActionPerformed
         // TODO add your handling code here:
         txt_tenkm.setText("");
@@ -539,7 +510,6 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
     private swing.MyButton btn_clear;
     private swing.MyButton btn_sua;
     private swing.MyButton btn_them;
-    private swing.MyButton btn_xoa;
     private javax.swing.ButtonGroup buttonGroup1;
     private com.toedter.calendar.JDateChooser dateTK_BD;
     private com.toedter.calendar.JDateChooser dateTK_KT;
