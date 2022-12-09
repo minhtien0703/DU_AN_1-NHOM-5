@@ -195,7 +195,6 @@ public class frm_Thongke extends javax.swing.JPanel {
         panelBorder1.add(Click_Nv);
         Click_Nv.setBounds(0, 90, 990, 340);
 
-        rd_ngay.setBackground(new java.awt.Color(204, 204, 255));
         buttonGroup1.add(rd_ngay);
         rd_ngay.setText("Ngày");
         rd_ngay.addActionListener(new java.awt.event.ActionListener() {
@@ -204,9 +203,8 @@ public class frm_Thongke extends javax.swing.JPanel {
             }
         });
         panelBorder1.add(rd_ngay);
-        rd_ngay.setBounds(30, 10, 60, 23);
+        rd_ngay.setBounds(30, 10, 60, 20);
 
-        rd_thang.setBackground(new java.awt.Color(204, 204, 255));
         buttonGroup1.add(rd_thang);
         rd_thang.setText("Tháng");
         rd_thang.addActionListener(new java.awt.event.ActionListener() {
@@ -215,9 +213,8 @@ public class frm_Thongke extends javax.swing.JPanel {
             }
         });
         panelBorder1.add(rd_thang);
-        rd_thang.setBounds(110, 10, 60, 23);
+        rd_thang.setBounds(110, 10, 60, 20);
 
-        rd_nam.setBackground(new java.awt.Color(204, 204, 255));
         buttonGroup1.add(rd_nam);
         rd_nam.setText("Năm");
         rd_nam.addActionListener(new java.awt.event.ActionListener() {
@@ -226,24 +223,22 @@ public class frm_Thongke extends javax.swing.JPanel {
             }
         });
         panelBorder1.add(rd_nam);
-        rd_nam.setBounds(190, 10, 60, 23);
+        rd_nam.setBounds(190, 10, 60, 20);
         panelBorder1.add(date_day);
         date_day.setBounds(260, 0, 280, 110);
         panelBorder1.add(date_month);
         date_month.setBounds(351, 10, 120, 30);
         panelBorder1.add(date_year);
-        date_year.setBounds(380, 10, 48, 30);
+        date_year.setBounds(380, 10, 64, 30);
 
-        btn_bieudo.setBackground(new java.awt.Color(153, 255, 204));
         btn_bieudo.setText("Biểu đồ");
-        btn_bieudo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
         btn_bieudo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_bieudoActionPerformed(evt);
             }
         });
         panelBorder1.add(btn_bieudo);
-        btn_bieudo.setBounds(780, 30, 140, 40);
+        btn_bieudo.setBounds(817, 20, 140, 40);
 
         panelGradiente1.add(panelBorder1);
         panelBorder1.setBounds(10, 210, 990, 430);

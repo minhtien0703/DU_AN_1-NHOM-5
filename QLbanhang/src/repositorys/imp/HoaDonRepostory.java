@@ -126,7 +126,7 @@ public class HoaDonRepostory implements IHoaDonRepostory {
         try {
             String sql = "SELECT a.MA,b.TEN,c.TEN,NGAYTAO,NGAYTHANHTOAN,TinhTrang,GHICHU FROM HOADON a JOIN USERS b ON a.IDNV = b.ID \n"
                     + "                JOIN KHACHHANG c ON a.IDKH = c.ID\n"
-                    + "                WHERE c.Ten like ?";
+                    + "                WHERE c.Ten =?";
             Connection conn = DBConnection.openDbConnection();
             PreparedStatement pr = conn.prepareStatement(sql);
             pr.setString(1, Ten);

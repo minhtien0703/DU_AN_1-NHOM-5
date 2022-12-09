@@ -37,7 +37,7 @@ public class frm_Hoadon extends javax.swing.JPanel {
                 hoaDonViewModel.getKh().getTen(),
                 hoaDonViewModel.getNgayTao(),
                 hoaDonViewModel.getNgayThanhToan(),
-                hoaDonViewModel.getTinhTrang() == 1 ? "Đã thanh toán" : "Chưa thanh toán"});
+                hoaDonViewModel.getTinhTrang() == 1 ? "Chưa thanh toán" : "Đã thanh toán"});
         }
 
     }
@@ -55,7 +55,7 @@ public class frm_Hoadon extends javax.swing.JPanel {
 //        }
         defaultTableModel = (DefaultTableModel) tbl_hoadon.getModel();
         defaultTableModel.setRowCount(0);
-        List<HoaDonViewModel> list = HoaDonServiec.getTimHDTen("%"+txt_tk.getText()+"%");
+        List<HoaDonViewModel> list = HoaDonServiec.getTimHDTen(txt_tk.getText());
         for (HoaDonViewModel hoaDonViewModel : list) {
             defaultTableModel.addRow(new Object[]{
                 hoaDonViewModel.getMa(),
@@ -63,7 +63,7 @@ public class frm_Hoadon extends javax.swing.JPanel {
                 hoaDonViewModel.getKh().getTen(),
                 hoaDonViewModel.getNgayTao(),
                 hoaDonViewModel.getNgayThanhToan(),
-                hoaDonViewModel.getTinhTrang() == 1 ? "Đã thanh toán" : "Chưa thanh toán"});
+                hoaDonViewModel.getTinhTrang() == 1 ? "Chưa thanh toán" : "Đã thanh toán"});
 
         }
     }
