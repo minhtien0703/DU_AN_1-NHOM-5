@@ -37,7 +37,7 @@ public class frm_Hoadon extends javax.swing.JPanel {
                 hoaDonViewModel.getKh().getTen(),
                 hoaDonViewModel.getNgayTao(),
                 hoaDonViewModel.getNgayThanhToan(),
-                hoaDonViewModel.getTinhTrang() == 1 ? "Chưa thanh toán" : "Đã thanh toán"});
+                hoaDonViewModel.getTinhTrang() == 0 ? "Chưa thanh toán" : "Đã thanh toán"});
         }
 
     }
@@ -63,7 +63,7 @@ public class frm_Hoadon extends javax.swing.JPanel {
                 hoaDonViewModel.getKh().getTen(),
                 hoaDonViewModel.getNgayTao(),
                 hoaDonViewModel.getNgayThanhToan(),
-                hoaDonViewModel.getTinhTrang() == 1 ? "Chưa thanh toán" : "Đã thanh toán"});
+                hoaDonViewModel.getTinhTrang() == 0 ? "Chưa thanh toán" : "Đã thanh toán"});
 
         }
     }
@@ -81,7 +81,7 @@ public class frm_Hoadon extends javax.swing.JPanel {
                 hoaDonViewModel.getKh().getTen(),
                 hoaDonViewModel.getNgayTao(),
                 hoaDonViewModel.getNgayThanhToan(),
-                hoaDonViewModel.getTinhTrang() == 1 ? "Chưa thanh toán" : "Đã thanh toán"});
+                hoaDonViewModel.getTinhTrang() == 0 ? "Chưa thanh toán" : "Đã thanh toán"});
         }
     }
 
@@ -311,7 +311,7 @@ public class frm_Hoadon extends javax.swing.JPanel {
                     hoaDonViewModel.getKh().getTen(),
                     hoaDonViewModel.getNgayTao(),
                     hoaDonViewModel.getNgayThanhToan(),
-                    hoaDonViewModel.getTinhTrang() == 1 ? "Chưa thanh toán" : "Đã thanh toán"});
+                    hoaDonViewModel.getTinhTrang() == 0 ? "Chưa thanh toán" : "Đã thanh toán"});
 
             }
             

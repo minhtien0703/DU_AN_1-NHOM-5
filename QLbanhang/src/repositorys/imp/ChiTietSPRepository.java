@@ -92,5 +92,22 @@ public class ChiTietSPRepository implements IChiTietSPRepository {
     public List<ChiTietSP> check(String maSP) {
         return getdataquery(SQL_SELECT_BY_MA, maSP);
     }
-
+    @Override
+    public Date checkngay(String id) {
+        Date time = null;
+        try {
+            String sql = "Select Ngaybatdau from khuyenmai where id =?";
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                time = rs.getDate(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(KhuyenmaiReponsitory.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        return time;
+    }
 }

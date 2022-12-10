@@ -5,6 +5,7 @@
 package services.imp;
 
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import models.ChiTietSP;
@@ -91,16 +92,24 @@ public class ChiTietSPServices implements IChiTietSPServices {
 
         return lst;
     }
-
+    @Override
+    public Date checkngay(String id) {
+        return chiTietSPRepository.checkngay(id);
+    }
     @Override
     public boolean Add(ChiTietSPViewModel x) {
-        System.out.println(x.toString());
         List<ChiTietSP> lst = chiTietSPRepository.check(x.getMa());
         ChiTietSP ctsp = new ChiTietSP(x.getMa(), x.getTen(), x.getNsx().getId(), x.getMausac().getId(), x.getDanhmuc().getId(), x.getKichco().getId(), x.getChatlieu().getId(), x.getThuonghieu().getId(), Integer.parseUnsignedInt(x.getKhuyenmai().getID()), x.getSoluongton(), x.getGianhap(), x.getGiaban(), x.getMota(), x.getQrcode());
         try {
+            long time = System.currentTimeMillis();
+            Date date = new Date(time);
+            if (date.before(chiTietSPRepository.checkngay(x.getKhuyenmai().getID()))) {
+                JOptionPane.showMessageDialog(new frm_Sanpham(), "khuyến mãi chưa đến ngày áp dụng vui lòng xem và chọn khuyến mãi khác");
+                return false;
+            }
             ChiTietSP xyy = lst.get(0);
             JOptionPane.showMessageDialog(new frm_Sanpham(), "Không để trùng mã");
-
+            
             return false;
         } catch (Exception e) {
             if (chiTietSPRepository.insert(ctsp) == 1) {
@@ -144,5 +153,6 @@ public class ChiTietSPServices implements IChiTietSPServices {
         }
         return lst;
     }
+
 
 }
