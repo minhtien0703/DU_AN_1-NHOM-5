@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -41,7 +42,7 @@ public class frm_Nhanvien extends javax.swing.JPanel {
         inittable();
         List<Chucvu> cvv = CVService.getAllChucVu();
         cbochucvu.setModel(new DefaultComboBoxModel((cvv.toArray())));
-        txtTaikhoan.setEditable(true);
+//        txtTaikhoan.setEditable(true);
         defaultTableModel = (DefaultTableModel) tblnhanvien.getModel();
         loaddata();
     }
@@ -66,7 +67,7 @@ public class frm_Nhanvien extends javax.swing.JPanel {
     public void loaddata() {
         defaultTableModel.setRowCount(0);
         List<UsersViewmodel> nvv = nhanVienService.getAllNhanVien();
-        int stt=1;
+        int stt = 1;
         for (UsersViewmodel x : nvv) {
             defaultTableModel.addRow(new Object[]{
                 stt,
@@ -86,6 +87,7 @@ public class frm_Nhanvien extends javax.swing.JPanel {
         }
         lblTongnv.setText("Tổng nhân viên : " + nvv.size());
     }
+
     public void ClearForm() {
         txtten.setText("");
         txttendem.setText("");
@@ -137,8 +139,9 @@ public class frm_Nhanvien extends javax.swing.JPanel {
 
     private UsersViewmodel getInputForm() {
         String sdt = "(0\\d{9})";
-        String mail ="^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+        String mail = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
         UsersViewmodel nv = new UsersViewmodel();
+// Tên
         try {
             if (txtten.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Bạn chưa nhập tên!");
@@ -146,6 +149,7 @@ public class frm_Nhanvien extends javax.swing.JPanel {
             }
         } catch (Exception e) {
         }
+// Tên Đệm
         try {
             if (txttendem.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Bạn chưa nhập tên đệm!");
@@ -153,6 +157,7 @@ public class frm_Nhanvien extends javax.swing.JPanel {
             }
         } catch (Exception e) {
         }
+// Họ
         try {
             if (txtho.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Bạn chưa nhập họ!");
@@ -160,34 +165,24 @@ public class frm_Nhanvien extends javax.swing.JPanel {
             }
         } catch (Exception e) {
         }
+// Ngày Sinh        
         try {
             if (datengaysinh.getDate() == null) {
-                JOptionPane.showMessageDialog(this, "Bạn chưa nhập ngày sinh!");
+                JOptionPane.showMessageDialog(this, "Bạn chưa Chọn ngày sinh!");
                 return null;
             }
         } catch (Exception e) {
         }
+// SĐT
         try {
             if (txtsdt.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Bạn chưa nhập sdt!");
                 return null;
             }
         } catch (Exception e) {
+
         }
-        try {
-            if (txtMatkhau.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Bạn chưa nhập mật khẩu!");
-                return null;
-            }
-        } catch (Exception e) {
-        }
-        try {
-            if (txtemail.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Bạn chưa nhập email!");
-                return null;
-            }
-        } catch (Exception e) {
-        }
+
         try {
             if (!txtsdt.getText().matches(sdt)) {
                 JOptionPane.showMessageDialog(this, "Số điện thoại của bạn chưa đúng định dạng");
@@ -195,6 +190,40 @@ public class frm_Nhanvien extends javax.swing.JPanel {
             }
         } catch (Exception e) {
         }
+
+        if (nhanVienService.kiemtrasdt(txtsdt.getText()) != null) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại của bạn đã tồn tại");
+            return null;
+        }
+// TÀi Khoản
+        try {
+            if (txtTaikhoan.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Bạn Chưa Nhập Tài Khoản");
+                return null;
+            }
+        } catch (Exception e) {
+        }
+        if (nhanVienService.kiemtratk(txtTaikhoan.getText()) != null) {
+            JOptionPane.showMessageDialog(this, "Tên tài khoản đã tồn tại");
+            return null;
+        }
+// Mật Khẩu
+        try {
+            if (txtMatkhau.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Bạn chưa nhập mật khẩu!");
+                return null;
+            }
+        } catch (Exception e) {
+        }
+// Email        
+        try {
+            if (txtemail.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Bạn chưa nhập email!");
+                return null;
+            }
+        } catch (Exception e) {
+        }
+
         try {
             if (!txtemail.getText().matches(mail)) {
                 JOptionPane.showMessageDialog(this, "Email của bạn chưa đúng định dạng");
@@ -202,18 +231,11 @@ public class frm_Nhanvien extends javax.swing.JPanel {
             }
         } catch (Exception e) {
         }
-        if (nhanVienService.kiemtra(txtemail.getText())!=null) {
+        if (nhanVienService.kiemtra(txtemail.getText()) != null) {
             JOptionPane.showMessageDialog(this, "Email đã tồn tại");
             return null;
         }
-        if (nhanVienService.kiemtrasdt(txtsdt.getText())!=null) {
-            JOptionPane.showMessageDialog(this, "Số điện thoại của bạn đã tồn tại");
-            return null;
-        }
-        if (nhanVienService.kiemtratk(txtTaikhoan.getText())!=null) {
-            JOptionPane.showMessageDialog(this, "Tên tài khoản đã tồn tại");
-            return null;
-        }
+
         nv.setTen(txtten.getText());
         nv.setTendem(txttendem.getText());
         nv.setHo(txtho.getText());
@@ -247,6 +269,7 @@ public class frm_Nhanvien extends javax.swing.JPanel {
         return id;
 
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -283,7 +306,6 @@ public class frm_Nhanvien extends javax.swing.JPanel {
         lblTongnv = new javax.swing.JLabel();
         btnthem = new swing.MyButton();
         btncapnhat = new swing.MyButton();
-        btnxoa = new swing.MyButton();
         panelBorder2 = new swing.PanelBorder();
         searchtxt = new swing.SearchText();
         lbl_search = new javax.swing.JLabel();
@@ -397,7 +419,7 @@ public class frm_Nhanvien extends javax.swing.JPanel {
                 btnthemActionPerformed(evt);
             }
         });
-        panelGradiente1.add(btnthem, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 90, 120, 40));
+        panelGradiente1.add(btnthem, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, 120, 40));
 
         btncapnhat.setBackground(new java.awt.Color(125, 224, 237));
         btncapnhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/floppy-disk.png"))); // NOI18N
@@ -408,18 +430,7 @@ public class frm_Nhanvien extends javax.swing.JPanel {
                 btncapnhatActionPerformed(evt);
             }
         });
-        panelGradiente1.add(btncapnhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 90, 120, 40));
-
-        btnxoa.setBackground(new java.awt.Color(125, 224, 237));
-        btnxoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tay.png"))); // NOI18N
-        btnxoa.setText("Xóa");
-        btnxoa.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnxoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnxoaActionPerformed(evt);
-            }
-        });
-        panelGradiente1.add(btnxoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 160, 120, 40));
+        panelGradiente1.add(btncapnhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 90, 120, 40));
 
         panelBorder2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -462,7 +473,7 @@ public class frm_Nhanvien extends javax.swing.JPanel {
                 btnlmmoiActionPerformed(evt);
             }
         });
-        panelGradiente1.add(btnlmmoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 160, 120, 40));
+        panelGradiente1.add(btnlmmoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 160, 120, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -478,47 +489,19 @@ public class frm_Nhanvien extends javax.swing.JPanel {
 
     private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
         UsersViewmodel nv = getInputForm();
-        if (nv ==null) {
+        if (nv == null) {
             return;
         }
-        if (JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thêm ?")==JOptionPane.YES_OPTION)
-        if (nhanVienService.add(nv) != false) {
-            JOptionPane.showMessageDialog(this, "Thêm Thành Công");
-            loaddata();
-        } else {
-            JOptionPane.showMessageDialog(this, "Thêm Thất Bại");
+        if (JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thêm ?") == JOptionPane.YES_OPTION) {
+            if (nhanVienService.add(nv) != false) {
+                JOptionPane.showMessageDialog(this, "Thêm Thành Công");
+                loaddata();
+            } else {
+                JOptionPane.showMessageDialog(this, "Thêm Thất Bại");
+            }
         }
-        
+
     }//GEN-LAST:event_btnthemActionPerformed
-
-    private void btnxoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxoaActionPerformed
-
-        Integer row = tblnhanvien.getSelectedRow();
-        if (row < 0) {
-            JOptionPane.showMessageDialog(this, "Bạn Chưa Chọn Dòng Muốn Xóa!");
-            return;
-        }
-        if (JOptionPane.showConfirmDialog(this, "Bạn Có Chắc Chắn Muốn Xóa Không !") != JOptionPane.YES_OPTION) {
-            return;
-        }
-        IUsersReposytory usersReposytory = new UsersReposytory();
-        List<Users> lst = usersReposytory.getAllNhanVien();
-        if (nhanVienService.delete(lst.get(row).getId()) != false) {
-            JOptionPane.showMessageDialog(this, "Xóa Thành Công");
-            loaddata();
-        } else {
-            JOptionPane.showMessageDialog(this, "Xóa Thất Bại");
-        }
-
-        if (tblnhanvien.getRowCount() > 0) {
-            tblnhanvien.setRowSelectionInterval(0, 0);
-            Showtable();
-        } else {
-            ClearForm();
-        }
-
-
-    }//GEN-LAST:event_btnxoaActionPerformed
 
     private void tblnhanvienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblnhanvienMouseClicked
 
@@ -545,9 +528,9 @@ public class frm_Nhanvien extends javax.swing.JPanel {
                 rd_nu.setSelected(true);
             }
             if (tblnhanvien.getValueAt(index, 10).toString().equals("Quản lý")) {
-                cbochucvu.setSelectedIndex(0);  
-            }else{
-                cbochucvu.setSelectedIndex(1); 
+                cbochucvu.setSelectedIndex(0);
+            } else {
+                cbochucvu.setSelectedIndex(1);
             }
 
         } catch (ParseException ex) {
@@ -559,6 +542,12 @@ public class frm_Nhanvien extends javax.swing.JPanel {
     private void btncapnhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncapnhatActionPerformed
         // TODO add your handling code here:
         UsersViewmodel nv = new UsersViewmodel();
+        Integer row = tblnhanvien.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "Bạn Cần Chọn 1 Dòng Muốn Sửa!");
+            return;
+        }
+        
         nv.setTen(txtten.getText());
         nv.setTendem(txttendem.getText());
         nv.setHo(txtho.getText());
@@ -583,21 +572,17 @@ public class frm_Nhanvien extends javax.swing.JPanel {
         } else {
             nv.setTT(0);
         }
-        Integer row = tblnhanvien.getSelectedRow();
-        if (row < 0) {
-            JOptionPane.showMessageDialog(this, "Bạn Cần Chọn 1 Dòng Muốn Sửa!");
-            return;
-        }
-        if (JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn sửa ?")==JOptionPane.YES_OPTION) {
-        IUsersReposytory usersReposytory = new UsersReposytory();
-        List<Users> lst = usersReposytory.getAllNhanVien();
-        if (nhanVienService.update(nv,lst.get(row).getId()) != false) {
-            JOptionPane.showMessageDialog(this, "Sửa Thành Công");
-            loaddata();
-        } else {
-            JOptionPane.showMessageDialog(this, "Sửa Thất Bại");
-            Showtable();
-        }
+
+        if (JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn sửa ?") == JOptionPane.YES_OPTION) {
+            IUsersReposytory usersReposytory = new UsersReposytory();
+            List<Users> lst = usersReposytory.getAllNhanVien();
+            if (nhanVienService.update(nv, lst.get(row).getId()) != false) {
+                JOptionPane.showMessageDialog(this, "Sửa Thành Công");
+                loaddata();
+            } else {
+                JOptionPane.showMessageDialog(this, "Sửa Thất Bại");
+                Showtable();
+            }
         }
     }//GEN-LAST:event_btncapnhatActionPerformed
 
@@ -609,14 +594,14 @@ public class frm_Nhanvien extends javax.swing.JPanel {
 
     private void lbl_searchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_searchMouseClicked
         // TODO add your handling code here:
-  
-        
+
+
     }//GEN-LAST:event_lbl_searchMouseClicked
 
     private void searchtxtCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_searchtxtCaretUpdate
         // TODO add your handling code here:
-                defaultTableModel.setRowCount(0);
-        int stt=1;
+        defaultTableModel.setRowCount(0);
+        int stt = 1;
         for (UsersViewmodel x : nhanVienService.SearchNVV(searchtxt.getText())) {
             defaultTableModel.addRow(new Object[]{
                 stt,
@@ -641,7 +626,6 @@ public class frm_Nhanvien extends javax.swing.JPanel {
     private swing.MyButton btncapnhat;
     private swing.MyButton btnlmmoi;
     private swing.MyButton btnthem;
-    private swing.MyButton btnxoa;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cbochucvu;
     private javax.swing.JCheckBox chk_tt;

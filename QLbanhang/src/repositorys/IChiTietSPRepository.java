@@ -4,6 +4,7 @@
  */
 package repositorys;
 
+import java.sql.Date;
 import java.util.List;
 import models.ChiTietSP;
 import models.SanPham;
@@ -27,5 +28,7 @@ public interface IChiTietSPRepository {
     public List<ChiTietSP> getSPhet();
     
     public List<ChiTietSP> check(String maSP);
+    
+    public Date checkngay(String id);
          
 }

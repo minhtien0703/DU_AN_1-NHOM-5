@@ -378,6 +378,9 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
     }//GEN-LAST:event_btn_LamMoiActionPerformed
 
     private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
+        if (getdatafrom() == null) {
+            return;
+        }
         if (rdoChatlieu.isSelected() == true) {
             JOptionPane.showMessageDialog(this, iChatLieuServices.Add(getdatafrom()));
             loadtablechatlieu();
@@ -563,6 +566,8 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
 
     private Objecttt getdatafrom() {
         if (jTextField1.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Không để trống");
+            jTextField1.requestFocus();
             return null;
         }
         return new Objecttt(0, jTextField1.getText());

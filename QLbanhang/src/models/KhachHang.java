@@ -4,17 +4,20 @@
  */
 package models;
 
+import java.util.Date;
+
 /**
  *
  * @author PC
  */
 public class KhachHang {
-      private int id;
+
+    private int id;
     private String ten;
     private String tendem;
     private String ho;
     private int gioitinh;
-    private String ngaysinh;
+    private Date ngaysinh;
     private String email;
     private String sdt;
     private int diemthuong;
@@ -22,7 +25,7 @@ public class KhachHang {
     public KhachHang() {
     }
 
-    public KhachHang(int id, String ten, String tendem, String ho, int gioitinh, String ngaysinh, String email, String sdt, int diemthuong) {
+    public KhachHang(int id, String ten, String tendem, String ho, int gioitinh, Date ngaysinh, String email, String sdt, int diemthuong) {
         this.id = id;
         this.ten = ten;
         this.tendem = tendem;
@@ -74,11 +77,11 @@ public class KhachHang {
         this.gioitinh = gioitinh;
     }
 
-    public String getNgaysinh() {
+    public Date getNgaysinh() {
         return ngaysinh;
     }
 
-    public void setNgaysinh(String ngaysinh) {
+    public void setNgaysinh(Date ngaysinh) {
         this.ngaysinh = ngaysinh;
     }
 
@@ -106,6 +109,4 @@ public class KhachHang {
         this.diemthuong = diemthuong;
     }
 
-   
-    
 }

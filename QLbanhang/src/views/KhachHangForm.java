@@ -36,7 +36,7 @@ public class KhachHangForm extends javax.swing.JFrame {
 
         Ma = MaHD;
         showTable(listKhachHang);
-        
+
     }
 
     public void showTable(List<KhachHangViewMD> list) {
@@ -59,8 +59,7 @@ public class KhachHangForm extends javax.swing.JFrame {
             gt = 1;
         }
         cv.setGioitinh(gt);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        cv.setNgaysinh(sdf.format(date_ngaysinh.getDate()));
+        cv.setNgaysinh(date_ngaysinh.getDate());
         cv.setSdt(txt_sdt.getText());
         cv.setEmail(txt_email.getText());
 
@@ -75,28 +74,40 @@ public class KhachHangForm extends javax.swing.JFrame {
     }
 
     public boolean check() {
+        String sdt = "(0\\d{9})";
+        String mail = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
         if (txt_Ten1.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập tên!");
-            return false;
-        }
-        if (txt_TenDem.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa nhập tên Đệm!");
-            return false;
-        }
-        if (txt_Ho.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa nhập Họ!");
-            return false;
-        }
-        if (date_ngaysinh.getDate() == null) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa nhập ngày sinh!");
             return false;
         }
         if (txt_sdt.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập SĐT!");
             return false;
         }
+        try {
+            if (!txt_sdt.getText().matches(sdt)) {
+                JOptionPane.showMessageDialog(this, "Số điện thoại của bạn chưa đúng định dạng");
+                return false;
+            }
+        } catch (Exception e) {
+        }
+        if (KH.kiemtrasdt(txt_sdt.getText()) != null) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại của bạn đã tồn tại");
+            return false;
+        }
         if (txt_email.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa nhập Email!");
+            return true;
+        } else {
+            try {
+                if (!txt_email.getText().matches(mail)) {
+                    JOptionPane.showMessageDialog(this, "Email của bạn chưa đúng định dạng");
+                    return false;
+                }
+            } catch (Exception e) {
+            }
+        }
+        if (KH.kiemtra(txt_email.getText()) != null) {
+            JOptionPane.showMessageDialog(this, "Email đã tồn tại");
             return false;
         }
 
@@ -178,6 +189,7 @@ public class KhachHangForm extends javax.swing.JFrame {
         jLabel8.setText("Giới tính");
 
         buttonGroup1.add(rd_nam);
+        rd_nam.setSelected(true);
         rd_nam.setText("Nam");
 
         buttonGroup1.add(rd_nu);

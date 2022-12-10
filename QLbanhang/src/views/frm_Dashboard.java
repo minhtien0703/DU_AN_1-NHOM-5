@@ -659,6 +659,10 @@ public class frm_Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnthongkeMousePressed
 
     private void btndangxuatMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btndangxuatMousePressed
+        int x = JOptionPane.showConfirmDialog(this, "bạn có muốn thoát khỏi sever không ", "đăng xuất", JOptionPane.YES_NO_OPTION);
+        if (x == 1) {
+            return;
+        }
         setColor(btndangxuat);
         crepp3.setOpaque(true);
         resetColor(new JPanel[]{btnbanhang, btnsanpham, btnkhuyenmai, btnkhachhang, btnnhanvien, btnthongke, btnhoadon}, new JPanel[]{crep1, crep2, crep3, crep4, crep5, crepp1, crepp2});

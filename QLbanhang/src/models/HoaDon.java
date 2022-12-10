@@ -16,12 +16,13 @@ public class HoaDon {
     private Date NgayTao;
     private Date NgayThanhToan;
     private int TinhTrang;
+    private Double tongTien;
     
 
     public HoaDon() {
     }
 
-    public HoaDon(User user, Integer id, KhachHang khachHang, String Ma, String Ghichu, Date NgayTao, Date NgayThanhToan, int TinhTrang) {
+    public HoaDon(User user, Integer id, KhachHang khachHang, String Ma, String Ghichu, Date NgayTao, Date NgayThanhToan, int TinhTrang,Double tongTien) {
         this.user = user;
         this.id = id;
         this.khachHang = khachHang;
@@ -30,6 +31,15 @@ public class HoaDon {
         this.NgayTao = NgayTao;
         this.NgayThanhToan = NgayThanhToan;
         this.TinhTrang = TinhTrang;
+        this.tongTien = tongTien;
+    }
+
+    public Double getTongTien() {
+        return tongTien;
+    }
+
+    public void setTongTien(Double tongTien) {
+        this.tongTien = tongTien;
     }
 
     public Integer getId() {

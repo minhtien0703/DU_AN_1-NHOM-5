@@ -62,5 +62,10 @@ public class SanPhamServiec implements ISamPhamServiecs{
     return sanPhamReposory.seachSanPham(Ten);
        
     }
+
+    @Override
+    public List<SanPham> seachBarCodeS(String barcode) {
+     return sanPhamReposory.seachSanPham(barcode);
+    }
     
 }

@@ -323,15 +323,15 @@ public class HoaDonRepostory implements IHoaDonRepostory {
     public List<HoaDonChiTiet> getListHoaDonChiTiet(String MaHD) {
         List<HoaDonChiTiet> getList = new ArrayList<>();
         try {
-            String sql = "SELECT SP.Ma , SP.Ten , HDCT.Dongia , HDCT.Soluong , KM.Giatrigiam , KM.HinhthucKM ,HDCT.IdCTSP , kh.Ho , kh.TenDem , kh.Ten , kh.Sdt , kh.Diemthuong FROM HoaDon HD JOIN HoaDonChiTiet HDCT ON HD.Id = HDCT.IdHD\n"
-                    + "                    JOIN ChitietSP SP ON SP.Id = HDCT.IdCTSP join KhuyenMai km ON SP.IdKM = KM.Id JOIN KhachHang kh on"
-                    + " HD.idKH = kh.id  WHERE HD.Ma =?";
+            String sql = "SELECT SP.Ma , SP.Ten , HDCT.Dongia , HDCT.Soluong , KM.Giatrigiam , KM.HinhthucKM ,HDCT.IdCTSP  FROM HoaDon HD JOIN HoaDonChiTiet HDCT ON HD.Id = HDCT.IdHD\n"
+                    + "                    JOIN ChitietSP SP ON SP.Id = HDCT.IdCTSP join KhuyenMai km ON SP.IdKM = KM.Id "
+                    + "  WHERE HD.Ma =?";
             Connection conn = DBConnection.openDbConnection();
             PreparedStatement pr = conn.prepareStatement(sql);
             pr.setString(1, MaHD);
             ResultSet rs = pr.executeQuery();
             while (rs.next()) {
-                HoaDonChiTiet hdct = new HoaDonChiTiet();
+                     HoaDonChiTiet hdct = new HoaDonChiTiet();
                 KhuyenMai km = new KhuyenMai();
                 km.setGiaTriGiam(rs.getDouble(5));
                 km.setHinhThucKM(rs.getString(6));
@@ -340,18 +340,11 @@ public class HoaDonRepostory implements IHoaDonRepostory {
                 sp.setTen(rs.getString(2));
                 sp.setMa(rs.getString(1));
                 sp.setId(rs.getInt(7));
+              
                 sp.setKhuenMai(km);
                 hdct.setSanPham(sp);
                 hdct.setSoluong(rs.getInt(4));
                 hdct.setDonGia(rs.getDouble(3));
-                
-                KhachHang kh = new KhachHang();
-                kh.setTen(rs.getString(8)+" "+rs.getString(9)+" "+rs.getString(10));
-                kh.setSdt(rs.getString(11));
-                kh.setDiemthuong(rs.getInt(12));
-                HoaDon hd= new HoaDon();
-                hd.setKhachHang(kh);
-                hdct.setHaoDon(hd);
                 getList.add(hdct);
             }
         } catch (Exception e) {
@@ -462,16 +455,17 @@ public class HoaDonRepostory implements IHoaDonRepostory {
 
     @Override
     public Integer updateTrangThaiHoaDon(HoaDon hd) {
-        int rs = 0;
+   int rs = 0;
         try {
-            String sql = "update HoaDon set TinhTrang = ? , Ghichu = ? ,NgayThanhToan = ?   where Ma = ?";
+            String sql = "update HoaDon set TinhTrang = ? , Ghichu = ? ,NgayThanhToan = ? ,tongTien = ?  where Ma = ?";
             Connection conn = DBConnection.openDbConnection();
             PreparedStatement pr = conn.prepareStatement(sql);
             pr.setInt(1, hd.getTinhTrang());
             pr.setString(2, hd.getGhichu());
             pr.setDate(3, hd.getNgayThanhToan());
-            pr.setString(4, hd.getMa());
-//            pr.setInt(4, hd.getKhachHang().getId());
+            pr.setString(5, hd.getMa());
+            pr.setDouble(4, hd.getTongTien());
+
             rs = pr.executeUpdate();
 
         } catch (Exception ex) {
@@ -498,6 +492,34 @@ public class HoaDonRepostory implements IHoaDonRepostory {
 
         }
         return rs;
+    }
+
+    @Override
+    public List<HoaDon> getKhachHang(String MaHD) {
+         List<HoaDon> getList = new ArrayList<>();
+        try {
+            String sql = "SELECT kh.Ho , kh.TenDem , kh.Ten , kh.sdt , kh.DiemThuong FROM HoaDon hd join KhachHang kh on hd.idKH = kh.id where hd.Ma =?";
+
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pr = conn.prepareStatement(sql);
+            pr.setString(1, MaHD);
+            ResultSet rs = pr.executeQuery();
+            while (rs.next()) {
+
+                KhachHang kh = new KhachHang();
+                kh.setTen(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3));
+                kh.setSdt(rs.getString(4));
+                kh.setDiemthuong(rs.getInt(5));
+                HoaDon hd = new HoaDon();
+                hd.setKhachHang(kh);
+
+                getList.add(hd);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getList;
     }
 
     

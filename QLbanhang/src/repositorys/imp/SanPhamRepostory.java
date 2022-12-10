@@ -105,10 +105,11 @@ public class SanPhamRepostory implements ISanPhamReposory {
 
             String sql = "SELECT SP.MA , SP.TEN , MS.Ten AS N'Màu Sắc' ,KM.Giatrigiam  , KM.HinhthucKM , KC.Ten AS N'Kích Cỡ' , CL.Ten AS N'CHẤT LIỆU', SP.SoLuongTon ,SP.GiaBan FROM ChitietSP SP \n"
                     + "JOIN MauSac MS ON SP.IdMauSac = MS.Id\n"
-                    + "JOIN KichCo KC ON SP.IdKC = KC.Id JOIN ChatLieu CL ON SP.IdCL = CL.Id JOIN KhuyenMai KM ON SP.IdKM = KM.Id WHERE SP.TEN LIKE ?";
+                    + "JOIN KichCo KC ON SP.IdKC = KC.Id JOIN ChatLieu CL ON SP.IdCL = CL.Id JOIN KhuyenMai KM ON SP.IdKM = KM.Id WHERE SP.Ten LIKE ? or SP.QrCode =? ";
             Connection conn = DBConnection.openDbConnection();
             PreparedStatement pr = conn.prepareStatement(sql);
-            pr.setString(1, "%" + Ten + "%");
+            pr.setString(1, "%"+Ten+"%");
+            pr.setString(2, Ten);
             ResultSet rs = pr.executeQuery();
             while (rs.next()) {
                 SanPham sp = new SanPham();
@@ -135,6 +136,48 @@ public class SanPhamRepostory implements ISanPhamReposory {
             e.printStackTrace();
         }
         return getListSP;
+    }
+
+    @Override
+    public List<SanPham> seachBarCode(String barcode) {
+        List<SanPham> getListSP = new ArrayList<>();
+        try {
+
+            String sql = "SELECT SP.MA , SP.TEN , MS.Ten AS N'Màu Sắc' ,KM.Giatrigiam  , KM.HinhthucKM , KC.Ten AS N'Kích Cỡ' , CL.Ten AS N'CHẤT LIỆU', SP.SoLuongTon ,SP.GiaBan ,SP.id FROM ChitietSP SP \n"
+                    + "JOIN MauSac MS ON SP.IdMauSac = MS.Id\n"
+                    + "JOIN KichCo KC ON SP.IdKC = KC.Id JOIN ChatLieu CL ON SP.IdCL = CL.Id JOIN KhuyenMai KM ON SP.IdKM = KM.Id WHERE SP.QrCode like ?";
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement pr = conn.prepareStatement(sql);
+            pr.setString(1,"%"+ barcode+"%");
+            ResultSet rs = pr.executeQuery();
+            while (rs.next()) {
+                SanPham sp = new SanPham();
+                sp.setMa(rs.getString(1));
+                sp.setTen(rs.getString(2));
+                sp.setId(rs.getInt(10));
+                MauSac ms = new MauSac();
+                ms.setTen(rs.getString(3));
+                sp.setMauSac(ms);
+                KhuyenMai km = new KhuyenMai();
+                km.setGiaTriGiam(rs.getDouble(4));
+                km.setHinhThucKM(rs.getString(5));
+                sp.setKhuenMai(km);
+                KichCo ks = new KichCo();
+                ks.setTen(rs.getString(6));
+                sp.setKichCo(ks);
+                ChatLieu cl = new ChatLieu();
+                cl.setTen(rs.getString(7));
+                sp.setChatLieu(cl);
+                sp.setSoLuongTon(rs.getInt(8));
+                sp.setGiaBan(rs.getDouble(9));
+                getListSP.add(sp);
+            }
+                return getListSP;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+     
     }
 
   

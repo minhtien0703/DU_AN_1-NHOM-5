@@ -14,6 +14,7 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,7 @@ import models.KichCo;
 import models.MauSac;
 import models.NSX;
 import models.ThuongHieu;
+import org.bridj.cpp.com.OLEAutomationLibrary;
 import services.IChatLieuServices;
 import services.IChiTietSPServices;
 import services.IDanhMucSPServices;
@@ -67,6 +69,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
     private IKhuyenmaiService iKhuyenmaiService;
     DefaultTableModel defaultTableModel;
     private boolean hish = false;
+    String sp = null;
 
     public frm_Sanpham() {
         initComponents();
@@ -81,7 +84,11 @@ public class frm_Sanpham extends javax.swing.JPanel {
         iChatLieuServices = new ChatLieuServices();
         iThuongHieuServices = new ThuongHieuServices();
         iKhuyenmaiService = new KhuyenmaiService();
+        initcbo();
+        loadData(iChiTietSPServices.getAll());
+    }
 
+    private void initcbo() {
         List<NSX> listnsx = iNSXServices.getAll();
         cbo_nsx.setModel(new DefaultComboBoxModel(listnsx.toArray()));
 
@@ -102,8 +109,6 @@ public class frm_Sanpham extends javax.swing.JPanel {
 
         List<KhuyenMai> listkm = iKhuyenmaiService.getlist();
         cbo_khuyenmai.setModel(new DefaultComboBoxModel(listkm.toArray()));
-        loadData(iChiTietSPServices.getAll());
-
     }
 
     private int getindexmausac(ChiTietSPViewModel x) {
@@ -244,7 +249,6 @@ public class frm_Sanpham extends javax.swing.JPanel {
         gianhap = Double.parseDouble(txt_gianhap.getText());
         giaban = Double.parseDouble(txt_giaban.getText());
         soluong = Integer.parseInt(txt_soluongton.getText());
-
         ChiTietSPViewModel ctsp = new ChiTietSPViewModel(txt_ma.getText(), txt_ten.getText(), nsx, mausac, danhmuc, kichco, chatlieu, thuonghieu, khuyenmai, soluong, gianhap, giaban, mota, zenbarcode());
         return ctsp;
     }
@@ -309,6 +313,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
         btn_xoa = new swing.MyButton();
         btn_them = new swing.MyButton();
         cbo_thuonghieu1 = new javax.swing.JComboBox<>();
+        myButton1 = new swing.MyButton();
         panelBorder2 = new swing.PanelBorder();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_sp = new javax.swing.JTable();
@@ -480,6 +485,15 @@ public class frm_Sanpham extends javax.swing.JPanel {
         panelBorder1.add(cbo_thuonghieu1);
         cbo_thuonghieu1.setBounds(280, 240, 210, 40);
 
+        myButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/refresh.png"))); // NOI18N
+        myButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myButton1ActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(myButton1);
+        myButton1.setBounds(760, 20, 40, 40);
+
         panelGradiente1.add(panelBorder1);
         panelBorder1.setBounds(8, 0, 990, 320);
 
@@ -569,9 +583,12 @@ public class frm_Sanpham extends javax.swing.JPanel {
 
     private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
         ChiTietSPViewModel x = getdadtafrom();
+        if (x == null) {
+            return;
+        }
         boolean kq = iChiTietSPServices.Add(x);
         if (kq == true) {
-            xuatbarcode(x);
+//            xuatbarcode(x);
             String data = x.getQrcode();
             String path = "D:\\QRcode\\Qr" + x.getTen() + ".png";
             Map<EncodeHintType, ErrorCorrectionLevel> hashMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
@@ -587,7 +604,11 @@ public class frm_Sanpham extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "lỗi");
         }
         String ma = (String) tbl_sp.getValueAt(row, 0);
-        boolean kq = iChiTietSPServices.Update(ma, getdadtafrom());
+        ChiTietSPViewModel x = getdadtafrom();
+        if (x == null) {
+            return;
+        }
+        boolean kq = iChiTietSPServices.Update(ma,x );
     }//GEN-LAST:event_btn_capnhatActionPerformed
 
     private void btn_xoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xoaActionPerformed
@@ -597,7 +618,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
             return;
         }
         ChiTietSPViewModel x = getdataTB(row);
-        xuatbarcode(x);
+//        xuatbarcode(x);
         String data = x.getQrcode();
         String path = "D:\\QRcode\\Qr" + x.getTen() + ".png";
         Map<EncodeHintType, ErrorCorrectionLevel> hashMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
@@ -652,6 +673,10 @@ public class frm_Sanpham extends javax.swing.JPanel {
         loadData(iChiTietSPServices.getlistbyTen("%" + searchText.getText() + "%"));
     }//GEN-LAST:event_searchTextKeyReleased
 
+    private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
+        initcbo();
+    }//GEN-LAST:event_myButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.MyButton btn_capnhat;
@@ -683,6 +708,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane4;
+    private swing.MyButton myButton1;
     private swing.PanelBorder panelBorder1;
     private swing.PanelBorder panelBorder2;
     private swing.PanelBorder panelBorder3;

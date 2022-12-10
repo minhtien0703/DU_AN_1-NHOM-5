@@ -5,6 +5,7 @@
 package services;
 
 import java.util.List;
+import models.HoaDon;
 import models.HoaDonChiTiet;
 import viewmodels.HoaDonCHiTietViewModel;
 import viewmodels.HoaDonViewModel;
@@ -51,4 +52,5 @@ public interface IHoaDonServiec {
 
     Integer updateTrangThaiHoaDon(HoaDonViewModel hd );
     Integer updateHoaDonKhachHang(int Ma  ,String MaHD);
+       List<HoaDon> getKhachHang(String MaHD);
 }

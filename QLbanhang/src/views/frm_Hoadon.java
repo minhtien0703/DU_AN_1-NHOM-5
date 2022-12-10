@@ -26,7 +26,7 @@ public class frm_Hoadon extends javax.swing.JPanel {
 
     }
 
-     private void loatdate1() {
+    private void loatdate1() {
         defaultTableModel = (DefaultTableModel) tbl_hoadon.getModel();
         defaultTableModel.getRowCount();
         List<HoaDonViewModel> hdv = HoaDonServiec.getAllHD();
@@ -37,11 +37,10 @@ public class frm_Hoadon extends javax.swing.JPanel {
                 hoaDonViewModel.getKh().getTen(),
                 hoaDonViewModel.getNgayTao(),
                 hoaDonViewModel.getNgayThanhToan(),
-                hoaDonViewModel.getTinhTrang() == 1 ? "Đã thanh toán" : "Chưa thanh toán"});
+                hoaDonViewModel.getTinhTrang() == 0 ? "Chưa thanh toán" : "Đã thanh toán"});
         }
 
     }
-
 
     public void TKTenHoaDOn() {
 
@@ -55,7 +54,7 @@ public class frm_Hoadon extends javax.swing.JPanel {
 //        }
         defaultTableModel = (DefaultTableModel) tbl_hoadon.getModel();
         defaultTableModel.setRowCount(0);
-        List<HoaDonViewModel> list = HoaDonServiec.getTimHDTen("%"+txt_tk.getText()+"%");
+        List<HoaDonViewModel> list = HoaDonServiec.getTimHDTen("%" + txt_tk.getText() + "%");
         for (HoaDonViewModel hoaDonViewModel : list) {
             defaultTableModel.addRow(new Object[]{
                 hoaDonViewModel.getMa(),
@@ -63,7 +62,7 @@ public class frm_Hoadon extends javax.swing.JPanel {
                 hoaDonViewModel.getKh().getTen(),
                 hoaDonViewModel.getNgayTao(),
                 hoaDonViewModel.getNgayThanhToan(),
-                hoaDonViewModel.getTinhTrang() == 1 ? "Đã thanh toán" : "Chưa thanh toán"});
+                hoaDonViewModel.getTinhTrang() == 0 ? "Chưa thanh toán" : "Đã thanh toán"});
 
         }
     }
@@ -81,13 +80,9 @@ public class frm_Hoadon extends javax.swing.JPanel {
                 hoaDonViewModel.getKh().getTen(),
                 hoaDonViewModel.getNgayTao(),
                 hoaDonViewModel.getNgayThanhToan(),
-                hoaDonViewModel.getTinhTrang() == 1 ? "Chưa thanh toán" : "Đã thanh toán"});
+                hoaDonViewModel.getTinhTrang() == 0 ? "Chưa thanh toán" : "Đã thanh toán"});
         }
     }
-
-
-
-  
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -267,9 +262,9 @@ public class frm_Hoadon extends javax.swing.JPanel {
 
     private void tbl_hoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_hoadonMouseClicked
         // TODO add your handling code here:
-        if (JOptionPane.showConfirmDialog(this, "Bạn Có Muốn Xem Hóa Đơn Chi Tiết Không !") != JOptionPane.YES_OPTION) {
-            return;
-        }
+//        if (JOptionPane.showConfirmDialog(this, "Bạn Có Muốn Xem Hóa Đơn Chi Tiết Không !") != JOptionPane.YES_OPTION) {
+//            return;
+//        }
 
         int row = tbl_hoadon.getSelectedRow();
         defaultTableModel = (DefaultTableModel) tbl_HoaDonCT.getModel();
@@ -284,7 +279,7 @@ public class frm_Hoadon extends javax.swing.JPanel {
                 CT.getDonGia(),
                 CT.getThanhTien()});
         }
-        
+
     }//GEN-LAST:event_tbl_hoadonMouseClicked
 
     private void txt_tkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_tkMouseClicked
@@ -295,7 +290,7 @@ public class frm_Hoadon extends javax.swing.JPanel {
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         // TODO add your handling code here:
-          if (Date_NgayTT.getDate() != null) {
+        if (Date_NgayTT.getDate() != null) {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String date3 = sdf.format(Date_NgayTT.getDate());
             if (HoaDonServiec.GetTimNTT(date3).isEmpty()) {
@@ -311,28 +306,49 @@ public class frm_Hoadon extends javax.swing.JPanel {
                     hoaDonViewModel.getKh().getTen(),
                     hoaDonViewModel.getNgayTao(),
                     hoaDonViewModel.getNgayThanhToan(),
-                    hoaDonViewModel.getTinhTrang() == 1 ? "Chưa thanh toán" : "Đã thanh toán"});
+                    hoaDonViewModel.getTinhTrang() == 0 ? "Chưa thanh toán" : "Đã thanh toán"});
 
             }
-            
+
         }
 
-       
+
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void cbo_trangthaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbo_trangthaiActionPerformed
         // TODO add your handling code here:
-       
-         TKTTHoaDOn();
+
+        TKTTHoaDOn();
     }//GEN-LAST:event_cbo_trangthaiActionPerformed
 
     private void txt_tkKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_tkKeyReleased
         // TODO add your handling code here:
-         TKTenHoaDOn();
+        TKTenHoaDOn();
     }//GEN-LAST:event_txt_tkKeyReleased
 
     private void Date_NgayTTAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_Date_NgayTTAncestorAdded
-        // TODO add your handling code here:
+        if (Date_NgayTT.getDate() != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String date3 = sdf.format(Date_NgayTT.getDate());
+            if (HoaDonServiec.GetTimNTT(date3).isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Không Có Ngày Thanh Toán Nào");
+                return;
+            }
+            defaultTableModel.setRowCount(0);
+            List<HoaDonViewModel> list = HoaDonServiec.GetTimNTT(date3);
+            for (HoaDonViewModel hoaDonViewModel : list) {
+                defaultTableModel.addRow(new Object[]{
+                    hoaDonViewModel.getMa(),
+                    hoaDonViewModel.getUs().getTen(),
+                    hoaDonViewModel.getKh().getTen(),
+                    hoaDonViewModel.getNgayTao(),
+                    hoaDonViewModel.getNgayThanhToan(),
+                    hoaDonViewModel.getTinhTrang() == 0 ? "Chưa thanh toán" : "Đã thanh toán"});
+
+            }
+
+        }
+
     }//GEN-LAST:event_Date_NgayTTAncestorAdded
 
 

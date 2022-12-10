@@ -49,5 +49,7 @@ public interface IHoaDonRepostory {
     Integer updateTrangThaiHoaDon(HoaDon hd);
     
     Integer updateHoaDonKhachHang(int Ma, String MaHD);
+    
+        List<HoaDon> getKhachHang(String MaHD);
 
 }

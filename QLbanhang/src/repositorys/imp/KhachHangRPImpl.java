@@ -47,7 +47,7 @@ public class KhachHangRPImpl implements IKhachHangReposytory {
                 khachhang.setTendem(rs.getString(3));
                 khachhang.setHo(rs.getString(4));
                 khachhang.setGioitinh(rs.getInt(5));
-                khachhang.setNgaysinh(rs.getString(6));
+                khachhang.setNgaysinh(rs.getDate(6));
                 khachhang.setEmail(rs.getString(7));
                 khachhang.setSdt(rs.getString(8));
                 khachhang.setDiemthuong(rs.getInt(9));
@@ -163,7 +163,7 @@ public class KhachHangRPImpl implements IKhachHangReposytory {
                 khachhang.setTendem(rs.getString(3));
                 khachhang.setHo(rs.getString(4));
                 khachhang.setGioitinh(rs.getInt(5));
-                khachhang.setNgaysinh(rs.getString(6));
+                khachhang.setNgaysinh(rs.getDate(6));
                 khachhang.setEmail(rs.getString(7));
                 khachhang.setSdt(rs.getString(8));
                 khachhang.setDiemthuong(rs.getInt(9));
@@ -313,5 +313,5 @@ public class KhachHangRPImpl implements IKhachHangReposytory {
             return null;
         }
 
-}
     }
+}

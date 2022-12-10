@@ -4,6 +4,7 @@
  */
 package services;
 
+import java.sql.Date;
 import java.util.List;
 import models.ChiTietSP;
 import viewmodels.ChiTietSPViewModel;
@@ -23,5 +24,7 @@ public interface IChiTietSPServices {
     boolean Update(String ma, ChiTietSPViewModel x);
 
     public List<ChiTietSPViewModel> getSPhet();
+    
+    public Date checkngay(String id);
     
 }
