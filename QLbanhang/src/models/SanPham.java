@@ -19,11 +19,12 @@ public class SanPham {
     private ChatLieu chatLieu;
     private KichCo kichCo;
     private KhuyenMai khuenMai;
+    private String QrCode;
 
     public SanPham() {
     }
 
-    public SanPham( int id,String Ma, String Ten, int SoLuongTon, Double GiaNhap, Double GiaBan, MauSac mauSac, ChatLieu chatLieu, KichCo kichCo, KhuyenMai khuenMai) {
+    public SanPham( int id,String Ma, String Ten, int SoLuongTon, Double GiaNhap, Double GiaBan, MauSac mauSac, ChatLieu chatLieu, KichCo kichCo, KhuyenMai khuenMai, String QrCode) {
         this.Ma = Ma;
         this.Ten = Ten;
         this.SoLuongTon = SoLuongTon;
@@ -33,6 +34,7 @@ public class SanPham {
         this.chatLieu = chatLieu;
         this.kichCo = kichCo;
         this.khuenMai = khuenMai;
+         this.QrCode = QrCode;
     }
 
     public int getId() {
@@ -41,6 +43,14 @@ public class SanPham {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getQrCode() {
+        return QrCode;
+    }
+
+    public void setQrCode(String QrCode) {
+        this.QrCode = QrCode;
     }
 
   

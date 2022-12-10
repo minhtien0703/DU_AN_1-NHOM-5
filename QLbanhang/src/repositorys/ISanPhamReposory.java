@@ -16,6 +16,7 @@ public interface ISanPhamReposory {
     boolean updateSoLuongSP(String Masp , int SoLuong) ;
     Integer getIdSanPham(String MaSP);
     List<SanPham> seachSanPham(String Ten);
+      List<SanPham> seachBarCode(String barcode);
   
     
 }

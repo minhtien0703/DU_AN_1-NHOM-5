@@ -6,6 +6,7 @@
 package services;
 
 import java.util.List;
+import models.HoaDon;
 import viewmodels.HoaDonCHiTietViewModel;
 
 
@@ -38,5 +39,7 @@ public List<HoaDonCHiTietViewModel> getAllHDCT();
     Integer getIDCTSP(int MaHD);
     
      Integer updateSoLuongGioHang(int SoLuong,String MaSP , String MaHD);
+     
+   
 }
 

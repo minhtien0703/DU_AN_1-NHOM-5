@@ -104,7 +104,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
 
         List<KhuyenMai> listkm = iKhuyenmaiService.getlist();
         cbo_khuyenmai.setModel(new DefaultComboBoxModel(listkm.toArray()));
-        loadData(iChiTietSPServices.getAll());
+//        loadData(iChiTietSPServices.getAll());
 
     }
 

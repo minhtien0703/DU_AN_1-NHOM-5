@@ -21,12 +21,12 @@ public class HoaDonViewModel {
     private Date NgayThanhToan;
     private int TinhTrang;
     private String GhiChu;
-
+    private Double tongTien;
 
     public HoaDonViewModel() {
     }
 
-    public HoaDonViewModel(KhachHang kh, User us, String Ma, Date NgayTao, Date NgayThanhToan, int TinhTrang, String GhiChu) {
+    public HoaDonViewModel(KhachHang kh, User us, String Ma, Date NgayTao, Date NgayThanhToan, int TinhTrang, String GhiChu,Double tongTien) {
         this.kh = kh;
         this.us = us;
         this.Ma = Ma;
@@ -34,6 +34,15 @@ public class HoaDonViewModel {
         this.NgayThanhToan = NgayThanhToan;
         this.TinhTrang = TinhTrang;
         this.GhiChu = GhiChu;
+        this.tongTien = tongTien;
+    }
+
+    public Double getTongTien() {
+        return tongTien;
+    }
+
+    public void setTongTien(Double tongTien) {
+        this.tongTien = tongTien;
     }
 
   
