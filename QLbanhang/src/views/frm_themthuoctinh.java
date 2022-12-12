@@ -53,7 +53,10 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
         inittable();
         rdoChatlieu.setSelected(true);
         loadtablechatlieu();
+
     }
+    int xx;
+    int yy;
 
     private void inittable() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
@@ -151,10 +154,14 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
         panelBorder5 = new swing.PanelBorder();
         searchText1 = new swing.SearchText();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Thêm thuộc tính phụ");
         setAlwaysOnTop(true);
+        setUndecorated(true);
+        setResizable(false);
 
         panelGradiente1.setColorPrimario(new java.awt.Color(204, 255, 255));
 
@@ -301,7 +308,7 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
         Btn_capNhat.setBounds(860, 130, 120, 33);
 
         panelGradiente1.add(panelBorder1);
-        panelBorder1.setBounds(10, 10, 1160, 230);
+        panelBorder1.setBounds(10, 50, 1160, 230);
 
         panelBorder2.setBackground(new java.awt.Color(204, 204, 255));
 
@@ -344,7 +351,42 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
         panelBorder5.setBounds(790, 10, 300, 50);
 
         panelGradiente1.add(panelBorder2);
-        panelBorder2.setBounds(10, 260, 1160, 320);
+        panelBorder2.setBounds(10, 300, 1160, 320);
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/close.png"))); // NOI18N
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
+        panelGradiente1.add(jLabel3);
+        jLabel3.setBounds(1140, 0, 40, 40);
+
+        jPanel1.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel1MouseDragged(evt);
+            }
+        });
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel1MousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1130, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        panelGradiente1.add(jPanel1);
+        jPanel1.setBounds(0, 0, 1130, 40);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -354,7 +396,7 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelGradiente1, javax.swing.GroupLayout.PREFERRED_SIZE, 591, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panelGradiente1, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
         );
 
         pack();
@@ -495,48 +537,22 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
         jTextField1.setText(x.getTen());
     }//GEN-LAST:event_jTable1MouseClicked
 
-//    /**
-//     * @param args the command line arguments
-//     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(frm_themthuoctinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(frm_themthuoctinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(frm_themthuoctinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(frm_themthuoctinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//        //</editor-fold>
-//
-//        /* Create and display the dialog */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                frm_themthuoctinh dialog = new frm_themthuoctinh(new javax.swing.JFrame(), true);
-//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-//                    @Override
-//                    public void windowClosing(java.awt.event.WindowEvent e) {
-//                        System.exit(0);
-//                    }
-//                });
-//                dialog.setVisible(true);
-//            }
-//        });
-//    }
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        this.dispose();
+        new frm_Sanpham().initcbo();
+    }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
+        xx = evt.getX();
+        yy = evt.getY();
+    }//GEN-LAST:event_jPanel1MousePressed
+
+    private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xx, y - yy);
+    }//GEN-LAST:event_jPanel1MouseDragged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.MyButton Btn_capNhat;
@@ -546,6 +562,8 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;

@@ -88,7 +88,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
         loadData(iChiTietSPServices.getAll());
     }
 
-    private void initcbo() {
+    public void initcbo() {
         List<NSX> listnsx = iNSXServices.getAll();
         cbo_nsx.setModel(new DefaultComboBoxModel(listnsx.toArray()));
 
@@ -586,15 +586,19 @@ public class frm_Sanpham extends javax.swing.JPanel {
         if (x == null) {
             return;
         }
-        boolean kq = iChiTietSPServices.Add(x);
-        if (kq == true) {
+        int chon = JOptionPane.showConfirmDialog(this, "Có chắc muốn thêm sản phẩm ?", "Thêm sản phẩm mới", JOptionPane.YES_NO_OPTION);
+        if (chon == JOptionPane.YES_OPTION) {
+            boolean kq = iChiTietSPServices.Add(x);
+            if (kq == true) {
+                loadData(iChiTietSPServices.getAll());
 //            xuatbarcode(x);
-            String data = x.getQrcode();
-            String path = "D:\\QRcode\\Qr" + x.getTen() + ".png";
-            Map<EncodeHintType, ErrorCorrectionLevel> hashMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
-            hashMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
-            generateQRcode(data, path, hashMap, 200, 200);
-            System.out.println("QR Code created successfully.");
+                String data = x.getQrcode();
+                String path = "D:\\QRcode\\Qr" + x.getTen() + ".png";
+                Map<EncodeHintType, ErrorCorrectionLevel> hashMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
+                hashMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
+                generateQRcode(data, path, hashMap, 200, 200);
+                System.out.println("QR Code created successfully.");
+            }
         }
     }//GEN-LAST:event_btn_themActionPerformed
 
@@ -608,7 +612,18 @@ public class frm_Sanpham extends javax.swing.JPanel {
         if (x == null) {
             return;
         }
-        boolean kq = iChiTietSPServices.Update(ma,x );
+        int chon = JOptionPane.showConfirmDialog(this, "Có chắc muốn cập nhật lại sản phẩm ?", "Update", JOptionPane.YES_NO_OPTION);
+        if (chon == JOptionPane.YES_OPTION) {
+            boolean kq = iChiTietSPServices.Update(ma, x);
+            if (kq == true) {
+                loadData(iChiTietSPServices.getAll());
+                JOptionPane.showMessageDialog(this, "Thành công", "Update", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Thất bại", "Update", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        }
+
     }//GEN-LAST:event_btn_capnhatActionPerformed
 
     private void btn_xoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xoaActionPerformed
