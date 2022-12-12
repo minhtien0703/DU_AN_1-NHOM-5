@@ -114,7 +114,7 @@ public class HoaDonServiec implements IHoaDonServiec {
 
         List<HoaDon> Listtm = hoaDonRepostory.getHDTrangThai(TrangThai);
         for (HoaDon x : Listtm) {
-            // list05.add(new HoaDonViewModel(x.getKhachHang(),x.getUser(),x.getMa(),x.getNgayTao() ,x.getNgayThanhToan() ,x.getTinhTrang(),x.getGhichu()));
+             list05.add(new HoaDonViewModel(x.getKhachHang(),x.getUser(),x.getMa(),x.getNgayTao() ,x.getNgayThanhToan() ,x.getTinhTrang(),x.getGhichu(),x.getTongTien()));
             HoaDonViewModel hd = new HoaDonViewModel();
             hd.setKh(x.getKhachHang());
             hd.setUs(x.getUser());
@@ -133,7 +133,7 @@ public class HoaDonServiec implements IHoaDonServiec {
 
         List<HoaDon> Listtm = hoaDonRepostory.GetTimNTT(NgayTT);
         for (HoaDon x : Listtm) {
-            // list07.add(new HoaDonViewModel(x.getKhachHang(),x.getUser(),x.getMa(),x.getNgayTao() ,x.getNgayThanhToan() ,x.getTinhTrang(),x.getGhichu()));
+             list07.add(new HoaDonViewModel(x.getKhachHang(),x.getUser(),x.getMa(),x.getNgayTao() ,x.getNgayThanhToan() ,x.getTinhTrang(),x.getGhichu(),x.getTongTien()));
             HoaDonViewModel hd = new HoaDonViewModel();
             hd.setKh(x.getKhachHang());
             hd.setUs(x.getUser());
