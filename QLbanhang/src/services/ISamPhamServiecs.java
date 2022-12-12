@@ -17,5 +17,6 @@ public interface ISamPhamServiecs {
       boolean updateSoLuongSP(String Masp, int SoLuong ) ;
       Integer getIdSanPham(String MaSP);
       List<SanPham> seachSanPham(String Ten);
-         List<SanPham> seachBarCodeS(String barcode);
+      List<SanPham> seachBarCodeS(String barcode);
+       List<SanPhamViewModel> locTheoDanhMucSP(String TenDanhMuc);
 }
