@@ -877,7 +877,7 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
             run = xWPFParagraph7.createRun();
             run.setText("Ngày lập :" + date);
 
-            File f = new File("D://hoaDon.docx");
+            File f = new File("E://HoaDon//"+hoaDon.getMa()+".docx");
             try {
                 FileOutputStream fos = new FileOutputStream(f);
                 XWPFParagraph xWPFParagraph13 = document.createParagraph();

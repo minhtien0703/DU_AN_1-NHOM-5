@@ -336,7 +336,7 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Bạn chưa chọn dòng nào");
             return;
         }
-        if (JOptionPane.showConfirmDialog(this, "Bạn có muốn sửa không?")==JOptionPane.YES_OPTION) {
+        if (JOptionPane.showConfirmDialog(this, "Bạn có muốn sửa không?","Update",JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION) {
             KhuyenmaiViewmodel km = new KhuyenmaiViewmodel();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String date1 = sdf.format(date_BD.getDate());

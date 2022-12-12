@@ -28,26 +28,28 @@ private List<Thongke> lst ;
     }
 
     @Override
-    public List<Thongke> getbyday() {
-        String sql ="select Sum(a.Dongia*a.Soluong)as'Tổng tiền',Sum(a.Soluong) as 'Số sản phẩm' from HoaDonChiTiet a join ChitietSP b on a.IdCTSP =b.id\n" +
+    public int getbyday() {
+        int box=0;
+        String sql ="select Sum(a.Soluong) as 'Số sản phẩm' from HoaDonChiTiet a join ChitietSP b on a.IdCTSP =b.id\n" +
             "join HoaDon c on a.IdHD = c.Id where TinhTrang = 1 and Day(c.NgayThanhToan) = Day(GETDATE())";
         try {
             Connection conn = DBConnection.openDbConnection();
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {                
-                lst.add(new Thongke(rs.getDouble(1),rs.getInt(2)));
+                box=rs.getInt(1);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return 0;
         }
-    return lst;
+    return box;
     }
 
     @Override
-    public List<Thongke> getbyday(String date) {
-        String sql ="select Sum(a.Dongia*a.Soluong)as'Tổng tiền',Sum(a.Soluong) as 'Số sản phẩm' from HoaDonChiTiet a join ChitietSP b on a.IdCTSP =b.id\n" +
+    public int getbyday(String date) {
+        int box=0;
+        String sql ="select Sum(a.Soluong) as 'Số sản phẩm' from HoaDonChiTiet a join ChitietSP b on a.IdCTSP =b.id\n" +
             "join HoaDon c on a.IdHD = c.Id where TinhTrang = 1 and Day(c.NgayThanhToan) = ? and MONTH(c.NgayThanhToan) = MONTH(GETDATE()) and YEAR(c.NgayThanhToan) = YEAR(GETDATE())";
         try {
             Connection conn = DBConnection.openDbConnection();
@@ -55,18 +57,19 @@ private List<Thongke> lst ;
             pstm.setString(1, date);
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                lst.add(new Thongke(rs.getDouble(1),rs.getInt(2)));
+                box=rs.getInt(1);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return 0;
         }
-        return lst;
+        return box;
     }
 
     @Override
-    public List<Thongke> getbymonth(String date) {
-        String sql = "select Sum(a.Dongia*a.Soluong)as'Tổng tiền',Sum(a.Soluong) as 'Số sản phẩm' from HoaDonChiTiet a join ChitietSP b on a.IdCTSP =b.id\n"
+    public int getbymonth(String date) {
+        int box =0;
+        String sql = "select Sum(a.Soluong) as 'Số sản phẩm' from HoaDonChiTiet a join ChitietSP b on a.IdCTSP =b.id\n"
                 + "join HoaDon c on a.IdHD = c.Id where TinhTrang = 1 and MONTH(c.NgayThanhToan) = ? AND YEAR(NGAYTHANHTOAN) =YEAR(GETDATE())";
         try {
             Connection conn = DBConnection.openDbConnection();
@@ -74,18 +77,19 @@ private List<Thongke> lst ;
             pstm.setString(1, date);
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                lst.add(new Thongke(rs.getDouble(1),rs.getInt(2)));
+               box=rs.getInt(1);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return 0;
         }
-        return lst;
+        return box;
     }
 
     @Override
-    public List<Thongke> getbyyear(String date) {
-        String sql = "select Sum(a.Dongia*a.Soluong)as'Tổng tiền',Sum(a.Soluong) as 'Số sản phẩm' from HoaDonChiTiet a join ChitietSP b on a.IdCTSP =b.id\n"
+    public int getbyyear(String date) {
+        int box = 0;
+        String sql = "select Sum(a.Soluong) as 'Số sản phẩm' from HoaDonChiTiet a join ChitietSP b on a.IdCTSP =b.id\n"
                 + "join HoaDon c on a.IdHD = c.Id where TinhTrang = 1 and Year(c.NgayThanhToan) = ?";
         try {
             Connection conn = DBConnection.openDbConnection();
@@ -93,13 +97,13 @@ private List<Thongke> lst ;
             pstm.setString(1, date);
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                lst.add(new Thongke(rs.getDouble(1),rs.getInt(2)));
+                box=rs.getInt(1);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return 0;
         }
-        return lst;
+        return box;
     }
 
     @Override
@@ -150,8 +154,8 @@ private List<Thongke> lst ;
     @Override
     public int getmonth1() {
         int box = 0;
-        String sql = "select Sum(a.Dongia*a.Soluong)as'Tổng tiền'  from HoaDonChiTiet a join ChitietSP b on a.IdCTSP =b.id\n"
-                + "join HoaDon c on a.IdHD = c.Id where TinhTrang = 1 and Month(c.NgayThanhToan) = 1";
+        String sql = "select TongTien from HoaDon \n" +
+"			where TinhTrang = 1 and MONTH(NgayThanhToan) = 1";
         try {
             Connection conn = DBConnection.openDbConnection();
             Statement st = conn.createStatement();
@@ -169,8 +173,8 @@ private List<Thongke> lst ;
     @Override
     public int getmonth2() {
         int box = 0;
-        String sql = "select Sum(a.Dongia*a.Soluong)as'Tổng tiền'  from HoaDonChiTiet a join ChitietSP b on a.IdCTSP =b.id\n"
-                + "join HoaDon c on a.IdHD = c.Id where TinhTrang = 1 and Month(c.NgayThanhToan) = 2";
+                String sql = "select TongTien from HoaDon \n" +
+"			where TinhTrang = 1 and MONTH(NgayThanhToan) = 2";
         try {
             Connection conn = DBConnection.openDbConnection();
             Statement st = conn.createStatement();
@@ -188,8 +192,8 @@ private List<Thongke> lst ;
     @Override
     public int getmonth3() {
         int box = 0;
-        String sql = "select Sum(a.Dongia*a.Soluong)as'Tổng tiền'  from HoaDonChiTiet a join ChitietSP b on a.IdCTSP =b.id\n"
-                + "join HoaDon c on a.IdHD = c.Id where TinhTrang = 1 and Month(c.NgayThanhToan) = 3";
+        String sql = "select TongTien from HoaDon \n"
+                + "			where TinhTrang = 1 and MONTH(NgayThanhToan) = 3";
         try {
             Connection conn = DBConnection.openDbConnection();
             Statement st = conn.createStatement();
@@ -207,8 +211,8 @@ private List<Thongke> lst ;
     @Override
     public int getmonth4() {
         int box = 0;
-        String sql = "select Sum(a.Dongia*a.Soluong)as'Tổng tiền'  from HoaDonChiTiet a join ChitietSP b on a.IdCTSP =b.id\n"
-                + "join HoaDon c on a.IdHD = c.Id where TinhTrang = 1 and Month(c.NgayThanhToan) = 4";
+        String sql = "select TongTien from HoaDon \n"
+                + "			where TinhTrang = 1 and MONTH(NgayThanhToan) = 4";
         try {
             Connection conn = DBConnection.openDbConnection();
             Statement st = conn.createStatement();
@@ -226,8 +230,8 @@ private List<Thongke> lst ;
     @Override
     public int getmonth5() {
         int box = 0;
-        String sql = "select Sum(a.Dongia*a.Soluong)as'Tổng tiền'  from HoaDonChiTiet a join ChitietSP b on a.IdCTSP =b.id\n"
-                + "join HoaDon c on a.IdHD = c.Id where TinhTrang = 1 and Month(c.NgayThanhToan) = 5";
+        String sql = "select TongTien from HoaDon \n"
+                + "			where TinhTrang = 1 and MONTH(NgayThanhToan) = 5";
         try {
             Connection conn = DBConnection.openDbConnection();
             Statement st = conn.createStatement();
@@ -245,8 +249,8 @@ private List<Thongke> lst ;
     @Override
     public int getmonth6() {
         int box = 0;
-        String sql = "select Sum(a.Dongia*a.Soluong)as'Tổng tiền'  from HoaDonChiTiet a join ChitietSP b on a.IdCTSP =b.id\n"
-                + "join HoaDon c on a.IdHD = c.Id where TinhTrang = 1 and Month(c.NgayThanhToan) = 6";
+       String sql = "select TongTien from HoaDon \n"
+                + "			where TinhTrang = 1 and MONTH(NgayThanhToan) = 6";
         try {
             Connection conn = DBConnection.openDbConnection();
             Statement st = conn.createStatement();
@@ -264,8 +268,8 @@ private List<Thongke> lst ;
     @Override
     public int getmonth7() {
         int box = 0;
-        String sql = "select Sum(a.Dongia*a.Soluong)as'Tổng tiền'  from HoaDonChiTiet a join ChitietSP b on a.IdCTSP =b.id\n"
-                + "join HoaDon c on a.IdHD = c.Id where TinhTrang = 1 and Month(c.NgayThanhToan) = 7";
+        String sql = "select TongTien from HoaDon \n"
+                + "			where TinhTrang = 1 and MONTH(NgayThanhToan) = 7";
         try {
             Connection conn = DBConnection.openDbConnection();
             Statement st = conn.createStatement();
@@ -283,8 +287,8 @@ private List<Thongke> lst ;
     @Override
     public int getmonth8() {
         int box = 0;
-        String sql = "select Sum(a.Dongia*a.Soluong)as'Tổng tiền'  from HoaDonChiTiet a join ChitietSP b on a.IdCTSP =b.id\n"
-                + "join HoaDon c on a.IdHD = c.Id where TinhTrang = 1 and Month(c.NgayThanhToan) = 8";
+       String sql = "select TongTien from HoaDon \n"
+                + "			where TinhTrang = 1 and MONTH(NgayThanhToan) = 8";
         try {
             Connection conn = DBConnection.openDbConnection();
             Statement st = conn.createStatement();
@@ -302,8 +306,8 @@ private List<Thongke> lst ;
     @Override
     public int getmonth9() {
         int box = 0;
-        String sql = "select Sum(a.Dongia*a.Soluong)as'Tổng tiền'  from HoaDonChiTiet a join ChitietSP b on a.IdCTSP =b.id\n"
-                + "join HoaDon c on a.IdHD = c.Id where TinhTrang = 1 and Month(c.NgayThanhToan) = 9";
+        String sql = "select TongTien from HoaDon \n"
+                + "			where TinhTrang = 1 and MONTH(NgayThanhToan) = 9";
         try {
             Connection conn = DBConnection.openDbConnection();
             Statement st = conn.createStatement();
@@ -321,8 +325,8 @@ private List<Thongke> lst ;
     @Override
     public int getmonth10() {
         int box = 0;
-        String sql = "select Sum(a.Dongia*a.Soluong)as'Tổng tiền'  from HoaDonChiTiet a join ChitietSP b on a.IdCTSP =b.id\n"
-                + "join HoaDon c on a.IdHD = c.Id where TinhTrang = 1 and Month(c.NgayThanhToan) = 10";
+       String sql = "select TongTien from HoaDon \n"
+                + "			where TinhTrang = 1 and MONTH(NgayThanhToan) = 10";
         try {
             Connection conn = DBConnection.openDbConnection();
             Statement st = conn.createStatement();
@@ -340,8 +344,8 @@ private List<Thongke> lst ;
     @Override
     public int getmonth11() {
         int box = 0;
-        String sql = "select Sum(a.Dongia*a.Soluong)as'Tổng tiền'  from HoaDonChiTiet a join ChitietSP b on a.IdCTSP =b.id\n"
-                + "join HoaDon c on a.IdHD = c.Id where TinhTrang = 1 and Month(c.NgayThanhToan) = 11";
+String sql = "select TongTien from HoaDon \n"
+                + "			where TinhTrang = 1 and MONTH(NgayThanhToan) = 11";
         try {
             Connection conn = DBConnection.openDbConnection();
             Statement st = conn.createStatement();
@@ -359,8 +363,8 @@ private List<Thongke> lst ;
     @Override
     public int getmonth12() {
         int box = 0;
-        String sql = "select Sum(a.Dongia*a.Soluong)as'Tổng tiền'  from HoaDonChiTiet a join ChitietSP b on a.IdCTSP =b.id\n"
-                + "join HoaDon c on a.IdHD = c.Id where TinhTrang = 1 and Month(c.NgayThanhToan) = 12";
+        String sql = "select TongTien from HoaDon \n"
+                + "			where TinhTrang = 1 and MONTH(NgayThanhToan) = 12";
         try {
             Connection conn = DBConnection.openDbConnection();
             Statement st = conn.createStatement();
@@ -515,5 +519,76 @@ private List<Thongke> lst ;
             e.printStackTrace();
             return 0;
         }
+    }
+       @Override
+    public int getdtday() {
+        int box =0;
+        String sql ="select SUM(TongTien) from HoaDon where TinhTrang = 1 and Day(NgayThanhToan) = Day(GETDATE())";
+        try {
+            Connection conn = DBConnection.openDbConnection();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {                
+                box=(int) rs.getDouble(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    return box;
+    }
+       @Override
+    public int getdtday(String date) {
+        int box =0;
+        String sql ="select SUM(TongTien) from HoaDon where TinhTrang = 1 and Day(NgayThanhToan) = Day(GETDATE()) and MONTH(NgayThanhToan) = MONTH(GETDATE()) and  YEAR(NGAYTHANHTOAN) = YEAR(GETDATE())";
+        try {
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, date);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {                
+                box=(int) rs.getDouble(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    return box;
+    }
+       @Override
+    public int getdtmonth(String date) {
+        int box =0;
+        String sql ="select SUM(TongTien) from HoaDon where TinhTrang = 1 and MONTH(NgayThanhToan) = ? and  YEAR(NGAYTHANHTOAN) = YEAR(GETDATE()) ";
+        try {
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, date);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {                
+                box=(int) rs.getDouble(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    return box;
+    }
+       @Override
+    public int getdtyear(String date) {
+        int box =0;
+        String sql ="select SUM(TongTien) from HoaDon where TinhTrang = 1 and YEAR(NgayThanhToan) = ?";
+        try {
+            Connection conn = DBConnection.openDbConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, date);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {                
+                box=(int) rs.getDouble(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    return box;
     }
 }

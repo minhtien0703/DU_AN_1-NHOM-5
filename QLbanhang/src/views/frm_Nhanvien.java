@@ -573,7 +573,7 @@ public class frm_Nhanvien extends javax.swing.JPanel {
             nv.setTT(0);
         }
 
-        if (JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn sửa ?") == JOptionPane.YES_OPTION) {
+        if (JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn sửa ?","Update",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             IUsersReposytory usersReposytory = new UsersReposytory();
             List<Users> lst = usersReposytory.getAllNhanVien();
             if (nhanVienService.update(nv, lst.get(row).getId()) != false) {

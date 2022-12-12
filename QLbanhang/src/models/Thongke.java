@@ -17,8 +17,11 @@ public class Thongke {
     public Thongke() {
     }
 
-    public Thongke(double doanhthu,int soSP) {
+    public Thongke(double doanhthu) {
         this.doanhthu = doanhthu;
+    }
+
+    public Thongke(int soSP) {
         this.soSP = soSP;
     }
 

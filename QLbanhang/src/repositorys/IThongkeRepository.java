@@ -13,7 +13,7 @@ import models.Thongke;
  * @author ADMIN
  */
 public interface IThongkeRepository {
-    public List<Thongke> getbyday();
+    public int getbyday();
     public int gethdday();
     public int gethdday(String date);
     public int gethdmonth(String date);
@@ -22,9 +22,9 @@ public interface IThongkeRepository {
     public int getkhday(String date);
     public int getkhmonth(String date);
     public int getkhyear(String date);
-    public List<Thongke> getbyday(String date);
-    public List<Thongke> getbymonth(String date);
-    public List<Thongke> getbyyear(String date);
+    public int getbyday(String date);
+    public int getbymonth(String date);
+    public int getbyyear(String date);
     public List<Thongke> getsp();
     public List<Thongke> getnv();
     public int getmonth1();
@@ -39,4 +39,8 @@ public interface IThongkeRepository {
     public int getmonth10();
     public int getmonth11();
     public int getmonth12();
+    public int getdtday();
+    public int getdtday(String date);
+    public int getdtmonth(String date);
+    public int getdtyear(String date);
 }

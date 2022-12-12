@@ -52,10 +52,8 @@ public class frm_Thongke extends javax.swing.JPanel {
         lbl_kh.setText(String.valueOf(repository.getkhday()));
     }
     void doanhthu(){
-        for (Thongke x : repository.getbyday()) {
-            lbl_doanhthu.setText(df.format(x.getDoanhthu())+" VND");
-            lbl_sanpham.setText(String.valueOf(x.getSoSP()));
-        }
+        lbl_doanhthu.setText(df.format(repository.getdtday()));
+        lbl_sanpham.setText(String.valueOf(repository.getbyday()));
     }       
     /**
      * This method is called from within the constructor to initialize the form.
@@ -285,12 +283,11 @@ public class frm_Thongke extends javax.swing.JPanel {
         date_day.setVisible(true);
         date_month.setVisible(false);
         date_year.setVisible(false);
+        lbl_doanhthu.setText(df.format(repository.getdtday(String.valueOf(date_day.getDay()))));
         lbl_hd.setText(String.valueOf(repository.gethdday(String.valueOf(date_day.getDay()))));
         lbl_kh.setText(String.valueOf(repository.getkhday(String.valueOf(date_day.getDay()))));
-        for (Thongke x : repository.getbyday(String.valueOf(date_day.getDay()))) {
-            lbl_doanhthu.setText(df.format(x.getDoanhthu())+" VND");
-            lbl_sanpham.setText(String.valueOf(x.getSoSP()));
-        }
+        lbl_sanpham.setText(String.valueOf(repository.getbyday(String.valueOf(date_day.getDay()))));
+
     }//GEN-LAST:event_rd_ngayActionPerformed
 
     private void rd_thangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rd_thangActionPerformed
@@ -298,12 +295,11 @@ public class frm_Thongke extends javax.swing.JPanel {
         date_day.setVisible(false);
         date_month.setVisible(true);
         date_year.setVisible(false);
+        lbl_doanhthu.setText(df.format(repository.getdtmonth(String.valueOf(date_month.getMonth()))));
         lbl_hd.setText(String.valueOf(repository.gethdmonth(String.valueOf(date_month.getMonth()+1))));
         lbl_kh.setText(String.valueOf(repository.getkhmonth(String.valueOf(date_month.getMonth()+1))));
-        for (Thongke x : repository.getbymonth(String.valueOf(date_month.getMonth()+1))) {
-            lbl_doanhthu.setText(df.format(x.getDoanhthu()) + " VND");
-            lbl_sanpham.setText(String.valueOf(x.getSoSP()));
-        }
+        lbl_sanpham.setText(String.valueOf(repository.getbymonth(String.valueOf(date_month.getMonth()+1))));
+        
     }//GEN-LAST:event_rd_thangActionPerformed
 
     private void rd_namActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rd_namActionPerformed
@@ -311,12 +307,11 @@ public class frm_Thongke extends javax.swing.JPanel {
         date_day.setVisible(false);
         date_month.setVisible(false);
         date_year.setVisible(true);
+        lbl_doanhthu.setText(df.format(repository.getdtyear(String.valueOf(date_year.getYear()))));
         lbl_hd.setText(String.valueOf(repository.gethdyear(String.valueOf(date_year.getYear()))));
         lbl_kh.setText(String.valueOf(repository.getkhyear(String.valueOf(date_year.getYear()))));
-        for (Thongke x : repository.getbyyear(String.valueOf(date_year.getYear()))) {
-            lbl_doanhthu.setText(df.format(x.getDoanhthu()) + " VND");
-            lbl_sanpham.setText(String.valueOf(x.getSoSP()));
-        }
+        lbl_sanpham.setText(String.valueOf(repository.getbyyear(String.valueOf(date_year.getYear()))));
+
     }//GEN-LAST:event_rd_namActionPerformed
 
     private void btn_bieudoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_bieudoActionPerformed
