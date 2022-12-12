@@ -49,7 +49,7 @@ public class KhachHangForm extends javax.swing.JFrame {
 
     private KhachHang getData() {
         KhachHang cv = new KhachHang();
-        cv.setTen(txt_Ho.getText());
+        cv.setTen(txt_Ten1.getText());
         cv.setTendem(txt_TenDem.getText());
         cv.setHo(txt_Ho.getText());
         int gt;
