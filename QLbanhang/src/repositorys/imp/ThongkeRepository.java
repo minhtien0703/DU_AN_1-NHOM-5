@@ -540,7 +540,7 @@ String sql = "select TongTien from HoaDon \n"
        @Override
     public int getdtday(String date) {
         int box =0;
-        String sql ="select SUM(TongTien) from HoaDon where TinhTrang = 1 and Day(NgayThanhToan) = Day(GETDATE()) and MONTH(NgayThanhToan) = MONTH(GETDATE()) and  YEAR(NGAYTHANHTOAN) = YEAR(GETDATE())";
+        String sql ="select SUM(TongTien) from HoaDon where TinhTrang = 1 and Day(NgayThanhToan) = ? and MONTH(NgayThanhToan) = MONTH(GETDATE()) and  YEAR(NGAYTHANHTOAN) = YEAR(GETDATE())";
         try {
             Connection conn = DBConnection.openDbConnection();
             PreparedStatement ps = conn.prepareStatement(sql);

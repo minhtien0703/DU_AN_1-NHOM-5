@@ -225,12 +225,20 @@ public class frm_Thongke extends javax.swing.JPanel {
         });
         panelBorder1.add(rd_nam);
         rd_nam.setBounds(190, 10, 60, 23);
+
+        date_day.setBackground(new java.awt.Color(255, 255, 255));
+        date_day.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204)));
         panelBorder1.add(date_day);
-        date_day.setBounds(260, 0, 280, 110);
+        date_day.setBounds(280, 0, 280, 110);
+
+        date_month.setBackground(new java.awt.Color(255, 255, 255));
+        date_month.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
         panelBorder1.add(date_month);
-        date_month.setBounds(351, 10, 120, 30);
+        date_month.setBounds(320, 10, 110, 30);
+
+        date_year.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
         panelBorder1.add(date_year);
-        date_year.setBounds(380, 10, 48, 30);
+        date_year.setBounds(340, 10, 100, 30);
 
         btn_bieudo.setBackground(new java.awt.Color(153, 255, 204));
         btn_bieudo.setText("Biểu đồ");
@@ -295,7 +303,7 @@ public class frm_Thongke extends javax.swing.JPanel {
         date_day.setVisible(false);
         date_month.setVisible(true);
         date_year.setVisible(false);
-        lbl_doanhthu.setText(df.format(repository.getdtmonth(String.valueOf(date_month.getMonth()))));
+        lbl_doanhthu.setText(df.format(repository.getdtmonth(String.valueOf(date_month.getMonth()+1))));
         lbl_hd.setText(String.valueOf(repository.gethdmonth(String.valueOf(date_month.getMonth()+1))));
         lbl_kh.setText(String.valueOf(repository.getkhmonth(String.valueOf(date_month.getMonth()+1))));
         lbl_sanpham.setText(String.valueOf(repository.getbymonth(String.valueOf(date_month.getMonth()+1))));
