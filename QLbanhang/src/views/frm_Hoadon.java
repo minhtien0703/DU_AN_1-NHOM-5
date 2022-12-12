@@ -35,9 +35,12 @@ public class frm_Hoadon extends javax.swing.JPanel {
                 hoaDonViewModel.getMa(),
                 hoaDonViewModel.getUs().getTen(),
                 hoaDonViewModel.getKh().getTen(),
+                hoaDonViewModel.getTongTien(),
                 hoaDonViewModel.getNgayTao(),
                 hoaDonViewModel.getNgayThanhToan(),
-                hoaDonViewModel.getTinhTrang() == 0 ? "Chưa thanh toán" : "Đã thanh toán"});
+                hoaDonViewModel.getTinhTrang() == 0 ? "Chưa thanh toán" : "Đã thanh toán",
+                hoaDonViewModel.getGhiChu(),
+            });
         }
 
     }
@@ -60,9 +63,11 @@ public class frm_Hoadon extends javax.swing.JPanel {
                 hoaDonViewModel.getMa(),
                 hoaDonViewModel.getUs().getTen(),
                 hoaDonViewModel.getKh().getTen(),
+                hoaDonViewModel.getTongTien(),
                 hoaDonViewModel.getNgayTao(),
                 hoaDonViewModel.getNgayThanhToan(),
-                hoaDonViewModel.getTinhTrang() == 0 ? "Chưa thanh toán" : "Đã thanh toán"});
+                hoaDonViewModel.getTinhTrang() == 0 ? "Chưa thanh toán" : "Đã thanh toán",
+                hoaDonViewModel.getGhiChu(),});
 
         }
     }
@@ -78,9 +83,11 @@ public class frm_Hoadon extends javax.swing.JPanel {
                 hoaDonViewModel.getMa(),
                 hoaDonViewModel.getUs().getTen(),
                 hoaDonViewModel.getKh().getTen(),
+                hoaDonViewModel.getTongTien(),
                 hoaDonViewModel.getNgayTao(),
                 hoaDonViewModel.getNgayThanhToan(),
-                hoaDonViewModel.getTinhTrang() == 0 ? "Chưa thanh toán" : "Đã thanh toán"});
+                hoaDonViewModel.getTinhTrang() == 0 ? "Chưa thanh toán" : "Đã thanh toán",
+                hoaDonViewModel.getGhiChu(),});
         }
     }
 
@@ -133,7 +140,7 @@ public class frm_Hoadon extends javax.swing.JPanel {
 
             },
             new String [] {
-                "MA", "TÊN NHÂN VIÊN", "TÊN KHÁCH HÀNG", "NGÀY TẠO", "NGÀY TT", "TRẠNG THÁI", "GHI CHÚ"
+                "MA", "TÊN NHÂN VIÊN", "TÊN KHÁCH HÀNG", "TỔNG TIỀN", "NGÀY TẠO", "NGÀY TT", "TRẠNG THÁI", "GHI CHÚ"
             }
         ));
         tbl_hoadon.setGridColor(new java.awt.Color(255, 255, 255));
@@ -143,6 +150,9 @@ public class frm_Hoadon extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(tbl_hoadon);
+        if (tbl_hoadon.getColumnModel().getColumnCount() > 0) {
+            tbl_hoadon.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         panelBorder1.add(jScrollPane1);
         jScrollPane1.setBounds(0, 190, 990, 180);
@@ -201,10 +211,10 @@ public class frm_Hoadon extends javax.swing.JPanel {
 
         Date_NgayTT.setDateFormatString("dd/MM/yyyy");
         Date_NgayTT.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 Date_NgayTTAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
@@ -304,9 +314,11 @@ public class frm_Hoadon extends javax.swing.JPanel {
                     hoaDonViewModel.getMa(),
                     hoaDonViewModel.getUs().getTen(),
                     hoaDonViewModel.getKh().getTen(),
+                    hoaDonViewModel.getTongTien(),
                     hoaDonViewModel.getNgayTao(),
                     hoaDonViewModel.getNgayThanhToan(),
-                    hoaDonViewModel.getTinhTrang() == 0 ? "Chưa thanh toán" : "Đã thanh toán"});
+                    hoaDonViewModel.getTinhTrang() == 0 ? "Chưa thanh toán" : "Đã thanh toán",
+                    hoaDonViewModel.getGhiChu(),});
 
             }
 
@@ -341,9 +353,11 @@ public class frm_Hoadon extends javax.swing.JPanel {
                     hoaDonViewModel.getMa(),
                     hoaDonViewModel.getUs().getTen(),
                     hoaDonViewModel.getKh().getTen(),
+                    hoaDonViewModel.getTongTien(),
                     hoaDonViewModel.getNgayTao(),
                     hoaDonViewModel.getNgayThanhToan(),
-                    hoaDonViewModel.getTinhTrang() == 0 ? "Chưa thanh toán" : "Đã thanh toán"});
+                    hoaDonViewModel.getTinhTrang() == 0 ? "Chưa thanh toán" : "Đã thanh toán",
+                    hoaDonViewModel.getGhiChu(),});
 
             }
 

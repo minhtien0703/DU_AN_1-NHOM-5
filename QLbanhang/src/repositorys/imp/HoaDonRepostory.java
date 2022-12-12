@@ -24,7 +24,7 @@ public class HoaDonRepostory implements IHoaDonRepostory {
 
    @Override
     public List<HoaDon> GetAllHD() {
-        String query = "SELECT a.MA,b.TEN,c.TEN,NGAYTAO,NGAYTHANHTOAN,TinhTrang,GHICHU FROM HOADON a JOIN USERS b ON a.IDNV = b.ID "
+        String query = "SELECT a.MA,b.TEN,c.TEN,NGAYTAO,NGAYTHANHTOAN,TinhTrang,GHICHU,a.tongTien FROM HOADON a JOIN USERS b ON a.IDNV = b.ID "
                 + "JOIN KHACHHANG c ON a.IDKH = c.ID";
         try (Connection con = DBConnection.openDbConnection();
                 PreparedStatement ps = con.prepareStatement(query);) {
@@ -37,7 +37,7 @@ public class HoaDonRepostory implements IHoaDonRepostory {
                 hoadon.setNgayTao(rs.getDate(4));
                 hoadon.setNgayThanhToan(rs.getDate(5));
                 hoadon.setTinhTrang(rs.getInt(6));
-
+                hoadon.setTongTien(rs.getDouble(8));
                 User u = new User();
                 u.setTen(rs.getString(2));
                 hoadon.setUser(u);
