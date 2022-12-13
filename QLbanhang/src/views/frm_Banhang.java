@@ -1389,14 +1389,14 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
 
             if (result != null) {
                 searchText1.setText(result.getText());
-                String MaSP = null;
-                String MaSPCT = null;
-                int count = 0;
-                int rowHD = tb_hoaDon.getSelectedRow();
+//                String MaSP = null;
+//                String MaSPCT = null;
+//                int count = 0;
+//                int rowHD = tb_hoaDon.getSelectedRow();
 
-                if (rowHD < 0) {
-                    JOptionPane.showMessageDialog(this, "chọn 1 hoá đơn để thêm sản phẩm vào ");
-                } else {
+//                if (rowHD < 0) {
+//                    JOptionPane.showMessageDialog(this, "chọn 1 hoá đơn để thêm sản phẩm vào ");
+//                } else {
                     model = (DefaultTableModel) tb_sanPham.getModel();
                     model.setRowCount(0);
                     List<SanPham> getListSanPham = sanISamPhamServiecs.seachBarCodeS(result.getText());
@@ -1436,7 +1436,7 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
 
                 }
 
-            }
+//            }
 
         } while (true);
 

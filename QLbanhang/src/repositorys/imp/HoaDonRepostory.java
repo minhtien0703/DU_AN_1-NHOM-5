@@ -160,7 +160,7 @@ public class HoaDonRepostory implements IHoaDonRepostory {
     public List<HoaDon> getHDTrangThai(int TrangThai) {
         List<HoaDon> getList = new ArrayList<>();
         try {
-            String sql = "SELECT a.MA,b.TEN,c.TEN,NGAYTAO,NGAYTHANHTOAN,TinhTrang,GHICHU FROM HOADON a JOIN USERS b ON a.IDNV = b.ID \n"
+            String sql = "SELECT a.MA,b.TEN,c.TEN,NGAYTAO,NGAYTHANHTOAN,TinhTrang,GHICHU,a.tongTien FROM HOADON a JOIN USERS b ON a.IDNV = b.ID \n"
                     + "                             JOIN KHACHHANG c ON a.IDKH = c.ID\n"
                     + "							 where a.TinhTrang = ?";
             Connection conn = DBConnection.openDbConnection();
@@ -174,7 +174,7 @@ public class HoaDonRepostory implements IHoaDonRepostory {
                 hoadon.setNgayTao(rs.getDate(4));
                 hoadon.setNgayThanhToan(rs.getDate(5));
                 hoadon.setTinhTrang(rs.getInt(6));
-
+                hoadon.setTongTien(rs.getDouble(8));
                 User u = new User();
                 u.setTen(rs.getString(2));
                 hoadon.setUser(u);
@@ -196,7 +196,7 @@ public class HoaDonRepostory implements IHoaDonRepostory {
     public List<HoaDon> GetTimNTT(String NgayTT) {
        List<HoaDon> getList = new ArrayList<>();
         try {
-            String sql = "SELECT a.MA,b.TEN,c.TEN,NGAYTAO,NGAYTHANHTOAN,TinhTrang,GHICHU FROM HOADON a JOIN USERS b ON a.IDNV = b.ID \n"
+            String sql = "SELECT a.MA,b.TEN,c.TEN,NGAYTAO,NGAYTHANHTOAN,TinhTrang,GHICHU ,a.tongTien FROM HOADON a JOIN USERS b ON a.IDNV = b.ID \n"
                     + "JOIN KHACHHANG c ON a.IDKH = c.ID\n"
                     + "where a.NGAYTHANHTOAN = ?";
             Connection conn = DBConnection.openDbConnection();
@@ -210,7 +210,7 @@ public class HoaDonRepostory implements IHoaDonRepostory {
                 hoadon.setNgayTao(rs.getDate(4));
                 hoadon.setNgayThanhToan(rs.getDate(5));
                 hoadon.setTinhTrang(rs.getInt(6));
-
+                hoadon.setTongTien(rs.getDouble(8));
                 User u = new User();
                 u.setTen(rs.getString(2));
                 hoadon.setUser(u);
