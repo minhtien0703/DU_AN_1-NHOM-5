@@ -446,6 +446,9 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
 
     private void Btn_capNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_capNhatActionPerformed
         int row = jTable1.getSelectedRow();
+        if (row == -1) {
+            return;
+        }
         int id = (int) jTable1.getValueAt(row, 0);
         if (rdoChatlieu.isSelected() == true) {
             JOptionPane.showMessageDialog(this, iChatLieuServices.Update(getdatafrom(), id));

@@ -606,6 +606,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
         int row = tbl_sp.getSelectedRow();
         if (row == -1) {
             JOptionPane.showMessageDialog(this, "lỗi");
+            return;
         }
         String ma = (String) tbl_sp.getValueAt(row, 0);
         ChiTietSPViewModel x = getdadtafrom();
