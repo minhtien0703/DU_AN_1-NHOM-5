@@ -141,6 +141,7 @@ public class frm_Nhanvien extends javax.swing.JPanel {
         String sdt = "(0\\d{9})";
         String mail = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
         UsersViewmodel nv = new UsersViewmodel();
+        Pattern p =  Pattern.compile("^[0-9]+$");
 // Tên
         try {
             if (txtten.getText().isEmpty()) {
@@ -148,6 +149,10 @@ public class frm_Nhanvien extends javax.swing.JPanel {
                 return null;
             }
         } catch (Exception e) {
+        }
+        if (p.matcher(txtten.getText()).find()==true) {
+            JOptionPane.showMessageDialog(this, "Tên không được nhập số");
+            return null;
         }
 // Tên Đệm
         try {
@@ -157,6 +162,10 @@ public class frm_Nhanvien extends javax.swing.JPanel {
             }
         } catch (Exception e) {
         }
+        if (p.matcher(txttendem.getText()).find()==true) {
+            JOptionPane.showMessageDialog(this, "Tên đệm không được nhập số");
+            return null;
+        }
 // Họ
         try {
             if (txtho.getText().isEmpty()) {
@@ -164,6 +173,10 @@ public class frm_Nhanvien extends javax.swing.JPanel {
                 return null;
             }
         } catch (Exception e) {
+        }
+        if (p.matcher(txtho.getText()).find()==true) {
+            JOptionPane.showMessageDialog(this, "Họ không được nhập số");
+            return null;
         }
 // Ngày Sinh        
         try {
@@ -492,7 +505,7 @@ public class frm_Nhanvien extends javax.swing.JPanel {
         if (nv == null) {
             return;
         }
-        if (JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thêm ?") == JOptionPane.YES_OPTION) {
+        if (JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thêm ?","Add",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             if (nhanVienService.add(nv) != false) {
                 JOptionPane.showMessageDialog(this, "Thêm Thành Công");
                 loaddata();

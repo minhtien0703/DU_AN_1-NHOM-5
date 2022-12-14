@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.KhuyenMai;
@@ -260,6 +261,7 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
 
     private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
         // TODO add your handling code here:
+        Pattern p =  Pattern.compile("^[0-9]+$");
         try {
             if (txt_tenkm.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Bạn chưa nhập tên khuyến mãi");
@@ -303,11 +305,15 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
             }
         } catch (Exception e) {
         }
+        if (p.matcher(txt_tenkm.getText()).find() ==true) {
+            JOptionPane.showMessageDialog(this, "Ten chua dung dinh dang");
+            return;
+        }
         if (khuyenmaiService.checktrung(txt_tenkm.getText())!= null) {
             JOptionPane.showMessageDialog(this, "Tên khuyến mãi đã tồn tại");
             return;
         }
-        if (JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm không?")==JOptionPane.YES_OPTION) {
+        if (JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm không?","Add",JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION) {
             KhuyenmaiViewmodel km = new KhuyenmaiViewmodel();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String date1 = sdf.format(date_BD.getDate());

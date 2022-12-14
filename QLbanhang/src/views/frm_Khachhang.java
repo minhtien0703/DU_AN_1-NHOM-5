@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.KhachHang;
@@ -93,6 +94,7 @@ public class frm_Khachhang extends javax.swing.JPanel {
     public boolean check() {
         String sdt = "(0\\d{9})";
         String mail = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+        Pattern p =  Pattern.compile("^[0-9]+$");
         if (txt_Ten.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập tên!");
             return false;
@@ -107,6 +109,10 @@ public class frm_Khachhang extends javax.swing.JPanel {
                 return false;
             }
         } catch (Exception e) {
+        }
+        if (p.matcher(txt_Ten.getText()).find()==true) {
+            JOptionPane.showMessageDialog(this, "Tên của bạn không được nhập số");
+            return false;
         }
         if (KH.kiemtrasdt(txt_sdt.getText()) != null) {
             JOptionPane.showMessageDialog(this, "Số điện thoại của bạn đã tồn tại");
