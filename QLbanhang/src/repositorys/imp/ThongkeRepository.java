@@ -154,7 +154,7 @@ private List<Thongke> lst ;
     @Override
     public int getmonth1() {
         int box = 0;
-        String sql = "select TongTien from HoaDon \n" +
+        String sql = "select Sum(TongTien) from HoaDon \n" +
 "			where TinhTrang = 1 and MONTH(NgayThanhToan) = 1";
         try {
             Connection conn = DBConnection.openDbConnection();
@@ -173,7 +173,7 @@ private List<Thongke> lst ;
     @Override
     public int getmonth2() {
         int box = 0;
-                String sql = "select TongTien from HoaDon \n" +
+                String sql = "select Sum(TongTien) from HoaDon \n" +
 "			where TinhTrang = 1 and MONTH(NgayThanhToan) = 2";
         try {
             Connection conn = DBConnection.openDbConnection();
@@ -192,7 +192,7 @@ private List<Thongke> lst ;
     @Override
     public int getmonth3() {
         int box = 0;
-        String sql = "select TongTien from HoaDon \n"
+        String sql = "select Sum(TongTien) from HoaDon \n"
                 + "			where TinhTrang = 1 and MONTH(NgayThanhToan) = 3";
         try {
             Connection conn = DBConnection.openDbConnection();
@@ -211,7 +211,7 @@ private List<Thongke> lst ;
     @Override
     public int getmonth4() {
         int box = 0;
-        String sql = "select TongTien from HoaDon \n"
+        String sql = "select Sum(TongTien) from HoaDon \n"
                 + "			where TinhTrang = 1 and MONTH(NgayThanhToan) = 4";
         try {
             Connection conn = DBConnection.openDbConnection();
@@ -230,7 +230,7 @@ private List<Thongke> lst ;
     @Override
     public int getmonth5() {
         int box = 0;
-        String sql = "select TongTien from HoaDon \n"
+        String sql = "select Sum(TongTien) from HoaDon \n"
                 + "			where TinhTrang = 1 and MONTH(NgayThanhToan) = 5";
         try {
             Connection conn = DBConnection.openDbConnection();
@@ -249,7 +249,7 @@ private List<Thongke> lst ;
     @Override
     public int getmonth6() {
         int box = 0;
-       String sql = "select TongTien from HoaDon \n"
+       String sql = "select Sum(TongTien) from HoaDon \n"
                 + "			where TinhTrang = 1 and MONTH(NgayThanhToan) = 6";
         try {
             Connection conn = DBConnection.openDbConnection();
@@ -268,7 +268,7 @@ private List<Thongke> lst ;
     @Override
     public int getmonth7() {
         int box = 0;
-        String sql = "select TongTien from HoaDon \n"
+        String sql = "select Sum(TongTien) from HoaDon \n"
                 + "			where TinhTrang = 1 and MONTH(NgayThanhToan) = 7";
         try {
             Connection conn = DBConnection.openDbConnection();
@@ -287,7 +287,7 @@ private List<Thongke> lst ;
     @Override
     public int getmonth8() {
         int box = 0;
-       String sql = "select TongTien from HoaDon \n"
+       String sql = "select Sum(TongTien) from HoaDon \n"
                 + "			where TinhTrang = 1 and MONTH(NgayThanhToan) = 8";
         try {
             Connection conn = DBConnection.openDbConnection();
@@ -306,7 +306,7 @@ private List<Thongke> lst ;
     @Override
     public int getmonth9() {
         int box = 0;
-        String sql = "select TongTien from HoaDon \n"
+        String sql = "select Sum(TongTien) from HoaDon \n"
                 + "			where TinhTrang = 1 and MONTH(NgayThanhToan) = 9";
         try {
             Connection conn = DBConnection.openDbConnection();
@@ -325,7 +325,7 @@ private List<Thongke> lst ;
     @Override
     public int getmonth10() {
         int box = 0;
-       String sql = "select TongTien from HoaDon \n"
+       String sql = "select Sum(TongTien) from HoaDon \n"
                 + "			where TinhTrang = 1 and MONTH(NgayThanhToan) = 10";
         try {
             Connection conn = DBConnection.openDbConnection();
@@ -344,7 +344,7 @@ private List<Thongke> lst ;
     @Override
     public int getmonth11() {
         int box = 0;
-String sql = "select TongTien from HoaDon \n"
+String sql = "select Sum(TongTien) from HoaDon \n"
                 + "			where TinhTrang = 1 and MONTH(NgayThanhToan) = 11";
         try {
             Connection conn = DBConnection.openDbConnection();
@@ -363,7 +363,7 @@ String sql = "select TongTien from HoaDon \n"
     @Override
     public int getmonth12() {
         int box = 0;
-        String sql = "select TongTien from HoaDon \n"
+        String sql = "select Sum(TongTien) from HoaDon \n"
                 + "			where TinhTrang = 1 and MONTH(NgayThanhToan) = 12";
         try {
             Connection conn = DBConnection.openDbConnection();
