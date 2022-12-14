@@ -51,7 +51,12 @@ public class ThuongHieuRepository implements IThuongHieuRepository {
 
     @Override
     public ThuongHieu getbyid(int id) {
-        return getdataquery(SQL_SELECT_BY_ID, id).get(0);
+        ThuongHieu th = new ThuongHieu();
+        if (id == 0) {
+            return th;
+        }
+        th = getdataquery(SQL_SELECT_BY_ID, id).get(0);
+        return th;
     }
 
     private List<ThuongHieu> getdataquery(String SQL, Object... arvg) {

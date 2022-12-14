@@ -52,6 +52,9 @@ public class KichCoRepositoryimpl implements IKichCoRepository {
 
     @Override
     public KichCo getbyid(int id) {
+        if (id == 0) {
+            return new KichCo();
+        }
         return getdataquery(SQL_SELECT_BY_ID, id).get(0);
     }
 

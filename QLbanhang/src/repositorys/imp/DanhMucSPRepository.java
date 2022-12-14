@@ -51,6 +51,9 @@ public class DanhMucSPRepository implements IDanhMucSPRepository {
 
     @Override
     public DanhMucSP getdanhmucbyid(int id) {
+        if (id == 0) {
+            return new DanhMucSP();
+        }
         return getdataquery(SQL_SELECT_BY_ID, id).get(0);
     }
 

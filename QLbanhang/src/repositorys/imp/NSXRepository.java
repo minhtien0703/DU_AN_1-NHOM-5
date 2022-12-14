@@ -50,6 +50,9 @@ public class NSXRepository implements INSXRepository{
 
     @Override
     public NSX getbyid(int id) {
+        if (id == 0) {
+            return new NSX();
+        }
         return getdataquery(SQL_SELECT_BY_ID, id).get(0);
     }
 

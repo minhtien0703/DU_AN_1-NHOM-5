@@ -50,6 +50,9 @@ public class MauSacRepositoryimpl implements IMauSacRepository{
 
     @Override
     public MauSac getbyid(int id) {
+        if (id == 0) {
+            return new MauSac();
+        }  
         return getdataquery(SQL_SELECT_BY_ID, id).get(0);
     }
 
