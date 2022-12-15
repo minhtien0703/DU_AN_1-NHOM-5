@@ -12,7 +12,7 @@ import viewmodels.SanPhamViewModel;
  *
  * @author Admin
  */
-public interface ISamPhamServiecs {
+public interface ISanPhamServiecs {
       List<SanPhamViewModel> getListSanPham();
       boolean updateSoLuongSP(String Masp, int SoLuong ) ;
       Integer getIdSanPham(String MaSP);

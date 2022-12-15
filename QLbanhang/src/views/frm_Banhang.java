@@ -53,7 +53,6 @@ import repositorys.imp.HoaDonRepostory;
 import services.IDanhMucSPServices;
 import services.IHoaDonServiec;
 import services.IKhachHangService;
-import services.ISamPhamServiecs;
 import services.imp.DanhMucSPServices;
 import services.imp.HoaDonServiec;
 import services.imp.SanPhamServiec;
@@ -64,6 +63,7 @@ import viewmodels.HoaDonCHiTietViewModel;
 import viewmodels.HoaDonViewModel;
 import viewmodels.KhachHangViewMD;
 import viewmodels.SanPhamViewModel;
+import services.ISanPhamServiecs;
 //import viewmodels.barCode;
 
 /**
@@ -75,7 +75,7 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
     private DefaultTableModel model;
     private DefaultTableModel modelGioHang;
     private DefaultComboBoxModel combox;
-    private ISamPhamServiecs sanISamPhamServiecs;
+    private ISanPhamServiecs sanISamPhamServiecs;
     private IHoaDonServiec hoaDonServiec;
     private IKhachHangService khachHangService = new khahangsvImpl();
     private List<GioHangViewModel> listGioHang = new ArrayList<>();

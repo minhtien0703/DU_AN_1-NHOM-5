@@ -18,10 +18,10 @@ import repositorys.imp.HoaDonRepostory;
 import repositorys.imp.SanPhamRepostory;
 import services.IHoaDonServiec;
 import services.IKhachHangService;
-import services.ISamPhamServiecs;
 import viewmodels.HoaDonCHiTietViewModel;
 import viewmodels.HoaDonViewModel;
 import viewmodels.SanPhamViewModel;
+import services.ISanPhamServiecs;
 
 /**
  *
@@ -35,7 +35,7 @@ public class HoaDonServiec implements IHoaDonServiec {
     private IHoaDonRepostory hoaDonRepostory;
     private List<HoaDonCHiTietViewModel> getListHDCT;
     private IKhachHangService khachHangService;
-    private ISamPhamServiecs sanISamPhamServiecs;
+    private ISanPhamServiecs sanISamPhamServiecs;
 
     public HoaDonServiec() {
         getListHD = new ArrayList<>();

@@ -86,7 +86,7 @@ public class frm_Khachhang extends javax.swing.JPanel {
 
     public int layid() {
         Integer row = TB_bang1.getSelectedRow();
-        int id = (int) TB_bang1.getValueAt(row, 0);
+        int id = Integer.parseInt( TB_bang1.getValueAt(row, 0).toString());
         return id;
 
     }

@@ -11,14 +11,14 @@ import java.util.logging.Logger;
 import models.SanPham;
 import repositorys.ISanPhamReposory;
 import repositorys.imp.SanPhamRepostory;
-import services.ISamPhamServiecs;
 import viewmodels.SanPhamViewModel;
+import services.ISanPhamServiecs;
 
 /**
  *
  * @author hungh
  */
-public class SanPhamServiec implements ISamPhamServiecs {
+public class SanPhamServiec implements ISanPhamServiecs {
 
     private ISanPhamReposory sanPhamReposory;
     private List<SanPhamViewModel> getListSP;
