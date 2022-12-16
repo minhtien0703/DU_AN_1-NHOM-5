@@ -266,6 +266,7 @@ public class KhachHangRPImpl implements IKhachHangReposytory {
                 khachhang.setSDT(rs.getString(5));
                 khachhang.setMaHD(rs.getString(6));
                 khachhang.setNgayTao(rs.getString(7));
+                khachhang.setTrangthai(rs.getInt(8));
                 khachhang.setDongia(rs.getDouble(9));
 
                 listkh.add(khachhang);
