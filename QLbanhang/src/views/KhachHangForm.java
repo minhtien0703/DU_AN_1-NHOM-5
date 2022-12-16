@@ -5,7 +5,9 @@
 package views;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.KhachHang;
@@ -76,8 +78,16 @@ public class KhachHangForm extends javax.swing.JFrame {
     public boolean check() {
         String sdt = "(0\\d{9})";
         String mail = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+        Pattern p = Pattern.compile("^[0-9]+$");
         if (txt_Ten1.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập tên!");
+            return false;
+        }
+        if (p.matcher(txt_Ten1.getText()).find() == true) {
+            JOptionPane.showMessageDialog(this, "Tên của bạn không được nhập số");
+            return false;
+        } else if (txt_Ten1.getText().length() > 30) {
+            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
             return false;
         }
         if (txt_sdt.getText().equals("")) {
@@ -113,6 +123,107 @@ public class KhachHangForm extends javax.swing.JFrame {
 
         return true;
 
+    }
+
+    public boolean check2() {
+        Pattern p = Pattern.compile("^[0-9]+$");
+        if (txt_Ho.getText().equals("") & txt_TenDem.getText().equals("")) {
+            return true;
+        } else {
+            if (p.matcher(txt_Ho.getText()).find() == true) {
+                JOptionPane.showMessageDialog(this, "Họ của bạn không được nhập số");
+                return false;
+            }
+            if (txt_Ho.getText().length() > 30) {
+                JOptionPane.showMessageDialog(this, "Họ không được quá 30 kí tự");
+                return false;
+            }
+            if (p.matcher(txt_TenDem.getText()).find() == true) {
+                JOptionPane.showMessageDialog(this, "Tên đệm của bạn không được nhập số");
+                return false;
+            }
+            if (txt_TenDem.getText().length() > 30) {
+                JOptionPane.showMessageDialog(this, "Tên Đệm không được quá 30 kí tự");
+                return false;
+            }
+        }
+
+        return true;
+
+    }
+
+    public boolean check3() {
+        String sdt = "(0\\d{9})";
+        String mail = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+        Pattern p = Pattern.compile("^[0-9]+$");
+        if (txt_Ten1.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập tên!");
+            return false;
+        }
+        if (p.matcher(txt_Ten1.getText()).find() == true) {
+            JOptionPane.showMessageDialog(this, "Tên của bạn không được nhập số");
+            return false;
+        }
+        if (txt_Ten1.getText().length() > 30) {
+            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
+            return false;
+        }
+        if (txt_sdt.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập SĐT!");
+            return false;
+        }
+        try {
+            if (!txt_sdt.getText().matches(sdt)) {
+                JOptionPane.showMessageDialog(this, "Số điện thoại của bạn chưa đúng định dạng");
+                return false;
+            }
+        } catch (Exception e) {
+        }
+
+        if (txt_email.getText().equals("")) {
+            return true;
+        } else {
+            try {
+
+                if (!txt_email.getText().matches(mail)) {
+                    JOptionPane.showMessageDialog(this, "Email của bạn chưa đúng định dạng");
+                    return false;
+                }
+
+            } catch (Exception e) {
+            }
+        }
+
+        return true;
+    }
+
+    public boolean check4() {
+        Pattern p = Pattern.compile("^[0-9]+$");
+
+        if (txt_Ho.getText() == null & txt_TenDem.getText() == null) {
+            return true;
+        } else {
+
+            if (p.matcher(txt_Ho.getText()).find() == true) {
+                JOptionPane.showMessageDialog(this, "Họ của bạn không được nhập số");
+                return false;
+            }
+            if (txt_Ho.getText().length() > 30) {
+                JOptionPane.showMessageDialog(this, "Họ không được quá 30 kí tự");
+                return false;
+            }
+            if (p.matcher(txt_TenDem.getText()).find() == true) {
+                JOptionPane.showMessageDialog(this, "Tên đệm của bạn không được nhập số");
+                return false;
+            }
+            if (txt_TenDem.getText().length() > 30) {
+                JOptionPane.showMessageDialog(this, "Tên Đệm không được quá 30 kí tự");
+                return false;
+
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -162,7 +273,11 @@ public class KhachHangForm extends javax.swing.JFrame {
             }
         ));
         tb_khachHang.setGridColor(new java.awt.Color(255, 255, 255));
-        tb_khachHang.setRowHeight(20);
+        tb_khachHang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tb_khachHangMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tb_khachHang);
 
         date_ngaysinh.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
@@ -226,10 +341,19 @@ public class KhachHangForm extends javax.swing.JFrame {
             }
         });
 
-        txt_timKiem.setText("Tìm kiếm....");
         txt_timKiem.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 txt_timKiemCaretUpdate(evt);
+            }
+        });
+        txt_timKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_timKiemActionPerformed(evt);
+            }
+        });
+        txt_timKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_timKiemKeyReleased(evt);
             }
         });
 
@@ -344,17 +468,20 @@ public class KhachHangForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "cần chọn khách hàng để cập nhật");
             return;
         }
-        if (JOptionPane.showConfirmDialog(this, "Bạn có muốn cập nhật không?") == JOptionPane.YES_OPTION) {
-            int id = layid();
+        if (check3() && check4()) {
 
-            JOptionPane.showMessageDialog(this, KH.update(id, getData()));
-            listKhachHang = KH.getall();
-            showTable(listKhachHang);
+            if (JOptionPane.showConfirmDialog(this, "Bạn có muốn cập nhật không?") == JOptionPane.YES_OPTION) {
+                int id = layid();
+
+                JOptionPane.showMessageDialog(this, KH.update(id, getData()));
+                listKhachHang = KH.getall();
+                showTable(listKhachHang);
+            }
         }
     }//GEN-LAST:event_Btn_capNhatActionPerformed
 
     private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
-        if (check()) {
+         if (check() && check2()) {
             JOptionPane.showMessageDialog(this, KH.add(getData()));
             listKhachHang = KH.getall();
             showTable(listKhachHang);
@@ -374,6 +501,37 @@ public class KhachHangForm extends javax.swing.JFrame {
     private void txt_timKiemCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txt_timKiemCaretUpdate
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_timKiemCaretUpdate
+
+    private void tb_khachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_khachHangMouseClicked
+        int id = layid();
+
+        int row = tb_khachHang.getSelectedRow();
+        KhachHangViewMD kh = listKhachHang.get(row);
+        txt_Ten1.setText(kh.getTen());
+        txt_TenDem.setText(kh.getTendem());
+        txt_Ho.setText(kh.getHo());
+        String gt = (tb_khachHang.getValueAt(row, 2).toString());
+        if (gt == "Nam") {
+            rd_nam.setSelected(true);
+        } else {
+            rd_nu.setSelected(true);
+        }
+        date_ngaysinh.setDate((Date) tb_khachHang.getValueAt(row, 3));
+        txt_sdt.setText(kh.getSdt());
+        txt_email.setText(kh.getEmail());
+    }//GEN-LAST:event_tb_khachHangMouseClicked
+
+    private void txt_timKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_timKiemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_timKiemActionPerformed
+
+    private void txt_timKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_timKiemKeyReleased
+       defaultTableModel = (DefaultTableModel) tb_khachHang.getModel();
+        defaultTableModel.setRowCount(0);
+        for (KhachHangViewMD khachHang01 : KH.GetTK(txt_timKiem.getText())) {
+            defaultTableModel.addRow(khachHang01.toDataRow());
+        }
+    }//GEN-LAST:event_txt_timKiemKeyReleased
 
     /**
      * @param args the command line arguments

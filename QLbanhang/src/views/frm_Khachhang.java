@@ -86,7 +86,7 @@ public class frm_Khachhang extends javax.swing.JPanel {
 
     public int layid() {
         Integer row = TB_bang1.getSelectedRow();
-        int id = Integer.parseInt( TB_bang1.getValueAt(row, 0).toString());
+        int id = Integer.parseInt(TB_bang1.getValueAt(row, 0).toString());
         return id;
 
     }
@@ -94,9 +94,100 @@ public class frm_Khachhang extends javax.swing.JPanel {
     public boolean check() {
         String sdt = "(0\\d{9})";
         String mail = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
-        Pattern p =  Pattern.compile("^[0-9]+$");
+        Pattern p = Pattern.compile("^[0-9]+$");
         if (txt_Ten.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập tên!");
+            return false;
+        }
+        if (p.matcher(txt_Ten.getText()).find() == true) {
+            JOptionPane.showMessageDialog(this, "Tên của bạn không được nhập số");
+            return false;
+        }
+        if (txt_Ten.getText().length() > 30) {
+            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
+            return false;
+        }
+
+        if (txt_sdt.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập SĐT!");
+            return false;
+        }
+        try {
+            if (!txt_sdt.getText().matches(sdt)) {
+                JOptionPane.showMessageDialog(this, "Số điện thoại của bạn chưa đúng định dạng");
+                return false;
+            }
+        } catch (Exception e) {
+        }
+
+        if (KH.kiemtrasdt(txt_sdt.getText()) != null) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại của bạn đã tồn tại");
+            return false;
+        } else if (txt_email.getText().equals("")) {
+            return true;
+        } else {
+            try {
+
+                if (!txt_email.getText().matches(mail)) {
+                    JOptionPane.showMessageDialog(this, "Email của bạn chưa đúng định dạng");
+                    return false;
+                }
+                if (KH.kiemtra(txt_email.getText()) != null) {
+                    JOptionPane.showMessageDialog(this, "Email đã tồn tại");
+                    return false;
+                }
+
+            } catch (Exception e) {
+            }
+        }
+
+        return true;
+
+    }
+
+    public boolean check2() {
+        Pattern p = Pattern.compile("^[0-9]+$");
+
+        if (txt_Ho.getText() == null & txt_tenDem.getText() == null) {
+            return true;
+        } else {
+
+            if (p.matcher(txt_Ho.getText()).find() == true) {
+                JOptionPane.showMessageDialog(this, "Họ của bạn không được nhập số");
+                return false;
+            }
+            if (txt_Ho.getText().length() > 30) {
+                JOptionPane.showMessageDialog(this, "Họ không được quá 30 kí tự");
+                return false;
+            }
+            if (p.matcher(txt_tenDem.getText()).find() == true) {
+                JOptionPane.showMessageDialog(this, "Tên đệm của bạn không được nhập số");
+                return false;
+            }
+            if (txt_tenDem.getText().length() > 30) {
+                JOptionPane.showMessageDialog(this, "Tên Đệm không được quá 30 kí tự");
+                return false;
+
+            }
+        }
+
+        return true;
+    }
+
+    public boolean check3() {
+        String sdt = "(0\\d{9})";
+        String mail = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+        Pattern p = Pattern.compile("^[0-9]+$");
+        if (txt_Ten.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập tên!");
+            return false;
+        }
+        if (p.matcher(txt_Ten.getText()).find() == true) {
+            JOptionPane.showMessageDialog(this, "Tên của bạn không được nhập số");
+            return false;
+        }
+        if (txt_Ten.getText().length() > 30) {
+            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
             return false;
         }
         if (txt_sdt.getText().equals("")) {
@@ -110,33 +201,52 @@ public class frm_Khachhang extends javax.swing.JPanel {
             }
         } catch (Exception e) {
         }
-        if (p.matcher(txt_Ten.getText()).find()==true) {
-            JOptionPane.showMessageDialog(this, "Tên của bạn không được nhập số");
-            return false;
-        }
-        if (KH.kiemtrasdt(txt_sdt.getText()) != null) {
-            JOptionPane.showMessageDialog(this, "Số điện thoại của bạn đã tồn tại");
-            return false;
-        }
 
         if (txt_email.getText().equals("")) {
             return true;
         } else {
             try {
+
                 if (!txt_email.getText().matches(mail)) {
                     JOptionPane.showMessageDialog(this, "Email của bạn chưa đúng định dạng");
                     return false;
                 }
+
             } catch (Exception e) {
             }
-        }
-        if (KH.kiemtra(txt_email.getText()) != null) {
-            JOptionPane.showMessageDialog(this, "Email đã tồn tại");
-            return false;
         }
 
         return true;
 
+    }
+
+    public boolean check4() {
+        Pattern p = Pattern.compile("^[0-9]+$");
+
+        if (txt_Ho.getText() == null & txt_tenDem.getText() == null) {
+            return true;
+        } else {
+
+            if (p.matcher(txt_Ho.getText()).find() == true) {
+                JOptionPane.showMessageDialog(this, "Họ của bạn không được nhập số");
+                return false;
+            }
+            if (txt_Ho.getText().length() > 30) {
+                JOptionPane.showMessageDialog(this, "Họ không được quá 30 kí tự");
+                return false;
+            }
+            if (p.matcher(txt_tenDem.getText()).find() == true) {
+                JOptionPane.showMessageDialog(this, "Tên đệm của bạn không được nhập số");
+                return false;
+            }
+            if (txt_tenDem.getText().length() > 30) {
+                JOptionPane.showMessageDialog(this, "Tên Đệm không được quá 30 kí tự");
+                return false;
+
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -486,7 +596,7 @@ public class frm_Khachhang extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
-        if (check()) {
+        if (check() && check2()) {
             JOptionPane.showMessageDialog(this, KH.add(getData()));
             listKhachHang = KH.getall();
             showTable(listKhachHang);
@@ -512,14 +622,16 @@ public class frm_Khachhang extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "cần chọn khách hàng để cập nhật");
             return;
         }
-        if (JOptionPane.showConfirmDialog(this, "Bạn có muốn cập nhật không?") == JOptionPane.YES_OPTION) {
-            int id = layid();
+        if (check3() && check4()) {
+            if (JOptionPane.showConfirmDialog(this, "Bạn có muốn cập nhật không?") == JOptionPane.YES_OPTION) {
+                int id = layid();
 
-            JOptionPane.showMessageDialog(this, KH.update(id, getData()));
-            listKhachHang = KH.getall();
-            showTable(listKhachHang);
-            TXT_01.setText("Tổng số khách hàng là : " + listKhachHang.size());
+                JOptionPane.showMessageDialog(this, KH.update(id, getData()));
+                listKhachHang = KH.getall();
+                showTable(listKhachHang);
+                TXT_01.setText("Tổng số khách hàng là : " + listKhachHang.size());
 
+            }
         }
     }//GEN-LAST:event_Btn_capNhatActionPerformed
 
