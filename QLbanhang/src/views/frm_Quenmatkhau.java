@@ -156,10 +156,19 @@ public class frm_Quenmatkhau extends javax.swing.JPanel {
                 btn_sendMouseClicked(evt);
             }
         });
+        btn_send.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_sendActionPerformed(evt);
+            }
+        });
         add(btn_send, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, 40, 40));
     }// </editor-fold>//GEN-END:initComponents
 
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
+
+        if (JOptionPane.showConfirmDialog(this, "Bạn có muốn thoát không !") != JOptionPane.YES_OPTION) {
+            return;
+        }
         System.exit(0);
     }//GEN-LAST:event_myButton1ActionPerformed
 
@@ -192,30 +201,43 @@ public class frm_Quenmatkhau extends javax.swing.JPanel {
         // TODO add your handling code here:
         int code = 0;
         if (txt_email.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa nhập tài khoản");
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập tài khoản!");
             return;
         }
+
+        if (txt_code.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập mã bảo mật!");
+            return;
+        }
+
         try {
             code = Integer.parseInt(txt_code.getText());
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "code phải nhập số");
+            JOptionPane.showMessageDialog(this, "Mã bảo mật phải là số!");
             return;
         }
-        if (txt_code.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa nhập mã bảo mật");
+
+        if (txtPass.getText().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "Mời bạn nhập mật khẩu mới!");
             return;
         }
+
         if (txtPass.getText().length() < 6) {
-            JOptionPane.showMessageDialog(this, "Độ dài mật khẩu yêu cầu 6 kí tự trở lên");
+            JOptionPane.showMessageDialog(this, "Độ dài mật khẩu yêu cầu 6 kí tự trở lên!");
+            return;
+        }
+
+        if (txtPass1.getText().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "Mời bạn xác nhận mật khẩu mới!");
             return;
         }
         if (!txtPass.getText().equals(txtPass1.getText())) {
-            JOptionPane.showMessageDialog(this, "Mật khẩu mới và mật khẩu xác nhận chưa giống nhau");
+            JOptionPane.showMessageDialog(this, "Mật khẩu mới và mật khẩu xác nhận chưa giống nhau!");
             return;
         }
         if (ius.getUserbytk(txt_email.getText()) == null) {
-            JOptionPane.showMessageDialog(this, "Tài khoản không tồn tại");
+            JOptionPane.showMessageDialog(this, "Tài khoản không tồn tại!");
             return;
         }
         if (code == ran) {
@@ -253,7 +275,7 @@ public class frm_Quenmatkhau extends javax.swing.JPanel {
 //        }
         Users user = ius.getUserbytk(taikhoan);
         if (user.getTk() == null) {
-            JOptionPane.showMessageDialog(this, "không có tài khoản " + taikhoan + " này vui lòng thử lại!");
+            JOptionPane.showMessageDialog(this, "không có tài khoản này ( " + taikhoan + " ) vui lòng nhập tài khoản khác!");
             return;
         }
         Random random = new Random();
@@ -274,10 +296,14 @@ public class frm_Quenmatkhau extends javax.swing.JPanel {
                 + "</body>\n"
                 + "</html>";
         utilconnext.SendMail.send(user.getEmail(), sub, messsage);
-        JOptionPane.showMessageDialog(this, "đã gửi mã vào gmail : " + user.getEmail());
+        JOptionPane.showMessageDialog(this, " Mã đã gửi vào gmail : " + user.getEmail());
         txt_email.setEnabled(false);
 
     }//GEN-LAST:event_btn_sendMouseClicked
+
+    private void btn_sendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sendActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_sendActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

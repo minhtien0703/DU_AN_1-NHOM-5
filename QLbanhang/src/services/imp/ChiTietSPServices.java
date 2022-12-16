@@ -113,7 +113,7 @@ public class ChiTietSPServices implements IChiTietSPServices {
             return false;
         } catch (Exception e) {
             if (chiTietSPRepository.insert(ctsp) == 1) {
-                JOptionPane.showMessageDialog(new frm_Sanpham(), "Thành công");
+                JOptionPane.showMessageDialog(new frm_Sanpham(), "Thêm Thành công");
                 return true;
             }
             JOptionPane.showMessageDialog(new frm_Sanpham(), "Thất bại");

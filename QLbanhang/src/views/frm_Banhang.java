@@ -710,11 +710,11 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
             return;
         }
         if (rowHD < 0) {
-            JOptionPane.showMessageDialog(this, "chọn vào sản phẩm bạn muốn mua");
+            JOptionPane.showMessageDialog(this, "Bạn cần chọn hóa đơn để thêm sản phẩm!");
             return;
         }
         try {
-            int NhapSoLuong = Integer.parseInt(JOptionPane.showInputDialog(this, "nhap so luong"));
+            int NhapSoLuong = Integer.parseInt(JOptionPane.showInputDialog(this, "Nhập Số Lượng!"));
             String MaSP = tb_sanPham.getValueAt(row, 0).toString();
             String TenSP = tb_sanPham.getValueAt(row, 1).toString();
             int SoLuong = Integer.parseInt(tb_sanPham.getValueAt(row, 8).toString());
@@ -725,7 +725,7 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
             if (SoLuong >= NhapSoLuong) {
                 for (HoaDonCHiTietViewModel x : listh) {
                     if (x.getSanPham().getMa().equals(MaSP)) {
-                        JOptionPane.showMessageDialog(this, "sản Phẩm Đã Có Trên Giỏ Hàng");
+                        JOptionPane.showMessageDialog(this, "Sản Phẩm Đã Có Trên Giỏ Hàng");
                         return;
                     }
                 }
@@ -761,7 +761,7 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
                 lbl_thanhTien.setText(String.valueOf(String.format("%.0f", ThanhTien)));
 
             } else if (SoLuong < NhapSoLuong) {
-                JOptionPane.showMessageDialog(this, "san pham không đủ ");
+                JOptionPane.showMessageDialog(this, "Sản phẩm không đủ ");
                 return;
 
             }
@@ -882,7 +882,7 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
             run = xWPFParagraph7.createRun();
             run.setText("Ngày lập :" + date);
 
-            File f = new File("E://HoaDon//" + hoaDon.getMa() + ".docx");
+            File f = new File("D:\\DA1//HoaDon//" + hoaDon.getMa() + ".docx");
             try {
                 FileOutputStream fos = new FileOutputStream(f);
                 XWPFParagraph xWPFParagraph13 = document.createParagraph();
@@ -1168,7 +1168,7 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
 
         List<SanPhamViewModel> list = sanISamPhamServiecs.getListSanPham();
         try {
-            int NhapSoLuong = Integer.parseInt(JOptionPane.showInputDialog(this, "nhap so luong"));
+            int NhapSoLuong = Integer.parseInt(JOptionPane.showInputDialog(this, "Nhập số lượng"));
             for (SanPhamViewModel x : list) {
                 if (MaSP.equals(x.getMa())) {
                     if (x.getSoLuongTon() + Integer.parseInt(tb_gioHang.getValueAt(rowSP, 2).toString()) >= NhapSoLuong) {

@@ -39,29 +39,28 @@ public class UserServiec implements IUserServiec {
 
             JOptionPane.showMessageDialog(new frm_Login(), "Mời Bạn Nhập mật khẩu");
 
-            JOptionPane.showMessageDialog(new frm_Login(), "Nhập mật khẩu");
             return false;
         }
-                           
+
         if (list != null) {
             for (User x : list) {
                 if (x.getChucVu().getTen().equalsIgnoreCase("quản lý")) {
                     JOptionPane.showMessageDialog(new frm_Login(), "Đăng nhập thành công! (Quản Lý)");
-                    String tenNV = x.getHo()+" "+x.getTenDem()+" "+x.getTen();
-                    new frm_Dashboard(tenNV, x.getId(),x.getChucVu().getTen()).setVisible(true);
+                    String tenNV = x.getHo() + " " + x.getTenDem() + " " + x.getTen();
+                    new frm_Dashboard(tenNV, x.getId(), x.getChucVu().getTen()).setVisible(true);
                     return true;
 
                 } else {
                     JOptionPane.showMessageDialog(new frm_Login(), "Đăng nhập thành công! (Nhân Viên)");
-                    String tenNV = x.getHo()+" "+x.getTenDem()+" "+x.getTen();
-                    new frm_Dashboard(tenNV, x.getId(),x.getChucVu().getTen()).setVisible(true);
+                    String tenNV = x.getHo() + " " + x.getTenDem() + " " + x.getTen();
+                    new frm_Dashboard(tenNV, x.getId(), x.getChucVu().getTen()).setVisible(true);
                     return true;
                 }
 
             }
 
         }
-        JOptionPane.showMessageDialog(new frm_Login(), "Sai Tài Khoản Hoặc Mật Khẩu"); 
+        JOptionPane.showMessageDialog(new frm_Login(), "Sai Tài Khoản Hoặc Mật Khẩu");
         return false;
     }
 

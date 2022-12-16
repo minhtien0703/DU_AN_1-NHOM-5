@@ -421,7 +421,7 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
 
     private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
         if (getdatafrom() == null) {
-            
+
             return;
         }
         if (rdoChatlieu.isSelected() == true) {
@@ -448,7 +448,10 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
     private void Btn_capNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_capNhatActionPerformed
         int row = jTable1.getSelectedRow();
         if (row == -1) {
-            JOptionPane.showMessageDialog(this, "chọn 1 dòng để sửa");
+            JOptionPane.showMessageDialog(this, "Bạn cần chọn 1 dòng để sửa");
+            return;
+        }
+        if (JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn sửa không")!= JOptionPane.YES_OPTION) {
             return;
         }
         int id = (int) jTable1.getValueAt(row, 0);
@@ -593,10 +596,11 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
 
     private Objecttt getdatafrom() {
         if (jTextField1.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Không để trống");
+            JOptionPane.showMessageDialog(this, " Bạn chưa nhập tên thuộc tính!");
             jTextField1.requestFocus();
             return null;
         }
+
         return new Objecttt(0, jTextField1.getText());
 
     }

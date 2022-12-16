@@ -221,10 +221,69 @@ public class frm_Sanpham extends javax.swing.JPanel {
     }
 
     private ChiTietSPViewModel getdadtafrom() {
-        if (txt_ma.getText().isEmpty() || txt_ten.getText().isEmpty() || txt_soluongton.getText().isEmpty() || txt_gianhap.getText().isEmpty() || txt_giaban.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "không để trống");
+        if (txt_ma.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập mã sản phẩm!");
+            return null;
+
+        }
+        if (txt_ten.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập tên sản phẩm!");
             return null;
         }
+// Số lượng tồn
+        if (txt_soluongton.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập số lượng tồn!");
+            return null;
+        }
+
+        try {
+            Integer.valueOf(txt_soluongton.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Số lượng tồn phải là số!");
+            return null;
+        }
+        
+        if (Integer.valueOf(txt_soluongton.getText()) <= 0) {
+            JOptionPane.showMessageDialog(this, "Số lượng tồn phải lớn hơn 0!");
+            return null;
+        }
+// giá nhập
+        
+
+        if (txt_gianhap.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập giá nhập!");
+            return null;
+        }
+        
+        try {
+            Double.valueOf(txt_gianhap.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Giá nhập phải là số!");
+            return null;
+        }
+        
+        if (Double.valueOf(txt_gianhap.getText()) <= 0) {
+            JOptionPane.showMessageDialog(this, "Giá nhập phải lớn hơn 0!");
+            return null;
+        }
+// giá bán
+        if (txt_giaban.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập giá bán!");
+            return null;
+        }
+        
+        try {
+            Double.valueOf(txt_giaban.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Giá bán phải là số!");
+            return null;
+        }
+        
+        if (Double.valueOf(txt_giaban.getText()) <= 0) {
+            JOptionPane.showMessageDialog(this, "Giá bán phải lớn hơn 0!");
+            return null;
+        }
+///////////////
         String mota = txt_mota.getText();
         if (txt_mota.getText().equals("")) {
             mota = "không có";
@@ -586,14 +645,14 @@ public class frm_Sanpham extends javax.swing.JPanel {
         if (x == null) {
             return;
         }
-        int chon = JOptionPane.showConfirmDialog(this, "Có chắc muốn thêm sản phẩm ?", "Thêm sản phẩm mới", JOptionPane.YES_NO_OPTION);
+        int chon = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn thêm sản phẩm ?", "Thêm sản phẩm mới", JOptionPane.YES_NO_OPTION);
         if (chon == JOptionPane.YES_OPTION) {
             boolean kq = iChiTietSPServices.Add(x);
             if (kq == true) {
                 loadData(iChiTietSPServices.getAll());
 //            xuatbarcode(x);
                 String data = x.getQrcode();
-                String path = "D:\\QRcode\\Qr" + x.getTen() + ".png";
+                String path = "D:\\DA1\\QRcode\\Qr" + x.getTen() + ".png";
                 Map<EncodeHintType, ErrorCorrectionLevel> hashMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
                 hashMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
                 generateQRcode(data, path, hashMap, 200, 200);
@@ -605,7 +664,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
     private void btn_capnhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_capnhatActionPerformed
         int row = tbl_sp.getSelectedRow();
         if (row == -1) {
-            JOptionPane.showMessageDialog(this, "Chọn 1 dòng để cập nhật");
+            JOptionPane.showMessageDialog(this, " Bạn cần chọn 1 dòng để cập nhật");
             return;
         }
         String ma = (String) tbl_sp.getValueAt(row, 0);
@@ -613,7 +672,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
         if (x == null) {
             return;
         }
-        int chon = JOptionPane.showConfirmDialog(this, "Có chắc muốn cập nhật lại sản phẩm ?", "Update", JOptionPane.YES_NO_OPTION);
+        int chon = JOptionPane.showConfirmDialog(this, "Bạn Có chắc muốn cập nhật lại sản phẩm ?", "Update", JOptionPane.YES_NO_OPTION);
         if (chon == JOptionPane.YES_OPTION) {
             boolean kq = iChiTietSPServices.Update(ma, x);
             if (kq == true) {
@@ -636,7 +695,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
         ChiTietSPViewModel x = getdataTB(row);
 //        xuatbarcode(x);
         String data = x.getQrcode();
-        String path = "D:\\QRcode\\Qr" + x.getTen() + ".png";
+        String path = "D:\\DA1\\QRcode\\Qr" + x.getTen() + ".png";
         Map<EncodeHintType, ErrorCorrectionLevel> hashMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
         hashMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
         generateQRcode(data, path, hashMap, 200, 200);

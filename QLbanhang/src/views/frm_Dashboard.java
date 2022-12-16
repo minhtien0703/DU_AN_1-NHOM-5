@@ -659,7 +659,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnthongkeMousePressed
 
     private void btndangxuatMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btndangxuatMousePressed
-        int x = JOptionPane.showConfirmDialog(this, "bạn có muốn thoát khỏi sever không ", "đăng xuất", JOptionPane.YES_NO_OPTION);
+        int x = JOptionPane.showConfirmDialog(this, "Bạn có muốn đăng xuất khỏi sever không ", "đăng xuất", JOptionPane.YES_NO_OPTION);
         if (x == 1) {
             return;
         }
