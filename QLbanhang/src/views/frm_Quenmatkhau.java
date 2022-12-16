@@ -191,14 +191,15 @@ public class frm_Quenmatkhau extends javax.swing.JPanel {
     private void btn_doimkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_doimkMouseClicked
         // TODO add your handling code here:
         int code = 0;
+        if (txt_email.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập tài khoản");
+            return;
+        }
         try {
             code = Integer.parseInt(txt_code.getText());
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "code phải nhập số");
-        }
-        if (txt_email.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa nhập e-mail");
             return;
         }
         if (txt_code.getText().isEmpty()) {
@@ -237,6 +238,7 @@ public class frm_Quenmatkhau extends javax.swing.JPanel {
     private void btn_sendMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_sendMouseClicked
 
         String taikhoan = txt_email.getText().trim();
+
         //regex email
 //        String email = txt_email.getText().trim();
 //        String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
@@ -250,6 +252,10 @@ public class frm_Quenmatkhau extends javax.swing.JPanel {
 //            return;
 //        }
         Users user = ius.getUserbytk(taikhoan);
+        if (user.getTk() == null) {
+            JOptionPane.showMessageDialog(this, "không có tài khoản " + taikhoan + " này vui lòng thử lại!");
+            return;
+        }
         Random random = new Random();
         ran = random.nextInt(99999);
         String sub = "Verification code";
@@ -269,6 +275,8 @@ public class frm_Quenmatkhau extends javax.swing.JPanel {
                 + "</html>";
         utilconnext.SendMail.send(user.getEmail(), sub, messsage);
         JOptionPane.showMessageDialog(this, "đã gửi mã vào gmail : " + user.getEmail());
+        txt_email.setEnabled(false);
+
     }//GEN-LAST:event_btn_sendMouseClicked
 
 

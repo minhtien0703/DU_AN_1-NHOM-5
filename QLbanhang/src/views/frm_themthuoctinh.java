@@ -421,6 +421,7 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
 
     private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
         if (getdatafrom() == null) {
+            
             return;
         }
         if (rdoChatlieu.isSelected() == true) {
@@ -447,6 +448,7 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
     private void Btn_capNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_capNhatActionPerformed
         int row = jTable1.getSelectedRow();
         if (row == -1) {
+            JOptionPane.showMessageDialog(this, "chọn 1 dòng để sửa");
             return;
         }
         int id = (int) jTable1.getValueAt(row, 0);
@@ -473,6 +475,10 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
 
     private void btn_xoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xoaActionPerformed
         int row = jTable1.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "chọn 1 dòng để xóa");
+            return;
+        }
         int id = (int) jTable1.getValueAt(row, 0);
         if (rdoChatlieu.isSelected() == true) {
             JOptionPane.showMessageDialog(this, iChatLieuServices.Delete(id));

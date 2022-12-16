@@ -162,6 +162,7 @@ public class KhachHangForm extends javax.swing.JFrame {
             }
         ));
         tb_khachHang.setGridColor(new java.awt.Color(255, 255, 255));
+        tb_khachHang.setRowHeight(20);
         jScrollPane2.setViewportView(tb_khachHang);
 
         date_ngaysinh.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));

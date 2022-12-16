@@ -458,7 +458,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
 
         btn_xoa.setBackground(new java.awt.Color(125, 224, 237));
         btn_xoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/file.png"))); // NOI18N
-        btn_xoa.setText("In Barcode");
+        btn_xoa.setText("In QRcode");
         btn_xoa.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btn_xoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -605,7 +605,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
     private void btn_capnhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_capnhatActionPerformed
         int row = tbl_sp.getSelectedRow();
         if (row == -1) {
-            JOptionPane.showMessageDialog(this, "lỗi");
+            JOptionPane.showMessageDialog(this, "Chọn 1 dòng để cập nhật");
             return;
         }
         String ma = (String) tbl_sp.getValueAt(row, 0);
@@ -640,6 +640,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
         Map<EncodeHintType, ErrorCorrectionLevel> hashMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
         hashMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
         generateQRcode(data, path, hashMap, 200, 200);
+        JOptionPane.showMessageDialog(this, "In QR Code thành công");
         System.out.println("QR Code created successfully.");
     }//GEN-LAST:event_btn_xoaActionPerformed
 

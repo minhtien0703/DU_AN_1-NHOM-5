@@ -189,7 +189,13 @@ public class UsersReposytory implements IUsersReposytory {
 
     @Override
     public Users getUserbytk(String tk) {
-        return getdataQuery(SQL_SELECT_BY_TK, tk).get(0);
+        Users x= new Users();
+        try {
+            x = getdataQuery(SQL_SELECT_BY_TK, tk).get(0);
+        } catch (Exception e) { 
+            x = new Users();
+        }
+        return x;
     }
 
     private List<Users> getdataQuery(String SQL, Object... arvg) {
