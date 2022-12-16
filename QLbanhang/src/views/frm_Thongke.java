@@ -41,6 +41,10 @@ public class frm_Thongke extends javax.swing.JPanel {
         date_day.setVisible(false);
         date_month.setVisible(false);
         date_year.setVisible(false);
+        date_tu.setVisible(false);
+        Date_den.setVisible(false);
+        lbl_tu.setVisible(false);
+        lbl_den.setVisible(false);
         loadhd();
         doanhthu();
         loadkh();
@@ -91,6 +95,11 @@ public class frm_Thongke extends javax.swing.JPanel {
         date_month = new com.toedter.calendar.JMonthChooser();
         date_year = new com.toedter.calendar.JYearChooser();
         btn_bieudo = new javax.swing.JButton();
+        rd_khoang = new javax.swing.JRadioButton();
+        date_tu = new com.toedter.calendar.JMonthChooser();
+        Date_den = new com.toedter.calendar.JMonthChooser();
+        lbl_tu = new javax.swing.JLabel();
+        lbl_den = new javax.swing.JLabel();
         panelBorder5 = new swing.PanelBorder();
         lbl_kh = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -202,7 +211,7 @@ public class frm_Thongke extends javax.swing.JPanel {
             }
         });
         panelBorder1.add(rd_ngay);
-        rd_ngay.setBounds(30, 10, 60, 23);
+        rd_ngay.setBounds(30, 0, 60, 20);
 
         rd_thang.setBackground(new java.awt.Color(204, 204, 255));
         buttonGroup1.add(rd_thang);
@@ -213,7 +222,7 @@ public class frm_Thongke extends javax.swing.JPanel {
             }
         });
         panelBorder1.add(rd_thang);
-        rd_thang.setBounds(110, 10, 60, 23);
+        rd_thang.setBounds(30, 20, 60, 20);
 
         rd_nam.setBackground(new java.awt.Color(204, 204, 255));
         buttonGroup1.add(rd_nam);
@@ -224,12 +233,12 @@ public class frm_Thongke extends javax.swing.JPanel {
             }
         });
         panelBorder1.add(rd_nam);
-        rd_nam.setBounds(190, 10, 60, 23);
+        rd_nam.setBounds(30, 40, 60, 20);
 
         date_day.setBackground(new java.awt.Color(255, 255, 255));
         date_day.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204)));
         panelBorder1.add(date_day);
-        date_day.setBounds(280, 0, 280, 110);
+        date_day.setBounds(240, 0, 280, 110);
 
         date_month.setBackground(new java.awt.Color(255, 255, 255));
         date_month.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
@@ -250,6 +259,29 @@ public class frm_Thongke extends javax.swing.JPanel {
         });
         panelBorder1.add(btn_bieudo);
         btn_bieudo.setBounds(780, 30, 140, 40);
+
+        rd_khoang.setBackground(new java.awt.Color(204, 204, 255));
+        buttonGroup1.add(rd_khoang);
+        rd_khoang.setText("Tìm theo khoảng");
+        rd_khoang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rd_khoangActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(rd_khoang);
+        rd_khoang.setBounds(30, 60, 120, 20);
+        panelBorder1.add(date_tu);
+        date_tu.setBounds(200, 60, 125, 22);
+        panelBorder1.add(Date_den);
+        Date_den.setBounds(360, 60, 125, 22);
+
+        lbl_tu.setText("Từ");
+        panelBorder1.add(lbl_tu);
+        lbl_tu.setBounds(170, 60, 20, 20);
+
+        lbl_den.setText("Đến");
+        panelBorder1.add(lbl_den);
+        lbl_den.setBounds(330, 60, 30, 20);
 
         panelGradiente1.add(panelBorder1);
         panelBorder1.setBounds(10, 210, 990, 430);
@@ -291,10 +323,24 @@ public class frm_Thongke extends javax.swing.JPanel {
         date_day.setVisible(true);
         date_month.setVisible(false);
         date_year.setVisible(false);
+        date_tu.setVisible(false);
+        Date_den.setVisible(false);
+        lbl_tu.setVisible(false);
+        lbl_den.setVisible(false);
         lbl_doanhthu.setText(df.format(repository.getdtday(String.valueOf(date_day.getDay()))));
         lbl_hd.setText(String.valueOf(repository.gethdday(String.valueOf(date_day.getDay()))));
         lbl_kh.setText(String.valueOf(repository.getkhday(String.valueOf(date_day.getDay()))));
         lbl_sanpham.setText(String.valueOf(repository.getbyday(String.valueOf(date_day.getDay()))));
+           defaultTableModel1.setRowCount(0);
+        int stt = 1;
+        for (Thongke x : repository.getspday(String.valueOf(date_day.getDay()))) {
+            defaultTableModel1.addRow(new Object[]{
+                stt,
+                x.getChiTietSP(),
+                x.getSoSP()
+            });
+            stt++;
+        }
 
     }//GEN-LAST:event_rd_ngayActionPerformed
 
@@ -303,10 +349,24 @@ public class frm_Thongke extends javax.swing.JPanel {
         date_day.setVisible(false);
         date_month.setVisible(true);
         date_year.setVisible(false);
+        date_tu.setVisible(false);
+        Date_den.setVisible(false);
+        lbl_tu.setVisible(false);
+        lbl_den.setVisible(false);
         lbl_doanhthu.setText(df.format(repository.getdtmonth(String.valueOf(date_month.getMonth()+1))));
         lbl_hd.setText(String.valueOf(repository.gethdmonth(String.valueOf(date_month.getMonth()+1))));
         lbl_kh.setText(String.valueOf(repository.getkhmonth(String.valueOf(date_month.getMonth()+1))));
         lbl_sanpham.setText(String.valueOf(repository.getbymonth(String.valueOf(date_month.getMonth()+1))));
+           defaultTableModel1.setRowCount(0);
+        int stt = 1;
+        for (Thongke x : repository.getspmonth(String.valueOf(date_month.getMonth()+1))) {
+            defaultTableModel1.addRow(new Object[]{
+                stt,
+                x.getChiTietSP(),
+                x.getSoSP()
+            });
+            stt++;
+        }
         
     }//GEN-LAST:event_rd_thangActionPerformed
 
@@ -315,11 +375,24 @@ public class frm_Thongke extends javax.swing.JPanel {
         date_day.setVisible(false);
         date_month.setVisible(false);
         date_year.setVisible(true);
+        date_tu.setVisible(false);
+        Date_den.setVisible(false);
+        lbl_tu.setVisible(false);
+        lbl_den.setVisible(false);
         lbl_doanhthu.setText(df.format(repository.getdtyear(String.valueOf(date_year.getYear()))));
         lbl_hd.setText(String.valueOf(repository.gethdyear(String.valueOf(date_year.getYear()))));
         lbl_kh.setText(String.valueOf(repository.getkhyear(String.valueOf(date_year.getYear()))));
         lbl_sanpham.setText(String.valueOf(repository.getbyyear(String.valueOf(date_year.getYear()))));
-
+        defaultTableModel1.setRowCount(0);
+        int stt = 1;
+        for (Thongke x : repository.getspyear(String.valueOf(date_year.getYear()))) {
+            defaultTableModel1.addRow(new Object[]{
+                stt,
+                x.getChiTietSP(),
+                x.getSoSP()
+            });
+            stt++;
+        }
     }//GEN-LAST:event_rd_namActionPerformed
 
     private void btn_bieudoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_bieudoActionPerformed
@@ -348,6 +421,35 @@ public class frm_Thongke extends javax.swing.JPanel {
         chartFrame.setSize(1000,500);
         chartFrame.setLocationRelativeTo(null);
     }//GEN-LAST:event_btn_bieudoActionPerformed
+
+    private void rd_khoangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rd_khoangActionPerformed
+        // TODO add your handling code here:
+        date_day.setVisible(false);
+        date_month.setVisible(false);
+        date_year.setVisible(false);
+        date_tu.setVisible(true);
+        Date_den.setVisible(true);
+        lbl_tu.setVisible(true);
+        lbl_den.setVisible(true);
+        if (date_tu.getMonth()+1>Date_den.getMonth()+1) {
+            JOptionPane.showMessageDialog(this, "Tháng bắt đầu phải nhỏ hơn tháng kết thúc");
+            return;
+        }
+        lbl_doanhthu.setText(df.format(repository.getdtkhoang1(String.valueOf(date_tu.getMonth()+1),String.valueOf(Date_den.getMonth()+1))));
+        lbl_hd.setText(String.valueOf(repository.gethdkhoang1(String.valueOf(date_tu.getMonth()+1),String.valueOf(Date_den.getMonth()+1))));
+        lbl_kh.setText(String.valueOf(repository.getkhkhoang1(String.valueOf(date_tu.getMonth()+1),String.valueOf(Date_den.getMonth()+1))));
+        lbl_sanpham.setText(String.valueOf(repository.getbykhoang1(String.valueOf(date_tu.getMonth()+1),String.valueOf(Date_den.getMonth()+1))));
+        defaultTableModel1.setRowCount(0);
+        int stt = 1;
+        for (Thongke x : repository.getspkhoang(String.valueOf(date_tu.getMonth()+1),String.valueOf(Date_den.getMonth()+1))) {
+            defaultTableModel1.addRow(new Object[]{
+                stt,
+                x.getChiTietSP(),
+                x.getSoSP()
+            });
+            stt++;
+        }
+    }//GEN-LAST:event_rd_khoangActionPerformed
     private void loadSP() {
         defaultTableModel1.setRowCount(0);
         int stt = 1;
@@ -364,11 +466,13 @@ public class frm_Thongke extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane Click_Nv;
+    private com.toedter.calendar.JMonthChooser Date_den;
     private javax.swing.JTable Tb_Sp;
     private javax.swing.JButton btn_bieudo;
     private javax.swing.ButtonGroup buttonGroup1;
     private com.toedter.calendar.JDayChooser date_day;
     private com.toedter.calendar.JMonthChooser date_month;
+    private com.toedter.calendar.JMonthChooser date_tu;
     private com.toedter.calendar.JYearChooser date_year;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -380,17 +484,20 @@ public class frm_Thongke extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lbl_den;
     private javax.swing.JLabel lbl_doanhthu;
     private javax.swing.JLabel lbl_hd;
     private javax.swing.JLabel lbl_kh;
     private javax.swing.JLabel lbl_loinhuanYear;
     private javax.swing.JLabel lbl_sanpham;
+    private javax.swing.JLabel lbl_tu;
     private swing.PanelBorder panelBorder1;
     private swing.PanelBorder panelBorder2;
     private swing.PanelBorder panelBorder3;
     private swing.PanelBorder panelBorder4;
     private swing.PanelBorder panelBorder5;
     private swing.PanelGradiente panelGradiente1;
+    private javax.swing.JRadioButton rd_khoang;
     private javax.swing.JRadioButton rd_nam;
     private javax.swing.JRadioButton rd_ngay;
     private javax.swing.JRadioButton rd_thang;

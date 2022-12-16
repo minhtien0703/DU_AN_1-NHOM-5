@@ -154,6 +154,10 @@ public class frm_Nhanvien extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Tên không được nhập số");
             return null;
         }
+        if (txtten.getText().length()>30) {
+            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
+            return null;
+        }
 // Tên Đệm
         try {
             if (txttendem.getText().isEmpty()) {
@@ -166,6 +170,10 @@ public class frm_Nhanvien extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Tên đệm không được nhập số");
             return null;
         }
+        if (txttendem.getText().length()>30) {
+            JOptionPane.showMessageDialog(this, "Tên đệm không được quá 30 kí tự");
+            return null;
+        }
 // Họ
         try {
             if (txtho.getText().isEmpty()) {
@@ -176,6 +184,10 @@ public class frm_Nhanvien extends javax.swing.JPanel {
         }
         if (p.matcher(txtho.getText()).find()==true) {
             JOptionPane.showMessageDialog(this, "Họ không được nhập số");
+            return null;
+        }
+        if (txtho.getText().length()>30) {
+            JOptionPane.showMessageDialog(this, "Họ không được quá 30 kí tự");
             return null;
         }
 // Ngày Sinh        

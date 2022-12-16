@@ -43,4 +43,12 @@ public interface IThongkeRepository {
     public int getdtday(String date);
     public int getdtmonth(String date);
     public int getdtyear(String date);
+    public List<Thongke> getspday(String date);
+    public List<Thongke> getspmonth(String date);
+    public List<Thongke> getspyear(String date);
+    public int getdtkhoang1(String date,String date1);
+    public int getkhkhoang1(String date,String date1);
+    public int gethdkhoang1(String date,String date1);
+    public int getbykhoang1(String date,String date1);
+    public List<Thongke> getspkhoang(String date,String date1);
 }

@@ -306,7 +306,11 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
         } catch (Exception e) {
         }
         if (p.matcher(txt_tenkm.getText()).find() ==true) {
-            JOptionPane.showMessageDialog(this, "Ten chua dung dinh dang");
+            JOptionPane.showMessageDialog(this, "Tên không được nhập số");
+            return;
+        }
+        if (txt_tenkm.getText().length()>50) {
+            JOptionPane.showMessageDialog(this, "Tên không được quá 50 kí tự");
             return;
         }
         if (khuyenmaiService.checktrung(txt_tenkm.getText())!= null) {
