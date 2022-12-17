@@ -26,5 +26,8 @@ public interface IChiTietSPServices {
     public List<ChiTietSPViewModel> getSPhet();
     
     public Date checkngay(String id);
+    public Date checkngay2(String id);
+    public List<ChiTietSPViewModel> GetAll();
+    public boolean Update(String ma,String id);
     
 }

@@ -30,5 +30,8 @@ public interface IChiTietSPRepository {
     public List<ChiTietSP> check(String maSP);
     
     public Date checkngay(String id);
+    public Date checkngay2(String id);
+    public List<ChiTietSP> GetAll();
+    public boolean Update(String ma,String id);
          
 }

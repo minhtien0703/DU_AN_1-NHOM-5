@@ -5,6 +5,7 @@
 package views;
 
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import services.IUserServiec;
@@ -79,6 +80,11 @@ public class frm_Dangnhap extends javax.swing.JPanel {
         txtPass.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtPass.setMinimumSize(new java.awt.Dimension(300, 40));
         txtPass.setPreferredSize(new java.awt.Dimension(300, 40));
+        txtPass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPassKeyPressed(evt);
+            }
+        });
         add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 280, 40));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -162,6 +168,15 @@ public class frm_Dangnhap extends javax.swing.JPanel {
     private void myButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton2ActionPerformed
      
     }//GEN-LAST:event_myButton2ActionPerformed
+
+    private void txtPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPassKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
+                    if (isdangnhap() == true) {
+                    disable();
+                }
+                }
+    }//GEN-LAST:event_txtPassKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

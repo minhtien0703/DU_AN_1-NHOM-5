@@ -6,6 +6,7 @@ package views;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -14,8 +15,11 @@ import javax.swing.table.DefaultTableModel;
 import models.KhuyenMai;
 import repositorys.IKhuyenmaiRepository;
 import repositorys.imp.KhuyenmaiReponsitory;
+import services.IChiTietSPServices;
 import services.IKhuyenmaiService;
+import services.imp.ChiTietSPServices;
 import services.imp.KhuyenmaiService;
+import viewmodels.ChiTietSPViewModel;
 import viewmodels.KhuyenmaiViewmodel;
 /**
  *
@@ -23,15 +27,22 @@ import viewmodels.KhuyenmaiViewmodel;
  */
 public class frm_Khuyenmai extends javax.swing.JPanel {
     DefaultTableModel defaultTableModel;
+    DefaultTableModel defaultTableModel1;
     private IKhuyenmaiService khuyenmaiService;
+    IChiTietSPServices chiTietSPServices;
     /**
      * Creates new form khuyenmai
      */
     public frm_Khuyenmai() {
         initComponents();
         defaultTableModel = (DefaultTableModel) tb_khuyenmai.getModel();
+        defaultTableModel1 = (DefaultTableModel) tb_sp.getModel();
         khuyenmaiService = new KhuyenmaiService();
+        chiTietSPServices = new ChiTietSPServices();
+        khuyenmaiService.UpdateTT();
+        khuyenmaiService.UpdateTT2();
         LoadData();
+        LoadDataSP();
     }
     void LoadData() {
         defaultTableModel.setRowCount(0);
@@ -46,6 +57,16 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
                 x.getTrangthai() ==0? "Còn hạn" : "Hết hạn"
             });
             stt++;
+        }
+    }
+    void LoadDataSP() {
+        defaultTableModel1.setRowCount(0);
+        for (ChiTietSPViewModel x : chiTietSPServices.GetAll()) {
+            defaultTableModel1.addRow(new Object[]{
+                false,
+                x.getMa(),
+                x.getTen()
+            });
         }
     }
 
@@ -75,6 +96,9 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
         btn_them = new swing.MyButton();
         btn_sua = new swing.MyButton();
         btn_clear = new swing.MyButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tb_sp = new javax.swing.JTable();
+        cb_selectAll = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         tb_khuyenmai = new javax.swing.JTable();
         panelBorder2 = new swing.PanelBorder();
@@ -97,55 +121,55 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Ngày bắt đầu");
         panelBorder1.add(jLabel2);
-        jLabel2.setBounds(390, 10, 260, 20);
+        jLabel2.setBounds(390, 0, 260, 20);
         panelBorder1.add(txt_tenkm);
-        txt_tenkm.setBounds(60, 30, 260, 40);
+        txt_tenkm.setBounds(60, 20, 260, 40);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Tên khuyễn mãi");
         panelBorder1.add(jLabel3);
-        jLabel3.setBounds(60, 10, 260, 20);
+        jLabel3.setBounds(60, 0, 260, 20);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Hình thức giảm giá");
         panelBorder1.add(jLabel4);
-        jLabel4.setBounds(60, 160, 130, 30);
+        jLabel4.setBounds(390, 130, 130, 30);
 
         rd_VND.setBackground(new java.awt.Color(204, 204, 255));
         buttonGroup1.add(rd_VND);
         rd_VND.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         rd_VND.setText("VND");
         panelBorder1.add(rd_VND);
-        rd_VND.setBounds(200, 160, 50, 30);
+        rd_VND.setBounds(530, 130, 50, 30);
 
         rd_phantram.setBackground(new java.awt.Color(204, 204, 255));
         buttonGroup1.add(rd_phantram);
         rd_phantram.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         rd_phantram.setText("%");
         panelBorder1.add(rd_phantram);
-        rd_phantram.setBounds(270, 160, 50, 30);
+        rd_phantram.setBounds(600, 130, 50, 30);
 
         date_BD.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
         date_BD.setDateFormatString("dd/MM/yyyy");
         panelBorder1.add(date_BD);
-        date_BD.setBounds(390, 30, 260, 40);
+        date_BD.setBounds(390, 20, 260, 40);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setText("Ngày kết thúc");
         panelBorder1.add(jLabel6);
-        jLabel6.setBounds(60, 80, 260, 20);
+        jLabel6.setBounds(60, 60, 260, 20);
 
         date_KT.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
         date_KT.setDateFormatString("dd/MM/yyyy");
         panelBorder1.add(date_KT);
-        date_KT.setBounds(60, 100, 260, 40);
+        date_KT.setBounds(60, 80, 260, 40);
         panelBorder1.add(txt_giatrgiam);
-        txt_giatrgiam.setBounds(390, 100, 260, 40);
+        txt_giatrgiam.setBounds(390, 80, 260, 40);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setText("Giá trị giảm");
         panelBorder1.add(jLabel8);
-        jLabel8.setBounds(390, 80, 260, 20);
+        jLabel8.setBounds(390, 60, 260, 20);
 
         btn_them.setBackground(new java.awt.Color(125, 224, 237));
         btn_them.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add.png"))); // NOI18N
@@ -182,6 +206,38 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
         });
         panelBorder1.add(btn_clear);
         btn_clear.setBounds(750, 170, 130, 40);
+
+        tb_sp.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Select", "Mã sản phẩm", "Tên sản phẩm"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tb_sp);
+        tb_sp.getAccessibleContext().setAccessibleParent(panelBorder1);
+
+        panelBorder1.add(jScrollPane2);
+        jScrollPane2.setBounds(20, 160, 580, 130);
+
+        cb_selectAll.setBackground(new java.awt.Color(204, 204, 255));
+        cb_selectAll.setText("Select All");
+        cb_selectAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_selectAllActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(cb_selectAll);
+        cb_selectAll.setBounds(20, 130, 71, 20);
 
         panelGradiente1.add(panelBorder1);
         panelBorder1.setBounds(10, 0, 990, 300);
@@ -317,6 +373,11 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Tên khuyến mãi đã tồn tại");
             return;
         }
+        IKhuyenmaiRepository repository = new KhuyenmaiReponsitory();
+        List<KhuyenMai> lst = repository.GetAll();
+        long time = System.currentTimeMillis();
+        java.sql.Date date = new java.sql.Date(time);
+        
         if (JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm không?","Add",JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION) {
             KhuyenmaiViewmodel km = new KhuyenmaiViewmodel();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -333,15 +394,27 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
             km.setGiaTriGiam(Double.parseDouble(txt_giatrgiam.getText()));
             khuyenmaiService.Add(km);
             LoadData();
+            if (date.before(chiTietSPServices.checkngay(lst.get(lst.size() - 1).getID()))) {
+                JOptionPane.showMessageDialog(this, "khuyến mãi chưa đến ngày áp dụng vui lòng xem và chọn khuyến mãi khác");
+                return;
+            }
+            for (int i = 0; i < tb_sp.getRowCount(); i++) {
+                boolean ischeckbox = (boolean) tb_sp.getValueAt(i, 0);
+                if (ischeckbox) {
+                    System.out.println(tb_sp.getValueAt(i, 1));
+                    chiTietSPServices.Update(lst.get(lst.size()-1).getID(), tb_sp.getValueAt(i, 1).toString());
+                }
+            }
             JOptionPane.showMessageDialog(this, "Thêm thành công");
         }
     }//GEN-LAST:event_btn_themActionPerformed
 
     private void btn_suaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_suaActionPerformed
         // TODO add your handling code here:
-        int r = tb_khuyenmai.getSelectedRow();
+       int r = tb_khuyenmai.getSelectedRow();
         IKhuyenmaiRepository repository= new KhuyenmaiReponsitory();
         List<KhuyenMai> lst = repository.GetAll();
+        
         if (r<0) {
             JOptionPane.showMessageDialog(this, "Bạn chưa chọn dòng nào");
             return;
@@ -360,13 +433,23 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
                 km.setHinhThucKM("%");
             }
             km.setGiaTriGiam(Double.parseDouble(txt_giatrgiam.getText()));
-//            if (khuyenmaiService.checktrung(txt_tenkm.getText()) != null) {
-//                JOptionPane.showMessageDialog(this, "Tên khuyến mãi đã tồn tại");
-//                return;
-//            }
             if (date_KT.getDate().before(date_BD.getDate())) {
                 JOptionPane.showMessageDialog(this, "Ngày kết thúc phải lớn hơn ngày bắt đầu");
                 return;
+            }
+            long time = System.currentTimeMillis();
+            java.sql.Date date = new java.sql.Date(time);
+            if (date.before(chiTietSPServices.checkngay(lst.get(r).getID()))) {
+                JOptionPane.showMessageDialog(this, "khuyến mãi chưa đến ngày áp dụng vui lòng xem và chọn khuyến mãi khác");
+                return ;
+            }
+            for (int i = 0; i < tb_sp.getRowCount(); i++) {
+             boolean ischeckbox = (boolean) tb_sp.getValueAt(i, 0);
+                if (ischeckbox) {
+                    System.out.println(tb_sp.getValueAt(i, 1));
+                    chiTietSPServices.Update(lst.get(r).getID(), tb_sp.getValueAt(i , 1).toString());
+                }
+               
             }
             khuyenmaiService.Update(km,lst.get(r).getID());
             khuyenmaiService.UpdateTT2();
@@ -515,12 +598,24 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
             }
     }//GEN-LAST:event_src_timkiemCaretUpdate
 
+    private void cb_selectAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_selectAllActionPerformed
+        // TODO add your handling code here:
+        for (int i = 0; i < tb_sp.getRowCount(); i++) {
+            if (cb_selectAll.isSelected()==true) {
+                tb_sp.setValueAt(true, i, 0);
+            }else{
+                tb_sp.setValueAt(false, i, 0);
+            }
+        }
+    }//GEN-LAST:event_cb_selectAllActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.MyButton btn_clear;
     private swing.MyButton btn_sua;
     private swing.MyButton btn_them;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JCheckBox cb_selectAll;
     private com.toedter.calendar.JDateChooser dateTK_BD;
     private com.toedter.calendar.JDateChooser dateTK_KT;
     private com.toedter.calendar.JDateChooser date_BD;
@@ -533,6 +628,7 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbl_timkiem;
     private swing.PanelBorder panelBorder1;
     private swing.PanelBorder panelBorder2;
@@ -541,6 +637,7 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
     private javax.swing.JRadioButton rd_phantram;
     private swing.SearchText src_timkiem;
     private javax.swing.JTable tb_khuyenmai;
+    private javax.swing.JTable tb_sp;
     private swing.MyTextField txt_giatrgiam;
     private swing.MyTextField txt_tenkm;
     // End of variables declaration//GEN-END:variables

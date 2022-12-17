@@ -107,8 +107,6 @@ public class frm_Sanpham extends javax.swing.JPanel {
         List<ThuongHieu> listth = iThuongHieuServices.getAll();
         cbo_thuonghieu1.setModel(new DefaultComboBoxModel(listth.toArray()));
 
-        List<KhuyenMai> listkm = iKhuyenmaiService.getlist();
-        cbo_khuyenmai.setModel(new DefaultComboBoxModel(listkm.toArray()));
     }
 
     private int getindexmausac(ChiTietSPViewModel x) {
@@ -190,16 +188,6 @@ public class frm_Sanpham extends javax.swing.JPanel {
         return index;
     }
 
-    private int getindexkhuyenmai(ChiTietSPViewModel x) {
-        List<KhuyenMai> lst = iKhuyenmaiService.getlist();
-        int index = -1;
-        for (int i = 0; i < lst.size(); i++) {
-            if (lst.get(i).getID().equals(x.getKhuyenmai().getID())) {
-                index = i;
-            }
-        }
-        return index;
-    }
 
     private int getindexchatlieu(ChiTietSPViewModel x) {
         List<ChatLieu> lst = iChatLieuServices.getAll();
@@ -291,7 +279,6 @@ public class frm_Sanpham extends javax.swing.JPanel {
         NSX nsx = (NSX) cbo_nsx.getSelectedItem();
         DanhMucSP danhmuc = (DanhMucSP) cbo_danhmuc.getSelectedItem();
         MauSac mausac = (MauSac) cbo_mausac.getSelectedItem();
-        KhuyenMai khuyenmai = (KhuyenMai) cbo_khuyenmai.getSelectedItem();
         ChatLieu chatlieu = (ChatLieu) cbo_chatlieu.getSelectedItem();
         ThuongHieu thuonghieu = (ThuongHieu) cbo_thuonghieu1.getSelectedItem();
         KichCo kichco = (KichCo) cbo_size.getSelectedItem();
@@ -308,7 +295,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
         gianhap = Double.parseDouble(txt_gianhap.getText());
         giaban = Double.parseDouble(txt_giaban.getText());
         soluong = Integer.parseInt(txt_soluongton.getText());
-        ChiTietSPViewModel ctsp = new ChiTietSPViewModel(txt_ma.getText(), txt_ten.getText(), nsx, mausac, danhmuc, kichco, chatlieu, thuonghieu, khuyenmai, soluong, gianhap, giaban, mota, zenbarcode());
+        ChiTietSPViewModel ctsp = new ChiTietSPViewModel(txt_ma.getText(), txt_ten.getText(), nsx, mausac, danhmuc, kichco, chatlieu, thuonghieu, soluong, gianhap, giaban, mota, zenbarcode());
         return ctsp;
     }
 
@@ -327,7 +314,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
         double giaban = (double) tbl_sp.getValueAt(row, 11);
         String mota = tbl_sp.getValueAt(row, 12).toString();
         String barcode = tbl_sp.getValueAt(row, 13).toString();
-        return new ChiTietSPViewModel(ma, ten, nsx, ms, dmsp, kc, cl, th, km, soluong, gianhap, giaban, mota, barcode);
+        return new ChiTietSPViewModel(ma, ten, nsx, ms, dmsp, kc, cl, th, soluong, gianhap, giaban, mota, barcode);
     }
 
     /**
@@ -351,7 +338,6 @@ public class frm_Sanpham extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         txt_soluongton = new swing.MyTextField();
         jLabel10 = new javax.swing.JLabel();
         txt_gianhap = new swing.MyTextField();
@@ -361,7 +347,6 @@ public class frm_Sanpham extends javax.swing.JPanel {
         jScrollPane4 = new javax.swing.JScrollPane();
         txt_mota = new javax.swing.JTextArea();
         jLabel13 = new javax.swing.JLabel();
-        cbo_khuyenmai = new javax.swing.JComboBox<>();
         cbo_nsx = new javax.swing.JComboBox<>();
         cbo_mausac = new javax.swing.JComboBox<>();
         cbo_danhmuc = new javax.swing.JComboBox<>();
@@ -425,28 +410,24 @@ public class frm_Sanpham extends javax.swing.JPanel {
         jLabel8.setText("Thương hiệu");
         panelBorder1.add(jLabel8);
         jLabel8.setBounds(280, 220, 210, 20);
-
-        jLabel9.setText("Khuyến mãi");
-        panelBorder1.add(jLabel9);
-        jLabel9.setBounds(530, 10, 210, 20);
         panelBorder1.add(txt_soluongton);
-        txt_soluongton.setBounds(530, 100, 210, 40);
+        txt_soluongton.setBounds(510, 30, 210, 40);
 
         jLabel10.setText("Số lượng tồn");
         panelBorder1.add(jLabel10);
-        jLabel10.setBounds(530, 80, 210, 20);
+        jLabel10.setBounds(510, 10, 210, 20);
         panelBorder1.add(txt_gianhap);
-        txt_gianhap.setBounds(530, 170, 210, 40);
+        txt_gianhap.setBounds(510, 100, 210, 40);
 
         jLabel11.setText("Giá nhập");
         panelBorder1.add(jLabel11);
-        jLabel11.setBounds(530, 150, 210, 20);
+        jLabel11.setBounds(510, 80, 210, 20);
         panelBorder1.add(txt_giaban);
-        txt_giaban.setBounds(530, 240, 210, 40);
+        txt_giaban.setBounds(510, 170, 210, 40);
 
         jLabel12.setText("Mô tả");
         panelBorder1.add(jLabel12);
-        jLabel12.setBounds(760, 220, 220, 20);
+        jLabel12.setBounds(510, 210, 220, 20);
 
         txt_mota.setColumns(20);
         txt_mota.setRows(2);
@@ -455,16 +436,11 @@ public class frm_Sanpham extends javax.swing.JPanel {
         jScrollPane4.setViewportView(txt_mota);
 
         panelBorder1.add(jScrollPane4);
-        jScrollPane4.setBounds(760, 240, 220, 70);
+        jScrollPane4.setBounds(510, 230, 220, 70);
 
         jLabel13.setText("Giá bán");
         panelBorder1.add(jLabel13);
-        jLabel13.setBounds(530, 220, 210, 20);
-
-        cbo_khuyenmai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbo_khuyenmai.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
-        panelBorder1.add(cbo_khuyenmai);
-        cbo_khuyenmai.setBounds(530, 30, 210, 40);
+        jLabel13.setBounds(510, 150, 210, 20);
 
         cbo_nsx.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbo_nsx.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
@@ -721,7 +697,6 @@ public class frm_Sanpham extends javax.swing.JPanel {
         cbo_nsx.setSelectedIndex(getindexnsx(x));
         cbo_size.setSelectedIndex(getindexsize(x));
         cbo_thuonghieu1.setSelectedIndex(getindexthuonghieu(x));
-        cbo_khuyenmai.setSelectedIndex(getindexkhuyenmai(x));
 
     }//GEN-LAST:event_tbl_spMouseClicked
 
@@ -761,7 +736,6 @@ public class frm_Sanpham extends javax.swing.JPanel {
     private swing.MyButton btn_xoa;
     private javax.swing.JComboBox<String> cbo_chatlieu;
     private javax.swing.JComboBox<String> cbo_danhmuc;
-    private javax.swing.JComboBox<String> cbo_khuyenmai;
     private javax.swing.JComboBox<String> cbo_mausac;
     private javax.swing.JComboBox<String> cbo_nsx;
     private javax.swing.JComboBox<String> cbo_size;
@@ -781,7 +755,6 @@ public class frm_Sanpham extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane4;
     private swing.MyButton myButton1;
@@ -832,7 +805,6 @@ public class frm_Sanpham extends javax.swing.JPanel {
                 x.getKichco(),
                 x.getChatlieu(),
                 x.getThuonghieu(),
-                x.getKhuyenmai(),
                 x.getSoluongton(),
                 x.getGianhap(),
                 x.getGiaban(),
