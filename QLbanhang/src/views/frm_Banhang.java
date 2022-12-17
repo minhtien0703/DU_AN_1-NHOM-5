@@ -92,6 +92,7 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
     public frm_Banhang(Integer idNhanVien, String TenNV) {
         initComponents();
         inintWebCam();
+        chk_inHoaDon.setSelected(true);
         model = new DefaultTableModel();
         modelGioHang = (DefaultTableModel) tb_gioHang.getModel();
         combox = new DefaultComboBoxModel();
@@ -210,7 +211,7 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
         lbl_sdt.setText("");
         txt_diem.setText("");
         lbl_tenKhachHang.setText("");
-        chk_inHoaDon.setSelected(false);
+        
 
     }
 
@@ -641,7 +642,7 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
         panelGradiente4.add(lbl_diemThuong, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, 220, 20));
 
         btn_thayDoi.setBackground(new java.awt.Color(125, 224, 237));
-        btn_thayDoi.setText("Thay Đổi");
+        btn_thayDoi.setText("Khách Hàng");
         btn_thayDoi.setRolloverEnabled(false);
         btn_thayDoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -650,6 +651,8 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
         });
         panelGradiente4.add(btn_thayDoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 30, 90, 30));
         panelGradiente4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 220, -1));
+
+        lbl_sdt.setForeground(new java.awt.Color(0, 153, 153));
         panelGradiente4.add(lbl_sdt, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 220, -1));
 
         btn_taoHoaDon.setBackground(new java.awt.Color(125, 224, 237));
@@ -787,8 +790,13 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
             return;
 
         }
-        if (Double.parseDouble(txt_tienKhachDua.getText()) < Double.parseDouble(lbl_thanhTien.getText())) {
+        try {
+             if (Double.parseDouble(txt_tienKhachDua.getText()) < Double.parseDouble(lbl_thanhTien.getText())) {
             JOptionPane.showMessageDialog(this, "tiền khách Đưa chưa đủ");
+            return;
+        }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "không nhập kí tự tiền khách đưa");
             return;
         }
         HoaDonViewModel hoaDon = new HoaDonViewModel();
@@ -965,7 +973,8 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
     }//GEN-LAST:event_btn_taoHoaDonActionPerformed
 
     private void btn_suDungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_suDungActionPerformed
-        if (lbl_tenKhachHang.getText().equals("")) {
+        try {
+                 if (lbl_tenKhachHang.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "nhập số điện thoại khách hàng");
             return;
         }
@@ -995,6 +1004,9 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
             mouse();
             btn_suDung.setText("Sử dụng");
             return;
+        }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "không nhập kí tự");
         }
 
 
