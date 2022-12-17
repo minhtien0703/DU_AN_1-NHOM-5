@@ -5,6 +5,7 @@
 package views;
 
 import java.util.List;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.ChatLieu;
@@ -595,12 +596,24 @@ public class frm_themthuoctinh extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private Objecttt getdatafrom() {
+        Pattern p = Pattern.compile("^[0-9]+$");
         if (jTextField1.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, " Bạn chưa nhập tên thuộc tính!");
             jTextField1.requestFocus();
             return null;
         }
 
+        if (jTextField1.getText().length() > 30) {
+            JOptionPane.showMessageDialog(this, "Tên thuộc tính sản phẩm không quá 30 kí tự!");
+            jTextField1.requestFocus();
+            return null;
+        }
+        
+        if (p.matcher(jTextField1.getText()).find() == true) {
+            JOptionPane.showMessageDialog(this, "Tên thuộc tính sản phẩm phải là chữ!");
+            jTextField1.requestFocus();
+            return null;
+        }
         return new Objecttt(0, jTextField1.getText());
 
     }

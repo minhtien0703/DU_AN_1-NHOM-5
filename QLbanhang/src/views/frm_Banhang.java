@@ -1186,7 +1186,7 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
 
             }
         } catch (Exception e) {
-            e.printStackTrace();
+           
             JOptionPane.showMessageDialog(this, "vui lòng nhập nó không nhập kí tự");
         }
 

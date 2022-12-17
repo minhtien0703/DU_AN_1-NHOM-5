@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -188,7 +189,6 @@ public class frm_Sanpham extends javax.swing.JPanel {
         return index;
     }
 
-
     private int getindexchatlieu(ChiTietSPViewModel x) {
         List<ChatLieu> lst = iChatLieuServices.getAll();
         int index = -1;
@@ -209,13 +209,29 @@ public class frm_Sanpham extends javax.swing.JPanel {
     }
 
     private ChiTietSPViewModel getdadtafrom() {
+        Pattern p = Pattern.compile("^[0-9]+$");
         if (txt_ma.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập mã sản phẩm!");
             return null;
 
         }
+        if (txt_ma.getText().length() > 15) {
+            JOptionPane.showMessageDialog(this, "Mã sản phẩm không quá 15 kí tự!");
+            return null;
+        }
+//  tên sp
         if (txt_ten.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập tên sản phẩm!");
+            return null;
+        }
+        
+        if (p.matcher(txt_ten.getText()).find() == true) {
+            JOptionPane.showMessageDialog(this, "Tên sản phẩm phải là chữ!");
+            return null;
+        }
+        
+        if (txt_ten.getText().length() > 30) {
+            JOptionPane.showMessageDialog(this, "Tên sản phẩm không quá 30 kí tự!");
             return null;
         }
 // Số lượng tồn
@@ -230,26 +246,25 @@ public class frm_Sanpham extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Số lượng tồn phải là số!");
             return null;
         }
-        
+
         if (Integer.valueOf(txt_soluongton.getText()) <= 0) {
             JOptionPane.showMessageDialog(this, "Số lượng tồn phải lớn hơn 0!");
             return null;
         }
 // giá nhập
-        
 
         if (txt_gianhap.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập giá nhập!");
             return null;
         }
-        
+
         try {
             Double.valueOf(txt_gianhap.getText());
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Giá nhập phải là số!");
             return null;
         }
-        
+
         if (Double.valueOf(txt_gianhap.getText()) <= 0) {
             JOptionPane.showMessageDialog(this, "Giá nhập phải lớn hơn 0!");
             return null;
@@ -259,14 +274,14 @@ public class frm_Sanpham extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập giá bán!");
             return null;
         }
-        
+
         try {
             Double.valueOf(txt_giaban.getText());
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Giá bán phải là số!");
             return null;
         }
-        
+
         if (Double.valueOf(txt_giaban.getText()) <= 0) {
             JOptionPane.showMessageDialog(this, "Giá bán phải lớn hơn 0!");
             return null;
@@ -295,7 +310,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
         gianhap = Double.parseDouble(txt_gianhap.getText());
         giaban = Double.parseDouble(txt_giaban.getText());
         soluong = Integer.parseInt(txt_soluongton.getText());
-        ChiTietSPViewModel ctsp = new ChiTietSPViewModel(txt_ma.getText(), txt_ten.getText(), nsx, mausac, danhmuc, kichco, chatlieu, thuonghieu,null, soluong, gianhap, giaban, mota, zenbarcode());
+        ChiTietSPViewModel ctsp = new ChiTietSPViewModel(txt_ma.getText(), txt_ten.getText(), nsx, mausac, danhmuc, kichco, chatlieu, thuonghieu, null, soluong, gianhap, giaban, mota, zenbarcode());
         return ctsp;
     }
 
@@ -314,7 +329,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
         double giaban = (double) tbl_sp.getValueAt(row, 11);
         String mota = tbl_sp.getValueAt(row, 12).toString();
         String barcode = tbl_sp.getValueAt(row, 13).toString();
-        return new ChiTietSPViewModel(ma, ten, nsx, ms, dmsp, kc, cl, th,km, soluong, gianhap, giaban, mota, barcode);
+        return new ChiTietSPViewModel(ma, ten, nsx, ms, dmsp, kc, cl, th, km, soluong, gianhap, giaban, mota, barcode);
     }
 
     /**
