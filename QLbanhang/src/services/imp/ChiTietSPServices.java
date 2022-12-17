@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import models.ChiTietSP;
+import models.KhuyenMai;
 import repositorys.IChatLieuRepository;
 import repositorys.IChiTietSPRepository;
 import repositorys.IDanhMucSPRepository;
@@ -58,6 +59,7 @@ public class ChiTietSPServices implements IChiTietSPServices {
                     ikichco.getbyid(x.getIdkc()),
                     ichatlieu.getbyid(x.getIdcl()),
                     ithuonghieu.getbyid(x.getIdth()),
+                    ikhuyenmai.getbyid(x.getIdkm()),
                     x.getSoluongton(),
                     x.getGianhap(),
                     x.getGiaban(),
@@ -81,6 +83,7 @@ public class ChiTietSPServices implements IChiTietSPServices {
                     ikichco.getbyid(x.getIdkc()),
                     ichatlieu.getbyid(x.getIdcl()),
                     ithuonghieu.getbyid(x.getIdth()),
+                    ikhuyenmai.getbyid(x.getIdkm()),
                     x.getSoluongton(),
                     x.getGianhap(),
                     x.getGiaban(),
@@ -101,7 +104,7 @@ public class ChiTietSPServices implements IChiTietSPServices {
     @Override
     public boolean Add(ChiTietSPViewModel x) {
         List<ChiTietSP> lst = chiTietSPRepository.check(x.getMa());
-        ChiTietSP ctsp = new ChiTietSP(x.getMa(), x.getTen(), x.getNsx().getId(), x.getMausac().getId(), x.getDanhmuc().getId(), x.getKichco().getId(), x.getChatlieu().getId(), x.getThuonghieu().getId(), x.getSoluongton(), x.getGianhap(), x.getGiaban(), x.getMota(), x.getQrcode());
+        ChiTietSP ctsp = new ChiTietSP(x.getMa(), x.getTen(), x.getNsx().getId(), x.getMausac().getId(), x.getDanhmuc().getId(), x.getKichco().getId(), x.getChatlieu().getId(), x.getThuonghieu().getId(),0, x.getSoluongton(), x.getGianhap(), x.getGiaban(), x.getMota(), x.getQrcode());
         try {
             ChiTietSP xyy = lst.get(0);
             JOptionPane.showMessageDialog(new frm_Sanpham(), "Không để trùng mã");
@@ -119,7 +122,7 @@ public class ChiTietSPServices implements IChiTietSPServices {
 
     @Override
     public boolean Update(String ma, ChiTietSPViewModel x) {
-        ChiTietSP ctsp = new ChiTietSP(x.getMa(), x.getTen(), x.getNsx().getId(), x.getMausac().getId(), x.getDanhmuc().getId(), x.getKichco().getId(), x.getChatlieu().getId(), x.getThuonghieu().getId(), x.getSoluongton(), x.getGianhap(), x.getGiaban(), x.getMota(), x.getQrcode());
+        ChiTietSP ctsp = new ChiTietSP(x.getMa(), x.getTen(), x.getNsx().getId(), x.getMausac().getId(), x.getDanhmuc().getId(), x.getKichco().getId(), x.getChatlieu().getId(), x.getThuonghieu().getId(),0, x.getSoluongton(), x.getGianhap(), x.getGiaban(), x.getMota(), x.getQrcode());
         if (chiTietSPRepository.update(ctsp, ma) == 1) {
             return true;
         }
@@ -140,6 +143,7 @@ public class ChiTietSPServices implements IChiTietSPServices {
                     ikichco.getbyid(x.getIdkc()),
                     ichatlieu.getbyid(x.getIdcl()),
                     ithuonghieu.getbyid(x.getIdth()),
+                    ikhuyenmai.getbyid(x.getIdkm()),
                     x.getSoluongton(),
                     x.getGianhap(),
                     x.getGiaban(),

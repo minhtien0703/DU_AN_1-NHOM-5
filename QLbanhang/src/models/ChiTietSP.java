@@ -18,6 +18,7 @@ public class ChiTietSP {
     private int idkc;
     private int idcl;
     private int idth;
+    private int idkm;
     private int soluongton;
     private Double gianhap;
     private Double giaban;
@@ -27,7 +28,7 @@ public class ChiTietSP {
     public ChiTietSP() {
     }
 
-    public ChiTietSP(String ma, String ten, int idnsx, int idmausac, int iddanhmuc, int idkc, int idcl, int idth, int soluongton, Double gianhap, Double giaban, String mota, String qrcode) {
+    public ChiTietSP(String ma, String ten, int idnsx, int idmausac, int iddanhmuc, int idkc, int idcl, int idth, int idkm, int soluongton, Double gianhap, Double giaban, String mota, String qrcode) {
         this.ma = ma;
         this.ten = ten;
         this.idnsx = idnsx;
@@ -36,6 +37,7 @@ public class ChiTietSP {
         this.idkc = idkc;
         this.idcl = idcl;
         this.idth = idth;
+        this.idkm = idkm;
         this.soluongton = soluongton;
         this.gianhap = gianhap;
         this.giaban = giaban;
@@ -105,6 +107,14 @@ public class ChiTietSP {
 
     public void setIdth(int idth) {
         this.idth = idth;
+    }
+
+    public int getIdkm() {
+        return idkm;
+    }
+
+    public void setIdkm(int idkm) {
+        this.idkm = idkm;
     }
 
     public int getSoluongton() {

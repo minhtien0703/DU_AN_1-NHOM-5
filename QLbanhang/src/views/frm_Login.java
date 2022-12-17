@@ -47,11 +47,10 @@ public class frm_Login extends javax.swing.JFrame {
         dangnhap.btndangnhapEven(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // new frm_Dashboard().setVisible(true);
                 if (dangnhap.isdangnhap() == true) {
                     dispose();
                 }
-            }
+            }       
         });
     }
 

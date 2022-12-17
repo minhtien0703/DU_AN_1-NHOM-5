@@ -295,7 +295,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
         gianhap = Double.parseDouble(txt_gianhap.getText());
         giaban = Double.parseDouble(txt_giaban.getText());
         soluong = Integer.parseInt(txt_soluongton.getText());
-        ChiTietSPViewModel ctsp = new ChiTietSPViewModel(txt_ma.getText(), txt_ten.getText(), nsx, mausac, danhmuc, kichco, chatlieu, thuonghieu, soluong, gianhap, giaban, mota, zenbarcode());
+        ChiTietSPViewModel ctsp = new ChiTietSPViewModel(txt_ma.getText(), txt_ten.getText(), nsx, mausac, danhmuc, kichco, chatlieu, thuonghieu,null, soluong, gianhap, giaban, mota, zenbarcode());
         return ctsp;
     }
 
@@ -314,7 +314,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
         double giaban = (double) tbl_sp.getValueAt(row, 11);
         String mota = tbl_sp.getValueAt(row, 12).toString();
         String barcode = tbl_sp.getValueAt(row, 13).toString();
-        return new ChiTietSPViewModel(ma, ten, nsx, ms, dmsp, kc, cl, th, soluong, gianhap, giaban, mota, barcode);
+        return new ChiTietSPViewModel(ma, ten, nsx, ms, dmsp, kc, cl, th,km, soluong, gianhap, giaban, mota, barcode);
     }
 
     /**
@@ -628,7 +628,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
                 loadData(iChiTietSPServices.getAll());
 //            xuatbarcode(x);
                 String data = x.getQrcode();
-                String path = "D:\\DA1\\QRcode\\Qr" + x.getTen() + ".png";
+                String path = "D:\\QRcode\\Qr" + x.getTen() + ".png";
                 Map<EncodeHintType, ErrorCorrectionLevel> hashMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
                 hashMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
                 generateQRcode(data, path, hashMap, 200, 200);
@@ -671,7 +671,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
         ChiTietSPViewModel x = getdataTB(row);
 //        xuatbarcode(x);
         String data = x.getQrcode();
-        String path = "D:\\DA1\\QRcode\\Qr" + x.getTen() + ".png";
+        String path = "D:\\QRcode\\Qr" + x.getTen() + ".png";
         Map<EncodeHintType, ErrorCorrectionLevel> hashMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
         hashMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
         generateQRcode(data, path, hashMap, 200, 200);
@@ -805,6 +805,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
                 x.getKichco(),
                 x.getChatlieu(),
                 x.getThuonghieu(),
+                x.getKhuyenmai(),
                 x.getSoluongton(),
                 x.getGianhap(),
                 x.getGiaban(),

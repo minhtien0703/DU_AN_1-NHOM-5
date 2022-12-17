@@ -4,10 +4,13 @@
  */
 package views;
 
+import java.awt.Component;
+import java.awt.Window;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import services.IUserServiec;
 import services.imp.UserServiec;
 
@@ -166,16 +169,17 @@ public class frm_Dangnhap extends javax.swing.JPanel {
     }//GEN-LAST:event_hideshowMouseClicked
 
     private void myButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton2ActionPerformed
-     
+
     }//GEN-LAST:event_myButton2ActionPerformed
 
     private void txtPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPassKeyPressed
         // TODO add your handling code here:
-        if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
-                    if (isdangnhap() == true) {
-                    disable();
-                }
-                }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (isdangnhap() == true) {
+                Component comp = SwingUtilities.getRoot(this);
+                ((Window) comp).dispose();
+            }
+        }
     }//GEN-LAST:event_txtPassKeyPressed
 
 

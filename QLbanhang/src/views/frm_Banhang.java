@@ -114,7 +114,7 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
         panel = new WebcamPanel(webcam);
         panel.setPreferredSize(size);
         panel.setFPSDisplayed(true);
-        jPanel1.add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 320));
+        jPanel1.add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 2, 220, 150));
         executor.execute(this);
     }
 
@@ -315,7 +315,6 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
         tb_hoaDon = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
         panelGradiente4 = new swing.PanelGradiente();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -510,20 +509,6 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
         jLabel4.setBounds(0, 0, 90, 15);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 120, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 13, 200, 120));
-
         panelGradiente3.add(jPanel1);
         jPanel1.setBounds(380, 20, 220, 150);
 
@@ -1328,7 +1313,6 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

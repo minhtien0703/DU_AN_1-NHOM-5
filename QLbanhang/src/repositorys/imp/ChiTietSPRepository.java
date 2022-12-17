@@ -43,6 +43,7 @@ public class ChiTietSPRepository implements IChiTietSPRepository {
         List<ChiTietSP> lst = new ArrayList<>();
         try {
             ResultSet rl = DBConnection.getDataFromQuery(SQL, arvg);
+//            Ma,Ten,IdNsx,IdMauSac,IdDMuc,IdKC,IdCL,IdTH,IdKM,SoLuongTon,GiaNhap,GiaBan,MoTa,QrCode
             while (rl.next()) {
                 lst.add(new ChiTietSP(
                         rl.getNString(1),
@@ -54,10 +55,11 @@ public class ChiTietSPRepository implements IChiTietSPRepository {
                         rl.getInt(7),
                         rl.getInt(8),
                         rl.getInt(9),
-                        rl.getDouble(10),
+                        rl.getInt(10),
                         rl.getDouble(11),
-                        rl.getString(12),
-                        rl.getString(13)
+                        rl.getDouble(12),
+                        rl.getString(13),
+                        rl.getString(14)
                 ));
             }
         } catch (SQLException ex) {

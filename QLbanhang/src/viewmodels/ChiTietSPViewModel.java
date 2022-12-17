@@ -17,6 +17,7 @@ import models.ThuongHieu;
  * @author vieta
  */
 public class ChiTietSPViewModel {
+
     private String ma;
     private String ten;
     private NSX nsx;
@@ -25,6 +26,7 @@ public class ChiTietSPViewModel {
     private KichCo kichco;
     private ChatLieu chatlieu;
     private ThuongHieu thuonghieu;
+    private KhuyenMai khuyenmai;
     private int soluongton;
     private Double gianhap;
     private Double giaban;
@@ -34,7 +36,7 @@ public class ChiTietSPViewModel {
     public ChiTietSPViewModel() {
     }
 
-    public ChiTietSPViewModel(String ma, String ten, NSX nsx, MauSac mausac, DanhMucSP danhmuc, KichCo kichco, ChatLieu chatlieu, ThuongHieu thuonghieu, int soluongton, Double gianhap, Double giaban, String mota, String qrcode) {
+    public ChiTietSPViewModel(String ma, String ten, NSX nsx, MauSac mausac, DanhMucSP danhmuc, KichCo kichco, ChatLieu chatlieu, ThuongHieu thuonghieu, KhuyenMai khuyenmai, int soluongton, Double gianhap, Double giaban, String mota, String qrcode) {
         this.ma = ma;
         this.ten = ten;
         this.nsx = nsx;
@@ -43,6 +45,7 @@ public class ChiTietSPViewModel {
         this.kichco = kichco;
         this.chatlieu = chatlieu;
         this.thuonghieu = thuonghieu;
+        this.khuyenmai = khuyenmai;
         this.soluongton = soluongton;
         this.gianhap = gianhap;
         this.giaban = giaban;
@@ -114,6 +117,14 @@ public class ChiTietSPViewModel {
         this.thuonghieu = thuonghieu;
     }
 
+    public KhuyenMai getKhuyenmai() {
+        return khuyenmai;
+    }
+
+    public void setKhuyenmai(KhuyenMai khuyenmai) {
+        this.khuyenmai = khuyenmai;
+    }
+
     public int getSoluongton() {
         return soluongton;
     }
@@ -154,5 +165,4 @@ public class ChiTietSPViewModel {
         this.qrcode = qrcode;
     }
 
-    
 }
