@@ -21,6 +21,8 @@ import viewmodels.KhachHangViewMD;
  *
  * @author Admin
  */
+
+// Nguyễn Văn Toản
 public class KhachHangForm extends javax.swing.JFrame {
 
     DefaultTableModel defaultTableModel = new DefaultTableModel();
